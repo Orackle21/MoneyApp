@@ -9,38 +9,52 @@
 import UIKit
 
 class TransactionsTableViewController: UITableViewController {
+    
+    var myWallet = Wallet()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let transactionTest0 = Transaction(name: "Burger", subtitle: " ", amount: 55, category: .Food)
+        let transactionTest1 = Transaction(name: "Internet", subtitle: " ", amount: 115, category: .Internet)
+        let transactionTest2 = Transaction(name: "Electricity", subtitle: " ", amount: 125, category: .Utilities)
+        
+        myWallet.allTransactions.append(contentsOf: [transactionTest0, transactionTest1, transactionTest2])
+   
     }
+    
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return myWallet.allTransactions.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
+        
+        let item = myWallet.allTransactions[indexPath.row]
+        configureLabels(for: cell, with: item)
+       
 
         return cell
     }
-    */
+    
+    func configureLabels(for cell: UITableViewCell, with item: Transaction) {
+        if let transactionCell = cell as? TransactionTableViewCell {
+            transactionCell.categoryLabel.text = item.category.rawValue
+            transactionCell.nameLabel.text = item.name
+            transactionCell.amountLabel.text = String(item.amount)
+        }
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
