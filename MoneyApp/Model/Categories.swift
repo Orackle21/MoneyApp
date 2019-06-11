@@ -8,10 +8,7 @@
 
 import Foundation
 
-
-class Category {
-    
-    enum categoriesList: String, CaseIterable {
+enum Category: String, CaseIterable {
         
         case Food, Transportation, Utilities, Internet
         
@@ -20,4 +17,4 @@ class Category {
     
     
     
-}
+

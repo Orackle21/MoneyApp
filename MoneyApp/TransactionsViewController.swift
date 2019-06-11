@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionsTableViewController: UITableViewController {
+class TransactionsViewController: UITableViewController {
     
     var myWallet = Wallet()
 
@@ -38,11 +38,11 @@ class TransactionsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
         let item = myWallet.allTransactions[indexPath.row]
         configureLabels(for: cell, with: item)
-       
+       // tableView.reloadData()
 
         return cell
     }

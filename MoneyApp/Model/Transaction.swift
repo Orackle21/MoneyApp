@@ -13,10 +13,10 @@ class Transaction {
     var name: String
     var subtitle: String
     var amount: Int
-    var category: Category.categoriesList
+    var category: Category
     
     
-    init (name: String, subtitle: String, amount: Int, category: Category.categoriesList) {
+    init (name: String, subtitle: String, amount: Int, category: Category) {
         self.amount = amount
         self.name = name
         self.subtitle = subtitle
