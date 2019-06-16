@@ -13,13 +13,15 @@ class Wallet {
     var name = ""
     var balance = 0
     var allTransactions = [Transaction]()
+    let currentDate = Date()
     
     //  var color: WalletColors
     //  let currency: Currency
     
-    func newTransaction (in category: Category, name: String, subtitle: String, amount: Int) {
-        let transaction = Transaction(name: name, subtitle: subtitle, amount: amount, category: category)
+    func newTransaction (in category: Category, name: String, subtitle: String, amount: Int) -> Transaction {
+        let transaction = Transaction(name: name, subtitle: subtitle, amount: amount, category: category, date: currentDate)
         allTransactions.append(transaction)
+        return transaction
     }
     
 }

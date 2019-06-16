@@ -18,28 +18,38 @@ protocol TransactionDetailViewControllerDelegate: class {
 
 class TransactionDetailViewController: UITableViewController {
 
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var subtitleTextField: UITextField!
+    @IBOutlet weak var categoryTextField: UITextField!
+    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var amountTextField: UITextField!
+    
+    weak var delegate: TransactionDetailViewControllerDelegate?
+    var transactionToEdit: Transaction?
+    var wallet: Wallet?
+    
+    @IBAction func saveAction(_ sender: Any) {
+        if let _ = transactionToEdit {
+            ///
+        }
+        else {
+            if let wallet = wallet {
+                let transaction = wallet.newTransaction(in: .Food, name: nameTextField.text!, subtitle: subtitleTextField.text!, amount: Int(amountTextField.text!)!)
+                delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
+    
 
     
 

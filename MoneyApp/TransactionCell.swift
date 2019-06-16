@@ -8,12 +8,13 @@
 
 import UIKit
 
-class TransactionTableViewCell: UITableViewCell {
+class TransactionCell: UITableViewCell {
 
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var categoryIcon: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     
     override func awakeFromNib() {
