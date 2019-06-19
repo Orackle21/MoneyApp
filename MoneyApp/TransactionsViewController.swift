@@ -23,15 +23,15 @@ class TransactionsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        tableView.reloadData()
+//        tableView.allowsMultipleSelectionDuringEditing = true
         
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillAppear(_ animated: Bool) {
+       
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -39,11 +39,18 @@ class TransactionsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let date = getdateBySectionNumber(section)
-        let transactionsByDate = myWallet.allTransactionGrouped[date]?.count
-        return transactionsByDate ?? 0
-
+        return getNumberOfRows(for: section)
+    }
+    
+    func getNumberOfRows (for section: Int) -> Int {
+        if section > myWallet.transactionDates.count - 1 {
+            return 0
+        }
+        else {
+            let date = getdateBySectionNumber(section)
+            let transactionsByDate = myWallet.allTransactionGrouped[date]?.count
+            return transactionsByDate ?? 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,34 +61,31 @@ class TransactionsViewController: UITableViewController {
             let item = transactionsByDate[indexPath.row]
             configureLabels(for: cell, with: item)
         }
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       
-        let sectionDate = getdateBySectionNumber(section)
-        return sectionDateFormatter.string(from: sectionDate)
-        
+            let sectionDate = getdateBySectionNumber(section)
+            return sectionDateFormatter.string(from: sectionDate)
     }
-    
-    func configureLabels(for cell: UITableViewCell, with item: Transaction) {
-        if let transactionCell = cell as? TransactionCell {
-            transactionCell.categoryLabel.text = item.category.rawValue
-            transactionCell.nameLabel.text = item.name
-            transactionCell.amountLabel.text = String(item.amount)
-            transactionCell.dateLabel.text = dateFormatter.string(from: item.date)
-            
-        }
-    }
-    
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-//            myWallet.allTransactions.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        } else if editingStyle == .insert {
+            
+            tableView.beginUpdates()
+            
+            myWallet.removeTransaction(by: myWallet.transactionDates[indexPath.section], with: indexPath.row)
+            
+            if getNumberOfRows(for: indexPath.section) == 0 {
+                tableView.deleteSections([indexPath.section], with: .automatic)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            tableView.endUpdates()
+        }
+        
+        else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
@@ -93,8 +97,15 @@ class TransactionsViewController: UITableViewController {
 //
 //    }
     
-
-   
+    func configureLabels(for cell: UITableViewCell, with item: Transaction) {
+        if let transactionCell = cell as? TransactionCell {
+            transactionCell.categoryLabel.text = item.category.rawValue
+            transactionCell.nameLabel.text = item.name
+            transactionCell.amountLabel.text = String(item.amount)
+            transactionCell.dateLabel.text = dateFormatter.string(from: item.date)
+        }
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
