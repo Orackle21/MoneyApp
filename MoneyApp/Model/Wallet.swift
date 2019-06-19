@@ -26,14 +26,33 @@ class Wallet {
         let transactionTest0 = Transaction(name: "Burger", subtitle: " ", amount: 55, category: .Food, date: getRandomDate())
         let transactionTest1 = Transaction(name: "Internet", subtitle: " ", amount: 115, category: .Internet, date: getRandomDate())
         let transactionTest2 = Transaction(name: "Electricity", subtitle: " ", amount: 125, category: .Utilities, date: getRandomDate())
-        allTransactions.append(contentsOf: [transactionTest0, transactionTest1, transactionTest2])
-        allTransactionGrouped = regroup()
+        
+        addToAllTransactions(transaction: transactionTest0)
+        addToAllTransactions(transaction: transactionTest1)
+        addToAllTransactions(transaction: transactionTest2)
     }
+    
+    
+    func addToAllTransactions (transaction: Transaction) {
+        if let date = allTransactionGrouped[transaction.date] {
+            var updatedTransactionsDay = date
+            updatedTransactionsDay.insert(transaction, at: 0)
+            allTransactionGrouped.updateValue(updatedTransactionsDay, forKey: transaction.date)
+        }
+        else {
+            allTransactionGrouped.updateValue([transaction], forKey: transaction.date)
+        }
+    }
+    
+    
+    func removeTransaction() {
+        
+    }
+    
     
     func newTransaction (in category: Category, name: String, subtitle: String, amount: Int) -> Transaction {
         let transaction = Transaction(name: name, subtitle: subtitle, amount: amount, category: category, date: getRandomDate())
-        allTransactions.append(transaction)
-        allTransactionGrouped = regroup()
+        addToAllTransactions(transaction: transaction)
         return transaction
     }
     
