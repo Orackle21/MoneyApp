@@ -12,16 +12,42 @@ class Wallet {
     
     var name = ""
     var balance = 0
-    var allTransactions = [Transaction]()
-    let currentDate = Date()
-    
     //  var color: WalletColors
     //  let currency: Currency
     
+    var allTransactions = [Transaction]() {
+        didSet {
+            allTransactionGrouped = regroup()
+        }
+    }
+    var allTransactionGrouped = [Date: [Transaction]]()
+    
+    init( ) {
+        let transactionTest0 = Transaction(name: "Burger", subtitle: " ", amount: 55, category: .Food, date: getRandomDate())
+        let transactionTest1 = Transaction(name: "Internet", subtitle: " ", amount: 115, category: .Internet, date: getRandomDate())
+        let transactionTest2 = Transaction(name: "Electricity", subtitle: " ", amount: 125, category: .Utilities, date: getRandomDate())
+        allTransactions.append(contentsOf: [transactionTest0, transactionTest1, transactionTest2])
+        allTransactionGrouped = regroup()
+    }
+    
     func newTransaction (in category: Category, name: String, subtitle: String, amount: Int) -> Transaction {
-        let transaction = Transaction(name: name, subtitle: subtitle, amount: amount, category: category, date: currentDate)
+        let transaction = Transaction(name: name, subtitle: subtitle, amount: amount, category: category, date: getRandomDate())
         allTransactions.append(transaction)
+        allTransactionGrouped = regroup()
         return transaction
+    }
+    
+    func regroup() -> Dictionary<Date, [Transaction]> {
+        if !allTransactions.isEmpty {
+            return Dictionary(grouping: allTransactions) { $0.date }
+        }
+        return [Date: [Transaction]]()
+    }
+    
+    func getRandomDate() -> Date {
+        let randomNumberofSeconds = Double.random(in: -8086510...15921939)
+        let randomDate = Date.init(timeIntervalSinceNow: randomNumberofSeconds)
+        return randomDate
     }
     
 }

@@ -9,11 +9,11 @@
 import UIKit
 
 protocol TransactionDetailViewControllerDelegate: class {
-    func transactionDetailViewController(_ controller: TransactionDetailViewController)
     
+    func transactionDetailViewControllerDidCancel(_ controller: TransactionDetailViewController)
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishAdding item: Transaction)
-    
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction)
+    
 }
 
 class TransactionDetailViewController: UITableViewController {
