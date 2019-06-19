@@ -53,7 +53,7 @@ class Wallet {
         allTransactionGrouped[date]?.remove(at: index)
         if allTransactionGrouped[date]!.isEmpty {
             allTransactionGrouped.removeValue(forKey: date)
-            transactionDates.remove(at: transactionDates.firstIndex(of: date)!)
+           // transactionDates.remove(at: transactionDates.firstIndex(of: date)!)
             print (transactionDates.count)
             print ("alltransactionsCount is \(allTransactionGrouped.keys.count)")
         }

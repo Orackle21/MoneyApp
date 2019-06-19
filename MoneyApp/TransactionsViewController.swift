@@ -11,7 +11,6 @@ import UIKit
 class TransactionsViewController: UITableViewController {
     
     var myWallet = Wallet()
-    let currentDate = Date()
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     
@@ -27,10 +26,6 @@ class TransactionsViewController: UITableViewController {
         
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
-       
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
        
     }
     
@@ -74,14 +69,17 @@ class TransactionsViewController: UITableViewController {
         if editingStyle == .delete {
             
             tableView.beginUpdates()
-            
-            myWallet.removeTransaction(by: myWallet.transactionDates[indexPath.section], with: indexPath.row)
-            
-            if getNumberOfRows(for: indexPath.section) == 0 {
+            let currentSection = indexPath.section
+            let currentDate = myWallet.transactionDates[currentSection]
+            myWallet.removeTransaction(by: currentDate, with: indexPath.row)
+            let numberOfRows = getNumberOfRows(for: indexPath.section)
+            if numberOfRows == 0 {
+                myWallet.transactionDates.remove(at: myWallet.transactionDates.firstIndex(of: currentDate)!)
                 tableView.deleteSections([indexPath.section], with: .automatic)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }
+            
             tableView.endUpdates()
         }
         
