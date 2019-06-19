@@ -45,9 +45,13 @@ class Wallet {
     }
     
     func getRandomDate() -> Date {
-        let randomNumberofSeconds = Double.random(in: -8086510...15921939)
-        let randomDate = Date.init(timeIntervalSinceNow: randomNumberofSeconds)
-        return randomDate
+        let randomMonth = Int.random(in: 1...3)
+        let randomDay = Int.random(in: 1...3)
+        let randomDate = DateComponents(year: 2019, month: randomMonth, day: randomDay)
+        
+        let calendar = Calendar.current
+        let date = calendar.date(from: randomDate)!
+        return date
     }
     
 }
