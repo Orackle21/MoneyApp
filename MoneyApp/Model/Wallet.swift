@@ -15,11 +15,8 @@ class Wallet {
     //  var color: WalletColors
     //  let currency: Currency
     
-    var allTransactions = [Transaction]() {
-        didSet {
-            allTransactionGrouped = regroup()
-        }
-    }
+    var transactionDates = [Date]()
+    
     var allTransactionGrouped = [Date: [Transaction]]()
     
     init( ) {
@@ -41,6 +38,13 @@ class Wallet {
         }
         else {
             allTransactionGrouped.updateValue([transaction], forKey: transaction.date)
+            transactionDates.append(transaction.date)
+            transactionDates.sort()
+            print(transactionDates.count)
+            for date in transactionDates {
+                print(date)
+                
+            }
         }
     }
     
@@ -56,16 +60,11 @@ class Wallet {
         return transaction
     }
     
-    func regroup() -> Dictionary<Date, [Transaction]> {
-        if !allTransactions.isEmpty {
-            return Dictionary(grouping: allTransactions) { $0.date }
-        }
-        return [Date: [Transaction]]()
-    }
+    
     
     func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 1...3)
-        let randomDay = Int.random(in: 1...3)
+        let randomMonth = Int.random(in: 1...2)
+        let randomDay = Int.random(in: 1...2)
         let randomDate = DateComponents(year: 2019, month: randomMonth, day: randomDay)
         
         let calendar = Calendar.current

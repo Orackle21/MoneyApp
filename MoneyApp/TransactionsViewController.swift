@@ -15,6 +15,11 @@ class TransactionsViewController: UITableViewController {
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     
+    func getdateBySectionNumber (_ sectionIndex: Int) -> Date {
+        return myWallet.transactionDates[sectionIndex]
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
@@ -35,26 +40,28 @@ class TransactionsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let sectionDates = [Date] (myWallet.allTransactionGrouped.keys)
-        let numberOfRowsInTheSectionByDate = myWallet.allTransactionGrouped[sectionDates[section]]?.count
-        return numberOfRowsInTheSectionByDate!
+        let date = getdateBySectionNumber(section)
+        let transactionsByDate = myWallet.allTransactionGrouped[date]?.count
+        return transactionsByDate ?? 0
+
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
-        var sectionDates = [Date] (myWallet.allTransactionGrouped.keys)
-        let arrayInTheSectionByDate = myWallet.allTransactionGrouped[sectionDates[indexPath.section]]
         
-        let item = arrayInTheSectionByDate![indexPath.row]
-        configureLabels(for: cell, with: item)
+        let date = getdateBySectionNumber(indexPath.section)
+        if let transactionsByDate = myWallet.allTransactionGrouped[date] {
+            let item = transactionsByDate[indexPath.row]
+            configureLabels(for: cell, with: item)
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
        
-        let sectionDates = [Date] (myWallet.allTransactionGrouped.keys)
-        let dateStringHeader = sectionDates[section]
-        return sectionDateFormatter.string(from: dateStringHeader)
+        let sectionDate = getdateBySectionNumber(section)
+        return sectionDateFormatter.string(from: sectionDate)
         
     }
     
@@ -72,7 +79,7 @@ class TransactionsViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            myWallet.allTransactions.remove(at: indexPath.row)
+//            myWallet.allTransactions.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
