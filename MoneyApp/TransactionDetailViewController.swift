@@ -19,7 +19,6 @@ protocol TransactionDetailViewControllerDelegate: class {
 class TransactionDetailViewController: UITableViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var subtitleTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
@@ -29,12 +28,14 @@ class TransactionDetailViewController: UITableViewController {
     var wallet: Wallet?
     
     @IBAction func saveAction(_ sender: Any) {
-        if let _ = transactionToEdit {
-            ///
+        if let item = transactionToEdit {
+            item.name = nameTextField.text ?? " "
+            item.amount = Int(amountTextField.text ?? "0") ?? 0
+            delegate?.transactionDetailViewController(self, didFinishEditing: item)
         }
         else {
             if let wallet = wallet {
-                let transaction = wallet.newTransaction(in: .Food, name: nameTextField.text!, subtitle: subtitleTextField.text!, amount: Int(amountTextField.text!)!)
+                let transaction = wallet.newTransaction(in: .Food, name: nameTextField.text!, amount: Int(amountTextField.text!)!)
                 delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }
@@ -44,8 +45,10 @@ class TransactionDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        if let item = transactionToEdit {
+            nameTextField.text = item.name
+            amountTextField.text = String(item.amount)
+        }
 
     }
 

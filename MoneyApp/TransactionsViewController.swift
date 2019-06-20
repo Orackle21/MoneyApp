@@ -14,14 +14,11 @@ class TransactionsViewController: UITableViewController {
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     
-    func getdateBySectionNumber (_ sectionIndex: Int) -> Date {
-        return myWallet.transactionDates[sectionIndex]
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        tableView.tableFooterView = UIView()
 //        tableView.allowsMultipleSelectionDuringEditing = true
         
         dateFormatter.dateFormat = "MMM d"
@@ -30,37 +27,44 @@ class TransactionsViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return myWallet.allTransactionGrouped.keys.count
+        return myWallet.allTransactionsGrouped.keys.count
+    }
+    
+    // Gets appropriate date by sectionIndex
+    func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
+        return myWallet.transactionDates[sectionIndex]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getNumberOfRows(for: section)
     }
     
+    // Returns number of rows for section. Returns "0" if section is empty.
     func getNumberOfRows (for section: Int) -> Int {
         if section > myWallet.transactionDates.count - 1 {
             return 0
         }
         else {
-            let date = getdateBySectionNumber(section)
-            let transactionsByDate = myWallet.allTransactionGrouped[date]?.count
-            return transactionsByDate ?? 0
+            let date = getDateBySectionNumber(section)
+            let numberOfTransactionsByDate = myWallet.allTransactionsGrouped[date]?.count
+            return numberOfTransactionsByDate ?? 0
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
-        let date = getdateBySectionNumber(indexPath.section)
-        if let transactionsByDate = myWallet.allTransactionGrouped[date] {
+        let date = getDateBySectionNumber(indexPath.section)
+        if let transactionsByDate = myWallet.allTransactionsGrouped[date] {
             let item = transactionsByDate[indexPath.row]
             configureLabels(for: cell, with: item)
         }
         return cell
     }
     
+    // Sets header title for section using "sectionStringFormatter"
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            let sectionDate = getdateBySectionNumber(section)
+            let sectionDate = getDateBySectionNumber(section)
             return sectionDateFormatter.string(from: sectionDate)
     }
 
@@ -68,19 +72,24 @@ class TransactionsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            tableView.beginUpdates()
-            let currentSection = indexPath.section
-            let currentDate = myWallet.transactionDates[currentSection]
-            myWallet.removeTransaction(by: currentDate, with: indexPath.row)
+         //   tableView.beginUpdates()
+            
+            let dateBySection = myWallet.transactionDates[indexPath.section]
+            
+            // Remove transaction by "dateBySection" with index
+            myWallet.removeTransaction(by: dateBySection, with: indexPath.row)
+            
+            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
+            // Else just delete the row from tableView
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
-                myWallet.transactionDates.remove(at: myWallet.transactionDates.firstIndex(of: currentDate)!)
+                myWallet.transactionDates.remove(at: myWallet.transactionDates.firstIndex(of: dateBySection)!)
                 tableView.deleteSections([indexPath.section], with: .automatic)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
+                }
             
-            tableView.endUpdates()
+           // tableView.endUpdates()
         }
         
         else if editingStyle == .insert {
@@ -95,6 +104,7 @@ class TransactionsViewController: UITableViewController {
 //
 //    }
     
+    // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
         if let transactionCell = cell as? TransactionCell {
             transactionCell.categoryLabel.text = item.category.rawValue
@@ -104,7 +114,7 @@ class TransactionsViewController: UITableViewController {
         }
     }
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Chooses appropriate segue when user taps buttons or cells
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             if let destination = segue.destination as? TransactionDetailViewController {
@@ -112,9 +122,28 @@ class TransactionsViewController: UITableViewController {
                 destination.wallet = myWallet
             }
         }
+        
+        if segue.identifier == "editItemSegue" {
+            if let destination = segue.destination as? TransactionDetailViewController {
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    
+                    let date = getDateBySectionNumber(indexPath.section)
+                    let index = indexPath.row
+                    if let arrayByDate = myWallet.allTransactionsGrouped[date] {
+                        destination.transactionToEdit = arrayByDate[index]
+                        destination.title = "Edit Transaction"
+                        destination.delegate = self
+                    }
+                    
+                    
+                }
+                
+                
+            }
+        }
     }
     
-
+    
 }
 
 extension TransactionsViewController: TransactionDetailViewControllerDelegate {
@@ -124,22 +153,33 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
     }
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishAdding item: Transaction) {
+        
         navigationController?.popViewController(animated: true)
-//        let rowIndex = myWallet.allTransactions.count - 1
-//        let indexPath = IndexPath(row: rowIndex, section: 0)
-//        let indexPaths = [indexPath]
-//        tableView.insertRows(at: indexPaths, with: .automatic)
         tableView.reloadData()
+        
+//        let itemDate = item.date
+//        if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
+//            let indexPath = IndexPath(row: 0, section: sectionByDate)
+//            let indexPaths = [indexPath]
+//
+//            tableView.insertRows(at: indexPaths, with: .automatic)
+//        } else {
+//            myWallet.transactionDates.append(itemDate)
+//            myWallet.transactionDates.sort()
+//            if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
+//                tableView.insertSections([sectionByDate], with: .automatic)
+//                let indexPath = IndexPath(row: 0, section: sectionByDate)
+//                let indexPaths = [indexPath]
+//
+//                tableView.insertRows(at: indexPaths, with: .automatic)
+//            }
+//        }
+       
     }
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction) {
-//        if let index = myWallet.allTransactions.firstIndex(of: item) {
-//            let indexPath = IndexPath(row: index, section: 0)
-//            if let cell = tableView.cellForRow(at: indexPath) {
-//                configureLabels(for: cell, with: item)
-//            }
-//        }
-//        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+        tableView.reloadData()
     }
 }
     

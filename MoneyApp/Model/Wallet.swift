@@ -15,59 +15,55 @@ class Wallet {
     //  var color: WalletColors
     //  let currency: Currency
     
+   
+    var allTransactionsGrouped = [Date: [Transaction]]()
     var transactionDates = [Date]()
     
-    var allTransactionGrouped = [Date: [Transaction]]()
-    
-    init( ) {
-        let transactionTest0 = Transaction(name: "Burger", subtitle: " ", amount: 55, category: .Food, date: getRandomDate())
-        let transactionTest1 = Transaction(name: "Internet", subtitle: " ", amount: 115, category: .Internet, date: getRandomDate())
-        let transactionTest2 = Transaction(name: "Electricity", subtitle: " ", amount: 125, category: .Utilities, date: getRandomDate())
+    init() {
+        let transactionTest0 = Transaction(name: "Burger", amount: 55, category: .Food, date: getRandomDate())
+        let transactionTest1 = Transaction(name: "Internet", amount: 115, category: .Internet, date: getRandomDate())
+        let transactionTest2 = Transaction(name: "Electricity", amount: 125, category: .Utilities, date: getRandomDate())
         
         addToAllTransactions(transaction: transactionTest0)
         addToAllTransactions(transaction: transactionTest1)
         addToAllTransactions(transaction: transactionTest2)
     }
     
-    
+    // Adds a transaction to allTransactionGroped dict. Adds transaction.date to transactionsDate for future use.
     func addToAllTransactions (transaction: Transaction) {
-        if let date = allTransactionGrouped[transaction.date] {
+        if let date = allTransactionsGrouped[transaction.date] {
             var updatedTransactionsDay = date
             updatedTransactionsDay.insert(transaction, at: 0)
-            allTransactionGrouped.updateValue(updatedTransactionsDay, forKey: transaction.date)
+            allTransactionsGrouped.updateValue(updatedTransactionsDay, forKey: transaction.date)
         }
         else {
-            allTransactionGrouped.updateValue([transaction], forKey: transaction.date)
-            transactionDates.append(transaction.date)
-            transactionDates.sort()
-            print(transactionDates.count)
-            for date in transactionDates {
-                print(date)
-                
+            allTransactionsGrouped.updateValue([transaction], forKey: transaction.date)
+            if transactionDates.contains(transaction.date) {
+                return
+            } else {
+                transactionDates.append(transaction.date)
+                transactionDates.sort()
             }
         }
     }
     
-    
+    // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates for transactionDates
     func removeTransaction(by date: Date, with index: Int) {
-        allTransactionGrouped[date]?.remove(at: index)
-        if allTransactionGrouped[date]!.isEmpty {
-            allTransactionGrouped.removeValue(forKey: date)
-           // transactionDates.remove(at: transactionDates.firstIndex(of: date)!)
-            print (transactionDates.count)
-            print ("alltransactionsCount is \(allTransactionGrouped.keys.count)")
+        allTransactionsGrouped[date]?.remove(at: index)
+        if allTransactionsGrouped[date]!.isEmpty {
+            allTransactionsGrouped.removeValue(forKey: date)
         }
     }
     
-    
-    func newTransaction (in category: Category, name: String, subtitle: String, amount: Int) -> Transaction {
-        let transaction = Transaction(name: name, subtitle: subtitle, amount: amount, category: category, date: getRandomDate())
+    // Creates new transaction, calls "addToAllTransactions", returns said transaction.
+    func newTransaction (in category: Category, name: String, amount: Int) -> Transaction {
+        let transaction = Transaction(name: name, amount: amount, category: category, date: getRandomDate())
         addToAllTransactions(transaction: transaction)
         return transaction
     }
     
     
-    
+    // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
         let randomMonth = Int.random(in: 1...2)
         let randomDay = Int.random(in: 1...2)

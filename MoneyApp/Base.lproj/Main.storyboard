@@ -13,13 +13,13 @@
         <scene sceneID="4YC-yk-S3T">
             <objects>
                 <tableViewController title="Money App" id="afg-Zf-zmN" customClass="TransactionsViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="fuw-zY-678">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fuw-zY-678">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTransaction" rowHeight="90" id="PZN-0g-9gg" customClass="TransactionCell" customModule="MoneyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PZN-0g-9gg" id="xab-Eg-BcK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
@@ -86,6 +86,7 @@
                                     <outlet property="categoryLabel" destination="EqW-nj-C0t" id="kBk-t1-buQ"/>
                                     <outlet property="dateLabel" destination="AkF-CE-fwW" id="2P6-JN-6o1"/>
                                     <outlet property="nameLabel" destination="QK4-gg-t6T" id="EqD-9G-iK0"/>
+                                    <segue destination="d7J-W1-892" kind="show" identifier="editItemSegue" id="D3w-xq-tqp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -117,7 +118,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Specify the Name" id="IdW-3o-xab">
+                            <tableViewSection headerTitle="NAME" id="IdW-3o-xab">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTransaction" id="hW5-Hc-tI2">
                                         <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
@@ -141,30 +142,12 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTransaction" id="txn-IW-Ug2">
-                                        <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txn-IW-Ug2" id="Pit-u7-Sh7">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oS3-hx-aRE">
-                                                    <rect key="frame" x="20" y="6" width="374" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Select Category" id="kBN-1z-Ufn">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTransaction" id="gG2-Pj-jIM">
-                                        <rect key="frame" x="0.0" y="199.5" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="155.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gG2-Pj-jIM" id="Rde-N3-7rZ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -185,7 +168,7 @@
                             <tableViewSection headerTitle="Select date" id="B0T-gt-eZC">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTransaction" id="5dK-zM-fm1">
-                                        <rect key="frame" x="0.0" y="299.5" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="255.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5dK-zM-fm1" id="TbF-Vo-62b">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -206,7 +189,7 @@
                             <tableViewSection headerTitle="Insert Amount Spent" id="HaY-a7-Ewu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTransaction" id="bHo-vF-mKd">
-                                        <rect key="frame" x="0.0" y="399.5" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="355.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bHo-vF-mKd" id="tkQ-9i-6Aw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -243,7 +226,6 @@
                         <outlet property="categoryTextField" destination="bZP-zP-qlu" id="Ug9-59-0iJ"/>
                         <outlet property="dateTextField" destination="sAc-0n-bwe" id="NBJ-Ah-avV"/>
                         <outlet property="nameTextField" destination="Rxt-In-25R" id="URh-2Q-aQA"/>
-                        <outlet property="subtitleTextField" destination="oS3-hx-aRE" id="FzP-Jk-IPQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DIy-v1-Hmb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -269,4 +251,7 @@
             <point key="canvasLocation" x="207.24637681159422" y="-50.223214285714285"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="D3w-xq-tqp"/>
+    </inferredMetricsTieBreakers>
 </document>
