@@ -75,9 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				9A05558422A18A2A009398CD /* TransactionsViewController.swift */,
-				9A0705F12283EF68003817A1 /* Main.storyboard */,
 				9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */,
 				9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */,
+				9A0705F12283EF68003817A1 /* Main.storyboard */,
 				9A0705F92283EF6A003817A1 /* Info.plist */,
 				9A05558A22A18B41009398CD /* Model */,
 				9A0705FF2283EF7D003817A1 /* Supporting FIles */,
