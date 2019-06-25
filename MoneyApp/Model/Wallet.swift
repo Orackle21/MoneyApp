@@ -31,10 +31,9 @@ class Wallet {
     
     // Adds a transaction to allTransactionGroped dict. Adds transaction.date to transactionsDate for future use.
     func addToAllTransactions (transaction: Transaction) {
-        if let date = allTransactionsGrouped[transaction.date] {
-            var updatedTransactionsDay = date
-            updatedTransactionsDay.insert(transaction, at: 0)
-            allTransactionsGrouped.updateValue(updatedTransactionsDay, forKey: transaction.date)
+        if var transactionArrayByDate = allTransactionsGrouped[transaction.date] {
+            transactionArrayByDate.insert(transaction, at: 0)
+            allTransactionsGrouped.updateValue(transactionArrayByDate, forKey: transaction.date)
         }
         else {
             allTransactionsGrouped.updateValue([transaction], forKey: transaction.date)
@@ -42,7 +41,7 @@ class Wallet {
                 return
             } else {
                 transactionDates.append(transaction.date)
-                transactionDates.sort()
+                transactionDates.sort(by: >)
             }
         }
     }

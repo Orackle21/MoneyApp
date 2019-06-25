@@ -19,13 +19,50 @@ protocol TransactionDetailViewControllerDelegate: class {
 class TransactionDetailViewController: UITableViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var categoryTextField: UITextField!
-    @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var dateLabel: UILabel!
+    private var datePickerIsCollapsed = true
+
     
     weak var delegate: TransactionDetailViewControllerDelegate?
     var transactionToEdit: Transaction?
     var wallet: Wallet?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let item = transactionToEdit {
+            nameTextField.text = item.name
+            amountTextField.text = String(item.amount)
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 && indexPath.row == 0 {
+            if datePickerIsCollapsed {
+                datePickerIsCollapsed = false
+            } else {
+                datePickerIsCollapsed = true
+            }
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2 && indexPath.row == 1 {
+            if datePickerIsCollapsed {
+                return 0
+            } else if datePickerIsCollapsed == false {
+                return 216
+            }
+        }
+        return 44
+    }
+    
     
     @IBAction func saveAction(_ sender: Any) {
         if let item = transactionToEdit {
@@ -41,21 +78,8 @@ class TransactionDetailViewController: UITableViewController {
         }
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let item = transactionToEdit {
-            nameTextField.text = item.name
-            amountTextField.text = String(item.amount)
-        }
-
-    }
 
     
-
-    
-
     /*
     // MARK: - Navigation
 

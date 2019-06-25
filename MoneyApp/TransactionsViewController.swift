@@ -19,11 +19,14 @@ class TransactionsViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
-//        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
+        //tableView.allowsMultipleSelectionDuringEditing = true
         
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
-       
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -34,7 +37,7 @@ class TransactionsViewController: UITableViewController {
     func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
         return myWallet.transactionDates[sectionIndex]
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getNumberOfRows(for: section)
     }
@@ -50,7 +53,7 @@ class TransactionsViewController: UITableViewController {
             return numberOfTransactionsByDate ?? 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
@@ -62,47 +65,48 @@ class TransactionsViewController: UITableViewController {
         return cell
     }
     
+    
+    
     // Sets header title for section using "sectionStringFormatter"
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            let sectionDate = getDateBySectionNumber(section)
-            return sectionDateFormatter.string(from: sectionDate)
+        let sectionDate = getDateBySectionNumber(section)
+        return sectionDateFormatter.string(from: sectionDate)
     }
-
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             
-         //   tableView.beginUpdates()
+            self.tableView.beginUpdates()
             
             let dateBySection = myWallet.transactionDates[indexPath.section]
             
-            // Remove transaction by "dateBySection" with index
-            myWallet.removeTransaction(by: dateBySection, with: indexPath.row)
+// Remove transaction by "dateBySection" with index
             
-            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
-            // Else just delete the row from tableView
+            self.myWallet.removeTransaction(by: dateBySection, with: indexPath.row)
+            
+// Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
+// Else just delete the row from tableView
+            
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
                 myWallet.transactionDates.remove(at: myWallet.transactionDates.firstIndex(of: dateBySection)!)
-                tableView.deleteSections([indexPath.section], with: .automatic)
+                tableView.deleteSections([indexPath.section], with: .fade)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
-                }
-            
-           // tableView.endUpdates()
+            }
+            self.tableView.endUpdates()
+         
         }
-        
-        else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
     
-
     
-//    // Override to support rearranging the table view.
-//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//
-//    }
+    
+    //    // Override to support rearranging the table view.
+    //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    //
+    //    }
     
     // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
@@ -157,24 +161,24 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
         navigationController?.popViewController(animated: true)
         tableView.reloadData()
         
-//        let itemDate = item.date
-//        if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
-//            let indexPath = IndexPath(row: 0, section: sectionByDate)
-//            let indexPaths = [indexPath]
-//
-//            tableView.insertRows(at: indexPaths, with: .automatic)
-//        } else {
-//            myWallet.transactionDates.append(itemDate)
-//            myWallet.transactionDates.sort()
-//            if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
-//                tableView.insertSections([sectionByDate], with: .automatic)
-//                let indexPath = IndexPath(row: 0, section: sectionByDate)
-//                let indexPaths = [indexPath]
-//
-//                tableView.insertRows(at: indexPaths, with: .automatic)
-//            }
-//        }
-       
+        //        let itemDate = item.date
+        //        if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
+        //            let indexPath = IndexPath(row: 0, section: sectionByDate)
+        //            let indexPaths = [indexPath]
+        //
+        //            tableView.insertRows(at: indexPaths, with: .automatic)
+        //        } else {
+        //            myWallet.transactionDates.append(itemDate)
+        //            myWallet.transactionDates.sort()
+        //            if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
+        //                tableView.insertSections([sectionByDate], with: .automatic)
+        //                let indexPath = IndexPath(row: 0, section: sectionByDate)
+        //                let indexPaths = [indexPath]
+        //
+        //                tableView.insertRows(at: indexPaths, with: .automatic)
+        //            }
+        //        }
+        
     }
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction) {
@@ -182,6 +186,6 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
         tableView.reloadData()
     }
 }
-    
-    
+
+
 
