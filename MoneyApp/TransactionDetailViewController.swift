@@ -21,9 +21,17 @@ class TransactionDetailViewController: UITableViewController {
     weak var delegate: TransactionDetailViewControllerDelegate?
     var transactionToEdit: Transaction?
     var wallet: Wallet?
+    var category: Category? {
+        didSet {
+            if let category = category {
+                categoryNameLabel.text = category.rawValue
+            }
+        }
+    }
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var categoryNameLabel: UILabel!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var dateLabel: UILabel!
@@ -44,11 +52,17 @@ class TransactionDetailViewController: UITableViewController {
             item.name = nameTextField.text ?? " "
             item.amount = Int(amountTextField.text ?? "0") ?? 0
             item.date = datePickerDate
+            item.category = category ?? Category.Food
             delegate?.transactionDetailViewController(self, didFinishEditing: item)
         }
         else {
             if let wallet = wallet {
-                let transaction = wallet.newTransaction(in: .Food, name: nameTextField.text!, amount: Int(amountTextField.text!)!, date: datePickerDate)
+                let transaction = wallet.newTransaction(
+                    in: category ?? .Food,
+                    name: nameTextField.text ?? "",
+                    amount: Int(amountTextField.text!) ?? 0,
+                    date: datePickerDate
+                )
                 delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }
@@ -64,6 +78,7 @@ class TransactionDetailViewController: UITableViewController {
         if let item = transactionToEdit {
             nameTextField.text = item.name
             amountTextField.text = String(item.amount)
+            category = item.category
             datePickerDate = item.date
             datePicker.date = item.date
         }
@@ -76,7 +91,6 @@ class TransactionDetailViewController: UITableViewController {
                 showDatePicker()
             } else {
                 hideDatePicker()
-               
             }
         }
          tableView.deselectRow(at: indexPath, animated: true)
@@ -130,6 +144,12 @@ class TransactionDetailViewController: UITableViewController {
         tableView.endUpdates()
     }
     
+    @IBAction func unwindBack(_ unwindSegue: UIStoryboardSegue) {
+        if let categoryEdit = unwindSegue.source as? CategoryChooserViewController {
+            category = categoryEdit.selectedCategory
+        }
+       
+    }
     /*
      // MARK: - Navigation
      

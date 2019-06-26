@@ -11,8 +11,7 @@ import Foundation
 enum Category: String, CaseIterable {
         
         case Food, Transportation, Utilities, Internet
-        
-        
+    
     }
     
     

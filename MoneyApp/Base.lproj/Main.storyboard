@@ -128,16 +128,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Transaction Name" adjustsFontSizeToFit="NO" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-In-25R">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="399" height="44"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Rxt-In-25R" firstAttribute="leading" secondItem="Y7G-Ez-j0J" secondAttribute="leading" constant="20" id="YLP-08-RY2"/>
+                                                <constraint firstItem="Rxt-In-25R" firstAttribute="leading" secondItem="Y7G-Ez-j0J" secondAttribute="leading" constant="15" id="YLP-08-RY2"/>
                                                 <constraint firstItem="Rxt-In-25R" firstAttribute="top" secondItem="Y7G-Ez-j0J" secondAttribute="top" id="c5w-x1-APN"/>
-                                                <constraint firstAttribute="trailing" secondItem="Rxt-In-25R" secondAttribute="trailing" constant="20" id="cAe-PR-gtx"/>
+                                                <constraint firstAttribute="trailing" secondItem="Rxt-In-25R" secondAttribute="trailing" id="cAe-PR-gtx"/>
                                                 <constraint firstAttribute="bottom" secondItem="Rxt-In-25R" secondAttribute="bottom" id="lke-r9-cqz"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -155,21 +155,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ls0-0p-jJg">
-                                                    <rect key="frame" x="20" y="11" width="120" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="etQ-gI-W3p"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="15" y="11.5" width="361" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ls0-0p-jJg" secondAttribute="trailing" constant="20" symbolic="YES" id="II5-qJ-eHA"/>
-                                                <constraint firstItem="Ls0-0p-jJg" firstAttribute="leading" secondItem="Rde-N3-7rZ" secondAttribute="leadingMargin" id="WFd-Tc-crq"/>
-                                                <constraint firstItem="Ls0-0p-jJg" firstAttribute="top" secondItem="Rde-N3-7rZ" secondAttribute="topMargin" id="qit-uy-cQx"/>
+                                                <constraint firstItem="Ls0-0p-jJg" firstAttribute="centerY" secondItem="Rde-N3-7rZ" secondAttribute="centerY" id="21F-VR-ekB"/>
+                                                <constraint firstItem="Ls0-0p-jJg" firstAttribute="leading" secondItem="Rde-N3-7rZ" secondAttribute="leading" constant="15" id="HG1-eI-Rr9"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ls0-0p-jJg" secondAttribute="trailing" id="OKb-FD-bFk"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="nNX-wg-fJ3" kind="show" identifier="chooseCategory" id="cNy-1V-dPY"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -235,16 +235,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hx7-aT-dIe">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="379" height="44"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Hx7-aT-dIe" secondAttribute="bottom" id="Fpa-HT-HoU"/>
                                                 <constraint firstAttribute="trailing" secondItem="Hx7-aT-dIe" secondAttribute="trailing" constant="20" id="k7j-G4-fpV"/>
-                                                <constraint firstItem="Hx7-aT-dIe" firstAttribute="leading" secondItem="tkQ-9i-6Aw" secondAttribute="leading" constant="20" id="oOP-98-CJ5"/>
+                                                <constraint firstItem="Hx7-aT-dIe" firstAttribute="leading" secondItem="tkQ-9i-6Aw" secondAttribute="leading" constant="15" id="oOP-98-CJ5"/>
                                                 <constraint firstItem="Hx7-aT-dIe" firstAttribute="top" secondItem="tkQ-9i-6Aw" secondAttribute="top" id="ySz-vb-y2B"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -267,6 +267,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountTextField" destination="Hx7-aT-dIe" id="CNW-fZ-bKN"/>
+                        <outlet property="categoryNameLabel" destination="Ls0-0p-jJg" id="gKw-70-QE9"/>
                         <outlet property="dateLabel" destination="3TZ-12-gOW" id="8Bo-mj-CG4"/>
                         <outlet property="datePicker" destination="cVq-aA-j0E" id="t0b-nx-Zfn"/>
                         <outlet property="nameTextField" destination="Rxt-In-25R" id="URh-2Q-aQA"/>
@@ -276,22 +277,25 @@
             </objects>
             <point key="canvasLocation" x="2198.5507246376815" y="-50.223214285714285"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Category Chooser View Controller-->
         <scene sceneID="qCe-lP-Qc3">
             <objects>
-                <tableViewController id="nNX-wg-fJ3" sceneMemberID="viewController">
+                <tableViewController id="nNX-wg-fJ3" customClass="CategoryChooserViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tPq-Np-EpG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CmL-Al-cP0">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="CmL-Al-cP0">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CmL-Al-cP0" id="La6-oQ-RgE">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="axJ-ZL-jjE" kind="unwind" unwindAction="unwindBack:" id="sqU-E9-KRZ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -301,8 +305,9 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Szs-Px-FYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="axJ-ZL-jjE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3199" y="-524"/>
+            <point key="canvasLocation" x="3252" y="-183"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AoF-gR-lqS">
@@ -324,6 +329,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="D3w-xq-tqp"/>
+        <segue reference="Rf8-0w-JUs"/>
     </inferredMetricsTieBreakers>
 </document>

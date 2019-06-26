@@ -15,6 +15,7 @@
 		9A0705F32283EF68003817A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F12283EF68003817A1 /* Main.storyboard */; };
 		9A0705F52283EF6A003817A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F42283EF6A003817A1 /* Assets.xcassets */; };
 		9A0705F82283EF6A003817A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F62283EF6A003817A1 /* LaunchScreen.storyboard */; };
+		9AB9C6B422C3315900E401DC /* CategoryChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */; };
 		9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */; };
 		9ACDDE5722AE77B500793219 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		9A0705F42283EF6A003817A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A0705F72283EF6A003817A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A0705F92283EF6A003817A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChooserViewController.swift; sourceTree = "<group>"; };
 		9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +80,7 @@
 				9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */,
 				9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */,
 				9A0705F12283EF68003817A1 /* Main.storyboard */,
+				9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */,
 				9A0705F92283EF6A003817A1 /* Info.plist */,
 				9A05558A22A18B41009398CD /* Model */,
 				9A0705FF2283EF7D003817A1 /* Supporting FIles */,
@@ -172,6 +175,7 @@
 				9A05558922A18B3A009398CD /* Categories.swift in Sources */,
 				9A0705EE2283EF68003817A1 /* AppDelegate.swift in Sources */,
 				9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */,
+				9AB9C6B422C3315900E401DC /* CategoryChooserViewController.swift in Sources */,
 				9A05558722A18A5C009398CD /* Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
