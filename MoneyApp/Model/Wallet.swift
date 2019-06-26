@@ -46,6 +46,21 @@ class Wallet {
         }
     }
     
+    func changeDate (transaction: Transaction, newDate: Date) {
+        if let transactionArrayByDate = allTransactionsGrouped[transaction.date] {
+            if let index = transactionArrayByDate.firstIndex(of: transaction) {
+                allTransactionsGrouped[transaction.date]?.remove(at: index)
+                if allTransactionsGrouped[transaction.date]!.isEmpty {
+                    allTransactionsGrouped.removeValue(forKey: transaction.date)
+                    transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
+                }
+                transaction.date = newDate
+                addToAllTransactions(transaction: transaction)
+            }
+            
+        }
+    }
+    
     // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates for transactionDates
     func removeTransaction(by date: Date, with index: Int) {
         allTransactionsGrouped[date]?.remove(at: index)
@@ -62,6 +77,19 @@ class Wallet {
         return transaction
     }
     
+    //    func moveTransaction (transaction: Transaction) {
+    //        if var transactionArrayByDate = allTransactionsGrouped[transaction.date] {
+    //            if let index = transactionArrayByDate.firstIndex(of: transaction) {
+    //                let transactionToMove = transactionArrayByDate.remove(at: index)
+    //                addToAllTransactions(transaction: transactionToMove)
+    //            }
+    //            if transactionArrayByDate.isEmpty {
+    //                allTransactionsGrouped.removeValue(forKey: transaction.date)
+    //                transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
+    //            }
+    //        }
+    //    }
+
     
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {

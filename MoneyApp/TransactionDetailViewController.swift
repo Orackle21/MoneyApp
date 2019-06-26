@@ -51,12 +51,12 @@ class TransactionDetailViewController: UITableViewController {
         if let item = transactionToEdit {
             item.name = nameTextField.text ?? " "
             item.amount = Int(amountTextField.text ?? "0") ?? 0
-            item.date = datePickerDate
+            tryToChangeDate(transaction: item)
             item.category = category ?? Category.Food
             delegate?.transactionDetailViewController(self, didFinishEditing: item)
         }
-        else {
-            if let wallet = wallet {
+        else if transactionToEdit == nil {
+            if let wallet = wallet  {
                 
                 let calendar = Calendar.current
                 let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
@@ -68,13 +68,20 @@ class TransactionDetailViewController: UITableViewController {
                     amount: Int(amountTextField.text!) ?? 0,
                     date: date ?? Date()
                 )
-                
-                
-                
                 delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }
         
+    }
+    
+    func tryToChangeDate (transaction: Transaction) {
+        if transaction.date == datePickerDate {
+            return
+        } else {
+            if let wallet = wallet {
+                wallet.changeDate(transaction: transaction, newDate: datePickerDate)
+            }
+        }
     }
     
     override func viewDidLoad() {

@@ -26,7 +26,6 @@ class TransactionsViewController: UITableViewController {
         
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -135,6 +134,7 @@ class TransactionsViewController: UITableViewController {
                     let index = indexPath.row
                     if let arrayByDate = myWallet.allTransactionsGrouped[date] {
                         destination.transactionToEdit = arrayByDate[index]
+                        destination.wallet = myWallet
                         destination.title = "Edit Transaction"
                         destination.delegate = self
                     }
@@ -183,7 +183,6 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction) {
         navigationController?.popViewController(animated: true)
-        
         tableView.reloadData()
     }
 }
