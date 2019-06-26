@@ -57,12 +57,20 @@ class TransactionDetailViewController: UITableViewController {
         }
         else {
             if let wallet = wallet {
+                
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
+                let date = calendar.date(from: components)
+                
                 let transaction = wallet.newTransaction(
                     in: category ?? .Food,
                     name: nameTextField.text ?? "",
                     amount: Int(amountTextField.text!) ?? 0,
-                    date: datePickerDate
+                    date: date ?? Date()
                 )
+                
+                
+                
                 delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }

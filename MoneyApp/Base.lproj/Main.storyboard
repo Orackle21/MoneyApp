@@ -204,13 +204,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cVq-aA-j0E">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cVq-aA-j0E">
                                                     <rect key="frame" x="47" y="0.0" width="320" height="216"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="583043542.92926896">
                                                         <!--2019-06-24 04:32:22 +0000-->
-                                                    </date>
-                                                    <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
-                                                        <!--1970-01-01 11:00:00 +0000-->
                                                     </date>
                                                     <connections>
                                                         <action selector="datePickerChanged:" destination="d7J-W1-892" eventType="valueChanged" id="b3E-IW-7Gh"/>

@@ -58,6 +58,7 @@ class Wallet {
     func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
         let transaction = Transaction(name: name, amount: amount, category: category, date: date)
         addToAllTransactions(transaction: transaction)
+        print(transaction.date)
         return transaction
     }
     

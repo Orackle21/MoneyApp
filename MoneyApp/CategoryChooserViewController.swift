@@ -16,7 +16,6 @@ class CategoryChooserViewController: UITableViewController {
         super.viewDidLoad()
         self.title = "Choose Category"
         tableView.tableFooterView = UIView()
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 

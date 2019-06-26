@@ -183,6 +183,7 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction) {
         navigationController?.popViewController(animated: true)
+        
         tableView.reloadData()
     }
 }
