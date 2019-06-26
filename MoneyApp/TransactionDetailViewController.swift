@@ -18,30 +18,54 @@ protocol TransactionDetailViewControllerDelegate: class {
 
 class TransactionDetailViewController: UITableViewController {
     
+    weak var delegate: TransactionDetailViewControllerDelegate?
+    var transactionToEdit: Transaction?
+    var wallet: Wallet?
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var dateLabel: UILabel!
     private var datePickerIsCollapsed = true
+    private let dateFormatter = DateFormatter()
+    private var datePickerDate = Date() {
+        didSet {
+            dateLabel.text = dateFormatter.string(from: datePickerDate)
+        }
+    }
     
+    @IBAction func datePickerChanged(_ sender: UIDatePicker) {
+        datePickerDate = sender.date
+    }
     
-    weak var delegate: TransactionDetailViewControllerDelegate?
-    var transactionToEdit: Transaction?
-    var wallet: Wallet?
+    @IBAction func saveAction(_ sender: Any) {
+        if let item = transactionToEdit {
+            item.name = nameTextField.text ?? " "
+            item.amount = Int(amountTextField.text ?? "0") ?? 0
+            item.date = datePickerDate
+            delegate?.transactionDetailViewController(self, didFinishEditing: item)
+        }
+        else {
+            if let wallet = wallet {
+                let transaction = wallet.newTransaction(in: .Food, name: nameTextField.text!, amount: Int(amountTextField.text!)!, date: datePickerDate)
+                delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
+            }
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        datePicker.calendar = Calendar.current
-        //        var components = DateComponents()
-        //        components.day = 25
-        //        components.month = 1
-        //        datePicker.calendar.com
-        
+        dateFormatter.dateFormat = "MMMM d, YYYY"
+        dateLabel.text = dateFormatter.string(from: datePickerDate)
+       
         if let item = transactionToEdit {
             nameTextField.text = item.name
             amountTextField.text = String(item.amount)
+            datePickerDate = item.date
+            datePicker.date = item.date
         }
         
     }
@@ -52,8 +76,10 @@ class TransactionDetailViewController: UITableViewController {
                 showDatePicker()
             } else {
                 hideDatePicker()
+               
             }
         }
+         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -67,23 +93,6 @@ class TransactionDetailViewController: UITableViewController {
         return 44
     }
     
-   
-    
-    
-    @IBAction func saveAction(_ sender: Any) {
-        if let item = transactionToEdit {
-            item.name = nameTextField.text ?? " "
-            item.amount = Int(amountTextField.text ?? "0") ?? 0
-            delegate?.transactionDetailViewController(self, didFinishEditing: item)
-        }
-        else {
-            if let wallet = wallet {
-                let transaction = wallet.newTransaction(in: .Food, name: nameTextField.text!, amount: Int(amountTextField.text!)!)
-                delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
-            }
-        }
-        
-    }
     
     private func showDatePicker() {
         

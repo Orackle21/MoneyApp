@@ -204,7 +204,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cVq-aA-j0E">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cVq-aA-j0E">
                                                     <rect key="frame" x="47" y="0.0" width="320" height="216"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="583043542.92926896">
                                                         <!--2019-06-24 04:32:22 +0000-->
@@ -212,9 +212,9 @@
                                                     <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
                                                         <!--1970-01-01 11:00:00 +0000-->
                                                     </date>
-                                                    <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
-                                                        <!--2037-12-31 11:00:00 +0000-->
-                                                    </date>
+                                                    <connections>
+                                                        <action selector="datePickerChanged:" destination="d7J-W1-892" eventType="valueChanged" id="b3E-IW-7Gh"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -275,6 +275,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DIy-v1-Hmb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2198.5507246376815" y="-50.223214285714285"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="qCe-lP-Qc3">
+            <objects>
+                <tableViewController id="nNX-wg-fJ3" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tPq-Np-EpG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CmL-Al-cP0">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CmL-Al-cP0" id="La6-oQ-RgE">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="nNX-wg-fJ3" id="f8c-Xz-oqC"/>
+                            <outlet property="delegate" destination="nNX-wg-fJ3" id="Rjk-mz-dEF"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Szs-Px-FYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3199" y="-524"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AoF-gR-lqS">

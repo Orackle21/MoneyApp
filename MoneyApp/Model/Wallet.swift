@@ -55,8 +55,8 @@ class Wallet {
     }
     
     // Creates new transaction, calls "addToAllTransactions", returns said transaction.
-    func newTransaction (in category: Category, name: String, amount: Int) -> Transaction {
-        let transaction = Transaction(name: name, amount: amount, category: category, date: getRandomDate())
+    func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
+        let transaction = Transaction(name: name, amount: amount, category: category, date: date)
         addToAllTransactions(transaction: transaction)
         return transaction
     }
