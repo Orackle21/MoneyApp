@@ -10,9 +10,11 @@ import UIKit
 
 class TransactionsViewController: UITableViewController {
     
-    var myWallet = Wallet()
+    var selectedWallet = Wallet(name: "My Wallet", balance: 500, currency: Currency())
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
+    @IBOutlet weak var walletNameLabel: UILabel!
+    
     
     
     override func viewDidLoad() {
@@ -24,17 +26,21 @@ class TransactionsViewController: UITableViewController {
         tableView.estimatedSectionHeaderHeight = 0
         //tableView.allowsMultipleSelectionDuringEditing = true
         
+       // selectedWallet =
+        WalletList.listOfAllWallets.append(selectedWallet)
+        walletNameLabel.text = selectedWallet.name
+        
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return myWallet.allTransactionsGrouped.keys.count
+        return selectedWallet.allTransactionsGrouped.keys.count
     }
     
     // Gets appropriate date by sectionIndex
     func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
-        return myWallet.transactionDates[sectionIndex]
+        return selectedWallet.transactionDates[sectionIndex]
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,12 +49,12 @@ class TransactionsViewController: UITableViewController {
     
     // Returns number of rows for section. Returns "0" if section is empty.
     func getNumberOfRows (for section: Int) -> Int {
-        if section > myWallet.transactionDates.count - 1 {
+        if section > selectedWallet.transactionDates.count - 1 {
             return 0
         }
         else {
             let date = getDateBySectionNumber(section)
-            let numberOfTransactionsByDate = myWallet.allTransactionsGrouped[date]?.count
+            let numberOfTransactionsByDate = selectedWallet.allTransactionsGrouped[date]?.count
             return numberOfTransactionsByDate ?? 0
         }
     }
@@ -57,7 +63,7 @@ class TransactionsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
         let date = getDateBySectionNumber(indexPath.section)
-        if let transactionsByDate = myWallet.allTransactionsGrouped[date] {
+        if let transactionsByDate = selectedWallet.allTransactionsGrouped[date] {
             let item = transactionsByDate[indexPath.row]
             configureLabels(for: cell, with: item)
         }
@@ -79,18 +85,18 @@ class TransactionsViewController: UITableViewController {
             
             self.tableView.beginUpdates()
             
-            let dateBySection = myWallet.transactionDates[indexPath.section]
+            let dateBySection = selectedWallet.transactionDates[indexPath.section]
             
 // Remove transaction by "dateBySection" with index
             
-            self.myWallet.removeTransaction(by: dateBySection, with: indexPath.row)
+            self.selectedWallet.removeTransaction(by: dateBySection, with: indexPath.row)
             
 // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
 // Else just delete the row from tableView
             
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
-                myWallet.transactionDates.remove(at: myWallet.transactionDates.firstIndex(of: dateBySection)!)
+                selectedWallet.transactionDates.remove(at: selectedWallet.transactionDates.firstIndex(of: dateBySection)!)
                 tableView.deleteSections([indexPath.section], with: .fade)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -122,7 +128,7 @@ class TransactionsViewController: UITableViewController {
         if segue.identifier == "detailSegue" {
             if let destination = segue.destination as? TransactionDetailViewController {
                 destination.delegate = self
-                destination.wallet = myWallet
+                destination.wallet = selectedWallet
             }
         }
         
@@ -132,9 +138,9 @@ class TransactionsViewController: UITableViewController {
                     
                     let date = getDateBySectionNumber(indexPath.section)
                     let index = indexPath.row
-                    if let arrayByDate = myWallet.allTransactionsGrouped[date] {
+                    if let arrayByDate = selectedWallet.allTransactionsGrouped[date] {
                         destination.transactionToEdit = arrayByDate[index]
-                        destination.wallet = myWallet
+                        destination.wallet = selectedWallet
                         destination.title = "Edit Transaction"
                         destination.delegate = self
                     }

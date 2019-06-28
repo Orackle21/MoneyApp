@@ -11,15 +11,21 @@ import Foundation
 class Wallet {
     
     var name = ""
-    var balance = 0
-    //  var color: WalletColors
-    //  let currency: Currency
+    lazy var balance = calculateBalance()
+    var currency: Currency?
     
    
     var allTransactionsGrouped = [Date: [Transaction]]()
     var transactionDates = [Date]()
     
-    init() {
+    init(name: String, balance: Int, currency: Currency) {
+        
+        self.name = name
+        self.balance = balance
+        self.currency = currency
+        
+        
+        
         let transactionTest0 = Transaction(name: "Burger", amount: 55, category: .Food, date: getRandomDate())
         let transactionTest1 = Transaction(name: "Internet", amount: 115, category: .Internet, date: getRandomDate())
         let transactionTest2 = Transaction(name: "Electricity", amount: 125, category: .Utilities, date: getRandomDate())
@@ -46,6 +52,7 @@ class Wallet {
         }
     }
     
+    // Changes transaction date and moves it int oappropriate array by date. If old array container is empty deletes it and deletes its date from the array.
     func changeDate (transaction: Transaction, newDate: Date) {
         if let transactionArrayByDate = allTransactionsGrouped[transaction.date] {
             if let index = transactionArrayByDate.firstIndex(of: transaction) {
@@ -57,11 +64,10 @@ class Wallet {
                 transaction.date = newDate
                 addToAllTransactions(transaction: transaction)
             }
-            
         }
     }
     
-    // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates for transactionDates
+    // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates from transactionDates
     func removeTransaction(by date: Date, with index: Int) {
         allTransactionsGrouped[date]?.remove(at: index)
         if allTransactionsGrouped[date]!.isEmpty {
@@ -75,6 +81,18 @@ class Wallet {
         addToAllTransactions(transaction: transaction)
         print(transaction.date)
         return transaction
+    }
+    
+    // Calculates balance for wallet based on its transactions
+    func calculateBalance () -> Int {
+        var balance = 0
+        for key in allTransactionsGrouped.keys {
+            guard let arrayOfTransactions = allTransactionsGrouped[key] else { return 0 }
+            for transaction in arrayOfTransactions {
+                balance += transaction.amount
+            }
+        }
+        return balance
     }
     
     //    func moveTransaction (transaction: Transaction) {
