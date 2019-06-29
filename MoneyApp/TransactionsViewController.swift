@@ -26,8 +26,12 @@ class TransactionsViewController: UITableViewController {
         tableView.estimatedSectionHeaderHeight = 0
         //tableView.allowsMultipleSelectionDuringEditing = true
         
-       // selectedWallet =
-        WalletList.listOfAllWallets.append(selectedWallet)
+        // selectedWallet =
+        let wallet = Wallet(name: "Another Wallet", balance: 400, currency: Currency())
+        
+        WalletList.list.listOfAllWallets.append(selectedWallet)
+        WalletList.list.listOfAllWallets.append(wallet)
+        
         walletNameLabel.text = selectedWallet.name
         
         dateFormatter.dateFormat = "MMM d"
@@ -87,12 +91,12 @@ class TransactionsViewController: UITableViewController {
             
             let dateBySection = selectedWallet.transactionDates[indexPath.section]
             
-// Remove transaction by "dateBySection" with index
+            // Remove transaction by "dateBySection" with index
             
             self.selectedWallet.removeTransaction(by: dateBySection, with: indexPath.row)
             
-// Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
-// Else just delete the row from tableView
+            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
+            // Else just delete the row from tableView
             
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
@@ -102,7 +106,7 @@ class TransactionsViewController: UITableViewController {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }
             self.tableView.endUpdates()
-         
+            
         }
     }
     
@@ -112,6 +116,7 @@ class TransactionsViewController: UITableViewController {
     //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
     //
     //    }
+    
     
     // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
@@ -153,6 +158,15 @@ class TransactionsViewController: UITableViewController {
         }
     }
     
+    @IBAction func unwindBack(_ unwindSegue: UIStoryboardSegue) {
+        if let walletList = unwindSegue.source as? WalletListViewController {
+            if let wallet = walletList.selectedWallet {
+                selectedWallet = wallet
+                walletNameLabel.text = selectedWallet.name
+                tableView.reloadData()
+            }
+        }
+    }
     
 }
 

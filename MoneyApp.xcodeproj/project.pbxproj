@@ -22,6 +22,7 @@
 		9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */; };
 		9AE3BCB422C5ED3E00089927 /* WalletList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB322C5ED3E00089927 /* WalletList.swift */; };
 		9AE3BCB622C5F02C00089927 /* WalletListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */; };
+		9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB322C5ED3E00089927 /* WalletList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletList.swift; sourceTree = "<group>"; };
 		9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewController.swift; sourceTree = "<group>"; };
+		9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +91,10 @@
 				9A05558422A18A2A009398CD /* TransactionsViewController.swift */,
 				9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */,
 				9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */,
-				9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */,
 				9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */,
+				9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */,
 				9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */,
+				9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */,
 				9A0705F12283EF68003817A1 /* Main.storyboard */,
 				9A0705F92283EF6A003817A1 /* Info.plist */,
 				9A05558A22A18B41009398CD /* Model */,
@@ -192,6 +195,7 @@
 				9A0705EE2283EF68003817A1 /* AppDelegate.swift in Sources */,
 				9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */,
 				9AB9C6B422C3315900E401DC /* CategoryChooserViewController.swift in Sources */,
+				9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */,
 				9A05558722A18A5C009398CD /* Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

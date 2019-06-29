@@ -16,6 +16,7 @@ class CurrencyTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     let currency = Currency()
+    var selectedCurrency: Currency?
     lazy var allCurrencies = currency.loadEveryCountryWithCurrency()
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -26,6 +27,11 @@ class CurrencyTableViewController: UITableViewController {
         return allCurrencies.count
     }
 
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedCurrency = allCurrencies[indexPath.row]
+        return indexPath
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath)

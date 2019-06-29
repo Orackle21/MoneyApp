@@ -12,15 +12,21 @@ class WalletListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+    }
     // MARK: - Table view data source
+    
+    var selectedWallet: Wallet?
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -29,19 +35,28 @@ class WalletListViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return WalletList.listOfAllWallets.count
+        return WalletList.list.listOfAllWallets.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
 
-        cell.textLabel?.text = WalletList.listOfAllWallets[indexPath.row].name
+        cell.textLabel?.text = WalletList.list.listOfAllWallets[indexPath.row].name
         
         return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedWallet = WalletList.list.listOfAllWallets[indexPath.row]
+        return indexPath
+    }
+    
+//    @IBAction func unwindToWalletList(_ unwindSegue: UIStoryboardSegue) {
+//        if let _ = unwindSegue.source as? WalletDetailViewController {
+//            tableView.reloadData()
+//        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -87,4 +102,4 @@ class WalletListViewController: UITableViewController {
     }
     */
 
-}
+

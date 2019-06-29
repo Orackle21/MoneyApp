@@ -111,8 +111,8 @@ class Wallet {
     
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 1...2)
-        let randomDay = Int.random(in: 1...2)
+        let randomMonth = Int.random(in: 1...12)
+        let randomDay = Int.random(in: 1...28)
         let randomDate = DateComponents(year: 2019, month: randomMonth, day: randomDay)
         
         let calendar = Calendar.current

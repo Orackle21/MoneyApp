@@ -9,15 +9,15 @@
 import Foundation
 
 class WalletList{
-    
-    static var listOfAllWallets = [Wallet]()
+    static let list = WalletList()
+    var listOfAllWallets = [Wallet]()
     
     //Initializer access level change now
     private init(){}
     
     func addNewWallet(name: String, balance: Int, currency: Currency){
         let wallet = Wallet(name: name, balance: balance, currency: currency)
-        WalletList.listOfAllWallets.append(wallet)
+        listOfAllWallets.append(wallet)
     }
     
 }
