@@ -20,4 +20,13 @@ class WalletList{
         listOfAllWallets.append(wallet)
     }
     
+    func removeWallet (with index: Int) {
+        listOfAllWallets.remove(at: index)
+    }
+    
+    func moveWallet (from currentIndex: Int, to newIndex: Int) {
+        let wallet = listOfAllWallets.remove(at: currentIndex)
+        listOfAllWallets.insert(wallet, at: newIndex)
+    }
+    
 }

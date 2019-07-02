@@ -14,6 +14,9 @@ class TransactionsViewController: UITableViewController {
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     @IBOutlet weak var walletNameLabel: UILabel!
+
+    
+    
     
     
     
@@ -31,8 +34,8 @@ class TransactionsViewController: UITableViewController {
         
         WalletList.list.listOfAllWallets.append(selectedWallet)
         WalletList.list.listOfAllWallets.append(wallet)
-        
         walletNameLabel.text = selectedWallet.name
+       
         
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
@@ -67,9 +70,11 @@ class TransactionsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
         let date = getDateBySectionNumber(indexPath.section)
-        if let transactionsByDate = selectedWallet.allTransactionsGrouped[date] {
-            let item = transactionsByDate[indexPath.row]
-            configureLabels(for: cell, with: item)
+        if let cell = cell as? TransactionCell {
+            if let transactionsByDate = selectedWallet.allTransactionsGrouped[date] {
+                let item = transactionsByDate[indexPath.row]
+                configureLabels(for: cell, with: item)
+            }
         }
         return cell
     }

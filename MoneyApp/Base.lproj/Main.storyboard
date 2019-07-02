@@ -153,10 +153,10 @@
             </objects>
             <point key="canvasLocation" x="4281" y="-792"/>
         </scene>
-        <!--Wallet List View Controller-->
+        <!--All Wallets-->
         <scene sceneID="hMX-bu-xgz">
             <objects>
-                <tableViewController id="p37-N6-nJT" customClass="WalletListViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="All Wallets" id="p37-N6-nJT" customClass="WalletListViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ajU-ZA-H1M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -316,7 +316,7 @@
                             <outlet property="delegate" destination="afg-Zf-zmN" id="evz-f6-aHB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Money App" id="rDu-KS-5ZQ">
+                    <navigationItem key="navigationItem" title="Transactions" id="rDu-KS-5ZQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Kx-Yl-1EJ">
                             <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
