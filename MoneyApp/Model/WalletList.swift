@@ -11,6 +11,7 @@ import Foundation
 class WalletList{
     static let list = WalletList()
     var listOfAllWallets = [Wallet]()
+    var selectedWalletIndex = 0
     
     //Initializer access level change now
     private init(){}
@@ -22,11 +23,20 @@ class WalletList{
     
     func removeWallet (with index: Int) {
         listOfAllWallets.remove(at: index)
+        print (listOfAllWallets.count)
     }
     
     func moveWallet (from currentIndex: Int, to newIndex: Int) {
         let wallet = listOfAllWallets.remove(at: currentIndex)
         listOfAllWallets.insert(wallet, at: newIndex)
+    }
+    
+    func getSelectedWallet() -> Wallet? {
+        if listOfAllWallets.isEmpty {
+          return nil
+        } else {
+       return listOfAllWallets[selectedWalletIndex]
+        }
     }
     
 }

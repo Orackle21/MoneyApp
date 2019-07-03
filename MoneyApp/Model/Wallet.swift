@@ -8,7 +8,16 @@
 
 import Foundation
 
-class Wallet {
+class Wallet: Equatable {
+    static func == (lhs: Wallet, rhs: Wallet) -> Bool {
+        if lhs.name == rhs.name && lhs.balance == rhs.balance {
+           // ADD CURRENCY
+            return true
+        } else {
+            return false
+        }
+    }
+    
     
     var name = ""
     lazy var balance = calculateBalance()

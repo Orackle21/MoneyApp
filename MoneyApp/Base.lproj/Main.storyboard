@@ -316,7 +316,7 @@
                             <outlet property="delegate" destination="afg-Zf-zmN" id="evz-f6-aHB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Transactions" id="rDu-KS-5ZQ">
+                    <navigationItem key="navigationItem" title="Transactions" largeTitleDisplayMode="always" id="rDu-KS-5ZQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Kx-Yl-1EJ">
                             <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -478,7 +478,7 @@
                             <outlet property="delegate" destination="d7J-W1-892" id="8Zk-tm-BHv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add New Transaction" largeTitleDisplayMode="never" id="Hhg-8Z-kk7">
+                    <navigationItem key="navigationItem" title="Add New Transaction" largeTitleDisplayMode="always" id="Hhg-8Z-kk7">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="bgd-QI-afG">
                             <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -535,8 +535,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f0H-t7-9Jj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xe2-Rc-ork">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="xe2-Rc-ork">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

@@ -29,10 +29,10 @@ class WalletDetailViewController: UITableViewController {
     @IBAction func saveAction(_ sender: Any) {
         
         guard let name = walletName.text,
-            let balance = Int (walletBalance.text ?? "0"),
-            let currency = walletCurrency else {
-                return
-        }
+              let balance = Int (walletBalance.text ?? "0"),
+              let currency = walletCurrency else {
+                  return
+              }
         
         WalletList.list.addNewWallet(name: name, balance: balance, currency: currency)
         navigationController?.popViewController(animated: true)
@@ -43,7 +43,6 @@ class WalletDetailViewController: UITableViewController {
             walletCurrency = currencyList.selectedCurrency
             currencyLabel.text = walletCurrency?.currencyName
         }
-        // Use data from the view controller which initiated the unwind segue
     }
     
 /*
