@@ -155,10 +155,15 @@ class TransactionsViewController: UITableViewController {
     // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
         if let transactionCell = cell as? TransactionCell {
-            transactionCell.categoryLabel.text = item.category.rawValue
+            transactionCell.categoryLabel.text = item.category.name
             transactionCell.nameLabel.text = item.name
             transactionCell.amountLabel.text = String(item.amount)
             transactionCell.dateLabel.text = dateFormatter.string(from: item.date)
+            
+            if let icon = transactionCell.categoryIcon as? IconView {
+                icon.setGradeintForCategory(category: item.category)
+            }
+           
         }
     }
     

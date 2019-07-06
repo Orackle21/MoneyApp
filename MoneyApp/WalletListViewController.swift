@@ -39,7 +39,12 @@ class WalletListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
-        cell.textLabel?.text = WalletList.list.listOfAllWallets[indexPath.row].name
+        
+        if let cell = cell as? WalletCell {
+            cell.textLabel?.text = WalletList.list.listOfAllWallets[indexPath.row].name
+            cell.walletAmountLabel.text = String( WalletList.list.listOfAllWallets[indexPath.row].balance)
+        }
+        
         return cell
     }
     

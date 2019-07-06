@@ -20,24 +20,29 @@ class Wallet: Equatable {
     
     
     var name = ""
-    lazy var balance = calculateBalance()
+    var balance = 0
     var currency: Currency?
     
    
-    var allTransactionsGrouped = [Date: [Transaction]]()
+    var allTransactionsGrouped = [Date: [Transaction]]() {
+        didSet {
+            calculateBalance()
+        }
+    }
     var transactionDates = [Date]()
     
     init(name: String, balance: Int, currency: Currency) {
         
         self.name = name
-        self.balance = balance
+       // self.balance = balance
+      //  calculateBalance()
         self.currency = currency
         
         
         
-        let transactionTest0 = Transaction(name: "Burger", amount: 55, category: .Food, date: getRandomDate())
-        let transactionTest1 = Transaction(name: "Internet", amount: 115, category: .Internet, date: getRandomDate())
-        let transactionTest2 = Transaction(name: "Electricity", amount: 125, category: .Utilities, date: getRandomDate())
+        let transactionTest0 = Transaction(name: "Burger", amount: 55, category: CategoryList.list.listOfAllCategories[0], date: getRandomDate())
+        let transactionTest1 = Transaction(name: "Internet", amount: 115, category: CategoryList.list.listOfAllCategories[1], date: getRandomDate())
+        let transactionTest2 = Transaction(name: "Electricity", amount: 125, category: CategoryList.list.listOfAllCategories[2], date: getRandomDate())
         
         addToAllTransactions(transaction: transactionTest0)
         addToAllTransactions(transaction: transactionTest1)
@@ -93,15 +98,14 @@ class Wallet: Equatable {
     }
     
     // Calculates balance for wallet based on its transactions
-    func calculateBalance () -> Int {
-        var balance = 0
+    func calculateBalance () {
+        balance = 0
         for key in allTransactionsGrouped.keys {
-            guard let arrayOfTransactions = allTransactionsGrouped[key] else { return 0 }
+            guard let arrayOfTransactions = allTransactionsGrouped[key] else { return }
             for transaction in arrayOfTransactions {
                 balance += transaction.amount
             }
         }
-        return balance
     }
     
     //    func moveTransaction (transaction: Transaction) {

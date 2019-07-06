@@ -11,6 +11,7 @@ import UIKit
 class CategoryChooserViewController: UITableViewController {
 
     var selectedCategory: Category?
+    let categoryList = CategoryList.list.listOfAllCategories
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +29,14 @@ class CategoryChooserViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Category.allCases.count
+        return categoryList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
-        cell.textLabel?.text = Category.allCases[indexPath.row].rawValue
+        cell.textLabel?.text = categoryList[indexPath.row].name
 
         
 
@@ -43,7 +44,7 @@ class CategoryChooserViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedCategory = Category.allCases[indexPath.row]
+        selectedCategory = categoryList[indexPath.row]
         return indexPath
     }
     

@@ -173,14 +173,31 @@
                             </connections>
                         </button>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="walletCell" id="eXx-Fi-IAN">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="walletCell" id="eXx-Fi-IAN" customClass="WalletCell" customModule="MoneyApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eXx-Fi-IAN" id="3Md-2j-Wnh">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cs-Su-ZNU">
+                                            <rect key="frame" x="264" y="11" width="101" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="101" id="qdn-OX-CXL"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="1Cs-Su-ZNU" secondAttribute="trailing" constant="3" id="CVC-Lr-vyb"/>
+                                        <constraint firstItem="1Cs-Su-ZNU" firstAttribute="top" secondItem="3Md-2j-Wnh" secondAttribute="topMargin" id="Mo0-mI-8YU"/>
+                                        <constraint firstItem="1Cs-Su-ZNU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3Md-2j-Wnh" secondAttribute="leading" constant="20" symbolic="YES" id="nIi-WG-pjp"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="walletAmountLabel" destination="1Cs-Su-ZNU" id="PMO-L9-jo4"/>
                                     <segue destination="dpa-II-cgz" kind="unwind" unwindAction="unwindBack:" id="KyY-ix-BRY"/>
                                 </connections>
                             </tableViewCell>
@@ -194,7 +211,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="My5-5t-cJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dpa-II-cgz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2199" y="-791"/>
+            <point key="canvasLocation" x="2198.5507246376815" y="-791.51785714285711"/>
         </scene>
         <!--Money App-->
         <scene sceneID="4YC-yk-S3T">
@@ -267,36 +284,37 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cD2-Gv-1Ox">
-                                            <rect key="frame" x="20" y="29" width="30" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkF-CE-fwW">
                                             <rect key="frame" x="71" y="58" width="171" height="21"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cD2-Gv-1Ox" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="25" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="cD2-Gv-1Ox" secondAttribute="height" multiplier="1:1" id="cQq-IA-ilD"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="EqW-nj-C0t" firstAttribute="leading" secondItem="cD2-Gv-1Ox" secondAttribute="trailing" constant="11" id="1hE-DD-3dG"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="EqW-nj-C0t" secondAttribute="bottom" constant="26" id="1zP-HE-zya"/>
                                         <constraint firstItem="iJa-LC-vsB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QK4-gg-t6T" secondAttribute="trailing" constant="8" symbolic="YES" id="4gB-gf-4yv"/>
                                         <constraint firstItem="EqW-nj-C0t" firstAttribute="top" secondItem="xab-Eg-BcK" secondAttribute="topMargin" constant="-26" id="6Y3-Ge-Omn"/>
                                         <constraint firstItem="AkF-CE-fwW" firstAttribute="top" secondItem="xab-Eg-BcK" secondAttribute="top" constant="58" id="EsL-C4-S0f"/>
                                         <constraint firstItem="EqW-nj-C0t" firstAttribute="leading" secondItem="xab-Eg-BcK" secondAttribute="leadingMargin" constant="51" id="GIh-hr-Set"/>
-                                        <constraint firstItem="cD2-Gv-1Ox" firstAttribute="top" secondItem="xab-Eg-BcK" secondAttribute="topMargin" constant="18" id="HBp-53-XIp"/>
                                         <constraint firstItem="QK4-gg-t6T" firstAttribute="top" secondItem="xab-Eg-BcK" secondAttribute="topMargin" constant="-6" id="HIE-Em-fEa"/>
+                                        <constraint firstItem="cD2-Gv-1Ox" firstAttribute="leading" secondItem="xab-Eg-BcK" secondAttribute="leadingMargin" id="HRi-7d-F5I"/>
                                         <constraint firstItem="iJa-LC-vsB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EqW-nj-C0t" secondAttribute="trailing" constant="8" symbolic="YES" id="Klw-od-JhG"/>
                                         <constraint firstItem="AkF-CE-fwW" firstAttribute="bottom" secondItem="xab-Eg-BcK" secondAttribute="bottomMargin" id="Mos-nV-9Bf"/>
-                                        <constraint firstItem="EqW-nj-C0t" firstAttribute="leading" secondItem="cD2-Gv-1Ox" secondAttribute="trailing" constant="21" id="Od1-AP-yjK"/>
                                         <constraint firstItem="QK4-gg-t6T" firstAttribute="leading" secondItem="EqW-nj-C0t" secondAttribute="leading" id="Rhn-WE-v9E"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="QK4-gg-t6T" secondAttribute="bottom" constant="13" id="g3h-tX-M0t"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="iJa-LC-vsB" secondAttribute="bottom" constant="19" id="hny-SO-lJp"/>
+                                        <constraint firstItem="cD2-Gv-1Ox" firstAttribute="centerY" secondItem="xab-Eg-BcK" secondAttribute="centerY" id="pkY-Jv-xFa"/>
                                         <constraint firstItem="AkF-CE-fwW" firstAttribute="trailing" secondItem="EqW-nj-C0t" secondAttribute="trailing" id="poS-V3-GiE"/>
                                         <constraint firstItem="iJa-LC-vsB" firstAttribute="trailing" secondItem="xab-Eg-BcK" secondAttribute="trailingMargin" id="qEE-NG-4mk"/>
                                         <constraint firstItem="iJa-LC-vsB" firstAttribute="top" secondItem="xab-Eg-BcK" secondAttribute="topMargin" constant="-19" id="vqT-dI-3c6"/>
-                                        <constraint firstItem="cD2-Gv-1Ox" firstAttribute="centerY" secondItem="iJa-LC-vsB" secondAttribute="centerY" constant="18" id="vuY-ok-d2u"/>
-                                        <constraint firstItem="cD2-Gv-1Ox" firstAttribute="leading" secondItem="xab-Eg-BcK" secondAttribute="leadingMargin" id="x3r-g3-4SD"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="EqW-nj-C0t" secondAttribute="trailing" constant="152" id="xEx-w0-7y4"/>
                                         <constraint firstItem="AkF-CE-fwW" firstAttribute="leading" secondItem="QK4-gg-t6T" secondAttribute="leading" id="y96-3J-o84"/>
                                     </constraints>

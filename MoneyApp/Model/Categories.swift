@@ -7,10 +7,21 @@
 //
 
 import Foundation
+import UIKit
 
-enum Category: String, CaseIterable {
-        
-        case Food, Transportation, Utilities, Internet
+class Category {
+    
+    let name: String?
+    let iconGradients: [CGColor]?
+    let isSubcategory: Bool?
+   // let subcategoryOf: Category?
+    
+    init(name: String, gradients: [CGColor], isSubcategory: Bool) {
+        self.name = name
+        self.iconGradients = gradients
+        self.isSubcategory = isSubcategory
+    }
+    
     
     }
     

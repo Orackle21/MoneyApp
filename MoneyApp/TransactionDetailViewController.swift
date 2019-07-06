@@ -24,7 +24,7 @@ class TransactionDetailViewController: UITableViewController {
     var category: Category? {
         didSet {
             if let category = category {
-                categoryNameLabel.text = category.rawValue
+                categoryNameLabel.text = category.name
             }
         }
     }
@@ -52,7 +52,8 @@ class TransactionDetailViewController: UITableViewController {
             item.name = nameTextField.text ?? " "
             item.amount = Int(amountTextField.text ?? "0") ?? 0
             tryToChangeDate(transaction: item)
-            item.category = category ?? Category.Food
+            item.category = category ?? CategoryList.list.listOfAllCategories[0]
+            wallet?.calculateBalance()
             delegate?.transactionDetailViewController(self, didFinishEditing: item)
         }
         else if transactionToEdit == nil {
@@ -63,11 +64,12 @@ class TransactionDetailViewController: UITableViewController {
                 let date = calendar.date(from: components)
                 
                 let transaction = wallet.newTransaction(
-                    in: category ?? .Food,
+                    in: category ?? CategoryList.list.listOfAllCategories[0],
                     name: nameTextField.text ?? "",
                     amount: Int(amountTextField.text!) ?? 0,
                     date: date ?? Date()
                 )
+                
                 delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }

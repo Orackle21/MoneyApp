@@ -13,11 +13,12 @@ class WalletList{
     var listOfAllWallets = [Wallet]()
     var selectedWalletIndex = 0
     
-    //Initializer access level change now
+    
     private init(){}
     
     func addNewWallet(name: String, balance: Int, currency: Currency){
         let wallet = Wallet(name: name, balance: balance, currency: currency)
+        wallet.calculateBalance()
         listOfAllWallets.append(wallet)
     }
     
