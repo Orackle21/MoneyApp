@@ -17,7 +17,7 @@ class CurrencyTableViewController: UITableViewController {
     // MARK: - Table view data source
     let currency = Currency()
     var selectedCurrency: Currency?
-    lazy var allCurrencies = currency.loadEveryCountryWithCurrency()
+    lazy var allCurrencies = CurrencyList.shared.everyCurrencyList
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1

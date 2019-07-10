@@ -20,10 +20,10 @@ class TransactionsViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
-        tableView.estimatedRowHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.estimatedSectionHeaderHeight = 0
-        
+//        tableView.estimatedRowHeight = 0
+//        tableView.estimatedSectionFooterHeight = 0
+//        tableView.estimatedSectionHeaderHeight = 0
+      
         selectedWallet = WalletList.list.getSelectedWallet()
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
@@ -87,6 +87,10 @@ class TransactionsViewController: UITableViewController {
             return numberOfTransactionsByDate ?? 0
         }
     }
+
+    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 49
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
@@ -117,7 +121,7 @@ class TransactionsViewController: UITableViewController {
         
         if editingStyle == .delete {
             
-            self.tableView.beginUpdates()
+            tableView.beginUpdates()
             
             guard let wallet = selectedWallet else {
                 return
@@ -137,9 +141,9 @@ class TransactionsViewController: UITableViewController {
                 selectedWallet!.transactionDates.remove(at: selectedWallet!.transactionDates.firstIndex(of: dateBySection)!)
                 tableView.deleteSections([indexPath.section], with: .fade)
             } else {
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            self.tableView.endUpdates()
+            tableView.endUpdates()
             
         }
     }

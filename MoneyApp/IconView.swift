@@ -11,17 +11,21 @@ import UIKit
 class IconView: UIView {
 
     var categoryGradient: [CGColor]?
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(ovalIn: self.bounds)
         let gradient = CAGradientLayer()
         gradient.frame = path.bounds
-        
+        path.lineWidth = 0
         gradient.colors = categoryGradient
         let shapeMask = CAShapeLayer()
         shapeMask.path = path.cgPath
         gradient.mask = shapeMask
+       
+//        shapeMask.shadowOffset = .zero
+//        shapeMask.shadowRadius = 5
+//        shapeMask.shadowOpacity = 0.5
+//        shapeMask.shadowPath = path.cgPath
+        
         self.layer.addSublayer(gradient)
         
     }

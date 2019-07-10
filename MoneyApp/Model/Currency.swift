@@ -16,8 +16,17 @@ class Currency {
     var currencyName:String?
     var currencySymbol:String?
     
+    
+}
+
+class CurrencyList {
+    
+    static let shared = CurrencyList()
+    
+    lazy var everyCurrencyList = loadEveryCountryWithCurrency()
+    
     func loadEveryCountryWithCurrency() -> [Currency] {
-        var result:[Currency]=[]
+        var result =  [Currency]()
         let currencies = Locale.commonISOCurrencyCodes
         for currencyCode in currencies {
             
@@ -41,6 +50,8 @@ class Currency {
         }
         return result
     }
+    
+    
 }
 
 extension Currency:CustomStringConvertible {
