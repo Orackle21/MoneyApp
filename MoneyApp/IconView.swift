@@ -9,32 +9,68 @@
 import UIKit
 
 class IconView: UIView {
-
-    var categoryGradient: [CGColor]?
+    
+  
+    
+    var categoryGradient: [CGColor]? {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
     override func draw(_ rect: CGRect) {
-        let path = UIBezierPath(ovalIn: self.bounds)
-        let gradient = CAGradientLayer()
-        gradient.frame = path.bounds
-        path.lineWidth = 0
-        gradient.colors = categoryGradient
-        let shapeMask = CAShapeLayer()
-        shapeMask.path = path.cgPath
-        gradient.mask = shapeMask
        
-//        shapeMask.shadowOffset = .zero
-//        shapeMask.shadowRadius = 5
-//        shapeMask.shadowOpacity = 0.5
-//        shapeMask.shadowPath = path.cgPath
         
-        self.layer.addSublayer(gradient)
+        
+        // 2
+        let context = UIGraphicsGetCurrentContext()!
+      //   context.saveGState()
+        
+        let path = UIBezierPath(ovalIn: bounds)
+        
+        
+       
+        let colors = categoryGradient
+        
+        // 3
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        
+        // 4
+        let colorLocations: [CGFloat] = [0.0, 1.0]
+        path.addClip()
+        // 5
+        let gradient = CGGradient(colorsSpace: colorSpace,
+                                  colors: colors! as CFArray,
+                                  locations: colorLocations)!
+        
+        // 6
+        let startPoint = CGPoint.zero
+        let endPoint = CGPoint(x: 0, y: bounds.height)
+        context.drawLinearGradient(gradient,
+                                   start: startPoint,
+                                   end: endPoint,
+                                   options: [])
+     //  context.restoreGState()
+       
+        
+        
+        let image = UIImage(imageLiteralResourceName: "foodIcon")
+        let imageView = UIImageView(image: image)
+        imageView.frame = CGRect(x: bounds.minX + 7 , y: bounds.minY + 7 , width: 26, height: 26)
+        imageView.contentMode = UIView.ContentMode.scaleToFill
+        self.addSubview(imageView)
         
     }
+    
+    
     
     func setGradeintForCategory(category: Category) {
         if let gradient = category.iconGradients {
             categoryGradient = gradient
+            backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         }
         
     }
-
+    
+    
 }
+

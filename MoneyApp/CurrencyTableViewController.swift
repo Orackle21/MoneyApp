@@ -15,7 +15,7 @@ class CurrencyTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    let currency = Currency()
+   // let currency = Currency()
     var selectedCurrency: Currency?
     lazy var allCurrencies = CurrencyList.shared.everyCurrencyList
     
@@ -35,9 +35,17 @@ class CurrencyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath)
-
-        cell.textLabel?.text = allCurrencies[indexPath.row].currencyName
-
+        
+        if let cell = cell as? CurrencyListCell {
+            let currency = allCurrencies[indexPath.row]
+            
+            cell.nameLabel.text = currency.currencyName
+            cell.codeLabel.text = currency.countryCode
+            cell.symbolLabel.text = currency.currencySymbol
+            
+        }
+        
+        
         return cell
     }
     

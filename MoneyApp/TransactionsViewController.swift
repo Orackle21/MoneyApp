@@ -27,6 +27,10 @@ class TransactionsViewController: UITableViewController {
         selectedWallet = WalletList.list.getSelectedWallet()
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
+        
+        WalletList.list.addNewWallet(name: "wallet"
+            , balance: 500, currency: Currency())
+        selectedWallet =  WalletList.list.listOfAllWallets[0]
         //tableView.beginUpdates()
       //  tableView.endUpdates()
     }
@@ -164,8 +168,10 @@ class TransactionsViewController: UITableViewController {
             transactionCell.amountLabel.text = String(item.amount)
             transactionCell.dateLabel.text = dateFormatter.string(from: item.date)
             
+            
             if let icon = transactionCell.categoryIcon as? IconView {
                 icon.setGradeintForCategory(category: item.category)
+                icon.setNeedsDisplay()
             }
            
         }
