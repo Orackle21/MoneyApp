@@ -14,7 +14,7 @@ class Transaction: NSObject {
     var amount: Int
     var category: Category
     var date: Date
-    
+    var currency = Currency()
     
     init (name: String, amount: Int, category: Category, date: Date) {
         self.amount = amount

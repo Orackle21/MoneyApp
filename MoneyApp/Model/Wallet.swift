@@ -21,7 +21,7 @@ class Wallet: Equatable {
     
     var name = ""
     var balance = 0
-    var currency: Currency?
+    var currency: Currency
     
    
     var allTransactionsGrouped = [Date: [Transaction]]() {
@@ -34,15 +34,16 @@ class Wallet: Equatable {
     init(name: String, balance: Int, currency: Currency) {
         
         self.name = name
-       // self.balance = balance
-      //  calculateBalance()
         self.currency = currency
-        
-        
         
         let transactionTest0 = Transaction(name: "Burger", amount: 55, category: CategoryList.list.listOfAllCategories[0], date: getRandomDate())
         let transactionTest1 = Transaction(name: "Internet", amount: 115, category: CategoryList.list.listOfAllCategories[1], date: getRandomDate())
         let transactionTest2 = Transaction(name: "Electricity", amount: 125, category: CategoryList.list.listOfAllCategories[2], date: getRandomDate())
+        
+        transactionTest0.currency = self.currency
+        print(transactionTest0.currency.currencyName!)
+        transactionTest1.currency = self.currency
+        transactionTest2.currency = self.currency
         
         addToAllTransactions(transaction: transactionTest0)
         addToAllTransactions(transaction: transactionTest1)
@@ -66,7 +67,7 @@ class Wallet: Equatable {
         }
     }
     
-    // Changes transaction date and moves it int oappropriate array by date. If old array container is empty deletes it and deletes its date from the array.
+    // Changes transaction date and moves it into an appropriate array by date. If old array container is empty - deletes it and deletes its date from the array.
     func changeDate (transaction: Transaction, newDate: Date) {
         if let transactionArrayByDate = allTransactionsGrouped[transaction.date] {
             if let index = transactionArrayByDate.firstIndex(of: transaction) {
@@ -92,6 +93,7 @@ class Wallet: Equatable {
     // Creates new transaction, calls "addToAllTransactions", returns said transaction.
     func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
         let transaction = Transaction(name: name, amount: amount, category: category, date: date)
+        transaction.currency = self.currency
         addToAllTransactions(transaction: transaction)
         print(transaction.date)
         return transaction

@@ -20,19 +20,15 @@ class TransactionsViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
-//        tableView.estimatedRowHeight = 0
-//        tableView.estimatedSectionFooterHeight = 0
-//        tableView.estimatedSectionHeaderHeight = 0
-      
-        selectedWallet = WalletList.list.getSelectedWallet()
+
+      //  selectedWallet = WalletList.list.getSelectedWallet()
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
         
         WalletList.list.addNewWallet(name: "wallet"
-            , balance: 500, currency: Currency())
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
         selectedWallet =  WalletList.list.listOfAllWallets[0]
-        //tableView.beginUpdates()
-      //  tableView.endUpdates()
+     
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +54,7 @@ class TransactionsViewController: UITableViewController {
         guard let wallet = selectedWallet else {
             return 0
         }
-        // Shows a message if there a no sections
+        // Shows a message if there are no sections
         if wallet.allTransactionsGrouped.keys.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions", message: "Add some transactions, please")
         } else {
@@ -114,7 +110,7 @@ class TransactionsViewController: UITableViewController {
     
     
     
-    // Sets header title for section using "sectionStringFormatter"
+    // Sets header title for section using "sectionDateFormatter"
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionDate = getDateBySectionNumber(section)
         return sectionDateFormatter.string(from: sectionDate)
@@ -126,7 +122,6 @@ class TransactionsViewController: UITableViewController {
         if editingStyle == .delete {
             
             tableView.beginUpdates()
-            
             guard let wallet = selectedWallet else {
                 return
             }
@@ -135,10 +130,10 @@ class TransactionsViewController: UITableViewController {
             
             // Remove transaction by "dateBySection" with index
             
-            self.selectedWallet!.removeTransaction(by: dateBySection, with: indexPath.row)
+            selectedWallet!.removeTransaction(by: dateBySection, with: indexPath.row)
             
-            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates to sync model and view.
-            // Else just delete the row from tableView
+            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates
+            // Else just delete the row
             
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
@@ -162,14 +157,22 @@ class TransactionsViewController: UITableViewController {
     
     // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
-        if let transactionCell = cell as? TransactionCell {
-            transactionCell.categoryLabel.text = item.category.name
-            transactionCell.nameLabel.text = item.name
-            transactionCell.amountLabel.text = String(item.amount)
-            transactionCell.dateLabel.text = dateFormatter.string(from: item.date)
+        if let cell = cell as? TransactionCell {
+            cell.categoryLabel.text = item.category.name
+            cell.nameLabel.text = item.name
+            
+            if item.amount > 0 {
+               cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
+                cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            } else {
+                cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
+                cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1)
+            }
+            
+            cell.dateLabel.text = dateFormatter.string(from: item.date)
             
             
-            if let icon = transactionCell.categoryIcon as? IconView {
+            if let icon = cell.categoryIcon as? IconView {
                 icon.setGradeintForCategory(category: item.category)
                 icon.setNeedsDisplay()
             }

@@ -69,7 +69,6 @@ class TransactionDetailViewController: UITableViewController {
                     amount: Int(amountTextField.text!) ?? 0,
                     date: date ?? Date()
                 )
-                
                 delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }
