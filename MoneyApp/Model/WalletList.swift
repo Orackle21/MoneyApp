@@ -9,7 +9,7 @@
 import Foundation
 
 class WalletList{
-    static let list = WalletList()
+    static let shared = WalletList()
     var listOfAllWallets = [Wallet]()
     var selectedWalletIndex = 0
     

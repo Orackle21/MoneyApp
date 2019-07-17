@@ -14,28 +14,28 @@ class TransactionsViewController: UITableViewController {
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     @IBOutlet weak var walletNameLabel: UILabel!
-
+     private let reuseIdentifier = ""
+    @IBOutlet weak var walletBarCollection: UICollectionView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
 
-      //  selectedWallet = WalletList.list.getSelectedWallet()
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
         
-        WalletList.list.addNewWallet(name: "wallet"
+        WalletList.shared.addNewWallet(name: "wallet"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
-        selectedWallet =  WalletList.list.listOfAllWallets[0]
+        selectedWallet =  WalletList.shared.listOfAllWallets[0]
      
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        selectedWallet = WalletList.list.getSelectedWallet()
-        
+        walletBarCollection.reloadData()
+        selectedWallet = WalletList.shared.getSelectedWallet()
         if selectedWallet == nil {
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
@@ -44,7 +44,7 @@ class TransactionsViewController: UITableViewController {
         
         else {
             tableView.restore()
-            walletNameLabel.text = selectedWallet?.name
+         //   walletNameLabel.text = selectedWallet?.name
             tableView.reloadData()
         }
         
@@ -213,7 +213,6 @@ class TransactionsViewController: UITableViewController {
         if let walletList = unwindSegue.source as? WalletListViewController {
             if let wallet = walletList.selectedWallet {
                 selectedWallet = wallet
-                walletNameLabel.text = selectedWallet?.name
                 tableView.reloadData()
             }
         }
@@ -228,28 +227,8 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
     }
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishAdding item: Transaction) {
-        
         navigationController?.popViewController(animated: true)
         tableView.reloadData()
-        
-        //        let itemDate = item.date
-        //        if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
-        //            let indexPath = IndexPath(row: 0, section: sectionByDate)
-        //            let indexPaths = [indexPath]
-        //
-        //            tableView.insertRows(at: indexPaths, with: .automatic)
-        //        } else {
-        //            myWallet.transactionDates.append(itemDate)
-        //            myWallet.transactionDates.sort()
-        //            if  let sectionByDate = myWallet.transactionDates.firstIndex(of: itemDate) {
-        //                tableView.insertSections([sectionByDate], with: .automatic)
-        //                let indexPath = IndexPath(row: 0, section: sectionByDate)
-        //                let indexPaths = [indexPath]
-        //
-        //                tableView.insertRows(at: indexPaths, with: .automatic)
-        //            }
-        //        }
-        
     }
     
     func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction) {
@@ -257,6 +236,36 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
         tableView.reloadData()
     }
 }
+
+extension TransactionsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        selectedWallet = WalletList.shared.listOfAllWallets[indexPath.row]
+        self.tableView.reloadData()
+    }
+}
+
+extension TransactionsViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return WalletList.shared.listOfAllWallets.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "walletBarCollectionCell", for: indexPath)
+        
+        
+        if let cell = cell as? WalletBarViewCell {
+            cell.walletName.text = WalletList.shared.listOfAllWallets[indexPath.row].name
+        }
+        return cell
+    }
+}
+
 
 extension UITableView {
     func setEmptyView(title: String, message: String) {

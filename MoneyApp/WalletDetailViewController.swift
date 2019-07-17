@@ -34,7 +34,7 @@ class WalletDetailViewController: UITableViewController {
                   return
               }
         
-        WalletList.list.addNewWallet(name: name, balance: balance, currency: currency)
+        WalletList.shared.addNewWallet(name: name, balance: balance, currency: currency)
         navigationController?.popViewController(animated: true)
     }
     

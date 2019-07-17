@@ -258,42 +258,84 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="center" id="W0d-We-oSa">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VY5-Rs-O1y">
-                                    <rect key="frame" x="18" y="12" width="96.5" height="20"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLd-Lg-Udy">
-                                    <rect key="frame" x="277" y="7" width="129" height="30"/>
-                                    <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="C15-gK-Za5"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" title="All Wallets">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3aL-kS-G12">
+                                    <rect key="frame" x="15" y="0.0" width="353" height="88"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LJv-o6-AXh">
+                                        <size key="itemSize" width="100" height="50"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <cells>
+                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="walletBarCollectionCell" id="NYC-vb-6Q8" customClass="WalletBarViewCell" customModule="MoneyApp" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="19" width="100" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6v-OV-FxP">
+                                                        <rect key="frame" x="28.5" y="16" width="43" height="18"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                    </label>
+                                                </subviews>
+                                            </view>
+                                            <color key="backgroundColor" red="0.57390427489999996" green="0.43835377780000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="m6v-OV-FxP" firstAttribute="centerY" secondItem="NYC-vb-6Q8" secondAttribute="centerY" id="FBm-A2-m5H"/>
+                                                <constraint firstItem="m6v-OV-FxP" firstAttribute="centerX" secondItem="NYC-vb-6Q8" secondAttribute="centerX" id="Lzv-wJ-gQY"/>
+                                            </constraints>
+                                            <connections>
+                                                <outlet property="walletName" destination="m6v-OV-FxP" id="8It-rh-zD7"/>
+                                            </connections>
+                                        </collectionViewCell>
+                                    </cells>
                                     <connections>
-                                        <segue destination="p37-N6-nJT" kind="show" id="KQi-70-BLb"/>
+                                        <outlet property="dataSource" destination="afg-Zf-zmN" id="KVL-QN-5wN"/>
+                                        <outlet property="delegate" destination="afg-Zf-zmN" id="Yo1-ka-pXh"/>
                                     </connections>
-                                </button>
+                                </collectionView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="44B-0O-XYd">
+                                    <rect key="frame" x="376" y="22" width="30" height="53"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iJ-m6-Kg2">
+                                            <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
+                                            <connections>
+                                                <segue destination="v6E-3p-qwK" kind="show" id="iQk-4b-eAL"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLR-yk-eHf">
+                                            <rect key="frame" x="0.0" y="23" width="30" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="ALL"/>
+                                            <connections>
+                                                <segue destination="p37-N6-nJT" kind="show" id="jg1-oH-5C9"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="RLd-Lg-Udy" firstAttribute="leading" secondItem="VY5-Rs-O1y" secondAttribute="trailing" constant="162.5" id="Fb2-fx-DpK"/>
-                                <constraint firstAttribute="trailing" secondItem="RLd-Lg-Udy" secondAttribute="trailing" constant="8" id="GhA-WH-xV2"/>
-                                <constraint firstItem="VY5-Rs-O1y" firstAttribute="leading" secondItem="W0d-We-oSa" secondAttribute="leadingMargin" constant="10" id="Pb3-rb-QhG"/>
-                                <constraint firstItem="RLd-Lg-Udy" firstAttribute="centerY" secondItem="W0d-We-oSa" secondAttribute="centerY" id="hrq-xB-vMH"/>
-                                <constraint firstItem="VY5-Rs-O1y" firstAttribute="centerY" secondItem="W0d-We-oSa" secondAttribute="centerY" id="tCB-85-hgN"/>
+                                <constraint firstAttribute="trailing" secondItem="44B-0O-XYd" secondAttribute="trailing" constant="8" id="Cin-12-2dN"/>
+                                <constraint firstAttribute="bottom" secondItem="3aL-kS-G12" secondAttribute="bottom" id="Dro-kw-M88"/>
+                                <constraint firstItem="3aL-kS-G12" firstAttribute="leading" secondItem="W0d-We-oSa" secondAttribute="leading" constant="15" id="JYX-6u-uma"/>
+                                <constraint firstItem="3aL-kS-G12" firstAttribute="top" secondItem="W0d-We-oSa" secondAttribute="top" id="Jnv-eJ-5dj"/>
+                                <constraint firstAttribute="bottom" secondItem="44B-0O-XYd" secondAttribute="bottom" constant="13" id="cCk-ZO-VHA"/>
+                                <constraint firstItem="44B-0O-XYd" firstAttribute="top" secondItem="W0d-We-oSa" secondAttribute="top" constant="22" id="hzU-Me-VAG"/>
+                                <constraint firstItem="44B-0O-XYd" firstAttribute="leading" secondItem="3aL-kS-G12" secondAttribute="trailing" constant="8" id="i5Z-B3-ivh"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTransaction" rowHeight="74" id="PZN-0g-9gg" customClass="TransactionCell" customModule="MoneyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="89" width="414" height="74"/>
+                                <rect key="frame" x="0.0" y="133" width="414" height="74"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PZN-0g-9gg" id="xab-Eg-BcK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="73.5"/>
@@ -361,10 +403,6 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="afg-Zf-zmN" id="aH6-ho-iPe"/>
-                            <outlet property="delegate" destination="afg-Zf-zmN" id="evz-f6-aHB"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Transactions" largeTitleDisplayMode="always" id="rDu-KS-5ZQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Kx-Yl-1EJ">
@@ -375,7 +413,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="walletNameLabel" destination="VY5-Rs-O1y" id="g6O-0T-bbf"/>
+                        <outlet property="walletBarCollection" destination="3aL-kS-G12" id="Ugp-tl-Q5P"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUr-Ja-3ZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -601,5 +639,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="D3w-xq-tqp"/>
+        <segue reference="iQk-4b-eAL"/>
     </inferredMetricsTieBreakers>
 </document>

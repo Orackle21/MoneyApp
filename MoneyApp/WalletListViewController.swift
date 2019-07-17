@@ -33,7 +33,7 @@ class WalletListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WalletList.list.listOfAllWallets.count
+        return WalletList.shared.listOfAllWallets.count
     }
 
     
@@ -41,23 +41,23 @@ class WalletListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
         
         if let cell = cell as? WalletCell {
-            cell.textLabel?.text = WalletList.list.listOfAllWallets[indexPath.row].name
-            cell.walletAmountLabel.text = String( WalletList.list.listOfAllWallets[indexPath.row].balance)
+            cell.textLabel?.text = WalletList.shared.listOfAllWallets[indexPath.row].name
+            cell.walletAmountLabel.text = String( WalletList.shared.listOfAllWallets[indexPath.row].balance)
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedWallet = WalletList.list.listOfAllWallets[indexPath.row]
-        WalletList.list.selectedWalletIndex = WalletList.list.listOfAllWallets.firstIndex(of: selectedWallet!)!
+        selectedWallet = WalletList.shared.listOfAllWallets[indexPath.row]
+        WalletList.shared.selectedWalletIndex = WalletList.shared.listOfAllWallets.firstIndex(of: selectedWallet!)!
         return indexPath
     }
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            WalletList.list.removeWallet(with: indexPath.row)
+            WalletList.shared.removeWallet(with: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -66,7 +66,7 @@ class WalletListViewController: UITableViewController {
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        WalletList.list.moveWallet(from: fromIndexPath.row, to: to.row)
+        WalletList.shared.moveWallet(from: fromIndexPath.row, to: to.row)
     }
     
 
