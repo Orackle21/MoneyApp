@@ -50,7 +50,8 @@ class WalletListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         selectedWallet = WalletList.shared.listOfAllWallets[indexPath.row]
-        WalletList.shared.selectedWalletIndex = WalletList.shared.listOfAllWallets.firstIndex(of: selectedWallet!)!
+        WalletList.shared.setSelectedWallet(index: WalletList.shared.listOfAllWallets.firstIndex(of: selectedWallet!)!)
+        
         return indexPath
     }
     

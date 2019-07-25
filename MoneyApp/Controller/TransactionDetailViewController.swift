@@ -31,10 +31,11 @@ class TransactionDetailViewController: UITableViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var categoryNameLabel: UILabel!
     
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+
+    @IBOutlet weak var datePicker: UIDatePicker!
     private var datePickerIsCollapsed = true
     private let dateFormatter = DateFormatter()
     private var datePickerDate = Date() {

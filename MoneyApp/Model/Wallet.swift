@@ -7,22 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 class Wallet: Equatable {
-    static func == (lhs: Wallet, rhs: Wallet) -> Bool {
-        if lhs.name == rhs.name && lhs.balance == rhs.balance {
-           // ADD CURRENCY
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    
+  
     var name = ""
     var balance = 0
     var currency: Currency
-    
+    var color = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+    var isSelected = false
    
     var allTransactionsGrouped = [Date: [Transaction]]() {
         didSet {
@@ -110,20 +103,6 @@ class Wallet: Equatable {
         }
     }
     
-    //    func moveTransaction (transaction: Transaction) {
-    //        if var transactionArrayByDate = allTransactionsGrouped[transaction.date] {
-    //            if let index = transactionArrayByDate.firstIndex(of: transaction) {
-    //                let transactionToMove = transactionArrayByDate.remove(at: index)
-    //                addToAllTransactions(transaction: transactionToMove)
-    //            }
-    //            if transactionArrayByDate.isEmpty {
-    //                allTransactionsGrouped.removeValue(forKey: transaction.date)
-    //                transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
-    //            }
-    //        }
-    //    }
-
-    
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
         let randomMonth = Int.random(in: 1...12)
@@ -133,6 +112,15 @@ class Wallet: Equatable {
         let calendar = Calendar.current
         let date = calendar.date(from: randomDate)!
         return date
+    }
+    
+    static func == (lhs: Wallet, rhs: Wallet) -> Bool {
+        if lhs.name == rhs.name && lhs.balance == rhs.balance {
+            // ADD CURRENCY
+            return true
+        } else {
+            return false
+        }
     }
     
 }

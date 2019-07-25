@@ -13,8 +13,7 @@ class TransactionsViewController: UITableViewController {
     var selectedWallet: Wallet?
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
-    @IBOutlet weak var walletNameLabel: UILabel!
-     private let reuseIdentifier = ""
+    let walletList = WalletList.shared
     @IBOutlet weak var walletBarCollection: UICollectionView!
     
     
@@ -22,45 +21,54 @@ class TransactionsViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
-
+         walletBarCollection.remembersLastFocusedIndexPath = true
+        
+        
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
         
-        WalletList.shared.addNewWallet(name: "wallet"
+        walletList.addNewWallet(name: "Wallet"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
-        selectedWallet =  WalletList.shared.listOfAllWallets[0]
-     
+        walletList.setSelectedWallet(index: 0)
+        walletList.addNewWallet(name: "2 Wallet"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
+        walletList.addNewWallet(name: "Credit Card"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
+        walletList.addNewWallet(name: "Credit"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
+        selectedWallet =  walletList.listOfAllWallets[0]
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        selectedWallet = walletList.getSelectedWallet()
+        
+        
         walletBarCollection.reloadData()
-        selectedWallet = WalletList.shared.getSelectedWallet()
+        
         if selectedWallet == nil {
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
-            walletNameLabel.text = " "
         }
-        
+            
         else {
             tableView.restore()
-         //   walletNameLabel.text = selectedWallet?.name
             tableView.reloadData()
         }
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard let wallet = selectedWallet else {
             return 0
         }
+        
         // Shows a message if there are no sections
         if wallet.allTransactionsGrouped.keys.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions", message: "Add some transactions, please")
         } else {
             tableView.restore()
         }
-        
         return wallet.allTransactionsGrouped.keys.count
     }
     
@@ -87,7 +95,7 @@ class TransactionsViewController: UITableViewController {
             return numberOfTransactionsByDate ?? 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 49
     }
@@ -162,7 +170,7 @@ class TransactionsViewController: UITableViewController {
             cell.nameLabel.text = item.name
             
             if item.amount > 0 {
-               cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
+                cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
                 cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
             } else {
                 cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
@@ -176,8 +184,19 @@ class TransactionsViewController: UITableViewController {
                 icon.setGradeintForCategory(category: item.category)
                 icon.setNeedsDisplay()
             }
-           
+            
         }
+        
+    }
+    
+    func configureWalletBarItems (for cell: WalletBarViewCell, with item: Wallet) {
+        
+        if item.isSelected {
+            cell.backgroundColor = item.color
+        } else {
+            cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        }
+        
     }
     
     // Chooses appropriate segue when user taps buttons or cells
@@ -237,12 +256,33 @@ extension TransactionsViewController: TransactionDetailViewControllerDelegate {
     }
 }
 
+
+
+// WalletBar CollectionView Delegate and DataSource methods
+
 extension TransactionsViewController: UICollectionViewDelegate {
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        selectedWallet = WalletList.shared.listOfAllWallets[indexPath.row]
+        walletList.setSelectedWallet(index: indexPath.row)
+        selectedWallet = walletList.getSelectedWallet()
         self.tableView.reloadData()
+        
+//        let cell = walletBarCollection.cellForItem(at: indexPath)
+//        if let cell = cell as? WalletBarViewCell {
+//            configureWalletBarItems(for: cell, with: selectedWallet!)
+//        }
+        walletBarCollection.reloadData()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        let cell = walletBarCollection.cellForItem(at: indexPath)
+//        let wallet = walletList.listOfAllWallets[indexPath.row]
+//        if let cell = cell as? WalletBarViewCell {
+//            configureWalletBarItems(for: cell, with: wallet)
+//        }
+    }
+    
 }
 
 extension TransactionsViewController: UICollectionViewDataSource {
@@ -251,7 +291,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return WalletList.shared.listOfAllWallets.count
+        return walletList.listOfAllWallets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -260,12 +300,15 @@ extension TransactionsViewController: UICollectionViewDataSource {
         
         
         if let cell = cell as? WalletBarViewCell {
-            cell.walletName.text = WalletList.shared.listOfAllWallets[indexPath.row].name
+            cell.walletName.text = walletList.listOfAllWallets[indexPath.row].name
+            let item = walletList.listOfAllWallets[indexPath.row]
+            configureWalletBarItems(for: cell, with: item)
         }
         return cell
     }
 }
 
+// Handling empty wallet and empty transaction list
 
 extension UITableView {
     func setEmptyView(title: String, message: String) {
