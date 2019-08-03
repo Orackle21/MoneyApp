@@ -258,29 +258,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="center" id="W0d-We-oSa">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3aL-kS-G12">
-                                    <rect key="frame" x="15" y="0.0" width="353" height="88"/>
+                                    <rect key="frame" x="15" y="0.0" width="353" height="80"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LJv-o6-AXh">
-                                        <size key="itemSize" width="100" height="50"/>
+                                        <size key="itemSize" width="120" height="60"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </collectionViewFlowLayout>
                                     <cells>
                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="walletBarCollectionCell" id="NYC-vb-6Q8" customClass="WalletBarViewCell" customModule="MoneyApp" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="19" width="100" height="50"/>
+                                            <rect key="frame" x="0.0" y="10" width="120" height="60"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6v-OV-FxP">
-                                                        <rect key="frame" x="28.5" y="16" width="43" height="18"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <rect key="frame" x="10" y="7" width="104" height="18"/>
+                                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <size key="shadowOffset" width="0.0" height="0.0"/>
@@ -289,9 +289,16 @@
                                             </view>
                                             <color key="backgroundColor" red="0.57390427489999996" green="0.43835377780000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstItem="m6v-OV-FxP" firstAttribute="centerY" secondItem="NYC-vb-6Q8" secondAttribute="centerY" id="FBm-A2-m5H"/>
-                                                <constraint firstItem="m6v-OV-FxP" firstAttribute="centerX" secondItem="NYC-vb-6Q8" secondAttribute="centerX" id="Lzv-wJ-gQY"/>
+                                                <constraint firstItem="m6v-OV-FxP" firstAttribute="top" secondItem="NYC-vb-6Q8" secondAttribute="top" constant="7" id="Kyu-bW-Ng0"/>
+                                                <constraint firstAttribute="trailing" secondItem="m6v-OV-FxP" secondAttribute="trailing" constant="6" id="Q7i-4S-UWy"/>
+                                                <constraint firstAttribute="bottom" secondItem="m6v-OV-FxP" secondAttribute="bottom" constant="35" id="RHd-FB-pNj"/>
+                                                <constraint firstItem="m6v-OV-FxP" firstAttribute="leading" secondItem="NYC-vb-6Q8" secondAttribute="leading" constant="10" id="vgp-CR-duA"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <outlet property="walletName" destination="m6v-OV-FxP" id="8It-rh-zD7"/>
                                             </connections>
@@ -303,16 +310,16 @@
                                     </connections>
                                 </collectionView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="44B-0O-XYd">
-                                    <rect key="frame" x="376" y="22" width="30" height="53"/>
+                                    <rect key="frame" x="376" y="22" width="30" height="45"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iJ-m6-Kg2">
+                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iJ-m6-Kg2">
                                             <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
                                             <connections>
                                                 <segue destination="v6E-3p-qwK" kind="show" id="iQk-4b-eAL"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLR-yk-eHf">
-                                            <rect key="frame" x="0.0" y="23" width="30" height="30"/>
+                                            <rect key="frame" x="0.0" y="23" width="30" height="22"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <state key="normal" title="ALL"/>
                                             <connections>
@@ -335,7 +342,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTransaction" rowHeight="74" id="PZN-0g-9gg" customClass="TransactionCell" customModule="MoneyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="133" width="414" height="74"/>
+                                <rect key="frame" x="0.0" y="125" width="414" height="74"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PZN-0g-9gg" id="xab-Eg-BcK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="73.5"/>
@@ -586,10 +593,10 @@
             </objects>
             <point key="canvasLocation" x="2198.5507246376815" y="-50.223214285714285"/>
         </scene>
-        <!--Category Chooser View Controller-->
+        <!--Category List View Controller-->
         <scene sceneID="qCe-lP-Qc3">
             <objects>
-                <tableViewController id="nNX-wg-fJ3" customClass="CategoryChooserViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="nNX-wg-fJ3" customClass="CategoryListViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tPq-Np-EpG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -623,8 +630,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f0H-t7-9Jj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="xe2-Rc-ork">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xe2-Rc-ork">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

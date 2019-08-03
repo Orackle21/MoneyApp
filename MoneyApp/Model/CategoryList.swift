@@ -10,26 +10,25 @@ import Foundation
 import UIKit
 
 class CategoryList{
-    static let list = CategoryList()
+    static let shared = CategoryList()
     var listOfAllCategories = [Category]()
     
     
-    private init(){
-        addNewCategory(name: "Food", iconColors: [UIColor.magenta.cgColor, UIColor.cyan.cgColor], isSubcategory: false)
-        addNewCategory(name: "Utilities", iconColors: [UIColor.red.cgColor, UIColor.blue.cgColor], isSubcategory: false)
-        addNewCategory(name: "Internet", iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor], isSubcategory: false)
+    init(){
+        addNewCategory(name: "Food", iconColors: [UIColor.magenta.cgColor, UIColor.cyan.cgColor], isSubcategory: false, canBeDeleted: true)
+        addNewCategory(name: "Utilities", iconColors: [UIColor.red.cgColor, UIColor.blue.cgColor], isSubcategory: false, canBeDeleted: true)
+        addNewCategory(name: "Transport", iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor], isSubcategory: false, canBeDeleted: true)
+        addNewCategory(name: "Other", iconColors: [UIColor.green.cgColor, UIColor.blue.cgColor], isSubcategory: false, canBeDeleted: false)
     }
     
-    func addNewCategory(name: String, iconColors: [CGColor], isSubcategory: Bool){
-        let category = Category(name: name, gradients: iconColors, isSubcategory: isSubcategory)
-       listOfAllCategories.append(category)
-        
-    
+    func addNewCategory(name: String, iconColors: [CGColor], isSubcategory: Bool, canBeDeleted: Bool){
+        let category = Category(name: name, gradients: iconColors, isSubcategory: isSubcategory, canBeDeleted: canBeDeleted)
+        listOfAllCategories.append(category)
     }
     
-//    func removeCategory (with index: Int) {
-//        listOfAllCategories.remove(at: index)
-//    }
+    func removeCategory (with index: Int) {
+            listOfAllCategories.remove(at: index)
+        }
     
     func moveCategory (from currentIndex: Int, to newIndex: Int) {
         let category = listOfAllCategories.remove(at: currentIndex)

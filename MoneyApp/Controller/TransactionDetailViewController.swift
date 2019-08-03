@@ -21,9 +21,9 @@ class TransactionDetailViewController: UITableViewController {
     weak var delegate: TransactionDetailViewControllerDelegate?
     var transactionToEdit: Transaction?
     var wallet: Wallet?
-    var category: Category? {
+    var selectedCategory: Category? {
         didSet {
-            if let category = category {
+            if let category = selectedCategory {
                 categoryNameLabel.text = category.name
             }
         }
@@ -53,7 +53,7 @@ class TransactionDetailViewController: UITableViewController {
             item.name = nameTextField.text ?? " "
             item.amount = Int(amountTextField.text ?? "0") ?? 0
             tryToChangeDate(transaction: item)
-            item.category = category ?? CategoryList.list.listOfAllCategories[0]
+            item.category = selectedCategory ?? CategoryList.shared.listOfAllCategories[0]
             wallet?.calculateBalance()
             delegate?.transactionDetailViewController(self, didFinishEditing: item)
         }
@@ -65,7 +65,7 @@ class TransactionDetailViewController: UITableViewController {
                 let date = calendar.date(from: components)
                 
                 let transaction = wallet.newTransaction(
-                    in: category ?? CategoryList.list.listOfAllCategories[0],
+                    in: selectedCategory ?? CategoryList.shared.listOfAllCategories[0],
                     name: nameTextField.text ?? "",
                     amount: Int(amountTextField.text!) ?? 0,
                     date: date ?? Date()
@@ -95,7 +95,7 @@ class TransactionDetailViewController: UITableViewController {
         if let item = transactionToEdit {
             nameTextField.text = item.name
             amountTextField.text = String(item.amount)
-            category = item.category
+            selectedCategory = item.category
             datePickerDate = item.date
             datePicker.date = item.date
         }
@@ -162,20 +162,23 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     @IBAction func unwindBack(_ unwindSegue: UIStoryboardSegue) {
-        if let categoryEdit = unwindSegue.source as? CategoryChooserViewController {
-            category = categoryEdit.selectedCategory
+        if let categoryEdit = unwindSegue.source as? CategoryListViewController {
+            selectedCategory = categoryEdit.selectedCategory
         }
        
     }
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? CategoryListViewController {
+            if let category = selectedCategory {
+                destination.selectedCategory = category
+            }
+        }
      }
-     */
+    
     
 }
 

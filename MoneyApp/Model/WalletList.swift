@@ -9,6 +9,7 @@
 import Foundation
 
 class WalletList{
+    
     static let shared = WalletList()
     var listOfAllWallets = [Wallet]()
     private var selectedWalletIndex = 0
@@ -18,7 +19,7 @@ class WalletList{
     }
     
     func addNewWallet(name: String, balance: Int, currency: Currency){
-        let wallet = Wallet(name: name, balance: balance, currency: currency)
+        let wallet = Wallet(name: name, initialBalance: balance, currency: currency)
         wallet.calculateBalance()
         listOfAllWallets.append(wallet)
     }
