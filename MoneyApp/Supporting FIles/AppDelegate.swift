@@ -12,10 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let stateController = StateController()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        if let navigationController = window?.rootViewController as? UINavigationController {
+            if  let initialViewController = navigationController.viewControllers.first as? TransactionsViewController {
+                initialViewController.stateController = stateController
+            }
+        }
+        
+      
+        
         // Override point for customization after application launch.
+        
         return true
     }
 

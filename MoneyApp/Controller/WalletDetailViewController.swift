@@ -22,8 +22,10 @@ class WalletDetailViewController: UITableViewController {
 
     @IBOutlet weak var walletName: UITextField!
     @IBOutlet weak var walletBalance: UITextField!
-    var walletCurrency: Currency?
     @IBOutlet weak var currencyLabel: UILabel!
+    
+    var walletCurrency: Currency?
+    var stateController: StateController!
     
     
     @IBAction func saveAction(_ sender: Any) {
@@ -34,7 +36,7 @@ class WalletDetailViewController: UITableViewController {
                   return
               }
         
-        WalletList.shared.addNewWallet(name: name, balance: balance, currency: currency)
+        stateController.addNewWallet(name: name, balance: balance, currency: currency)
         navigationController?.popViewController(animated: true)
     }
     

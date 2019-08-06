@@ -8,18 +8,21 @@
 
 import Foundation
 
-class Transaction: NSObject {
+class Transaction: NSObject{
     
     var name: String
     var amount: Int
     var category: Category
     var date: Date
-    var currency = Currency()
+    var currency: Currency
     
-    init (name: String, amount: Int, category: Category, date: Date) {
+    init (name: String, amount: Int, category: Category, date: Date, currency: Currency) {
         self.amount = amount
         self.name = name
         self.category = category
         self.date = date
+        self.currency = currency
     }
+    
+    
 }

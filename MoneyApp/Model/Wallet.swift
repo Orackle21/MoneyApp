@@ -33,9 +33,8 @@ class Wallet: Equatable {
         self.categoryList = CategoryList()
         self.color = Colors().getRandomColor()
         
-        let initialBalanceTransaction = Transaction(name: "Balance Update", amount: initialBalance, category: categoryList.listOfAllCategories[3], date: Date())
+        let initialBalanceTransaction = Transaction(name: "Balance Update", amount: initialBalance, category: categoryList.listOfAllCategories[3], date: Date(), currency: self.currency)
         addToAllTransactions(transaction: initialBalanceTransaction)
-        initialBalanceTransaction.currency = self.currency
         
         for _ in 0...100 {
             createRandomTransaction()
@@ -62,6 +61,7 @@ class Wallet: Equatable {
     
     // Changes transaction date and moves it into an appropriate array by date. If the old array container is empty - deletes it and deletes its date from the array.
     func changeDate (transaction: Transaction, newDate: Date) {
+        let transaction = transaction
         if let transactionArrayByDate = allTransactionsGrouped[transaction.date] {
             if let index = transactionArrayByDate.firstIndex(of: transaction) {
                 allTransactionsGrouped[transaction.date]?.remove(at: index)
@@ -69,6 +69,7 @@ class Wallet: Equatable {
                     allTransactionsGrouped.removeValue(forKey: transaction.date)
                     transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
                 }
+                
                 transaction.date = newDate
                 addToAllTransactions(transaction: transaction)
             }
@@ -85,8 +86,7 @@ class Wallet: Equatable {
     
     // Creates new transaction, calls "addToAllTransactions", returns said transaction.
     func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
-        let transaction = Transaction(name: name, amount: amount, category: category, date: date)
-        transaction.currency = self.currency
+        let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
         addToAllTransactions(transaction: transaction)
         print(transaction.date)
         return transaction
@@ -104,11 +104,10 @@ class Wallet: Equatable {
     }
     
     func createRandomTransaction() {
-        let transaction = newTransaction(in: categoryList.listOfAllCategories[Int.random(in: 0...categoryList.listOfAllCategories.count - 1)],
+        let _ = newTransaction(in: categoryList.listOfAllCategories[Int.random(in: 0...categoryList.listOfAllCategories.count - 1)],
                                          name: " ",
                                          amount: getRandomAmount(),
                                          date: getRandomDate())
-        transaction.currency = self.currency
     }
     
     // Gets random Date for Testing Purposes

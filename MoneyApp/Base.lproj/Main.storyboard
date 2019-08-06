@@ -119,7 +119,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Dh-RD-JzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3237.68115942029" y="-792.1875"/>
+            <point key="canvasLocation" x="3238" y="-792"/>
         </scene>
         <!--Choose Currency-->
         <scene sceneID="B2N-vt-52q">
@@ -205,7 +205,7 @@
                                 <color key="titleColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <segue destination="v6E-3p-qwK" kind="show" id="O2D-4w-oZL"/>
+                                <segue destination="v6E-3p-qwK" kind="show" identifier="walletDetail" id="O2D-4w-oZL"/>
                             </connections>
                         </button>
                         <prototypes>
@@ -262,7 +262,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3aL-kS-G12">
-                                    <rect key="frame" x="15" y="0.0" width="353" height="80"/>
+                                    <rect key="frame" x="15" y="0.0" width="361" height="80"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LJv-o6-AXh">
                                         <size key="itemSize" width="120" height="60"/>
@@ -309,35 +309,21 @@
                                         <outlet property="delegate" destination="afg-Zf-zmN" id="Yo1-ka-pXh"/>
                                     </connections>
                                 </collectionView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="44B-0O-XYd">
-                                    <rect key="frame" x="376" y="22" width="30" height="45"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iJ-m6-Kg2">
-                                            <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
-                                            <connections>
-                                                <segue destination="v6E-3p-qwK" kind="show" id="iQk-4b-eAL"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLR-yk-eHf">
-                                            <rect key="frame" x="0.0" y="23" width="30" height="22"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                            <state key="normal" title="ALL"/>
-                                            <connections>
-                                                <segue destination="p37-N6-nJT" kind="show" id="jg1-oH-5C9"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLR-yk-eHf">
+                                    <rect key="frame" x="384" y="29" width="22" height="22"/>
+                                    <connections>
+                                        <segue destination="p37-N6-nJT" kind="show" identifier="allWalletsSegue" id="jg1-oH-5C9"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="44B-0O-XYd" secondAttribute="trailing" constant="8" id="Cin-12-2dN"/>
+                                <constraint firstItem="3aL-kS-G12" firstAttribute="leading" secondItem="W0d-We-oSa" secondAttribute="leading" constant="15" id="5h0-am-hJz"/>
                                 <constraint firstAttribute="bottom" secondItem="3aL-kS-G12" secondAttribute="bottom" id="Dro-kw-M88"/>
-                                <constraint firstItem="3aL-kS-G12" firstAttribute="leading" secondItem="W0d-We-oSa" secondAttribute="leading" constant="15" id="JYX-6u-uma"/>
                                 <constraint firstItem="3aL-kS-G12" firstAttribute="top" secondItem="W0d-We-oSa" secondAttribute="top" id="Jnv-eJ-5dj"/>
-                                <constraint firstAttribute="bottom" secondItem="44B-0O-XYd" secondAttribute="bottom" constant="13" id="cCk-ZO-VHA"/>
-                                <constraint firstItem="44B-0O-XYd" firstAttribute="top" secondItem="W0d-We-oSa" secondAttribute="top" constant="22" id="hzU-Me-VAG"/>
-                                <constraint firstItem="44B-0O-XYd" firstAttribute="leading" secondItem="3aL-kS-G12" secondAttribute="trailing" constant="8" id="i5Z-B3-ivh"/>
+                                <constraint firstItem="dLR-yk-eHf" firstAttribute="leading" secondItem="3aL-kS-G12" secondAttribute="trailing" constant="8" id="QnE-Wu-loN"/>
+                                <constraint firstAttribute="trailing" secondItem="dLR-yk-eHf" secondAttribute="trailing" constant="8" id="dx9-cj-VXm"/>
+                                <constraint firstItem="dLR-yk-eHf" firstAttribute="centerY" secondItem="3aL-kS-G12" secondAttribute="centerY" id="tzN-sS-MgF"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -646,6 +632,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="D3w-xq-tqp"/>
-        <segue reference="iQk-4b-eAL"/>
     </inferredMetricsTieBreakers>
 </document>

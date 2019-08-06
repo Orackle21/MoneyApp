@@ -23,7 +23,7 @@ struct Category: Equatable {
     let iconGradients: [CGColor]?
     let isSubcategory: Bool?
     let canBeDeleted: Bool?
-   // let subcategoryOf: Category?
+    // let subcategoryOf: Category?
     
     init(name: String, gradients: [CGColor], isSubcategory: Bool, canBeDeleted: Bool) {
         self.name = name
@@ -32,9 +32,4 @@ struct Category: Equatable {
         self.canBeDeleted = canBeDeleted
     }
     
-    
-    }
-    
-    
-    
-
+}

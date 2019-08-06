@@ -8,17 +8,8 @@
 
 import UIKit
 
-protocol TransactionDetailViewControllerDelegate: class {
-    
-    func transactionDetailViewControllerDidCancel(_ controller: TransactionDetailViewController)
-    func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishAdding item: Transaction)
-    func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction)
-    
-}
-
 class TransactionDetailViewController: UITableViewController {
     
-    weak var delegate: TransactionDetailViewControllerDelegate?
     var transactionToEdit: Transaction?
     var wallet: Wallet?
     var selectedCategory: Category? {
@@ -55,7 +46,6 @@ class TransactionDetailViewController: UITableViewController {
             tryToChangeDate(transaction: item)
             item.category = selectedCategory ?? CategoryList.shared.listOfAllCategories[0]
             wallet?.calculateBalance()
-            delegate?.transactionDetailViewController(self, didFinishEditing: item)
         }
         else if transactionToEdit == nil {
             if let wallet = wallet  {
@@ -64,13 +54,12 @@ class TransactionDetailViewController: UITableViewController {
                 let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
                 let date = calendar.date(from: components)
                 
-                let transaction = wallet.newTransaction(
+                let _ = wallet.newTransaction(
                     in: selectedCategory ?? CategoryList.shared.listOfAllCategories[0],
                     name: nameTextField.text ?? "",
                     amount: Int(amountTextField.text!) ?? 0,
                     date: date ?? Date()
                 )
-                delegate?.transactionDetailViewController(self, didFinishAdding: transaction)
             }
         }
         

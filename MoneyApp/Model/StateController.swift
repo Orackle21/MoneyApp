@@ -8,15 +8,11 @@
 
 import Foundation
 
-class WalletList{
+class StateController{
     
-    static let shared = WalletList()
     var listOfAllWallets = [Wallet]()
     private var selectedWalletIndex = 0
     
-    
-    private init(){
-    }
     
     func addNewWallet(name: String, balance: Int, currency: Currency){
         let wallet = Wallet(name: name, initialBalance: balance, currency: currency)

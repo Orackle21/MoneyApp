@@ -13,7 +13,7 @@ class TransactionsViewController: UITableViewController {
     var selectedWallet: Wallet?
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
-    let walletList = WalletList.shared
+    var stateController: StateController!
     @IBOutlet weak var walletBarCollection: UICollectionView!
     
     
@@ -27,22 +27,21 @@ class TransactionsViewController: UITableViewController {
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
         
-        walletList.addNewWallet(name: "Wallet"
+        stateController.addNewWallet(name: "Wallet"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
-        walletList.setSelectedWallet(index: 0)
-        walletList.addNewWallet(name: "2 Wallet"
+        stateController.setSelectedWallet(index: 0)
+        stateController.addNewWallet(name: "2 Wallet"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
-        walletList.addNewWallet(name: "Credit Card"
+        stateController.addNewWallet(name: "Credit Card"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
-        walletList.addNewWallet(name: "Credit"
+        stateController.addNewWallet(name: "Credit"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
-        selectedWallet =  walletList.listOfAllWallets[0]
-        
+        stateController.setSelectedWallet(index: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        selectedWallet = walletList.getSelectedWallet()
+        selectedWallet = stateController.getSelectedWallet()
         
         
         walletBarCollection.reloadData()
@@ -156,13 +155,6 @@ class TransactionsViewController: UITableViewController {
     }
     
     
-    
-    //    // Override to support rearranging the table view.
-    //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-    //
-    //    }
-    
-    
     // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
         if let cell = cell as? TransactionCell {
@@ -198,13 +190,19 @@ class TransactionsViewController: UITableViewController {
         }
         
     }
-    
-    // Chooses appropriate segue when user taps buttons or cells
+///////////////////////////////////////////////////////////////////
+// Chooses appropriate segue when user taps buttons or cells
+///////////////////////////////////////////////////////////////////
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             if let destination = segue.destination as? TransactionDetailViewController {
-                destination.delegate = self
                 destination.wallet = selectedWallet
+            }
+        }
+        
+        if segue.identifier == "allWalletsSegue" {
+            if let destination = segue.destination as? WalletListViewController {
+                destination.stateController = stateController
             }
         }
         
@@ -219,9 +217,8 @@ class TransactionsViewController: UITableViewController {
                     }
                     if let arrayByDate = wallet.allTransactionsGrouped[date] {
                         destination.transactionToEdit = arrayByDate[index]
-                        destination.wallet = selectedWallet
+                        destination.wallet = wallet
                         destination.title = "Edit Transaction"
-                        destination.delegate = self
                     }
                 }
             }
@@ -239,50 +236,19 @@ class TransactionsViewController: UITableViewController {
     
 }
 
-extension TransactionsViewController: TransactionDetailViewControllerDelegate {
-    func transactionDetailViewControllerDidCancel(_ controller: TransactionDetailViewController) {
-        navigationController?.popViewController(animated: true)
-        return
-    }
-    
-    func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishAdding item: Transaction) {
-        navigationController?.popViewController(animated: true)
-        tableView.reloadData()
-    }
-    
-    func transactionDetailViewController(_ controller: TransactionDetailViewController, didFinishEditing item: Transaction) {
-        navigationController?.popViewController(animated: true)
-        tableView.reloadData()
-    }
-}
 
-
-
+///////////////////////////////////////////////////////////////////
 // WalletBar CollectionView Delegate and DataSource methods
-
+/////////////////////////////////////////////////////////////////
 extension TransactionsViewController: UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        walletList.setSelectedWallet(index: indexPath.row)
-        selectedWallet = walletList.getSelectedWallet()
+        stateController.setSelectedWallet(index: indexPath.row)
+        selectedWallet = stateController.getSelectedWallet()
         self.tableView.reloadData()
-        
-//        let cell = walletBarCollection.cellForItem(at: indexPath)
-//        if let cell = cell as? WalletBarViewCell {
-//            configureWalletBarItems(for: cell, with: selectedWallet!)
-//        }
         walletBarCollection.reloadData()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        let cell = walletBarCollection.cellForItem(at: indexPath)
-//        let wallet = walletList.listOfAllWallets[indexPath.row]
-//        if let cell = cell as? WalletBarViewCell {
-//            configureWalletBarItems(for: cell, with: wallet)
-//        }
-    }
-    
 }
 
 extension TransactionsViewController: UICollectionViewDataSource {
@@ -291,7 +257,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return walletList.listOfAllWallets.count
+        return stateController.listOfAllWallets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -300,15 +266,18 @@ extension TransactionsViewController: UICollectionViewDataSource {
         
         
         if let cell = cell as? WalletBarViewCell {
-            cell.walletName.text = walletList.listOfAllWallets[indexPath.row].name
-            let item = walletList.listOfAllWallets[indexPath.row]
+            cell.walletName.text = stateController.listOfAllWallets[indexPath.row].name
+            let item = stateController.listOfAllWallets[indexPath.row]
             configureWalletBarItems(for: cell, with: item)
         }
         return cell
     }
 }
 
+
+///////////////////////////////////////////////////////////////////
 // Handling empty wallet and empty transaction list
+///////////////////////////////////////////////////////////////////
 
 extension UITableView {
     func setEmptyView(title: String, message: String) {
