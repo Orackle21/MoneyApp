@@ -22,7 +22,6 @@ class TransactionDetailViewController: UITableViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
-    
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
@@ -62,7 +61,7 @@ class TransactionDetailViewController: UITableViewController {
                 )
             }
         }
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
     func tryToChangeDate (transaction: Transaction) {
@@ -163,6 +162,7 @@ class TransactionDetailViewController: UITableViewController {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? CategoryListViewController {
             if let category = selectedCategory {
+                destination.wallet = wallet
                 destination.selectedCategory = category
             }
         }

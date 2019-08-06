@@ -38,11 +38,13 @@ class IconView: UIView {
                                    options: [])
         
         
-//        let image = UIImage(imageLiteralResourceName: "foodIcon")
-//        let imageView = UIImageView(image: image)
-//        imageView.frame = CGRect(x: bounds.minX + 7 , y: bounds.minY + 7 , width: 26, height: 26)
-//        imageView.contentMode = UIView.ContentMode.scaleToFill
-//        self.addSubview(imageView)
+        let image = UIImage(imageLiteralResourceName: "foodIcon")
+        let imageView = UIImageView(image: image)
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        imageView.frame = CGRect(x: bounds.minX + 7 , y: bounds.minY + 7 , width: 26, height: 26)
+        imageView.contentMode = UIView.ContentMode.scaleToFill
+        self.addSubview(imageView)
         
     }
     

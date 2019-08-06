@@ -17,13 +17,13 @@ class Wallet: Equatable {
     var categoryList: CategoryList
     var color: UIColor
     var isSelected = false
-   
+    var transactionDates = [Date]()
     var allTransactionsGrouped = [Date: [Transaction]]() {
         didSet {
             calculateBalance()
         }
     }
-    var transactionDates = [Date]()
+    
     
     init(name: String, initialBalance: Int, currency: Currency) {
         
@@ -33,8 +33,7 @@ class Wallet: Equatable {
         self.categoryList = CategoryList()
         self.color = Colors().getRandomColor()
         
-        let initialBalanceTransaction = Transaction(name: "Balance Update", amount: initialBalance, category: categoryList.listOfAllCategories[3], date: Date(), currency: self.currency)
-        addToAllTransactions(transaction: initialBalanceTransaction)
+        let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
         
         for _ in 0...100 {
             createRandomTransaction()
@@ -76,6 +75,14 @@ class Wallet: Equatable {
         }
     }
     
+    // Creates new transaction, calls "addToAllTransactions", returns said transaction.
+    func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
+        let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
+        addToAllTransactions(transaction: transaction)
+        print(transaction.date)
+        return transaction
+    }
+    
     // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates from transactionDates
     func removeTransaction(by date: Date, with index: Int) {
         allTransactionsGrouped[date]?.remove(at: index)
@@ -84,13 +91,7 @@ class Wallet: Equatable {
         }
     }
     
-    // Creates new transaction, calls "addToAllTransactions", returns said transaction.
-    func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
-        let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
-        addToAllTransactions(transaction: transaction)
-        print(transaction.date)
-        return transaction
-    }
+   
     
     // Calculates balance for wallet based on its transactions
     func calculateBalance () {
@@ -119,6 +120,13 @@ class Wallet: Equatable {
         let calendar = Calendar.current
         let date = calendar.date(from: randomDate)!
         return date
+    }
+    
+    func getTodaysDate() -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
+        let date = calendar.date(from: components)
+        return date!
     }
     
     func getRandomAmount() -> Int {

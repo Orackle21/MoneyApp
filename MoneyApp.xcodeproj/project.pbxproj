@@ -70,9 +70,9 @@
 		9A05558A22A18B41009398CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9A05558622A18A5C009398CD /* Transaction.swift */,
-				9A05558B22A18BA7009398CD /* Wallet.swift */,
 				9AE3BCB322C5ED3E00089927 /* StateController.swift */,
+				9A05558B22A18BA7009398CD /* Wallet.swift */,
+				9A05558622A18A5C009398CD /* Transaction.swift */,
 				9A47104322C4F2F700A3662B /* Currency.swift */,
 				9A05558822A18B3A009398CD /* Category.swift */,
 				9A57A17422D0E2B700DC6624 /* CategoryList.swift */,

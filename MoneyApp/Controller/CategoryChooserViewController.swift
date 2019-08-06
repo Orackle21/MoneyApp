@@ -11,7 +11,7 @@ import UIKit
 class CategoryListViewController: UITableViewController {
 
     var selectedCategory: Category?
-    let categoryList = CategoryList.shared
+    var wallet: Wallet!
     var actionSheet: UIAlertController?
    
     
@@ -21,7 +21,7 @@ class CategoryListViewController: UITableViewController {
             title: "Delete",
             style: .destructive,
             handler: { _ in
-                self.categoryList.removeCategory(with: indexPath.row)
+                self.wallet.categoryList.removeCategory(with: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }))
         
@@ -41,19 +41,19 @@ class CategoryListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryList.listOfAllCategories.count
+        return wallet.categoryList.listOfAllCategories.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
-        cell.textLabel?.text = categoryList.listOfAllCategories[indexPath.row].name
+        cell.textLabel?.text = wallet.categoryList.listOfAllCategories[indexPath.row].name
         return cell
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedCategory = categoryList.listOfAllCategories[indexPath.row]
+        selectedCategory = wallet.categoryList.listOfAllCategories[indexPath.row]
         return indexPath
     }
     
@@ -61,7 +61,7 @@ class CategoryListViewController: UITableViewController {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let category = categoryList.listOfAllCategories[indexPath.row]
+        let category = wallet.categoryList.listOfAllCategories[indexPath.row]
         if category.canBeDeleted! {
             return true
         }
@@ -73,17 +73,6 @@ class CategoryListViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
-//            if let controller = presentedViewController as? TransactionDetailViewController{
-//                let categoryToDelete = categoryList.listOfAllCategories[indexPath.row]
-//
-//                if let controllerCategory = controller.selectedCategory
-//                   {
-//                    if categoryToDelete === controllerCategory {
-//                        controller.selectedCategory = nil
-//                    }
-//                }
-//            }
             prepareAlert(for: indexPath)
             self.present(actionSheet!, animated: true, completion: nil)
             
@@ -93,12 +82,12 @@ class CategoryListViewController: UITableViewController {
     }
     
 
-    /*
+    
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
     }
-    */
+    
 
     /*
     // Override to support conditional rearranging of the table view.

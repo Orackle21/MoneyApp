@@ -10,15 +10,7 @@ import Foundation
 import UIKit
 
 struct Category: Equatable {
-    static func == (lhs: Category, rhs: Category) -> Bool {
-        if lhs.name == rhs.name {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    
+   
     let name: String?
     let iconGradients: [CGColor]?
     let isSubcategory: Bool?
@@ -32,4 +24,11 @@ struct Category: Equatable {
         self.canBeDeleted = canBeDeleted
     }
     
+    static func == (lhs: Category, rhs: Category) -> Bool {
+        if lhs.name == rhs.name {
+            return true
+        } else {
+            return false
+        }
+    }
 }

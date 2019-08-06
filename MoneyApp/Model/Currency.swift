@@ -16,7 +16,6 @@ class Currency {
     var currencyName:String?
     var currencySymbol:String?
     
-    
 }
 
 class CurrencyList {
