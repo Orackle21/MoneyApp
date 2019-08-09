@@ -92,11 +92,7 @@ class TransactionDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 && indexPath.row == 0 {
-            if datePickerIsCollapsed {
-                showDatePicker()
-            } else {
-                hideDatePicker()
-            }
+            datePickerIsCollapsed ? showDatePicker() : hideDatePicker()
         }
          tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -105,7 +101,7 @@ class TransactionDetailViewController: UITableViewController {
         if indexPath.section == 2 && indexPath.row == 1 {
             if datePickerIsCollapsed {
                 return 0
-            } else if datePickerIsCollapsed == false {
+            } else if !datePickerIsCollapsed{
                 return 216
             }
         }
@@ -120,7 +116,7 @@ class TransactionDetailViewController: UITableViewController {
         datePicker.alpha = 0
         
         UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 0.5,
+            withDuration: 0.35,
             delay: 0,
             options: [.transitionCrossDissolve],
             animations: {
@@ -156,9 +152,6 @@ class TransactionDetailViewController: UITableViewController {
        
     }
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? CategoryListViewController {
             if let category = selectedCategory {

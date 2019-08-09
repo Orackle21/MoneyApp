@@ -26,19 +26,39 @@ class Wallet: Equatable {
     
     
     init(name: String, initialBalance: Int, currency: Currency) {
-        
         self.name = name
         self.currency = currency
         self.balance = 0
         self.categoryList = CategoryList()
         self.color = Colors().getRandomColor()
-        
         let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
-        
         for _ in 0...100 {
             createRandomTransaction()
         }
-        
+    }
+    
+   
+    // Changes transaction date and moves it into an appropriate array by date. If the old array container is empty - deletes it and deletes its date from the array.
+    func changeDate (transaction: Transaction, newDate: Date) {
+        if let transactionArrayByDate = allTransactionsGrouped[transaction.date],
+           let index = transactionArrayByDate.firstIndex(of: transaction) {
+            
+            allTransactionsGrouped[transaction.date]?.remove(at: index)
+            if allTransactionsGrouped[transaction.date]!.isEmpty {
+                allTransactionsGrouped.removeValue(forKey: transaction.date)
+                transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
+            }
+            transaction.date = newDate
+            addToAllTransactions(transaction: transaction)
+        }
+    }
+    
+    // Creates new transaction, calls "addToAllTransactions", returns said transaction.
+    func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
+        let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
+        addToAllTransactions(transaction: transaction)
+        print(transaction.date)
+        return transaction
     }
     
     // Adds a transaction to allTransactionGroped dict. Adds transaction.date to transactionsDate for future use.
@@ -58,30 +78,6 @@ class Wallet: Equatable {
         }
     }
     
-    // Changes transaction date and moves it into an appropriate array by date. If the old array container is empty - deletes it and deletes its date from the array.
-    func changeDate (transaction: Transaction, newDate: Date) {
-        let transaction = transaction
-        if let transactionArrayByDate = allTransactionsGrouped[transaction.date] {
-            if let index = transactionArrayByDate.firstIndex(of: transaction) {
-                allTransactionsGrouped[transaction.date]?.remove(at: index)
-                if allTransactionsGrouped[transaction.date]!.isEmpty {
-                    allTransactionsGrouped.removeValue(forKey: transaction.date)
-                    transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
-                }
-                
-                transaction.date = newDate
-                addToAllTransactions(transaction: transaction)
-            }
-        }
-    }
-    
-    // Creates new transaction, calls "addToAllTransactions", returns said transaction.
-    func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
-        let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
-        addToAllTransactions(transaction: transaction)
-        print(transaction.date)
-        return transaction
-    }
     
     // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates from transactionDates
     func removeTransaction(by date: Date, with index: Int) {
@@ -91,6 +87,13 @@ class Wallet: Equatable {
         }
     }
     
+    func getTransactionBy (dateInterval: DateInterval) -> [Date] {
+        var dateArray = transactionDates.filter {
+            dateInterval.contains($0)
+        }
+        dateArray.sort(by: >)
+        return dateArray
+    }
    
     
     // Calculates balance for wallet based on its transactions

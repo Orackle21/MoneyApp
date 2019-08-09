@@ -15,13 +15,13 @@ struct Category: Equatable {
     let iconGradients: [CGColor]?
     let isSubcategory: Bool?
     let canBeDeleted: Bool?
-    // let subcategoryOf: Category?
     
     init(name: String, gradients: [CGColor], isSubcategory: Bool, canBeDeleted: Bool) {
         self.name = name
         self.iconGradients = gradients
         self.isSubcategory = isSubcategory
         self.canBeDeleted = canBeDeleted
+
     }
     
     static func == (lhs: Category, rhs: Category) -> Bool {

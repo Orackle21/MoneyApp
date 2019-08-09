@@ -10,51 +10,69 @@ import UIKit
 
 class TransactionsViewController: UITableViewController {
     
-    var selectedWallet: Wallet?
+    var selectedWallet: Wallet? {
+        didSet {
+            transactionDates = selectedWallet!.transactionDates
+        }
+    }
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     var stateController: StateController!
+    var transactionDates = [Date]()
     @IBOutlet weak var walletBarCollection: UICollectionView!
+    
+    @IBAction func setDateInterval(_ sender: UIBarButtonItem) {
+
+        guard let wallet = selectedWallet else {
+            return
+        }
+        var startDate = wallet.getRandomDate()
+        var endDate = wallet.getRandomDate()
+        
+        if endDate < startDate {
+            let new = endDate
+            endDate = startDate
+            startDate = new
+        }
+       
+        let dateInterval = DateInterval(start: startDate, end: endDate)
+          print(dateInterval)
+        transactionDates = wallet.getTransactionBy(dateInterval: dateInterval)
+        print(transactionDates.count)
+        tableView.reloadData()
+    }
+    
+    
+    @IBAction func resetDateInterval(_ sender: UIBarButtonItem) {
+        transactionDates = selectedWallet!.transactionDates
+        tableView.reloadData()
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
-         walletBarCollection.remembersLastFocusedIndexPath = true
-        
-        
+        walletBarCollection.remembersLastFocusedIndexPath = true
         dateFormatter.dateFormat = "MMM d"
         sectionDateFormatter.dateFormat = "MMMM d"
-        
-        stateController.addNewWallet(name: "Wallet"
-            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
-        stateController.setSelectedWallet(index: 0)
-        stateController.addNewWallet(name: "2 Wallet"
-            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
-        stateController.addNewWallet(name: "Credit Card"
-            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
-        stateController.addNewWallet(name: "Credit"
-            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
-        stateController.setSelectedWallet(index: 0)
-    }
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectedWallet = stateController.getSelectedWallet()
-        
-        
         walletBarCollection.reloadData()
         
         if selectedWallet == nil {
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
         }
-            
         else {
             tableView.restore()
             tableView.reloadData()
+
         }
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,27 +83,43 @@ class TransactionsViewController: UITableViewController {
         // Shows a message if there are no sections
         if wallet.allTransactionsGrouped.keys.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions", message: "Add some transactions, please")
-        } else {
+        } else if transactionDates.count == 0 {
+            tableView.setEmptyView(title: "You don't have any transactions for this date", message: "📅")
+        }
+        else {
             tableView.restore()
         }
-        return wallet.allTransactionsGrouped.keys.count
+        return transactionDates.count
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
+        headerView.backgroundView?.backgroundColor = #colorLiteral(red: 0.9375644922, green: 0.9369382262, blue: 0.9586723447, alpha: 1)
+//        let blurEffect = UIBlurEffect(style: .extraLight)
+//        let blurView = UIVisualEffectView(effect: blurEffect)
+//        headerView.backgroundView = blurView
+    }
+    
+   
     
     // Gets appropriate date by sectionIndex
     func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
-        return selectedWallet!.transactionDates[sectionIndex]
+        return transactionDates[sectionIndex]
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getNumberOfRows(for: section)
     }
     
-    // Returns number of rows for section. Returns "0" if section is empty. Returns "0" if there are no wallets.
+    // Returns number of rows for section.
+    // Returns "0" if the section is empty.
+    // Returns "0" if there are no wallets.
+    
     func getNumberOfRows (for section: Int) -> Int {
         guard let wallet = selectedWallet else {
             return 0
         }
-        if section > wallet.transactionDates.count - 1 {
+        if section > transactionDates.count - 1 {
             return 0
         }
         else {
@@ -124,6 +158,7 @@ class TransactionsViewController: UITableViewController {
     }
     
     // Override to support editing the table view.
+   
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
@@ -133,18 +168,19 @@ class TransactionsViewController: UITableViewController {
                 return
             }
             
-            let dateBySection = wallet.transactionDates[indexPath.section]
+            let dateBySection = transactionDates[indexPath.section]
             
             // Remove transaction by "dateBySection" with index
             
-            selectedWallet!.removeTransaction(by: dateBySection, with: indexPath.row)
+            wallet.removeTransaction(by: dateBySection, with: indexPath.row)
             
             // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates
             // Else just delete the row
             
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
-                selectedWallet!.transactionDates.remove(at: selectedWallet!.transactionDates.firstIndex(of: dateBySection)!)
+                wallet.transactionDates.remove(at: wallet.transactionDates.firstIndex(of: dateBySection)!)
+                transactionDates.remove(at: transactionDates.firstIndex(of: dateBySection)!)
                 tableView.deleteSections([indexPath.section], with: .fade)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)

@@ -13,6 +13,18 @@ class StateController{
     var listOfAllWallets = [Wallet]()
     private var selectedWalletIndex = 0
     
+    init() {
+        addNewWallet(name: "Wallet"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
+        setSelectedWallet(index: 0)
+        addNewWallet(name: "2 Wallet"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
+        addNewWallet(name: "Credit Card"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
+        addNewWallet(name: "Credit"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
+        setSelectedWallet(index: 0)
+    }
     
     func addNewWallet(name: String, balance: Int, currency: Currency){
         let wallet = Wallet(name: name, initialBalance: balance, currency: currency)
