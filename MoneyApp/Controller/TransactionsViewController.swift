@@ -8,7 +8,9 @@
 
 import UIKit
 
-class TransactionsViewController: UITableViewController {
+class TransactionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var walletBarCollection: UICollectionView!
     
     var selectedWallet: Wallet? {
         didSet {
@@ -19,7 +21,7 @@ class TransactionsViewController: UITableViewController {
     let sectionDateFormatter = DateFormatter()
     var stateController: StateController!
     var transactionDates = [Date]()
-    @IBOutlet weak var walletBarCollection: UICollectionView!
+    
     
     @IBAction func setDateInterval(_ sender: UIBarButtonItem) {
 
@@ -75,7 +77,15 @@ class TransactionsViewController: UITableViewController {
         
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        // Takes care of toggling the button's title.
+        super.setEditing(!isEditing, animated: true)
+        
+        // Toggle table view editing.
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+    
+     func numberOfSections(in tableView: UITableView) -> Int {
         guard let wallet = selectedWallet else {
             return 0
         }
@@ -92,7 +102,7 @@ class TransactionsViewController: UITableViewController {
         return transactionDates.count
     }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
         headerView.backgroundView?.backgroundColor = #colorLiteral(red: 0.9375644922, green: 0.9369382262, blue: 0.9586723447, alpha: 1)
 //        let blurEffect = UIBlurEffect(style: .extraLight)
@@ -107,7 +117,7 @@ class TransactionsViewController: UITableViewController {
         return transactionDates[sectionIndex]
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getNumberOfRows(for: section)
     }
     
@@ -129,11 +139,11 @@ class TransactionsViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 49
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
         let date = getDateBySectionNumber(indexPath.section)
@@ -152,14 +162,14 @@ class TransactionsViewController: UITableViewController {
     
     
     // Sets header title for section using "sectionDateFormatter"
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionDate = getDateBySectionNumber(section)
         return sectionDateFormatter.string(from: sectionDate)
     }
     
     // Override to support editing the table view.
    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
             

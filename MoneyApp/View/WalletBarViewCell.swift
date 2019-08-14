@@ -10,7 +10,7 @@ import UIKit
 
 class WalletBarViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var walletName: UILabel!
     
+    @IBOutlet weak var walletName: UILabel!
     
 }
