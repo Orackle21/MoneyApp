@@ -28,6 +28,7 @@
 		9AE3BCB422C5ED3E00089927 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB322C5ED3E00089927 /* StateController.swift */; };
 		9AE3BCB622C5F02C00089927 /* WalletListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */; };
 		9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */; };
+		9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4CCF230997020059EFCF /* DateBarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		9AE3BCB322C5ED3E00089927 /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
+		9AEC4CCF230997020059EFCF /* DateBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBarCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */,
 				9A57A17022CC883900DC6624 /* WalletCell.swift */,
 				9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */,
+				9AEC4CCF230997020059EFCF /* DateBarCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */,
 				9A57A17522D0E2B700DC6624 /* CategoryList.swift in Sources */,
 				9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */,
+				9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */,
 				9A05558922A18B3A009398CD /* Category.swift in Sources */,
 				9A0705EE2283EF68003817A1 /* AppDelegate.swift in Sources */,
 				9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */,

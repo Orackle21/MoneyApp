@@ -116,9 +116,10 @@ class Wallet: Equatable {
     
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 1...3)
-        let randomDay = Int.random(in: 1...28)
-        let randomDate = DateComponents(year: 2019, month: randomMonth, day: randomDay)
+        let randomMonth = Int.random(in: 6...8)
+        let randomDay = Int.random(in: 1...31)
+        let hour = 10
+        let randomDate = DateComponents(year: 2019, month: randomMonth, day: randomDay, hour: hour)
         
         let calendar = Calendar.current
         let date = calendar.date(from: randomDate)!
@@ -127,8 +128,9 @@ class Wallet: Equatable {
     
     func getTodaysDate() -> Date {
         let calendar = Calendar.current
-        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
+        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.timeZone, Calendar.Component.hour], from: Date())
         let date = calendar.date(from: components)
+        print (date!)
         return date!
     }
     
