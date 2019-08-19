@@ -59,8 +59,11 @@ class TransactionsViewController: UIViewController {
     
     func getMonths(date: Date) -> [Date] {
         var date = date
-        var dates = [Date]()
         let calendar = Calendar.current
+        var dates = [Date]()
+        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
+        components.timeZone = TimeZone.init(abbreviation: "GMT")
+        date = calendar.date(from: components)!
         
         dates.append(date)
         
@@ -73,7 +76,6 @@ class TransactionsViewController: UIViewController {
     
     
     func getDateInterval (date: Date) -> DateInterval {
-        
         let calendar = Calendar.current
         var beginningOfMonth: Date?
         var endOfMonth: Date?

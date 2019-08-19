@@ -50,7 +50,9 @@ class TransactionDetailViewController: UITableViewController {
             if let wallet = wallet  {
                 
                 let calendar = Calendar.current
-                let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
+                var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
+//                components.hour = 0
+                components.timeZone = TimeZone.init(abbreviation: "GMT")
                 let date = calendar.date(from: components)
                 
                 let _ = wallet.newTransaction(
@@ -116,7 +118,7 @@ class TransactionDetailViewController: UITableViewController {
         datePicker.alpha = 0
         
         UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 0.35,
+            withDuration: 0.3,
             delay: 0,
             options: [.transitionCrossDissolve],
             animations: {
@@ -131,15 +133,16 @@ class TransactionDetailViewController: UITableViewController {
         
         tableView.beginUpdates()
         UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 0.2,
+            withDuration: 0.3,
             delay: 0,
             options: [.transitionCrossDissolve],
             animations: {
                 self.datePicker.alpha = 0
                 self.datePickerIsCollapsed = true
+               
         }, completion:  {
             _ in
-            self.datePicker.isHidden = true
+           //  self.datePicker.isHidden = true
         }
         )
         tableView.endUpdates()

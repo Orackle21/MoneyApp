@@ -57,7 +57,6 @@ class Wallet: Equatable {
     func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
         let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
         addToAllTransactions(transaction: transaction)
-        print(transaction.date)
         return transaction
     }
     
@@ -107,6 +106,11 @@ class Wallet: Equatable {
         }
     }
     
+    
+    //////////////////////////////////////////////////////////////////////////
+    ////Random testing stuff//////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    
     func createRandomTransaction() {
         let _ = newTransaction(in: categoryList.listOfAllCategories[Int.random(in: 0...categoryList.listOfAllCategories.count - 1)],
                                          name: " ",
@@ -116,10 +120,9 @@ class Wallet: Equatable {
     
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 6...8)
+        let randomMonth = Int.random(in: 5...8)
         let randomDay = Int.random(in: 1...31)
-        let hour = 10
-        let randomDate = DateComponents(year: 2019, month: randomMonth, day: randomDay, hour: hour)
+        let randomDate = DateComponents( timeZone: TimeZone.init(abbreviation: "GMT"), year: 2019, month: randomMonth, day: randomDay)
         
         let calendar = Calendar.current
         let date = calendar.date(from: randomDate)!
@@ -128,7 +131,8 @@ class Wallet: Equatable {
     
     func getTodaysDate() -> Date {
         let calendar = Calendar.current
-        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.timeZone, Calendar.Component.hour], from: Date())
+        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
+        components.timeZone = TimeZone.init(abbreviation: "GMT")
         let date = calendar.date(from: components)
         print (date!)
         return date!
