@@ -43,7 +43,7 @@ class TransactionDetailViewController: UITableViewController {
             item.name = nameTextField.text ?? " "
             item.amount = Int(amountTextField.text ?? "0") ?? 0
             tryToChangeDate(transaction: item)
-            item.category = selectedCategory ?? CategoryList.shared.listOfAllCategories[0]
+            item.category = selectedCategory ?? (wallet?.categoryList.listOfAllCategories[0])!
             wallet?.calculateBalance()
         }
         else if transactionToEdit == nil {
@@ -51,12 +51,11 @@ class TransactionDetailViewController: UITableViewController {
                 
                 let calendar = Calendar.current
                 var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
-//                components.hour = 0
                 components.timeZone = TimeZone.init(abbreviation: "GMT")
                 let date = calendar.date(from: components)
                 
                 let _ = wallet.newTransaction(
-                    in: selectedCategory ?? CategoryList.shared.listOfAllCategories[0],
+                    in: selectedCategory ?? wallet.categoryList.listOfAllCategories[0],
                     name: nameTextField.text ?? "",
                     amount: Int(amountTextField.text!) ?? 0,
                     date: date ?? Date()

@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class CategoryList{
-    static let shared = CategoryList()
     var listOfAllCategories = [Category]()
     
     

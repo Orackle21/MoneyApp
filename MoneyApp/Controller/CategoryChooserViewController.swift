@@ -33,6 +33,11 @@ class CategoryListViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
 
 
     
@@ -88,7 +93,7 @@ class CategoryListViewController: UITableViewController {
 
     }
     
-
+   
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -98,15 +103,15 @@ class CategoryListViewController: UITableViewController {
     */
 
     
-    /*
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "setCategory" {
-            if let destination = segue.destination as? TransactionDetailViewController {
-                destination.category = selectedCategory
+        if segue.identifier == "categoryDetailSegue" {
+            if let destination = segue.destination as? CategoryDetailViewController {
+                destination.wallet = wallet!
             }
         }
     }
-    */
+    
 
 }
