@@ -25,6 +25,7 @@ class TransactionDetailViewController: UITableViewController {
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var datePicker: UIDatePicker!
     private var datePickerIsCollapsed = true
     private let dateFormatter = DateFormatter()
@@ -33,6 +34,37 @@ class TransactionDetailViewController: UITableViewController {
             dateLabel.text = dateFormatter.string(from: datePickerDate)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let wallet = wallet,
+              let selectedCategory = selectedCategory  else {
+            return
+        }
+        if wallet.categoryList.listOfAllCategories.contains(selectedCategory) {
+            saveButton.isEnabled = true
+        } else {
+            categoryNameLabel.text = "Choose Category"
+            saveButton.isEnabled = false
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        dateFormatter.dateFormat = "MMMM d, YYYY"
+        dateLabel.text = dateFormatter.string(from: datePickerDate)
+        
+        if let item = transactionToEdit {
+            nameTextField.text = item.name
+            amountTextField.text = String(item.amount)
+            selectedCategory = item.category
+            datePickerDate = item.date
+            datePicker.date = item.date
+        }
+        
+    }
+    
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
         datePickerDate = sender.date
@@ -75,21 +107,7 @@ class TransactionDetailViewController: UITableViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        dateFormatter.dateFormat = "MMMM d, YYYY"
-        dateLabel.text = dateFormatter.string(from: datePickerDate)
-       
-        if let item = transactionToEdit {
-            nameTextField.text = item.name
-            amountTextField.text = String(item.amount)
-            selectedCategory = item.category
-            datePickerDate = item.date
-            datePicker.date = item.date
-        }
-        
-    }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 && indexPath.row == 0 {
@@ -157,9 +175,9 @@ class TransactionDetailViewController: UITableViewController {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? CategoryListViewController {
             if let category = selectedCategory {
-                destination.wallet = wallet
                 destination.selectedCategory = category
             }
+            destination.wallet = wallet
         }
      }
     

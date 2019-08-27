@@ -19,6 +19,7 @@ class CategoryDetailViewController: UITableViewController {
     @IBOutlet weak var walletIcon: UIView!
    
     var wallet: Wallet?
+    var subCategory: Category?
     
     
     override func viewDidLoad() {
@@ -43,7 +44,7 @@ class CategoryDetailViewController: UITableViewController {
         wallet.categoryList.addNewCategory(name: name,
                                            iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor],
                                            isSubcategory: false,
-                                           canBeDeleted: true)
+                                           canBeDeleted: true, isSubcategoryOf: subCategory ?? nil)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -57,15 +58,21 @@ class CategoryDetailViewController: UITableViewController {
     }
 
    
-  
-    /*
+    @IBAction func unwindToCategoryDetail(_ unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? ParentCategoriesTableViewController {
+            subCategory = sourceViewController.subCategory
+            subcategoryLabel.text = "Subcategory of: \(subCategory?.name ?? "None")"
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? ParentCategoriesTableViewController {
+            destination.wallet = wallet!
+        }
     }
-    */
+    
 
 }

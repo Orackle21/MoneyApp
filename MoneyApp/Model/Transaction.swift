@@ -12,7 +12,7 @@ class Transaction: NSObject{
     
     var name: String
     var amount: Int
-    var category: Category
+    weak var category: Category?
     var date: Date
     var currency: Currency
     

@@ -22,7 +22,8 @@
 		9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */; };
 		9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */; };
 		9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */; };
-		9AB9C6B422C3315900E401DC /* CategoryChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */; };
+		9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */; };
+		9AB9C6B422C3315900E401DC /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */; };
 		9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */; };
 		9ACDDE5722AE77B500793219 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */; };
 		9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */; };
@@ -50,7 +51,8 @@
 		9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCell.swift; sourceTree = "<group>"; };
 		9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarViewCell.swift; sourceTree = "<group>"; };
 		9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
-		9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChooserViewController.swift; sourceTree = "<group>"; };
+		9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCategoriesTableViewController.swift; sourceTree = "<group>"; };
+		9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
 		9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
@@ -141,8 +143,9 @@
 			children = (
 				9A05558422A18A2A009398CD /* TransactionsViewController.swift */,
 				9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */,
-				9AB9C6B322C3315900E401DC /* CategoryChooserViewController.swift */,
+				9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */,
 				9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */,
+				9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */,
 				9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */,
 				9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */,
 				9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */,
@@ -229,6 +232,7 @@
 				9A05558522A18A2A009398CD /* TransactionsViewController.swift in Sources */,
 				9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */,
 				9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */,
+				9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */,
 				9A57A17522D0E2B700DC6624 /* CategoryList.swift in Sources */,
 				9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */,
 				9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */,
@@ -238,7 +242,7 @@
 				9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */,
 				9A57A17322CF25FD00DC6624 /* IconView.swift in Sources */,
 				9A57A17122CC883900DC6624 /* WalletCell.swift in Sources */,
-				9AB9C6B422C3315900E401DC /* CategoryChooserViewController.swift in Sources */,
+				9AB9C6B422C3315900E401DC /* CategoryListViewController.swift in Sources */,
 				9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */,
 				9A05558722A18A5C009398CD /* Transaction.swift in Sources */,
 			);

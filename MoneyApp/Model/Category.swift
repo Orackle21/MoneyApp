@@ -9,26 +9,21 @@
 import Foundation
 import UIKit
 
-struct Category: Equatable {
+class Category: NSObject {
    
     let name: String?
     let iconGradients: [CGColor]?
     let isSubcategory: Bool?
     let canBeDeleted: Bool?
+    let isSubcategoryOf: Category?
     
-    init(name: String, gradients: [CGColor], isSubcategory: Bool, canBeDeleted: Bool) {
+    init(name: String, gradients: [CGColor], isSubcategory: Bool, canBeDeleted: Bool, isSubcategoryOf: Category?) {
         self.name = name
         self.iconGradients = gradients
         self.isSubcategory = isSubcategory
         self.canBeDeleted = canBeDeleted
-
+        self.isSubcategoryOf = isSubcategoryOf
     }
     
-    static func == (lhs: Category, rhs: Category) -> Bool {
-        if lhs.name == rhs.name {
-            return true
-        } else {
-            return false
-        }
-    }
+    
 }

@@ -113,7 +113,7 @@ class TransactionsViewController: UIViewController {
     // Configures cell's labels for passed item
     func configureLabels(for cell: UITableViewCell, with item: Transaction) {
         if let cell = cell as? TransactionCell {
-            cell.categoryLabel.text = item.category.name
+            cell.categoryLabel.text = item.category?.name
             cell.nameLabel.text = item.name
             
             if item.amount > 0 {
@@ -128,7 +128,7 @@ class TransactionsViewController: UIViewController {
             
             
             if let icon = cell.categoryIcon as? IconView {
-                icon.setGradeintForCategory(category: item.category)
+                icon.setGradeintForCategory(category: item.category!)
                 icon.setNeedsDisplay()
             }
             
@@ -308,7 +308,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
         if collectionView == self.dateBarCollection {
             let date = dateBarMonths[indexPath.row]
             let dateInterval = getDateInterval(date: date)
-            transactionDates = selectedWallet!.getTransactionBy(dateInterval: dateInterval)
+            transactionDates = selectedWallet!.getTransactionsBy(dateInterval: dateInterval)
             print(dateInterval)
             tableView.reloadData()
         }

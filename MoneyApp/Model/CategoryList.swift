@@ -9,19 +9,19 @@
 import Foundation
 import UIKit
 
-class CategoryList{
+class CategoryList {
     var listOfAllCategories = [Category]()
     
     
     init(){
-        addNewCategory(name: "Other", iconColors: [UIColor.magenta.cgColor, UIColor.cyan.cgColor], isSubcategory: false, canBeDeleted: false)
-        addNewCategory(name: "Utilities", iconColors: [UIColor.red.cgColor, UIColor.blue.cgColor], isSubcategory: false, canBeDeleted: true)
-        addNewCategory(name: "Transport", iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor], isSubcategory: false, canBeDeleted: true)
-        addNewCategory(name: "Food", iconColors: [UIColor.green.cgColor, UIColor.blue.cgColor], isSubcategory: false, canBeDeleted: true)
+        addNewCategory(name: "Other", iconColors: [UIColor.magenta.cgColor, UIColor.cyan.cgColor], isSubcategory: false, canBeDeleted: false, isSubcategoryOf: nil)
+        addNewCategory(name: "Utilities", iconColors: [UIColor.red.cgColor, UIColor.blue.cgColor], isSubcategory: false, canBeDeleted: true, isSubcategoryOf: nil)
+        addNewCategory(name: "Transport", iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor], isSubcategory: false, canBeDeleted: true, isSubcategoryOf: nil)
+        addNewCategory(name: "Food", iconColors: [UIColor.green.cgColor, UIColor.blue.cgColor], isSubcategory: false, canBeDeleted: true, isSubcategoryOf: listOfAllCategories[0])
     }
     
-    func addNewCategory(name: String, iconColors: [CGColor], isSubcategory: Bool, canBeDeleted: Bool){
-        let category = Category(name: name, gradients: iconColors, isSubcategory: isSubcategory, canBeDeleted: canBeDeleted)
+    func addNewCategory(name: String, iconColors: [CGColor], isSubcategory: Bool, canBeDeleted: Bool, isSubcategoryOf: Category?){
+        let category = Category(name: name, gradients: iconColors, isSubcategory: isSubcategory, canBeDeleted: canBeDeleted, isSubcategoryOf: isSubcategoryOf)
         listOfAllCategories.append(category)
     }
     

@@ -13,14 +13,16 @@ class CategoryListViewController: UITableViewController {
     var selectedCategory: Category?
     var wallet: Wallet!
     var actionSheet: UIAlertController?
+//    lazy var transactionsByCategory = categorizeTransactions(wallet: wallet!)
    
     
     func prepareAlert(for indexPath: IndexPath) {
         actionSheet = UIAlertController(title: "Delete Category?", message: "Do you really want to delete this category?", preferredStyle: .actionSheet)
         actionSheet!.addAction(UIAlertAction(
-            title: "Delete",
+            title: "Delete Category And Associated Transactions",
             style: .destructive,
             handler: { _ in
+                self.recategorizeTransactions(in: self.wallet, from: self.wallet.categoryList.listOfAllCategories[indexPath.row], to: self.wallet.categoryList.listOfAllCategories[indexPath.row])
                 self.wallet.categoryList.removeCategory(with: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }))
@@ -39,7 +41,21 @@ class CategoryListViewController: UITableViewController {
         tableView.reloadData()
     }
 
-
+    func recategorizeTransactions (in wallet: Wallet, from: Category, to: Category) {
+        let category = wallet.categoryList.listOfAllCategories[0]
+        let transactions = wallet.allTransactionsGrouped.values
+        var allTransactions = [Transaction]()
+        for array in transactions {
+            for item in array {
+                allTransactions.append(item)
+            }
+        }
+        allTransactions = allTransactions.filter {
+            $0.category == from
+        }
+        let _ = allTransactions.map { $0.category = category
+        }
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -53,7 +69,12 @@ class CategoryListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
-        cell.textLabel?.text = wallet.categoryList.listOfAllCategories[indexPath.row].name
+        if wallet.categoryList.listOfAllCategories[indexPath.row].isSubcategoryOf == nil {
+            cell.textLabel?.text = wallet.categoryList.listOfAllCategories[indexPath.row].name
+        } else {
+            let name = wallet.categoryList.listOfAllCategories[indexPath.row].name
+            cell.textLabel?.text = "↪️ \(name!)"
+        }
         return cell
     }
     

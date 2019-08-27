@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Wallet: Equatable {
+class Wallet: NSObject {
   
     var name: String
     var balance: Int
@@ -31,6 +31,7 @@ class Wallet: Equatable {
         self.balance = 0
         self.categoryList = CategoryList()
         self.color = Colors().getRandomColor()
+        super.init()
         let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
         for _ in 0...100 {
             createRandomTransaction()
@@ -86,7 +87,7 @@ class Wallet: Equatable {
         }
     }
     
-    func getTransactionBy (dateInterval: DateInterval) -> [Date] {
+    func getTransactionsBy (dateInterval: DateInterval) -> [Date] {
         var dateArray = transactionDates.filter {
             dateInterval.contains($0)
         }
