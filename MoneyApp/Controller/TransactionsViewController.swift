@@ -45,8 +45,6 @@ class TransactionsViewController: UIViewController {
         super.viewWillAppear(animated)
         selectedWallet = stateController.getSelectedWallet()
         walletBarCollection.reloadData()
-
-        
         if selectedWallet == nil {
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
@@ -263,7 +261,6 @@ extension TransactionsViewController: UITableViewDataSource {
             
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
-                wallet.transactionDates.remove(at: wallet.transactionDates.firstIndex(of: dateBySection)!)
                 transactionDates.remove(at: transactionDates.firstIndex(of: dateBySection)!)
                 tableView.deleteSections([indexPath.section], with: .fade)
             } else {
@@ -329,7 +326,6 @@ extension TransactionsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.dateBarCollection {
-      
             return dateBarMonths.count
         }
         else {

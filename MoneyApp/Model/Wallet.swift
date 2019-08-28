@@ -17,7 +17,9 @@ class Wallet: NSObject {
     var categoryList: CategoryList
     var color: UIColor
     var isSelected = false
-    var transactionDates = [Date]()
+    var transactionDates: [Date] {
+        return  Array(allTransactionsGrouped.keys).sorted(by: >)
+    }
     var allTransactionsGrouped = [Date: [Transaction]]() {
         didSet {
             calculateBalance()
@@ -47,7 +49,6 @@ class Wallet: NSObject {
             allTransactionsGrouped[transaction.date]?.remove(at: index)
             if allTransactionsGrouped[transaction.date]!.isEmpty {
                 allTransactionsGrouped.removeValue(forKey: transaction.date)
-                transactionDates.remove(at: transactionDates.firstIndex(of: transaction.date)!)
             }
             transaction.date = newDate
             addToAllTransactions(transaction: transaction)
@@ -69,17 +70,11 @@ class Wallet: NSObject {
         }
         else {
             allTransactionsGrouped.updateValue([transaction], forKey: transaction.date)
-            if transactionDates.contains(transaction.date) {
-                return
-            } else {
-                transactionDates.append(transaction.date)
-                transactionDates.sort(by: >)
-            }
         }
     }
     
     
-    // Removes transaction by date from "allTransactionGrouped" dict. DOES NOT remove empty dates from transactionDates
+    // Removes transaction by date from "allTransactionGrouped" dict
     func removeTransaction(by date: Date, with index: Int) {
         allTransactionsGrouped[date]?.remove(at: index)
         if allTransactionsGrouped[date]!.isEmpty {
@@ -143,16 +138,7 @@ class Wallet: NSObject {
             return Int.random(in: -1500...1500)
     }
     
-    static func == (lhs: Wallet, rhs: Wallet) -> Bool {
-        if lhs.name == rhs.name &&
-           lhs.balance == rhs.balance {
-            // ADD CURRENCY
-            return true
-        } else {
-            return false
-        }
-    }
-    
+   
     struct Colors {
         let list = [#colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]
         

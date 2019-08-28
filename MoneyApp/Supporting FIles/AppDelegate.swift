@@ -17,9 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if let navigationController = window?.rootViewController as? UINavigationController {
-            if  let initialViewController = navigationController.viewControllers.first as? TransactionsViewController {
-                initialViewController.stateController = stateController
+        if let tabController = window?.rootViewController as? UITabBarController {
+            if let navigationController = tabController.viewControllers![1] as? UINavigationController {
+                if  let initialViewController = navigationController.viewControllers.first as? TransactionsViewController {
+                    initialViewController.stateController = stateController
+                }
             }
         }
         
