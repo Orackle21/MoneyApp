@@ -31,7 +31,7 @@ class WalletDetailViewController: UITableViewController {
     @IBAction func saveAction(_ sender: Any) {
         
         guard let name = walletName.text,
-              let balance = Int (walletBalance.text ?? "0"),
+            let balance = Decimal (string: walletBalance.text ?? "0"),
               let currency = walletCurrency else {
                   return
               }

@@ -11,12 +11,12 @@ import Foundation
 class Transaction: NSObject{
     
     var name: String
-    var amount: Int
+    var amount: Decimal
     weak var category: Category?
     var date: Date
     var currency: Currency
     
-    init (name: String, amount: Int, category: Category, date: Date, currency: Currency) {
+    init (name: String, amount: Decimal, category: Category, date: Date, currency: Currency) {
         self.amount = amount
         self.name = name
         self.category = category

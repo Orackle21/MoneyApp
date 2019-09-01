@@ -40,7 +40,7 @@ class WalletListViewController: UITableViewController {
         
         if let cell = cell as? WalletCell {
             cell.textLabel?.text = stateController.listOfAllWallets[indexPath.row].name
-            cell.walletAmountLabel.text = String( stateController.listOfAllWallets[indexPath.row].balance)
+            cell.walletAmountLabel.text =  stateController.listOfAllWallets[indexPath.row].balance.description
         }
         
         return cell

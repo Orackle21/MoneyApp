@@ -57,7 +57,7 @@ class TransactionDetailViewController: UITableViewController {
         
         if let item = transactionToEdit {
             nameTextField.text = item.name
-            amountTextField.text = String(item.amount)
+            amountTextField.text = item.amount.description
             selectedCategory = item.category
             datePickerDate = item.date
             datePicker.date = item.date
@@ -73,7 +73,7 @@ class TransactionDetailViewController: UITableViewController {
     @IBAction func saveAction(_ sender: Any) {
         if let item = transactionToEdit {
             item.name = nameTextField.text ?? " "
-            item.amount = Int(amountTextField.text ?? "0") ?? 0
+            item.amount = Decimal(string: amountTextField.text ?? "0") ?? 0
             tryToChangeDate(transaction: item)
             item.category = selectedCategory ?? (wallet?.categoryList.listOfAllCategories[0])!
             wallet?.calculateBalance()
@@ -89,7 +89,7 @@ class TransactionDetailViewController: UITableViewController {
                 let _ = wallet.newTransaction(
                     in: selectedCategory ?? wallet.categoryList.listOfAllCategories[0],
                     name: nameTextField.text ?? "",
-                    amount: Int(amountTextField.text!) ?? 0,
+                    amount: Decimal(string: amountTextField.text!) ?? 0,
                     date: date ?? Date()
                 )
             }

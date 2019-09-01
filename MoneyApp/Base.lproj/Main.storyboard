@@ -910,7 +910,7 @@
         <!--Reports-->
         <scene sceneID="hyv-WE-9D0">
             <objects>
-                <viewController id="A35-eE-c5J" sceneMemberID="viewController">
+                <viewController id="A35-eE-c5J" customClass="ReportsViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EuP-Iw-h6b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

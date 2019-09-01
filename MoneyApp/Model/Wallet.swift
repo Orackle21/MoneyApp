@@ -12,7 +12,7 @@ import UIKit
 class Wallet: NSObject {
   
     var name: String
-    var balance: Int
+    var balance: Decimal
     var currency: Currency
     var categoryList: CategoryList
     var color: UIColor
@@ -27,7 +27,7 @@ class Wallet: NSObject {
     }
     
     
-    init(name: String, initialBalance: Int, currency: Currency) {
+    init(name: String, initialBalance: Decimal, currency: Currency) {
         self.name = name
         self.currency = currency
         self.balance = 0
@@ -56,7 +56,7 @@ class Wallet: NSObject {
     }
     
     // Creates new transaction, calls "addToAllTransactions", returns said transaction.
-    func newTransaction (in category: Category, name: String, amount: Int, date: Date) -> Transaction {
+    func newTransaction (in category: Category, name: String, amount: Decimal, date: Date) -> Transaction {
         let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
         addToAllTransactions(transaction: transaction)
         return transaction
@@ -110,7 +110,7 @@ class Wallet: NSObject {
     func createRandomTransaction() {
         let _ = newTransaction(in: categoryList.listOfAllCategories[Int.random(in: 0...categoryList.listOfAllCategories.count - 1)],
                                          name: " ",
-                                         amount: getRandomAmount(),
+                                         amount: Decimal(getRandomAmount()),
                                          date: getRandomDate())
     }
     

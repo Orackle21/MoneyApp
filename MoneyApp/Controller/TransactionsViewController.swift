@@ -22,9 +22,9 @@ class TransactionsViewController: UIViewController {
     let dateFormatter = DateFormatter()
     let sectionDateFormatter = DateFormatter()
     var stateController: StateController!
-    var transactionDates = [Date]()
+    var transactionDates = [Date]() // is NIL when all wallets are deleated
     var dateBarMonths: [Date] {
-        return getMonths(date: Date())
+        return Date().getMonths()
     }
     
     
@@ -55,32 +55,7 @@ class TransactionsViewController: UIViewController {
         }
     }
     
-    func getMonths(date: Date) -> [Date] {
-        var date = date
-        let calendar = Calendar.current
-        var dates = [Date]()
-        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
-        components.timeZone = TimeZone.init(abbreviation: "GMT")
-        date = calendar.date(from: components)!
-        
-        dates.append(date)
-        
-        for _ in 0...11 {
-            date = calendar.date(byAdding: .month, value: -1, to: date)!
-            dates.append(date)
-        }
-        return dates
-    }
     
-    
-    func getDateInterval (date: Date) -> DateInterval {
-        let calendar = Calendar.current
-        var beginningOfMonth: Date?
-        var endOfMonth: Date?
-        beginningOfMonth = calendar.dateInterval(of: .month, for: date)?.start
-        endOfMonth = calendar.dateInterval(of: .month, for: date)?.end
-        return DateInterval(start: beginningOfMonth!, end: endOfMonth!)
-    }
     
     
     
@@ -115,10 +90,10 @@ class TransactionsViewController: UIViewController {
             cell.nameLabel.text = item.name
             
             if item.amount > 0 {
-                cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
+                cell.amountLabel.text = item.currency.currencyCode! + " " + item.amount.description
                 cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
             } else {
-                cell.amountLabel.text = item.currency.currencyCode! + " " + String(item.amount)
+                cell.amountLabel.text = item.currency.currencyCode! + " " + item.amount.description
                 cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1)
             }
             
@@ -304,7 +279,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
         
         if collectionView == self.dateBarCollection {
             let date = dateBarMonths[indexPath.row]
-            let dateInterval = getDateInterval(date: date)
+            let dateInterval = date.getMonthInterval()
             transactionDates = selectedWallet!.getTransactionsBy(dateInterval: dateInterval)
             print(dateInterval)
             tableView.reloadData()

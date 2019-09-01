@@ -23,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     initialViewController.stateController = stateController
                 }
             }
+            if let reportsController = tabController.viewControllers![0] as? ReportsViewController {
+                
+                    reportsController.stateController = stateController
+                
+            }
         }
         
       

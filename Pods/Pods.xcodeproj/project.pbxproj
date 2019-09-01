@@ -1,0 +1,715 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		018DB230C2D8453D7F2A7C6DB8FA400A /* AAPlotOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEFE13EA62D9F3F8C06DF6E6E1F2CB /* AAPlotOptions.swift */; };
+		0B479B22DB0C6CF80EEBABBA21194D3B /* AAInfographics-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAC25E254FE6310674BE9E4C8F7913 /* AAInfographics-dummy.m */; };
+		0D3CCEF93BBB21C28C3954597590B6FA /* AATitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34092F0B4474A66F4D112F91AF7C0F /* AATitle.swift */; };
+		132FFEC16E1BCC984A24F6A442CA5138 /* AAOptionsComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCF1633782B09FAE3C74DEC96C9F88 /* AAOptionsComposer.swift */; };
+		14282F71A087E4B4BED8F57B57788609 /* AASeriesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA076904CFC075D76D5E8D136080BDE /* AASeriesElement.swift */; };
+		169B20B29497F5DBD580E69F83CD0DFF /* AACrosshair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698796F37F8A8A6A0F1B43804157A387 /* AACrosshair.swift */; };
+		1B5B4F31B51A9ED59136BE2C130738D1 /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09B56E4E2D8B5E3D6CCE5D84AB5BD9 /* AALabel.swift */; };
+		1C6BBD2D3CE5C0E27C97AC6A87A9210B /* Pods-MoneyApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 051E1C0CF0DD5785893FC0E17BC788DE /* Pods-MoneyApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2164C187CDC8CA9422262BDE881ACC1D /* AASeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084C914D6929A93D65FB5E549471632 /* AASeries.swift */; };
+		28D47CFD5B09E96BDD990977946BE3AA /* AAChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E871EEBD0BB57959CC0248B2F1FD744 /* AAChartView.swift */; };
+		2B18AD78249951BA04D441D51ABDCF9A /* AAChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CC198484CDA048F02F4617B856926 /* AAChart.swift */; };
+		3513AD1DA87BF28279BD7E5760A9B298 /* AAJSFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C5C3BA1DD47D423F92FDCE6256C264D /* AAJSFiles.bundle */; };
+		46039A530E7A52CF20E217A2F349F6BE /* AATooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787B728B27E3310E903E9AA588C4C604 /* AATooltip.swift */; };
+		4A4F53D1855496934465D556E61126C9 /* AAXAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86120B1507CAAA6F7CD0B3CABF3C31B /* AAXAxis.swift */; };
+		50171EDA2E2017981CE2A5780E7884FD /* AAPlotLinesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050B0CA30DC9962B970D3F1B64CA5AD0 /* AAPlotLinesElement.swift */; };
+		52FD58E263C8E8276517A0C92C52A58A /* AAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648EF428577888619931FC56EB0717CC /* AAColor.swift */; };
+		542CE4705D9780DF55C0CE947BDAA98C /* AAPlotBandsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A251072E80C563A5778ED32DF86D0 /* AAPlotBandsElement.swift */; };
+		6C75CB6F32F73C99F7200ADB03082F1C /* AAAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC867531B98B7964DE0F1B553D1C0E4 /* AAAnimation.swift */; };
+		6CC53BE1FB147AC3169624765FF373A9 /* AALegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3192C5F600515CBFEEE8C1C3F4F09 /* AALegend.swift */; };
+		6E7E35F8537F63A7CA32E809F3A5EAF9 /* AALabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175EDB39CD04F342898E56B431F9403 /* AALabels.swift */; };
+		786BCACD784A765207DBD0D75607A6EB /* AAChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6589BB008ABC8EEFD8148811122908 /* AAChartModel.swift */; };
+		806C9A5BB8983A40C15849D7DD3F34C9 /* AADataLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC5725A2EDF344BECFCD91188D055A /* AADataLabels.swift */; };
+		8509DEC5B440AFBF51976C94FD4B4865 /* AASubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D160D32E0238FFB479E6A4EB7942293 /* AASubtitle.swift */; };
+		8AD82FE6003C9ADD887541453E73D700 /* AAYAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479ACB913C5C2D8701AAAE1A3F4E452 /* AAYAxis.swift */; };
+		96BF72F7360287919CC1AD499093602C /* Pods-MoneyApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CFB4E4FC077FCBB4C5734C8EDCF494 /* Pods-MoneyApp-dummy.m */; };
+		9E2BACF7B27972D365622E9CABF3DA61 /* AAGradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E52C6618D3DEDC8BBF5571C02DA211 /* AAGradientColor.swift */; };
+		AB935FFD515449DC8BD4FA47A810D4BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		AC0BD62F42CD37D365BA96EEA1448478 /* AAInfographics-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DBF61D1D39EE638B344DC90BAAE1D64A /* AAInfographics-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CAC574F8F57206928A36F1BA087E5525 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		CD69619A2708FA3741D715B0EF69163E /* AASerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4210BD9D0D6D2FE3C19E6E206D6942D9 /* AASerializable.swift */; };
+		DF89B2E6B52113DA8358801EF2BB6462 /* AAEasyTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E18B4C2D9FDFD543D93E462F046F76 /* AAEasyTool.swift */; };
+		E173CB4FADC0A8BD7D3C7B635D6DEB49 /* AAMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CBDC226DB540A4A0628F9CD13AAD70 /* AAMarker.swift */; };
+		F03303CC513DC8BF4DFFC776927DF399 /* AAOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73799E7DDF1DE74DC15B6368D8CCBDF /* AAOptions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		61933DEDFE63BDA3754F3D0927B1EB48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 81AB6AA06BE8625CF139234A31B027FE;
+			remoteInfo = AAInfographics;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		050B0CA30DC9962B970D3F1B64CA5AD0 /* AAPlotLinesElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAPlotLinesElement.swift; path = AAInfographics/AAOptionsModel/AAPlotLinesElement.swift; sourceTree = "<group>"; };
+		051E1C0CF0DD5785893FC0E17BC788DE /* Pods-MoneyApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MoneyApp-umbrella.h"; sourceTree = "<group>"; };
+		06CFB4E4FC077FCBB4C5734C8EDCF494 /* Pods-MoneyApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MoneyApp-dummy.m"; sourceTree = "<group>"; };
+		07559748675C8A8415872157D390C5D3 /* Pods-MoneyApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MoneyApp-frameworks.sh"; sourceTree = "<group>"; };
+		0822D7D4263BEA1FC519041659773D21 /* Pods_MoneyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MoneyApp.framework; path = "Pods-MoneyApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C5C3BA1DD47D423F92FDCE6256C264D /* AAJSFiles.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = AAJSFiles.bundle; path = AAInfographics/AAJSFiles.bundle; sourceTree = "<group>"; };
+		17BD819CB6A417EF4F58B8AE2122D822 /* AAInfographics.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AAInfographics.modulemap; sourceTree = "<group>"; };
+		1AA315A336367944D7AA93E091874DDC /* AAInfographics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AAInfographics.xcconfig; sourceTree = "<group>"; };
+		1AFAC25E254FE6310674BE9E4C8F7913 /* AAInfographics-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AAInfographics-dummy.m"; sourceTree = "<group>"; };
+		1CC867531B98B7964DE0F1B553D1C0E4 /* AAAnimation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAAnimation.swift; path = AAInfographics/AAOptionsModel/AAAnimation.swift; sourceTree = "<group>"; };
+		1EFEFE13EA62D9F3F8C06DF6E6E1F2CB /* AAPlotOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAPlotOptions.swift; path = AAInfographics/AAOptionsModel/AAPlotOptions.swift; sourceTree = "<group>"; };
+		22CBDC226DB540A4A0628F9CD13AAD70 /* AAMarker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAMarker.swift; path = AAInfographics/AAOptionsModel/AAMarker.swift; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		33CC5725A2EDF344BECFCD91188D055A /* AADataLabels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AADataLabels.swift; path = AAInfographics/AAOptionsModel/AADataLabels.swift; sourceTree = "<group>"; };
+		351CC198484CDA048F02F4617B856926 /* AAChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAChart.swift; path = AAInfographics/AAOptionsModel/AAChart.swift; sourceTree = "<group>"; };
+		3D160D32E0238FFB479E6A4EB7942293 /* AASubtitle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AASubtitle.swift; path = AAInfographics/AAOptionsModel/AASubtitle.swift; sourceTree = "<group>"; };
+		3E6589BB008ABC8EEFD8148811122908 /* AAChartModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAChartModel.swift; path = AAInfographics/AAChartCreator/AAChartModel.swift; sourceTree = "<group>"; };
+		3F09B56E4E2D8B5E3D6CCE5D84AB5BD9 /* AALabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AALabel.swift; path = AAInfographics/AAOptionsModel/AALabel.swift; sourceTree = "<group>"; };
+		4210BD9D0D6D2FE3C19E6E206D6942D9 /* AASerializable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AASerializable.swift; path = AAInfographics/AAChartCreator/AASerializable.swift; sourceTree = "<group>"; };
+		43DCF1633782B09FAE3C74DEC96C9F88 /* AAOptionsComposer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAOptionsComposer.swift; path = AAInfographics/AAChartCreator/AAOptionsComposer.swift; sourceTree = "<group>"; };
+		54F43C94A83C264F33880E38101C9930 /* Pods-MoneyApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MoneyApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		586C6CF0B3631B478F1D660EB51559E0 /* Pods-MoneyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MoneyApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5B34092F0B4474A66F4D112F91AF7C0F /* AATitle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AATitle.swift; path = AAInfographics/AAOptionsModel/AATitle.swift; sourceTree = "<group>"; };
+		5BA3192C5F600515CBFEEE8C1C3F4F09 /* AALegend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AALegend.swift; path = AAInfographics/AAOptionsModel/AALegend.swift; sourceTree = "<group>"; };
+		5DAB13BDFAD620C755D87FA8A2FA9439 /* Pods-MoneyApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MoneyApp.modulemap"; sourceTree = "<group>"; };
+		648EF428577888619931FC56EB0717CC /* AAColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAColor.swift; path = AAInfographics/AAChartCreator/AAColor.swift; sourceTree = "<group>"; };
+		65E6467690F69C65D9B9F0B1C35B3B01 /* AAInfographics-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AAInfographics-Info.plist"; sourceTree = "<group>"; };
+		698796F37F8A8A6A0F1B43804157A387 /* AACrosshair.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AACrosshair.swift; path = AAInfographics/AAOptionsModel/AACrosshair.swift; sourceTree = "<group>"; };
+		6E871EEBD0BB57959CC0248B2F1FD744 /* AAChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAChartView.swift; path = AAInfographics/AAChartCreator/AAChartView.swift; sourceTree = "<group>"; };
+		787B728B27E3310E903E9AA588C4C604 /* AATooltip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AATooltip.swift; path = AAInfographics/AAOptionsModel/AATooltip.swift; sourceTree = "<group>"; };
+		7F3E3E36278FCEDB390C281CCF2F5977 /* Pods-MoneyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MoneyApp.release.xcconfig"; sourceTree = "<group>"; };
+		95E52C6618D3DEDC8BBF5571C02DA211 /* AAGradientColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAGradientColor.swift; path = AAInfographics/AAChartCreator/AAGradientColor.swift; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A175EDB39CD04F342898E56B431F9403 /* AALabels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AALabels.swift; path = AAInfographics/AAOptionsModel/AALabels.swift; sourceTree = "<group>"; };
+		A527232CAEF84C17C40F75465271ABA7 /* Pods-MoneyApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MoneyApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		B73799E7DDF1DE74DC15B6368D8CCBDF /* AAOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAOptions.swift; path = AAInfographics/AAOptionsModel/AAOptions.swift; sourceTree = "<group>"; };
+		C479ACB913C5C2D8701AAAE1A3F4E452 /* AAYAxis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAYAxis.swift; path = AAInfographics/AAOptionsModel/AAYAxis.swift; sourceTree = "<group>"; };
+		C86120B1507CAAA6F7CD0B3CABF3C31B /* AAXAxis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAXAxis.swift; path = AAInfographics/AAOptionsModel/AAXAxis.swift; sourceTree = "<group>"; };
+		CC9A251072E80C563A5778ED32DF86D0 /* AAPlotBandsElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAPlotBandsElement.swift; path = AAInfographics/AAOptionsModel/AAPlotBandsElement.swift; sourceTree = "<group>"; };
+		D6CCB9D258E15D810E80DB9950E2B5AC /* AAInfographics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AAInfographics.framework; path = AAInfographics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7E18B4C2D9FDFD543D93E462F046F76 /* AAEasyTool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AAEasyTool.swift; path = AAInfographics/AAChartCreator/AAEasyTool.swift; sourceTree = "<group>"; };
+		DBE9315F2EA5CFB289A7AE074E0953B4 /* Pods-MoneyApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MoneyApp-Info.plist"; sourceTree = "<group>"; };
+		DBF61D1D39EE638B344DC90BAAE1D64A /* AAInfographics-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AAInfographics-umbrella.h"; sourceTree = "<group>"; };
+		F084C914D6929A93D65FB5E549471632 /* AASeries.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AASeries.swift; path = AAInfographics/AAOptionsModel/AASeries.swift; sourceTree = "<group>"; };
+		FBA076904CFC075D76D5E8D136080BDE /* AASeriesElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AASeriesElement.swift; path = AAInfographics/AAChartCreator/AASeriesElement.swift; sourceTree = "<group>"; };
+		FBD1E3D11409F768AE50B251BC4B2710 /* AAInfographics-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AAInfographics-prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65F0359E017D313107DD64C4875AA306 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB935FFD515449DC8BD4FA47A810D4BB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEE96CF6DCEA806036772283497A8681 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAC574F8F57206928A36F1BA087E5525 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00D23A9B4D9DA4D06BC617682BF06928 /* Pods-MoneyApp */ = {
+			isa = PBXGroup;
+			children = (
+				5DAB13BDFAD620C755D87FA8A2FA9439 /* Pods-MoneyApp.modulemap */,
+				54F43C94A83C264F33880E38101C9930 /* Pods-MoneyApp-acknowledgements.markdown */,
+				A527232CAEF84C17C40F75465271ABA7 /* Pods-MoneyApp-acknowledgements.plist */,
+				06CFB4E4FC077FCBB4C5734C8EDCF494 /* Pods-MoneyApp-dummy.m */,
+				07559748675C8A8415872157D390C5D3 /* Pods-MoneyApp-frameworks.sh */,
+				DBE9315F2EA5CFB289A7AE074E0953B4 /* Pods-MoneyApp-Info.plist */,
+				051E1C0CF0DD5785893FC0E17BC788DE /* Pods-MoneyApp-umbrella.h */,
+				586C6CF0B3631B478F1D660EB51559E0 /* Pods-MoneyApp.debug.xcconfig */,
+				7F3E3E36278FCEDB390C281CCF2F5977 /* Pods-MoneyApp.release.xcconfig */,
+			);
+			name = "Pods-MoneyApp";
+			path = "Target Support Files/Pods-MoneyApp";
+			sourceTree = "<group>";
+		};
+		18C09227CF5A549B6193BDB12A6DEA2A /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				00D23A9B4D9DA4D06BC617682BF06928 /* Pods-MoneyApp */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		3E3C4363F3377ABDFC79875840F0D4F8 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				17BD819CB6A417EF4F58B8AE2122D822 /* AAInfographics.modulemap */,
+				1AA315A336367944D7AA93E091874DDC /* AAInfographics.xcconfig */,
+				1AFAC25E254FE6310674BE9E4C8F7913 /* AAInfographics-dummy.m */,
+				65E6467690F69C65D9B9F0B1C35B3B01 /* AAInfographics-Info.plist */,
+				FBD1E3D11409F768AE50B251BC4B2710 /* AAInfographics-prefix.pch */,
+				DBF61D1D39EE638B344DC90BAAE1D64A /* AAInfographics-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AAInfographics";
+			sourceTree = "<group>";
+		};
+		3FBC10F98A320D6009B3EC6B23CE3701 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C6F85978B9E84A893B9BE7D075FA8CC0 /* AAInfographics */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5AFFEBD1D51EA7A8412D1D2E578D5C50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6CCB9D258E15D810E80DB9950E2B5AC /* AAInfographics.framework */,
+				0822D7D4263BEA1FC519041659773D21 /* Pods_MoneyApp.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C6F85978B9E84A893B9BE7D075FA8CC0 /* AAInfographics */ = {
+			isa = PBXGroup;
+			children = (
+				1CC867531B98B7964DE0F1B553D1C0E4 /* AAAnimation.swift */,
+				351CC198484CDA048F02F4617B856926 /* AAChart.swift */,
+				3E6589BB008ABC8EEFD8148811122908 /* AAChartModel.swift */,
+				6E871EEBD0BB57959CC0248B2F1FD744 /* AAChartView.swift */,
+				648EF428577888619931FC56EB0717CC /* AAColor.swift */,
+				698796F37F8A8A6A0F1B43804157A387 /* AACrosshair.swift */,
+				33CC5725A2EDF344BECFCD91188D055A /* AADataLabels.swift */,
+				D7E18B4C2D9FDFD543D93E462F046F76 /* AAEasyTool.swift */,
+				95E52C6618D3DEDC8BBF5571C02DA211 /* AAGradientColor.swift */,
+				3F09B56E4E2D8B5E3D6CCE5D84AB5BD9 /* AALabel.swift */,
+				A175EDB39CD04F342898E56B431F9403 /* AALabels.swift */,
+				5BA3192C5F600515CBFEEE8C1C3F4F09 /* AALegend.swift */,
+				22CBDC226DB540A4A0628F9CD13AAD70 /* AAMarker.swift */,
+				B73799E7DDF1DE74DC15B6368D8CCBDF /* AAOptions.swift */,
+				43DCF1633782B09FAE3C74DEC96C9F88 /* AAOptionsComposer.swift */,
+				CC9A251072E80C563A5778ED32DF86D0 /* AAPlotBandsElement.swift */,
+				050B0CA30DC9962B970D3F1B64CA5AD0 /* AAPlotLinesElement.swift */,
+				1EFEFE13EA62D9F3F8C06DF6E6E1F2CB /* AAPlotOptions.swift */,
+				4210BD9D0D6D2FE3C19E6E206D6942D9 /* AASerializable.swift */,
+				F084C914D6929A93D65FB5E549471632 /* AASeries.swift */,
+				FBA076904CFC075D76D5E8D136080BDE /* AASeriesElement.swift */,
+				3D160D32E0238FFB479E6A4EB7942293 /* AASubtitle.swift */,
+				5B34092F0B4474A66F4D112F91AF7C0F /* AATitle.swift */,
+				787B728B27E3310E903E9AA588C4C604 /* AATooltip.swift */,
+				C86120B1507CAAA6F7CD0B3CABF3C31B /* AAXAxis.swift */,
+				C479ACB913C5C2D8701AAAE1A3F4E452 /* AAYAxis.swift */,
+				F5973C956E21CCC5F8807A92D4DC85DE /* Resources */,
+				3E3C4363F3377ABDFC79875840F0D4F8 /* Support Files */,
+			);
+			name = AAInfographics;
+			path = AAInfographics;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				3FBC10F98A320D6009B3EC6B23CE3701 /* Pods */,
+				5AFFEBD1D51EA7A8412D1D2E578D5C50 /* Products */,
+				18C09227CF5A549B6193BDB12A6DEA2A /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5973C956E21CCC5F8807A92D4DC85DE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0C5C3BA1DD47D423F92FDCE6256C264D /* AAJSFiles.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C703602876FAE87447670E2B2CDA816C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C6BBD2D3CE5C0E27C97AC6A87A9210B /* Pods-MoneyApp-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D88F41CA12A14678421DF023725608EB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC0BD62F42CD37D365BA96EEA1448478 /* AAInfographics-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		81AB6AA06BE8625CF139234A31B027FE /* AAInfographics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8520B2290712CD390149018AD1644BD2 /* Build configuration list for PBXNativeTarget "AAInfographics" */;
+			buildPhases = (
+				D88F41CA12A14678421DF023725608EB /* Headers */,
+				A896433BD0555D4D9131147D7E9113E5 /* Sources */,
+				65F0359E017D313107DD64C4875AA306 /* Frameworks */,
+				6AA2AA10BE9F6EF2F5751031F2A10553 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AAInfographics;
+			productName = AAInfographics;
+			productReference = D6CCB9D258E15D810E80DB9950E2B5AC /* AAInfographics.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D6E94DEC193DEC0227A3197C610A2F4D /* Pods-MoneyApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A4DE639EA0EDAE392462337D1DF9DDD /* Build configuration list for PBXNativeTarget "Pods-MoneyApp" */;
+			buildPhases = (
+				C703602876FAE87447670E2B2CDA816C /* Headers */,
+				EB8D80CB3F658D97C4A96884BDB1B0EB /* Sources */,
+				BEE96CF6DCEA806036772283497A8681 /* Frameworks */,
+				C6AD9FD9D3BCF287EA9F8ECDEEA4AEC8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				21896E90B6F7D27229E6204782D1225C /* PBXTargetDependency */,
+			);
+			name = "Pods-MoneyApp";
+			productName = "Pods-MoneyApp";
+			productReference = 0822D7D4263BEA1FC519041659773D21 /* Pods_MoneyApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 5AFFEBD1D51EA7A8412D1D2E578D5C50 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				81AB6AA06BE8625CF139234A31B027FE /* AAInfographics */,
+				D6E94DEC193DEC0227A3197C610A2F4D /* Pods-MoneyApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6AA2AA10BE9F6EF2F5751031F2A10553 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3513AD1DA87BF28279BD7E5760A9B298 /* AAJSFiles.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6AD9FD9D3BCF287EA9F8ECDEEA4AEC8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A896433BD0555D4D9131147D7E9113E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C75CB6F32F73C99F7200ADB03082F1C /* AAAnimation.swift in Sources */,
+				2B18AD78249951BA04D441D51ABDCF9A /* AAChart.swift in Sources */,
+				786BCACD784A765207DBD0D75607A6EB /* AAChartModel.swift in Sources */,
+				28D47CFD5B09E96BDD990977946BE3AA /* AAChartView.swift in Sources */,
+				52FD58E263C8E8276517A0C92C52A58A /* AAColor.swift in Sources */,
+				169B20B29497F5DBD580E69F83CD0DFF /* AACrosshair.swift in Sources */,
+				806C9A5BB8983A40C15849D7DD3F34C9 /* AADataLabels.swift in Sources */,
+				DF89B2E6B52113DA8358801EF2BB6462 /* AAEasyTool.swift in Sources */,
+				9E2BACF7B27972D365622E9CABF3DA61 /* AAGradientColor.swift in Sources */,
+				0B479B22DB0C6CF80EEBABBA21194D3B /* AAInfographics-dummy.m in Sources */,
+				1B5B4F31B51A9ED59136BE2C130738D1 /* AALabel.swift in Sources */,
+				6E7E35F8537F63A7CA32E809F3A5EAF9 /* AALabels.swift in Sources */,
+				6CC53BE1FB147AC3169624765FF373A9 /* AALegend.swift in Sources */,
+				E173CB4FADC0A8BD7D3C7B635D6DEB49 /* AAMarker.swift in Sources */,
+				F03303CC513DC8BF4DFFC776927DF399 /* AAOptions.swift in Sources */,
+				132FFEC16E1BCC984A24F6A442CA5138 /* AAOptionsComposer.swift in Sources */,
+				542CE4705D9780DF55C0CE947BDAA98C /* AAPlotBandsElement.swift in Sources */,
+				50171EDA2E2017981CE2A5780E7884FD /* AAPlotLinesElement.swift in Sources */,
+				018DB230C2D8453D7F2A7C6DB8FA400A /* AAPlotOptions.swift in Sources */,
+				CD69619A2708FA3741D715B0EF69163E /* AASerializable.swift in Sources */,
+				2164C187CDC8CA9422262BDE881ACC1D /* AASeries.swift in Sources */,
+				14282F71A087E4B4BED8F57B57788609 /* AASeriesElement.swift in Sources */,
+				8509DEC5B440AFBF51976C94FD4B4865 /* AASubtitle.swift in Sources */,
+				0D3CCEF93BBB21C28C3954597590B6FA /* AATitle.swift in Sources */,
+				46039A530E7A52CF20E217A2F349F6BE /* AATooltip.swift in Sources */,
+				4A4F53D1855496934465D556E61126C9 /* AAXAxis.swift in Sources */,
+				8AD82FE6003C9ADD887541453E73D700 /* AAYAxis.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB8D80CB3F658D97C4A96884BDB1B0EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96BF72F7360287919CC1AD499093602C /* Pods-MoneyApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21896E90B6F7D27229E6204782D1225C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AAInfographics;
+			target = 81AB6AA06BE8625CF139234A31B027FE /* AAInfographics */;
+			targetProxy = 61933DEDFE63BDA3754F3D0927B1EB48 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		204B8AEA4AE90A551A1768B355C2F9F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		3CCC6195EDBEE5DA2A49DF962113BE16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		51C29F0EA6039BA10481F625255436AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 586C6CF0B3631B478F1D660EB51559E0 /* Pods-MoneyApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7B16140E1B7C5918C67F0FFB8E8888F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AA315A336367944D7AA93E091874DDC /* AAInfographics.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AAInfographics/AAInfographics-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AAInfographics/AAInfographics-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/AAInfographics/AAInfographics.modulemap";
+				PRODUCT_MODULE_NAME = AAInfographics;
+				PRODUCT_NAME = AAInfographics;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B3C344863A7840448029EC867B7ED74D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AA315A336367944D7AA93E091874DDC /* AAInfographics.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AAInfographics/AAInfographics-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AAInfographics/AAInfographics-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/AAInfographics/AAInfographics.modulemap";
+				PRODUCT_MODULE_NAME = AAInfographics;
+				PRODUCT_NAME = AAInfographics;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C9708D792CC416597BC5827A85B31BA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F3E3E36278FCEDB390C281CCF2F5977 /* Pods-MoneyApp.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A4DE639EA0EDAE392462337D1DF9DDD /* Build configuration list for PBXNativeTarget "Pods-MoneyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51C29F0EA6039BA10481F625255436AF /* Debug */,
+				C9708D792CC416597BC5827A85B31BA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				204B8AEA4AE90A551A1768B355C2F9F0 /* Debug */,
+				3CCC6195EDBEE5DA2A49DF962113BE16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8520B2290712CD390149018AD1644BD2 /* Build configuration list for PBXNativeTarget "AAInfographics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B16140E1B7C5918C67F0FFB8E8888F3 /* Debug */,
+				B3C344863A7840448029EC867B7ED74D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

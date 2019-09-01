@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,8 @@
 		9A57A17122CC883900DC6624 /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A57A17022CC883900DC6624 /* WalletCell.swift */; };
 		9A57A17322CF25FD00DC6624 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A57A17222CF25FD00DC6624 /* IconView.swift */; };
 		9A57A17522D0E2B700DC6624 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A57A17422D0E2B700DC6624 /* CategoryList.swift */; };
+		9A591D08231AC6C900F14E82 /* ReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A591D07231AC6C900F14E82 /* ReportsViewController.swift */; };
+		9A591D0A231BE1F400F14E82 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A591D09231BE1F400F14E82 /* Extensions.swift */; };
 		9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */; };
 		9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */; };
 		9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */; };
@@ -31,9 +33,12 @@
 		9AE3BCB622C5F02C00089927 /* WalletListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */; };
 		9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */; };
 		9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4CCF230997020059EFCF /* DateBarCell.swift */; };
+		EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34AE7B675A566C56788FEAAA /* Pods-MoneyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyApp.release.xcconfig"; path = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.release.xcconfig"; sourceTree = "<group>"; };
 		9A05558422A18A2A009398CD /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		9A05558622A18A5C009398CD /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		9A05558822A18B3A009398CD /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -48,6 +53,8 @@
 		9A57A17022CC883900DC6624 /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		9A57A17222CF25FD00DC6624 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		9A57A17422D0E2B700DC6624 /* CategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
+		9A591D07231AC6C900F14E82 /* ReportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsViewController.swift; sourceTree = "<group>"; };
+		9A591D09231BE1F400F14E82 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCell.swift; sourceTree = "<group>"; };
 		9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarViewCell.swift; sourceTree = "<group>"; };
 		9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +67,7 @@
 		9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 		9AEC4CCF230997020059EFCF /* DateBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBarCell.swift; sourceTree = "<group>"; };
+		F8AF828884BC35B3E3876870 /* Pods-MoneyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyApp.debug.xcconfig"; path = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,15 +75,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F3F72EB275EFFB37A2AC68B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8AF828884BC35B3E3876870 /* Pods-MoneyApp.debug.xcconfig */,
+				34AE7B675A566C56788FEAAA /* Pods-MoneyApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9A05558A22A18B41009398CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9A591D09231BE1F400F14E82 /* Extensions.swift */,
 				9AE3BCB322C5ED3E00089927 /* StateController.swift */,
 				9A05558B22A18BA7009398CD /* Wallet.swift */,
 				9A05558622A18A5C009398CD /* Transaction.swift */,
@@ -91,6 +110,8 @@
 			children = (
 				9A0705EC2283EF68003817A1 /* MoneyApp */,
 				9A0705EB2283EF68003817A1 /* Products */,
+				6F3F72EB275EFFB37A2AC68B /* Pods */,
+				F32928E07C3BC4446A4BD8E0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,8 +170,17 @@
 				9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */,
 				9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */,
 				9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */,
+				9A591D07231AC6C900F14E82 /* ReportsViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		F32928E07C3BC4446A4BD8E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,9 +190,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A0705FC2283EF6A003817A1 /* Build configuration list for PBXNativeTarget "MoneyApp" */;
 			buildPhases = (
+				AFA42F0751FD9F04FBC8564D /* [CP] Check Pods Manifest.lock */,
 				9A0705E62283EF68003817A1 /* Sources */,
 				9A0705E72283EF68003817A1 /* Frameworks */,
 				9A0705E82283EF68003817A1 /* Resources */,
+				A20A176A7F6D11AC3D27A3F6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -219,17 +251,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A20A176A7F6D11AC3D27A3F6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyApp/Pods-MoneyApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyApp/Pods-MoneyApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyApp/Pods-MoneyApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AFA42F0751FD9F04FBC8564D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoneyApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9A0705E62283EF68003817A1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A591D0A231BE1F400F14E82 /* Extensions.swift in Sources */,
 				9A47104422C4F2F700A3662B /* Currency.swift in Sources */,
 				9AE3BCB622C5F02C00089927 /* WalletListViewController.swift in Sources */,
 				9AE3BCB422C5ED3E00089927 /* StateController.swift in Sources */,
 				9ACDDE5722AE77B500793219 /* TransactionDetailViewController.swift in Sources */,
 				9A05558C22A18BA8009398CD /* Wallet.swift in Sources */,
 				9A05558522A18A2A009398CD /* TransactionsViewController.swift in Sources */,
+				9A591D08231AC6C900F14E82 /* ReportsViewController.swift in Sources */,
 				9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */,
 				9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */,
 				9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */,
@@ -388,11 +464,13 @@
 		};
 		9A0705FD2283EF6A003817A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8AF828884BC35B3E3876870 /* Pods-MoneyApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B72C2658L8;
 				INFOPLIST_FILE = MoneyApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -406,11 +484,13 @@
 		};
 		9A0705FE2283EF6A003817A1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34AE7B675A566C56788FEAAA /* Pods-MoneyApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B72C2658L8;
 				INFOPLIST_FILE = MoneyApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

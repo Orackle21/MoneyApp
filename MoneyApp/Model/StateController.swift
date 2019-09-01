@@ -26,7 +26,7 @@ class StateController{
         setSelectedWallet(index: 0)
     }
     
-    func addNewWallet(name: String, balance: Int, currency: Currency){
+    func addNewWallet(name: String, balance: Decimal, currency: Currency){
         let wallet = Wallet(name: name, initialBalance: balance, currency: currency)
         wallet.calculateBalance()
         listOfAllWallets.append(wallet)
