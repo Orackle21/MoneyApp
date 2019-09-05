@@ -77,6 +77,10 @@ class Wallet: NSObject {
     // Removes transaction by date from "allTransactionGrouped" dict
     func removeTransaction(by date: Date, with index: Int) {
         allTransactionsGrouped[date]?.remove(at: index)
+
+    }
+    
+    func removeTransactionContainer (with date: Date) {
         if allTransactionsGrouped[date]!.isEmpty {
             allTransactionsGrouped.removeValue(forKey: date)
         }
@@ -88,6 +92,20 @@ class Wallet: NSObject {
         }
         dateArray.sort(by: >)
         return dateArray
+    }
+    
+    func getTotalByInterval (dateInterval: DateInterval) -> Decimal {
+        var dateArray = transactionDates.filter {
+            dateInterval.contains($0)
+        }
+        dateArray.sort(by: >)
+        var total: Decimal = 0
+        for date in dateArray {
+            for transaction in allTransactionsGrouped[date]! {
+                total += transaction.amount
+            }
+        }
+        return total
     }
    
     
@@ -116,7 +134,7 @@ class Wallet: NSObject {
     
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 5...8)
+        let randomMonth = Int.random(in: 0...11)
         let randomDay = Int.random(in: 1...31)
         let randomDate = DateComponents( timeZone: TimeZone.init(abbreviation: "GMT"), year: 2019, month: randomMonth, day: randomDay)
         

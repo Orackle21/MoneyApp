@@ -8,21 +8,19 @@
 
 import Foundation
 
-class StateController{
+class StateController {
     
     var listOfAllWallets = [Wallet]()
+    var dater: Dater
     private var selectedWalletIndex = 0
     
     init() {
+        dater = Dater()
         addNewWallet(name: "Wallet"
             , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
         setSelectedWallet(index: 0)
-//        addNewWallet(name: "2 Wallet"
-//            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
-//        addNewWallet(name: "Credit Card"
-//            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
-//        addNewWallet(name: "Credit"
-//            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[15])
+        addNewWallet(name: "Credit Card"
+            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
         setSelectedWallet(index: 0)
     }
     

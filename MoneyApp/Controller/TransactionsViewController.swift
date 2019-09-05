@@ -12,19 +12,19 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var walletBarCollection: UICollectionView!
     @IBOutlet weak var dateBarCollection: UICollectionView!
+    @IBOutlet weak var dateBarBackgroundView: UIView!
     
-    
-    var selectedWallet: Wallet? {
-        didSet {
-            transactionDates = selectedWallet!.transactionDates
+    var stateController: StateController!
+    var selectedWallet: Wallet?
+    var transactionDates: [Date] {
+        get {
+             return selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
         }
     }
-    let dateFormatter = DateFormatter()
-    let sectionDateFormatter = DateFormatter()
-    var stateController: StateController!
-    var transactionDates = [Date]() // is NIL when all wallets are deleated
+    lazy var selectedDate = Date()
+    lazy var dater = stateController.dater
     var dateBarMonths: [Date] {
-        return Date().getMonths()
+        return dater.getRelevantTimeRangesFrom(date: Date())
     }
     
     
@@ -35,9 +35,14 @@ class TransactionsViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
         walletBarCollection.remembersLastFocusedIndexPath = true
-        dateFormatter.dateFormat = "MMM d"
-        sectionDateFormatter.dateFormat = "MMMM d"
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        dateBarCollection.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        dateBarCollection.backgroundView = blurView
+        dateBarCollection.layer.cornerRadius = 10.0
+        dateBarCollection.layer.borderWidth = 1.0
+        dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
         
     }
     
@@ -53,9 +58,13 @@ class TransactionsViewController: UIViewController {
             tableView.restore()
             tableView.reloadData()
         }
+       dateBarCollection.reloadData()
+    dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
     }
     
     
+    @IBAction func changeTimeRange(_ sender: Any) {
+    }
     
     
     
@@ -97,7 +106,7 @@ class TransactionsViewController: UIViewController {
                 cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1)
             }
             
-            cell.dateLabel.text = dateFormatter.string(from: item.date)
+            cell.dateLabel.text = dater.dateFormatter.string(from: item.date)
             
             
             if let icon = cell.categoryIcon as? IconView {
@@ -118,6 +127,7 @@ class TransactionsViewController: UIViewController {
         }
         
     }
+    
     
     
 ///////////////////////////////////////////////////////////////////
@@ -192,7 +202,7 @@ extension TransactionsViewController: UITableViewDataSource {
     // Sets header title for section using "sectionDateFormatter"
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionDate = getDateBySectionNumber(section)
-        return sectionDateFormatter.string(from: sectionDate)
+        return dater.sectionHeaderDateFormatter.string(from: sectionDate)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -220,7 +230,7 @@ extension TransactionsViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             
-            tableView.beginUpdates()
+          //  tableView.beginUpdates()
             guard let wallet = selectedWallet else {
                 return
             }
@@ -228,20 +238,20 @@ extension TransactionsViewController: UITableViewDataSource {
             let dateBySection = transactionDates[indexPath.section]
             
             // Remove transaction by "dateBySection" with index
-            
+
             wallet.removeTransaction(by: dateBySection, with: indexPath.row)
             
             // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates
             // Else just delete the row
-            
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
-                transactionDates.remove(at: transactionDates.firstIndex(of: dateBySection)!)
+               // transactionDates.remove(at: transactionDates.firstIndex(of: dateBySection)!)
+                wallet.removeTransactionContainer(with: dateBySection)
                 tableView.deleteSections([indexPath.section], with: .fade)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            tableView.endUpdates()
+        //    tableView.endUpdates()
         }
     }
     
@@ -259,9 +269,7 @@ extension TransactionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
         headerView.backgroundView?.backgroundColor = #colorLiteral(red: 0.9375644922, green: 0.9369382262, blue: 0.9586723447, alpha: 1)
-        //        let blurEffect = UIBlurEffect(style: .extraLight)
-        //        let blurView = UIVisualEffectView(effect: blurEffect)
-        //        headerView.backgroundView = blurView
+        
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -272,17 +280,18 @@ extension TransactionsViewController: UITableViewDelegate {
 //////////////////////////////////////////////////////////////////
 // WalletBar CollectionView Delegate and DataSource methods
 /////////////////////////////////////////////////////////////////
+
 extension TransactionsViewController: UICollectionViewDelegate {
+    
+    
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.dateBarCollection {
-            let date = dateBarMonths[indexPath.row]
-            let dateInterval = date.getMonthInterval()
-            transactionDates = selectedWallet!.getTransactionsBy(dateInterval: dateInterval)
-            print(dateInterval)
+            selectedDate = dateBarMonths[indexPath.row]
             tableView.reloadData()
+            
         }
             
         else {
@@ -315,11 +324,14 @@ extension TransactionsViewController: UICollectionViewDataSource {
         
         if collectionView == self.dateBarCollection {
             
-            let monthString = dateFormatter.string(from: dateBarMonths[indexPath.row])
+            let monthString = dater.dateFormatter.string(from: dateBarMonths[indexPath.row])
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath)
             if let cell = cell as? DateBarCell {
                 cell.monthName.text = monthString
+                cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0) // forces RTL layout
+              //  cell.layer.addBorder(edge: .left, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
+               // cell.layer.addBorder(edge: .right, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
             }
             
             
@@ -337,6 +349,23 @@ extension TransactionsViewController: UICollectionViewDataSource {
             return cell
             
         
+        }
+    }
+}
+
+extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
+{
+    //MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if collectionView == self.dateBarCollection {
+            let width = collectionView.frame.width
+            print (collectionView.frame.width/3)
+            
+            return CGSize(width: (width/3), height: 34.0)
+        } else {
+        return CGSize(width: 125, height: collectionView.frame.height)
         }
     }
 }

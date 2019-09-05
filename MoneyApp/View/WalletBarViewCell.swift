@@ -13,4 +13,5 @@ class WalletBarViewCell: UICollectionViewCell {
     
     @IBOutlet weak var walletName: UILabel!
     
+   
 }
