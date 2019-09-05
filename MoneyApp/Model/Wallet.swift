@@ -56,14 +56,14 @@ class Wallet: NSObject {
     }
     
     // Creates new transaction, calls "addToAllTransactions", returns said transaction.
-    func newTransaction (in category: Category, name: String, amount: Decimal, date: Date) -> Transaction {
+    @discardableResult func newTransaction (in category: Category, name: String, amount: Decimal, date: Date) -> Transaction {
         let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
         addToAllTransactions(transaction: transaction)
         return transaction
     }
     
     // Adds a transaction to allTransactionGroped dict. Adds transaction.date to transactionsDate for future use.
-    func addToAllTransactions (transaction: Transaction) {
+    private func addToAllTransactions (transaction: Transaction) {
         if var transactionArrayByDate = allTransactionsGrouped[transaction.date] {
             transactionArrayByDate.insert(transaction, at: 0)
             allTransactionsGrouped.updateValue(transactionArrayByDate, forKey: transaction.date)

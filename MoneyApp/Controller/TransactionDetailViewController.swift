@@ -37,16 +37,7 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let wallet = wallet,
-              let selectedCategory = selectedCategory  else {
-            return
-        }
-        if wallet.categoryList.listOfAllCategories.contains(selectedCategory) {
-            saveButton.isEnabled = true
-        } else {
-            categoryNameLabel.text = "Choose Category"
-            saveButton.isEnabled = false
-        }
+        checkTheCategory()
         
     }
     
@@ -88,7 +79,7 @@ class TransactionDetailViewController: UITableViewController {
                 components.timeZone = TimeZone(abbreviation: "GMT")
                 let date = calendar.date(from: components)
                 
-                let _ = wallet.newTransaction(
+                wallet.newTransaction(
                     in: selectedCategory ?? wallet.categoryList.listOfAllCategories[0],
                     name: nameTextField.text ?? "",
                     amount: Decimal(string: amountTextField.text!) ?? 0,
@@ -129,6 +120,17 @@ class TransactionDetailViewController: UITableViewController {
         return 44
     }
     
+    private func checkTheCategory() {
+        guard let wallet = wallet,
+              let selectedCategory = selectedCategory
+            else { return }
+        if wallet.categoryList.listOfAllCategories.contains(selectedCategory) {
+            saveButton.isEnabled = true
+        } else {
+            categoryNameLabel.text = "Choose Category"
+            saveButton.isEnabled = false
+        }
+    }
     
     private func showDatePicker() {
         

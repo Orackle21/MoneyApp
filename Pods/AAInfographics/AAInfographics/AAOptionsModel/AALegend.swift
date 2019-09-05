@@ -32,6 +32,18 @@
 
 import UIKit
 
+public enum AAChartLegendlLayoutType: String {
+    case horizontal, vertical
+}
+
+public enum AAChartLegendAlignType: String {
+    case left, center, right
+}
+
+public enum AAChartLegendVerticalAlignType: String {
+    case top, middle, bottom
+}
+
 public class AALegend: AAObject {
     private var layout: AAChartLegendlLayoutType? //图例数据项的布局。布局类型： "horizontal" 或 "vertical" 即水平布局和垂直布局 默认是：horizontal.
     private var align: AAChartLegendAlignType? //设定图例在图表区中的水平对齐方式，合法值有left，center 和 right。
@@ -40,7 +52,7 @@ public class AALegend: AAObject {
     private var borderColor: String?
     private var borderWidth: Float?
     private var itemMarginTop: Float? //图例的每一项的顶部外边距，单位px。 默认是：0.
-    private var itemStyle: [String: Any]?
+    private var itemStyle: AAItemStyle?
     private var x: Float?
     private var y: Float?
     
@@ -88,7 +100,7 @@ public class AALegend: AAObject {
     
     @discardableResult
     public func itemStyle(_ prop: AAItemStyle?) -> AALegend {
-        itemStyle = prop?.toDic()
+        itemStyle = prop
         return self
     }
     

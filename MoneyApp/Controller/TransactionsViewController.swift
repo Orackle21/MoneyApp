@@ -9,43 +9,37 @@
 import UIKit
 
 class TransactionsViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var walletBarCollection: UICollectionView!
     @IBOutlet weak var dateBarCollection: UICollectionView!
     @IBOutlet weak var dateBarBackgroundView: UIView!
+    @IBAction func changeTimeRange(_ sender: Any) {
+        prepareAlert()
+        self.present(actionSheet!, animated: true, completion: nil)
+    }
+    
     var actionSheet: UIAlertController?
 
     var stateController: StateController!
     var selectedWallet: Wallet?
-    var transactionDates: [Date] {
-        get {
-             return selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
-        }
-    }
+    
     lazy var selectedDate = Date()
     lazy var dater = stateController.dater
+    var transactionDates: [Date] {
+        return selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
+    }
     var dateBarMonths: [Date] {
         return dater.getRelevantTimeRangesFrom(date: Date())
     }
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
+      //  self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
         walletBarCollection.remembersLastFocusedIndexPath = true
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        dateBarCollection.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        dateBarCollection.backgroundView = blurView
-        dateBarCollection.layer.cornerRadius = 10.0
-        dateBarCollection.layer.borderWidth = 1.0
-        dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
-        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
-        dateBarCollection.remembersLastFocusedIndexPath = true
+        styleDateBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,16 +57,9 @@ class TransactionsViewController: UIViewController {
        dateBarCollection.reloadData()
     }
     
-    
-    @IBAction func changeTimeRange(_ sender: Any) {
-        prepareAlert()
-        self.present(actionSheet!, animated: true, completion: nil)
-    }
-    
-    
-    
+   
     // Gets appropriate date by sectionIndex
-    func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
+    private func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
         return transactionDates[sectionIndex]
     }
     
@@ -80,7 +67,7 @@ class TransactionsViewController: UIViewController {
     // Returns "0" if the section is empty.
     // Returns "0" if there are no wallets.
     
-    func getNumberOfRows (for section: Int) -> Int {
+    private func getNumberOfRows (for section: Int) -> Int {
         guard let wallet = selectedWallet else {
             return 0
         }
@@ -96,42 +83,36 @@ class TransactionsViewController: UIViewController {
   
     
     // Configures cell's labels for passed item
-    func configureLabels(for cell: UITableViewCell, with item: Transaction) {
+    private func configureTransactions(for cell: UITableViewCell, with transaction: Transaction) {
         if let cell = cell as? TransactionCell {
-            cell.categoryLabel.text = item.category?.name
-            cell.nameLabel.text = item.name
-            
-            if item.amount > 0 {
-                cell.amountLabel.text = item.currency.currencyCode! + " " + item.amount.description
-                cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-            } else {
-                cell.amountLabel.text = item.currency.currencyCode! + " " + item.amount.description
-                cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1)
-            }
-            
-            cell.dateLabel.text = dater.dateFormatter.string(from: item.date)
-            
+            cell.categoryLabel.text = transaction.category?.name
+            cell.nameLabel.text = transaction.name
+            cell.amountLabel.text = transaction.currency.currencyCode! + " " + transaction.amount.description
+            cell.dateLabel.text = dater.dateFormatter.string(from: transaction.date)
+            transaction.amount > 0 ? (cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : (cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1))
             
             if let icon = cell.categoryIcon as? IconView {
-                icon.setGradeintForCategory(category: item.category!)
+                icon.setGradeintForCategory(category: transaction.category!)
                 icon.setNeedsDisplay()
             }
-            
         }
-        
     }
     
-    func configureWalletBarItems (for cell: WalletBarViewCell, with item: Wallet) {
-        
-        if item.isSelected {
-            cell.backgroundColor = item.color
-        } else {
-            cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        }
-        
+    private func configureWalletBarItems (for cell: WalletBarViewCell, with item: Wallet) {
+        item.isSelected ? (cell.backgroundColor = item.color) : (cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
     }
     
-    func upDater(_ timeRange: Calendar.Component) {
+    private func styleDateBar() {
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        dateBarCollection.backgroundView = blurView
+        dateBarCollection.layer.cornerRadius = 10.0
+        dateBarCollection.layer.borderWidth = 1.0
+        dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+    }
+    
+    private func upDater(_ timeRange: Calendar.Component) {
         dater.selectedTimeRange = timeRange
         selectedDate = dateBarMonths[0]
         tableView.reloadData()
@@ -139,7 +120,7 @@ class TransactionsViewController: UIViewController {
         dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
     }
     
-    func prepareAlert() {
+    private func prepareAlert() {
         actionSheet = UIAlertController(title: "Select Time Range", message: "Filter transactions by selected date", preferredStyle: .actionSheet)
         actionSheet!.addAction(UIAlertAction(
             title: "Day",
@@ -265,9 +246,10 @@ extension TransactionsViewController: UITableViewDataSource {
         if let cell = cell as? TransactionCell {
             if let transactionsByDate = wallet.allTransactionsGrouped[date] {
                 let item = transactionsByDate[indexPath.row]
-                configureLabels(for: cell, with: item)
+                configureTransactions(for: cell, with: item)
             }
         }
+//        cell.applyConfig(for: indexPath, numberOfCellsInSection: tableView.numberOfRows(inSection: indexPath.section))
         return cell
     }
     
@@ -276,28 +258,24 @@ extension TransactionsViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             
-          //  tableView.beginUpdates()
             guard let wallet = selectedWallet else {
                 return
             }
-            
             let dateBySection = transactionDates[indexPath.section]
             
             // Remove transaction by "dateBySection" with index
 
             wallet.removeTransaction(by: dateBySection, with: indexPath.row)
             
-            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove Date from transactionDates
+            // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove its Date Container
             // Else just delete the row
             let numberOfRows = getNumberOfRows(for: indexPath.section)
             if numberOfRows == 0 {
-               // transactionDates.remove(at: transactionDates.firstIndex(of: dateBySection)!)
                 wallet.removeTransactionContainer(with: dateBySection)
                 tableView.deleteSections([indexPath.section], with: .fade)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-        //    tableView.endUpdates()
         }
     }
     
@@ -307,6 +285,7 @@ extension TransactionsViewController: UITableViewDataSource {
         // Toggle table view editing.
         tableView.setEditing(!tableView.isEditing, animated: true)
     }
+    
     
     
 }
@@ -319,8 +298,10 @@ extension TransactionsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 49
+        return 50
     }
+    
+    
 }
 
 //////////////////////////////////////////////////////////////////
@@ -329,18 +310,13 @@ extension TransactionsViewController: UITableViewDelegate {
 
 extension TransactionsViewController: UICollectionViewDelegate {
     
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.dateBarCollection {
             selectedDate = dateBarMonths[indexPath.row]
             tableView.reloadData()
             
-        }
-            
-        else {
+        } else {
             stateController.setSelectedWallet(index: indexPath.row)
             selectedWallet = stateController.getSelectedWallet()
             self.tableView.reloadData()
@@ -350,6 +326,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
 }
 
 extension TransactionsViewController: UICollectionViewDataSource {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -357,29 +334,22 @@ extension TransactionsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.dateBarCollection {
             return dateBarMonths.count
-        }
-        else {
+        } else {
              return stateController.listOfAllWallets.count
         }
-        
-       
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
+    
         if collectionView == self.dateBarCollection {
             let monthString = dater.dateFormatter.string(from: dateBarMonths[indexPath.row])
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath)
             if let cell = cell as? DateBarCell {
                 cell.monthName.text = monthString
-                cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0) // forces RTL layout
-              //  cell.layer.addBorder(edge: .left, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
-               // cell.layer.addBorder(edge: .right, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
+//                cell.layer.addBorder(edge: .left, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
+//                cell.layer.addBorder(edge: .right, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
             }
-            
-            
             return cell
         }
             
@@ -392,8 +362,6 @@ extension TransactionsViewController: UICollectionViewDataSource {
                 configureWalletBarItems(for: cell, with: item)
             }
             return cell
-            
-        
         }
     }
 }
@@ -412,43 +380,6 @@ extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
         } else {
         return CGSize(width: 125, height: collectionView.frame.height)
         }
-    }
-}
-
-
-///////////////////////////////////////////////////////////////////
-// Handling empty wallet and empty transaction list
-///////////////////////////////////////////////////////////////////
-
-extension UITableView {
-    func setEmptyView(title: String, message: String) {
-        let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
-        let titleLabel = UILabel()
-        let messageLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        messageLabel.textColor = UIColor.lightGray
-        messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-        emptyView.addSubview(titleLabel)
-        emptyView.addSubview(messageLabel)
-        titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        messageLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: 20).isActive = true
-        messageLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -20).isActive = true
-        titleLabel.text = title
-        messageLabel.text = message
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        // The only tricky part is here:
-        self.backgroundView = emptyView
-        self.separatorStyle = .none
-    }
-    func restore() {
-        self.backgroundView = nil
-        self.separatorStyle = .singleLine
     }
 }
 

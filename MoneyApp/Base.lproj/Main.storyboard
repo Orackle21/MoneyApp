@@ -268,7 +268,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6uD-RM-hMt">
-                                            <rect key="frame" x="15" y="0.0" width="361" height="60"/>
+                                            <rect key="frame" x="15" y="0.0" width="322" height="60"/>
                                             <color key="backgroundColor" red="0.93751734499999995" green="0.93689900640000001" blue="0.95686656240000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wpl-cS-psO">
                                                 <size key="itemSize" width="125" height="50"/>
@@ -316,7 +316,7 @@
                                             </connections>
                                         </collectionView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D73-AU-Ok3">
-                                            <rect key="frame" x="384" y="19" width="22" height="22"/>
+                                            <rect key="frame" x="345" y="19" width="22" height="22"/>
                                             <connections>
                                                 <segue destination="p37-N6-nJT" kind="show" identifier="allWalletsSegue" id="rjR-zS-fyE"/>
                                             </connections>
@@ -366,7 +366,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5y8-5k-wcu">
-                                                    <rect key="frame" x="359" y="10" width="40" height="53.5"/>
+                                                    <rect key="frame" x="265" y="10" width="40" height="53.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -410,7 +410,7 @@
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="290" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="PHa-Ce-qh3">
                                 <rect key="frame" x="15" y="568" width="345" height="40"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0XO-5N-TbH">
+                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" preservesSuperviewLayoutMargins="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0XO-5N-TbH">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="40"/>
                                         <color key="backgroundColor" red="0.3724817576142132" green="0.3724817576142132" blue="0.3724817576142132" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Pfi-ap-eHQ">
@@ -420,7 +420,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCell" id="vlV-No-Iih" customClass="DateBarCell" customModule="MoneyApp" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" reuseIdentifier="dateCell" id="vlV-No-Iih" customClass="DateBarCell" customModule="MoneyApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="3" width="75" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -485,19 +485,18 @@
                         <viewLayoutGuide key="safeArea" id="GbW-rq-e9L"/>
                     </view>
                     <navigationItem key="navigationItem" title="Transactions" id="n67-sH-yG1">
-                        <rightBarButtonItems>
-                            <barButtonItem style="done" systemItem="add" id="pj2-it-OtL">
-                                <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <segue destination="d7J-W1-892" kind="show" identifier="detailSegue" id="AQJ-ia-sO1"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="organize" id="33O-fN-XgZ">
-                                <connections>
-                                    <action selector="changeTimeRange:" destination="E9S-jm-KGj" id="ZBX-Om-Lha"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="33O-fN-XgZ">
+                            <color key="tintColor" red="0.57390427489999996" green="0.43835377780000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="changeTimeRange:" destination="E9S-jm-KGj" id="ZBX-Om-Lha"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="pj2-it-OtL">
+                            <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="d7J-W1-892" kind="show" identifier="detailSegue" id="AQJ-ia-sO1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dateBarBackgroundView" destination="PHa-Ce-qh3" id="Ofd-9y-ZKD"/>
@@ -983,6 +982,9 @@
             <point key="canvasLocation" x="-699" y="-52"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="menu" width="24" height="24"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hvB-aU-aBF"/>
     </inferredMetricsTieBreakers>
