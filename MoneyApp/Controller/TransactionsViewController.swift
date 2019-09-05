@@ -13,7 +13,8 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var walletBarCollection: UICollectionView!
     @IBOutlet weak var dateBarCollection: UICollectionView!
     @IBOutlet weak var dateBarBackgroundView: UIView!
-    
+    var actionSheet: UIAlertController?
+
     var stateController: StateController!
     var selectedWallet: Wallet?
     var transactionDates: [Date] {
@@ -43,7 +44,8 @@ class TransactionsViewController: UIViewController {
         dateBarCollection.layer.cornerRadius = 10.0
         dateBarCollection.layer.borderWidth = 1.0
         dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
-        
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+        dateBarCollection.remembersLastFocusedIndexPath = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,11 +61,12 @@ class TransactionsViewController: UIViewController {
             tableView.reloadData()
         }
        dateBarCollection.reloadData()
-    dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
     }
     
     
     @IBAction func changeTimeRange(_ sender: Any) {
+        prepareAlert()
+        self.present(actionSheet!, animated: true, completion: nil)
     }
     
     
@@ -125,6 +128,49 @@ class TransactionsViewController: UIViewController {
         } else {
             cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
+        
+    }
+    
+    func upDater(_ timeRange: Calendar.Component) {
+        dater.selectedTimeRange = timeRange
+        selectedDate = dateBarMonths[0]
+        tableView.reloadData()
+        dateBarCollection.reloadData()
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+    }
+    
+    func prepareAlert() {
+        actionSheet = UIAlertController(title: "Select Time Range", message: "Filter transactions by selected date", preferredStyle: .actionSheet)
+        actionSheet!.addAction(UIAlertAction(
+            title: "Day",
+            style: .default,
+            handler: { _ in
+                self.upDater(.day)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Week",
+            style: .default,
+            handler: { _ in
+                self.upDater(.weekOfMonth)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Month",
+            style: .default,
+            handler: { _ in
+                self.upDater(.month)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Year",
+            style: .default,
+            handler: { _ in
+                self.upDater(.year)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        ))
+        
         
     }
     
@@ -323,7 +369,6 @@ extension TransactionsViewController: UICollectionViewDataSource {
         
         
         if collectionView == self.dateBarCollection {
-            
             let monthString = dater.dateFormatter.string(from: dateBarMonths[indexPath.row])
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath)

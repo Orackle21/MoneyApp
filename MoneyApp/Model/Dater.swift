@@ -11,23 +11,37 @@ import Foundation
 struct Dater {
     
     private let calendar = Calendar.current
-    var selectedTimeRange: Calendar.Component
-    let dateFormatter =  DateFormatter()
+    var selectedTimeRange: Calendar.Component {
+        didSet {
+            setDateFormatter()
+        }
+    }
+    var dateFormatter = DateFormatter()
     let sectionHeaderDateFormatter = DateFormatter()
     
     init () {
         selectedTimeRange = .month
-        dateFormatter.dateFormat = "MMMM"
+        setDateFormatter()
         sectionHeaderDateFormatter.dateFormat = "MMMM d"
+    }
+    
+    private func setDateFormatter(){
+        switch selectedTimeRange {
+        case .day: dateFormatter.dateFormat = "dd MMM"
+        case .weekOfMonth: dateFormatter.dateFormat =  "dd MMM"
+        case .month: dateFormatter.dateFormat = "MMMM"
+        case .quarter: dateFormatter.dateFormat = "MMMM yy"
+        case .year: dateFormatter.dateFormat = "yyyy"
+        default: dateFormatter.dateFormat = "dd MMMM yyyy"
+        }
     }
     
     func getRelevantTimeRangesFrom(date: Date) -> [Date] {
         var date = date
         var dates = [Date]()
-        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: date)
-        components.timeZone = TimeZone.init(abbreviation: "GMT")
+        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.quarter], from: date)
+        components.timeZone = TimeZone(abbreviation: "GMT")
         date = calendar.date(from: components)!
-        
         dates.append(date)
         
         for _ in 0...24 {

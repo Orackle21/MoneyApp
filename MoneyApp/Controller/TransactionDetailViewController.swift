@@ -47,12 +47,14 @@ class TransactionDetailViewController: UITableViewController {
             categoryNameLabel.text = "Choose Category"
             saveButton.isEnabled = false
         }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dateFormatter.dateFormat = "MMMM d, YYYY"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        datePicker.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePickerDate)
         
         if let item = transactionToEdit {
@@ -83,7 +85,7 @@ class TransactionDetailViewController: UITableViewController {
                 
                 let calendar = Calendar.current
                 var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: datePickerDate)
-                components.timeZone = TimeZone.init(abbreviation: "GMT")
+                components.timeZone = TimeZone(abbreviation: "GMT")
                 let date = calendar.date(from: components)
                 
                 let _ = wallet.newTransaction(
