@@ -38,7 +38,7 @@ class IconView: UIView {
                                    options: [])
         
         
-        let image = UIImage(imageLiteralResourceName: "foodIcon")
+        let image = UIImage(named: "foodIcon")
         let imageView = UIImageView(image: image)
         imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         imageView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

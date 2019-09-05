@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionsViewController: UIViewController {
+class TransactionsViewController: UIViewController, CustomTabBarControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var walletBarCollection: UICollectionView!
@@ -37,9 +37,9 @@ class TransactionsViewController: UIViewController {
         super.viewDidLoad()
       //  self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView()
-        walletBarCollection.remembersLastFocusedIndexPath = true
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         styleDateBar()
+        (self.tabBarController as! CustomTabBarController).customTabBarControllerDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -373,13 +373,17 @@ extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         if collectionView == self.dateBarCollection {
-            let width = collectionView.frame.width
-            print (collectionView.frame.width/3)
-            
+            let width = collectionView.frame.width            
             return CGSize(width: (width/3), height: 34.0)
         } else {
         return CGSize(width: 125, height: collectionView.frame.height)
         }
+    }
+}
+
+extension TransactionsViewController {
+    func customTabBarControllerDelegate_CenterButtonTapped(tabBarController: CustomTabBarController, button: UIButton, buttonState: Bool) {
+        performSegue(withIdentifier: "detailSegue", sender: button)
     }
 }
 
