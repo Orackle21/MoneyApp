@@ -20,6 +20,9 @@ class WalletListViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tableView.reloadData()
+        if let tabBar = self.tabBarController as? CustomTabBarController {
+            tabBar.hideCenterButton()
+        }
     }
 
     

@@ -38,7 +38,6 @@ class TransactionDetailViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkTheCategory()
-        
     }
     
     override func viewDidLoad() {

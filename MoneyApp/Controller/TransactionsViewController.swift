@@ -33,6 +33,15 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
         return dater.getRelevantTimeRangesFrom(date: Date())
     }
     
+    var cellWidth: CGFloat { return (view.frame.size.width - 30.0) / 3 }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        recalculateCellSize()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       //  self.navigationItem.leftBarButtonItem = self.editButtonItem
@@ -40,6 +49,7 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         styleDateBar()
         (self.tabBarController as! CustomTabBarController).customTabBarControllerDelegate = self
+        self.tabBarController?.tabBar.setValue(true, forKey: "hidesShadow")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,9 +64,16 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
             tableView.restore()
             tableView.reloadData()
         }
-       dateBarCollection.reloadData()
+        if let tabBar = self.tabBarController as? CustomTabBarController {
+            tabBar.showCenterButton()
+        }
     }
     
+    
+    private func recalculateCellSize() {
+        let layout = dateBarCollection.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: cellWidth, height: 44.0)
+    }
    
     // Gets appropriate date by sectionIndex
     private func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
@@ -293,12 +310,12 @@ extension TransactionsViewController: UITableViewDataSource {
 extension TransactionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
-        headerView.backgroundView?.backgroundColor = #colorLiteral(red: 0.9375644922, green: 0.9369382262, blue: 0.9586723447, alpha: 1)
+        headerView.backgroundView?.backgroundColor = #colorLiteral(red: 0.9528481364, green: 0.952988565, blue: 0.9528290629, alpha: 1)
         
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 49
     }
     
     
@@ -370,15 +387,15 @@ extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
 {
     //MARK: - UICollectionViewDelegateFlowLayout
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        if collectionView == self.dateBarCollection {
-            let width = collectionView.frame.width            
-            return CGSize(width: (width/3), height: 34.0)
-        } else {
-        return CGSize(width: 125, height: collectionView.frame.height)
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        if collectionView == self.dateBarCollection {
+//            let width = collectionView.frame.width
+//            return CGSize(width: cellWidth, height: 34.0)
+//        } else {
+//        return CGSize(width: 125, height: collectionView.frame.height)
+//        }
+//    }
 }
 
 extension TransactionsViewController {

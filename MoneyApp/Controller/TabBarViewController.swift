@@ -46,10 +46,10 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         {
         case is ReportsViewController:
             self.hideCenterButton()
-            self.viewControllers![1].title = "Transactions"
+           // self.viewControllers![1].title = "Transactions"
         case is BudgetViewController:
             self.hideCenterButton()
-            self.viewControllers![1].title = "Transactions"
+          //  self.viewControllers![1].title = "Transactions"
         default:
             self.showCenterButton()
             self.viewControllers![1].title = " "
@@ -64,11 +64,11 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
                                                                                           buttonState: centerButtonTappedOnce);
     }
     
-   private func hideCenterButton(){
+   func hideCenterButton(){
         centerButton.isHidden = true;
     }
     
-    private func showCenterButton(){
+     func showCenterButton(){
         centerButton.isHidden = false;
         self.bringcenterButtonToFront();
     }
