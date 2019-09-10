@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionsViewController: UIViewController, CustomTabBarControllerDelegate {
+class TransactionsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var walletBarCollection: UICollectionView!
@@ -33,12 +33,14 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
         return dater.getRelevantTimeRangesFrom(date: Date())
     }
     
-    var cellWidth: CGFloat { return (view.frame.size.width - 30.0) / 3 }
+    
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         recalculateCellSize()
+        let indexPath = dateBarCollection.indexPathsForSelectedItems?.first
+        dateBarCollection.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
     }
     
     
@@ -48,8 +50,7 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
         tableView.tableFooterView = UIView()
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         styleDateBar()
-        (self.tabBarController as! CustomTabBarController).customTabBarControllerDelegate = self
-        self.tabBarController?.tabBar.setValue(true, forKey: "hidesShadow")
+        setupAddButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,13 +68,14 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
         if let tabBar = self.tabBarController as? CustomTabBarController {
             tabBar.showCenterButton()
         }
+   
+
+
+
     }
     
     
-    private func recalculateCellSize() {
-        let layout = dateBarCollection.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: cellWidth, height: 44.0)
-    }
+    
    
     // Gets appropriate date by sectionIndex
     private func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
@@ -119,15 +121,7 @@ class TransactionsViewController: UIViewController, CustomTabBarControllerDelega
         item.isSelected ? (cell.backgroundColor = item.color) : (cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
     }
     
-    private func styleDateBar() {
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        dateBarCollection.backgroundView = blurView
-        dateBarCollection.layer.cornerRadius = 10.0
-        dateBarCollection.layer.borderWidth = 1.0
-        dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
-        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
-    }
+    
     
     private func upDater(_ timeRange: Calendar.Component) {
         dater.selectedTimeRange = timeRange
@@ -399,9 +393,47 @@ extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
 }
 
 extension TransactionsViewController {
-    func customTabBarControllerDelegate_CenterButtonTapped(tabBarController: CustomTabBarController, button: UIButton, buttonState: Bool) {
-        performSegue(withIdentifier: "detailSegue", sender: button)
+    
+    @objc private func addTransaction() {
+        performSegue(withIdentifier: "detailSegue", sender: (Any).self)
     }
+    
+    private func setupAddButton() {
+        var centerButton: UIButton
+        centerButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        
+        centerButton.backgroundColor = #colorLiteral(red: 0.5739042749, green: 0.4383537778, blue: 1, alpha: 1)
+        centerButton.layer.cornerRadius = 15
+        centerButton.imageView?.contentMode = .scaleAspectFit
+
+        
+        let icon = UIImage(named: "addButton")
+        centerButton.setImage(icon?.maskWithColor(color: UIColor.white), for: .normal)
+        view.addSubview(centerButton)
+        centerButton.addTarget(self, action: #selector(self.addTransaction), for: .touchUpInside)
+
+        
+        let barButton = UIBarButtonItem(customView: centerButton)
+        navigationItem.rightBarButtonItem = barButton
+        view.layoutIfNeeded()
+    }
+    
+    private func recalculateCellSize() {
+        let layout = dateBarCollection.collectionViewLayout as! UICollectionViewFlowLayout
+        var cellWidth: CGFloat { return (view.frame.size.width - 30.0) / 3 }
+        layout.itemSize = CGSize(width: cellWidth, height: 34.0)
+    }
+    
+    private func styleDateBar() {
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        dateBarCollection.backgroundView = blurView
+        dateBarCollection.layer.cornerRadius = 10.0
+        dateBarCollection.layer.borderWidth = 1.0
+        dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+    }
+    
 }
 
 

@@ -16,40 +16,35 @@ class ReportsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         let dates = dater.getRelevantTimeRangesFrom(date: Date())
         var dateNames = [String]()
         var dateIntervals = [DateInterval]()
         var totalByMonth = [Decimal]()
-
+        
         for date in dates {
             dateNames.append(date.description(with: Locale.current))
         }
-
+        
         for date in dates {
             dateIntervals.append(dater.getTimeIntervalFor(date: date))
         }
-
+        
         for dateInterval in dateIntervals {
             totalByMonth.append(stateController.getSelectedWallet()?.getTotalByInterval(dateInterval: dateInterval) ?? 0.00)
         }
-
-
+        
+        
         let aaChartView = AAChartView()
         let chartViewWidth  = self.view.frame.size.width
         let chartViewHeight = self.view.frame.size.height
         aaChartView.frame = CGRect(x:0,y:0,width:chartViewWidth,height:chartViewHeight)
         // set the content height of aachartView
         // aaChartView?.contentHeight = self.view.frame.size.height
+        aaChartView.contentMode = .redraw
         self.view.addSubview(aaChartView)
-
-
-
+        
+        
+        
         let aaChartModel = AAChartModel()
             .chartType(.spline)//Can be any of the chart types listed under `AAChartType`.
             .animationType(.easeInCubic)
@@ -66,6 +61,12 @@ class ReportsViewController: UIViewController {
                 ])
         aaChartView.aa_drawChartWithChartModel(aaChartModel)
         aaChartView.aa_drawChartWithChartModel(aaChartModel)
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 
 
