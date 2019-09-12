@@ -16,7 +16,6 @@ class CurrencyListCell: UITableViewCell {
     }
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var symbolLabel: UILabel!
     
 

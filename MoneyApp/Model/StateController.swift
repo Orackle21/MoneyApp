@@ -17,10 +17,10 @@ class StateController {
     init() {
         dater = Dater()
         addNewWallet(name: "Wallet"
-            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[1])
+            , balance: 500, currency: CurrencyList.shared.allCurrencies[1])
         setSelectedWallet(index: 0)
         addNewWallet(name: "Credit Card"
-            , balance: 500, currency: CurrencyList.shared.everyCurrencyList[5])
+            , balance: 500, currency: CurrencyList.shared.allCurrencies[15])
         setSelectedWallet(index: 0)
     }
     

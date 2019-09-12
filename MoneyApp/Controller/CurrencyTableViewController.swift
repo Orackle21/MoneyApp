@@ -17,7 +17,7 @@ class CurrencyTableViewController: UITableViewController {
     // MARK: - Table view data source
    // let currency = Currency()
     var selectedCurrency: Currency?
-    lazy var allCurrencies = CurrencyList.shared.everyCurrencyList
+    lazy var allCurrencies = CurrencyList.shared.allCurrencies
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -39,13 +39,10 @@ class CurrencyTableViewController: UITableViewController {
         if let cell = cell as? CurrencyListCell {
             let currency = allCurrencies[indexPath.row]
             
-            cell.nameLabel.text = currency.currencyName
-            cell.codeLabel.text = currency.countryCode
-            cell.symbolLabel.text = currency.currencySymbol
+            cell.nameLabel.text = currency.name
+            cell.symbolLabel.text = currency.symbol ?? currency.id
             
         }
-        
-        
         return cell
     }
     

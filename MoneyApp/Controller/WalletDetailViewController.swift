@@ -43,7 +43,7 @@ class WalletDetailViewController: UITableViewController {
     @IBAction func unwindToWalletDetail(_ unwindSegue: UIStoryboardSegue) {
         if let currencyList = unwindSegue.source as? CurrencyTableViewController {
             walletCurrency = currencyList.selectedCurrency
-            currencyLabel.text = walletCurrency?.currencyName
+            currencyLabel.text = walletCurrency?.name
         }
     }
     

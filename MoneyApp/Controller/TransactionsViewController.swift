@@ -65,18 +65,9 @@ class TransactionsViewController: UIViewController {
             tableView.restore()
             tableView.reloadData()
         }
-        if let tabBar = self.tabBarController as? CustomTabBarController {
-            tabBar.showCenterButton()
-        }
-   
-
-
-
     }
     
     
-    
-   
     // Gets appropriate date by sectionIndex
     private func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
         return transactionDates[sectionIndex]
@@ -106,7 +97,7 @@ class TransactionsViewController: UIViewController {
         if let cell = cell as? TransactionCell {
             cell.categoryLabel.text = transaction.category?.name
             cell.nameLabel.text = transaction.name
-            cell.amountLabel.text = transaction.currency.currencyCode! + " " + transaction.amount.description
+            cell.amountLabel.text = (transaction.currency.symbol ?? transaction.currency.id) + " " + transaction.amount.description
             cell.dateLabel.text = dater.dateFormatter.string(from: transaction.date)
             transaction.amount > 0 ? (cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : (cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1))
             
@@ -404,11 +395,11 @@ extension TransactionsViewController {
         
         centerButton.backgroundColor = #colorLiteral(red: 0.5739042749, green: 0.4383537778, blue: 1, alpha: 1)
         centerButton.layer.cornerRadius = 15
-        centerButton.imageView?.contentMode = .scaleAspectFit
-
+        
         
         let icon = UIImage(named: "addButton")
         centerButton.setImage(icon?.maskWithColor(color: UIColor.white), for: .normal)
+        centerButton.imageView?.contentMode = .scaleAspectFill
         view.addSubview(centerButton)
         centerButton.addTarget(self, action: #selector(self.addTransaction), for: .touchUpInside)
 

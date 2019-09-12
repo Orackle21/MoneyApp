@@ -8,53 +8,57 @@
 
 import Foundation
 
-class Currency {
+struct Currency: Codable {
     
-    var countryName:String?
-    var countryCode:String?
-    var currencyCode:String?
-    var currencyName:String?
-    var currencySymbol:String?
+    var name: String
+    var symbol :String?
+    var id: String
     
 }
 
 class CurrencyList {
     
-    static let shared = CurrencyList()
+    static var shared = CurrencyList()
+    lazy var allCurrencies = loadEveryCurrency()
     
-    lazy var everyCurrencyList = loadEveryCountryWithCurrency()
-    
-    func loadEveryCountryWithCurrency() -> [Currency] {
-        var result =  [Currency]()
-        let currencies = Locale.commonISOCurrencyCodes
-        for currencyCode in currencies {
-            
-            let currency = Currency()
-            currency.currencyCode = currencyCode
-            
-            let currencyLocale = Locale(identifier: currencyCode)
-            currency.currencyName = (currencyLocale as NSLocale).displayName(forKey:NSLocale.Key.currencyCode, value: currencyCode)
-            currency.countryCode = String(currencyCode.prefix(2))
-            currency.currencySymbol = (currencyLocale as NSLocale).displayName(forKey:NSLocale.Key.currencySymbol, value: currencyCode)
-            
-            
-            let countryLocale  = NSLocale.current
-            currency.countryName = (countryLocale as NSLocale).displayName(forKey: NSLocale.Key.countryCode, value: currency.countryCode!)
-            
-            
-            if currency.countryName != nil {
-                result.append(currency)
-            }
-            
+    func loadEveryCurrency() -> [Currency] {
+        var currencies = [Currency]()
+        let decoder = JSONDecoder()
+        let jsonFile = Bundle.main.url(forResource: "currencies", withExtension: "json")
+        
+        var data = Data()
+        do {
+            data = try Data(contentsOf: jsonFile!)
+        } catch {
+            print("whoops")
         }
-        return result
+        
+        
+        var result = [String:[String:[String:String]]]()
+        result = try! decoder.decode([String : [String : [String : String]]].self, from: data)
+        
+        for (_, value) in result {
+            for (_, container) in value {
+                var name: String?
+                var symbol: String?
+                var id: String?
+                for (key, value) in container {
+                    
+                    
+                    switch key {
+                    case "currencyName": name = value
+                    case "currencySymbol": symbol = value
+                    case "id": id = value
+                    default:
+                        break
+                    }
+                }
+                currencies.append(Currency(name: name!, symbol: symbol, id: id!))
+            }
+        }
+        
+        return currencies
+        
     }
     
-    
-}
-
-extension Currency:CustomStringConvertible {
-    var description: String {
-        return "\nCountryCode   : \(self.countryCode!)\nName         : \(self.countryName!)\nCurrencyCode : \(self.currencyCode!)\ncurrencyName: \(self.currencyName!)\ncurrencySymbol: \(self.currencySymbol!)\n----------------------------"
-    }
 }
