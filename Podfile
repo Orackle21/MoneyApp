@@ -2,6 +2,7 @@
 # platform :ios, '9.0'
 
 target 'MoneyApp' do
+  inhibit_all_warnings!
   use_frameworks!
-    pod 'AAInfographics', :git => 'https://github.com/AAChartModel/AAChartKit-Swift.git'
+  pod 'Charts'
 end

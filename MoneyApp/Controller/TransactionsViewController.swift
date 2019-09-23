@@ -295,7 +295,7 @@ extension TransactionsViewController: UITableViewDataSource {
 extension TransactionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
-        headerView.backgroundView?.backgroundColor = #colorLiteral(red: 0.9528481364, green: 0.952988565, blue: 0.9528290629, alpha: 1)
+        headerView.contentView.backgroundColor = #colorLiteral(red: 0.9528481364, green: 0.952988565, blue: 0.9528290629, alpha: 1)
         
     }
     

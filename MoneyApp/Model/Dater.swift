@@ -19,7 +19,7 @@ struct Dater {
     var dateFormatter = DateFormatter()
     let sectionHeaderDateFormatter = DateFormatter()
     
-    init () {
+    init() {
         selectedTimeRange = .month
         setDateFormatter()
         sectionHeaderDateFormatter.dateFormat = "MMMM d"

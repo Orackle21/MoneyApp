@@ -7,69 +7,92 @@
 //
 
 import UIKit
-import AAInfographics
+import Charts
 
 class ReportsViewController: UIViewController {
 
+    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var barChartView: LineChartView!
+    
     var stateController: StateController!
-    lazy var dater = stateController.dater
-
+    lazy private var dater = stateController.dater
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dates = dater.getRelevantTimeRangesFrom(date: Date())
-        var dateNames = [String]()
-        var dateIntervals = [DateInterval]()
-        var totalByMonth = [Decimal]()
         
-        for date in dates {
-            dateNames.append(date.description(with: Locale.current))
-        }
+        let players = ["Ozil", "Ramsey", "Laca", "Auba", "Xhaka", "Torreira", "Xhaka", "Torreira"]
+        let goals = [6, 8, 26, 30, 8, 10, 15, 16]
         
-        for date in dates {
-            dateIntervals.append(dater.getTimeIntervalFor(date: date))
-        }
-        
-        for dateInterval in dateIntervals {
-            totalByMonth.append(stateController.getSelectedWallet()?.getTotalByInterval(dateInterval: dateInterval) ?? 0.00)
-        }
-        
-        
-        let aaChartView = AAChartView()
-        let chartViewWidth  = self.view.frame.size.width
-        let chartViewHeight = self.view.frame.size.height
-        aaChartView.frame = CGRect(x:0,y:0,width:chartViewWidth,height:chartViewHeight)
-        // set the content height of aachartView
-        // aaChartView?.contentHeight = self.view.frame.size.height
-        aaChartView.contentMode = .redraw
-        self.view.addSubview(aaChartView)
-        
-        
-        
-        let aaChartModel = AAChartModel()
-            .chartType(.spline)//Can be any of the chart types listed under `AAChartType`.
-            .animationType(.easeInCubic)
-            .title("Graph")//The chart title
-            .subtitle("subtitle")//The chart subtitle
-            .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
-            .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
-            .categories(dateNames)
-            .colorsTheme(["#fe117c","#ffc069","#06caf4","#7dffc0"])
-            .series([
-                AASeriesElement()
-                    .name("Wallet")
-                    .data(totalByMonth)
-                ])
-        aaChartView.aa_drawChartWithChartModel(aaChartModel)
-        aaChartView.aa_drawChartWithChartModel(aaChartModel)
-
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        customizeChart(dataPoints: players, values: goals.map{ Double($0) })
+        customizeLineChart(dataPoints: players, values: goals.map{ Double($0) })
         
     }
+    
+    
+    func customizeLineChart (dataPoints: [String], values: [Double]) {
+        
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]), data: dataPoints[i])
+            dataEntries.append(dataEntry)
+        }
+        
+        let xAxis = barChartView.xAxis
+        xAxis.axisLineWidth = 1
+        xAxis.labelPosition = .bottom
+        xAxis.labelRotationAngle = CGFloat(-50)
+        xAxis.labelRotatedHeight = CGFloat(120)
+        xAxis.drawGridLinesEnabled = false
+        xAxis.forceLabelsEnabled = false
+        xAxis.labelTextColor = UIColor.black
+        xAxis.labelFont = UIFont.systemFont(ofSize: 13)
+        xAxis.granularity = 1
+        xAxis.labelCount = dataPoints.count
+        xAxis.valueFormatter = DayAxisValueFormatter(chart: barChartView, data: [Date()])
+        
 
-
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "BarChart")
+        
+        let chartData = LineChartData(dataSet: chartDataSet)
+        
+        barChartView.data = chartData
+        
+    
+    }
+    
+    func customizeChart(dataPoints: [String], values: [Double]) {
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            dataEntries.append(dataEntry)
+        }
+        // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = colorsOfCharts(numbersOfColor: dataPoints.count)
+        // 3. Set ChartData
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let format = NumberFormatter()
+        format.numberStyle = .none
+        let formatter = DefaultValueFormatter(formatter: format)
+        pieChartData.setValueFormatter(formatter)
+        // 4. Assign it to the chart’s data
+        pieChartView.data = pieChartData
+    }
+    
+    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
+        var colors: [UIColor] = []
+        for _ in 0..<numbersOfColor {
+            let red = Double(arc4random_uniform(256))
+            let green = Double(arc4random_uniform(256))
+            let blue = Double(arc4random_uniform(256))
+            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+            colors.append(color)
+        }
+        return colors
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
@@ -81,3 +104,18 @@ class ReportsViewController: UIViewController {
     */
 
 }
+
+
+public class DayAxisValueFormatter: NSObject, IAxisValueFormatter {
+    weak var chart: BarLineChartViewBase?
+   
+    init(chart: BarLineChartViewBase, data: [Date]) {
+        self.chart = chart
+    }
+    
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return "nigga"
+        }
+    
+    }
+

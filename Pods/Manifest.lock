@@ -1,21 +1,18 @@
 PODS:
-  - AAInfographics (2.0.4)
+  - Charts (3.3.0):
+    - Charts/Core (= 3.3.0)
+  - Charts/Core (3.3.0)
 
 DEPENDENCIES:
-  - AAInfographics (from `https://github.com/AAChartModel/AAChartKit-Swift.git`)
+  - Charts
 
-EXTERNAL SOURCES:
-  AAInfographics:
-    :git: https://github.com/AAChartModel/AAChartKit-Swift.git
-
-CHECKOUT OPTIONS:
-  AAInfographics:
-    :commit: 50702900558b222163c7f3d462bf3cf5bf624521
-    :git: https://github.com/AAChartModel/AAChartKit-Swift.git
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Charts
 
 SPEC CHECKSUMS:
-  AAInfographics: 10f87e06fc007a0adbb05de020e4a2fe3119f8de
+  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
 
-PODFILE CHECKSUM: e054ea8d5ed8ddc54f395b9c4e75d57725c88586
+PODFILE CHECKSUM: 05c42e91fc032f72a322ee8c7f72d89277a97a91
 
 COCOAPODS: 1.7.5
