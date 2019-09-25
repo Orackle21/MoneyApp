@@ -13,7 +13,7 @@
             <objects>
                 <tableViewController title="Wallet Detail" id="v6E-3p-qwK" customClass="WalletDetailViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZrA-fq-t6g">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -116,14 +116,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Dh-RD-JzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4146" y="-762"/>
+            <point key="canvasLocation" x="5084" y="-762.36881559220399"/>
         </scene>
         <!--Choose Currency-->
         <scene sceneID="B2N-vt-52q">
             <objects>
                 <tableViewController title="Choose Currency" id="I3Y-t8-BD8" customClass="CurrencyTableViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jdr-ng-zPu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -174,7 +174,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hRy-c2-wQQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="lEf-fU-SNO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5189.6000000000004" y="-762.36881559220399"/>
+            <point key="canvasLocation" x="6128.8000000000002" y="-762.36881559220399"/>
         </scene>
         <!--All Wallets-->
         <scene sceneID="hMX-bu-xgz">
@@ -234,27 +234,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="My5-5t-cJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dpa-II-cgz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3127.5" y="-762.67605633802816"/>
+            <point key="canvasLocation" x="4066.4000000000001" y="-763.26836581709154"/>
         </scene>
         <!--Transactions-->
         <scene sceneID="Xlh-cu-Wzv">
             <objects>
                 <viewController id="E9S-jm-KGj" customClass="TransactionsViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v8S-DS-wcG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" estimatedRowHeight="-1" sectionHeaderHeight="49" estimatedSectionHeaderHeight="49" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fZs-Uk-Xgy">
-                                <rect key="frame" x="0.0" y="-10" width="375" height="628"/>
-                                <color key="backgroundColor" red="0.95686918499999996" green="0.95685130360000004" blue="0.95686334370000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="sectionIndexBackgroundColor" red="0.95686918497085571" green="0.9568513035774231" blue="0.95686334371566772" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7pK-Xw-eo2" userLabel="Wallet Bar">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6uD-RM-hMt">
                                             <rect key="frame" x="15" y="5" width="319" height="70"/>
-                                            <color key="backgroundColor" red="0.9529384971" green="0.95292359589999998" blue="0.95294219260000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wpl-cS-psO">
                                                 <size key="itemSize" width="120" height="65"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -307,7 +306,6 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.9529384971" green="0.95292359589999998" blue="0.95294219260000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstItem="6uD-RM-hMt" firstAttribute="leading" secondItem="7pK-Xw-eo2" secondAttribute="leading" constant="15" id="8OO-lj-Dse"/>
                                         <constraint firstItem="D73-AU-Ok3" firstAttribute="leading" secondItem="6uD-RM-hMt" secondAttribute="trailing" constant="8" id="ANA-kk-4D5"/>
@@ -341,7 +339,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KT-AU-Ytj">
                                                     <rect key="frame" x="67" y="45.5" width="26" height="21.5"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view clearsContextBeforeDrawing="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="aJ9-ga-DfR" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
@@ -353,10 +351,11 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5y8-5k-wcu">
                                                     <rect key="frame" x="320" y="10" width="40" height="54"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                    <color key="textColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="5KT-AU-Ytj" firstAttribute="top" secondItem="w8y-yF-hUv" secondAttribute="bottom" constant="8" symbolic="YES" id="2AO-xx-d86"/>
                                                 <constraint firstAttribute="bottom" secondItem="5y8-5k-wcu" secondAttribute="bottom" constant="10" id="61a-qh-e8y"/>
@@ -377,7 +376,6 @@
                                                 <constraint firstItem="w8y-yF-hUv" firstAttribute="leading" secondItem="SQi-Gt-5OH" secondAttribute="leadingMargin" constant="52" id="v9N-no-Xsf"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="amountLabel" destination="5y8-5k-wcu" id="Etn-Ft-JG0"/>
                                             <outlet property="categoryIcon" destination="aJ9-ga-DfR" id="2I2-nL-zNc"/>
@@ -458,15 +456,14 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686918499999996" green="0.95685130360000004" blue="0.95686334370000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="GbW-rq-e9L" firstAttribute="top" secondItem="fZs-Uk-Xgy" secondAttribute="top" constant="54" id="0NE-1M-hOb"/>
                             <constraint firstItem="GbW-rq-e9L" firstAttribute="trailing" secondItem="fZs-Uk-Xgy" secondAttribute="trailing" priority="250" id="FKt-QR-spi"/>
-                            <constraint firstItem="GbW-rq-e9L" firstAttribute="bottom" secondItem="fZs-Uk-Xgy" secondAttribute="bottom" id="PXT-HJ-j9K"/>
                             <constraint firstItem="fZs-Uk-Xgy" firstAttribute="centerX" secondItem="GbW-rq-e9L" secondAttribute="centerX" id="RZ8-05-8lv"/>
+                            <constraint firstAttribute="bottom" secondItem="fZs-Uk-Xgy" secondAttribute="bottom" id="WH2-hT-ztI"/>
                             <constraint firstItem="GbW-rq-e9L" firstAttribute="bottom" secondItem="PHa-Ce-qh3" secondAttribute="bottom" constant="10" id="Wi0-H3-Tb7"/>
                             <constraint firstItem="GbW-rq-e9L" firstAttribute="trailing" secondItem="PHa-Ce-qh3" secondAttribute="trailing" constant="15" id="bT7-JE-Fi5"/>
                             <constraint firstItem="PHa-Ce-qh3" firstAttribute="leading" secondItem="GbW-rq-e9L" secondAttribute="leading" constant="15" id="gPr-Q0-j6l"/>
+                            <constraint firstItem="fZs-Uk-Xgy" firstAttribute="top" secondItem="v8S-DS-wcG" secondAttribute="top" id="lzd-dL-OPH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GbW-rq-e9L"/>
                     </view>
@@ -495,7 +492,7 @@
             <objects>
                 <tableViewController id="d7J-W1-892" customClass="TransactionDetailViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ulv-lX-vad">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -657,7 +654,7 @@
             <objects>
                 <tableViewController id="nNX-wg-fJ3" customClass="CategoryListViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tPq-Np-EpG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Waj-ee-5dP">
@@ -711,7 +708,7 @@
             <objects>
                 <tableViewController id="6Xy-LG-frk" customClass="CategoryDetailViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Zs-OY-pTT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -849,7 +846,7 @@
             <objects>
                 <tableViewController id="LWf-Ew-Ky2" customClass="ParentCategoriesTableViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="56j-Eg-Yzj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -889,7 +886,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Syi-QW-uvc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.9529384971" green="0.95292359589999998" blue="0.95294219260000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -905,63 +901,80 @@
             <objects>
                 <viewController id="A35-eE-c5J" customClass="ReportsViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EuP-Iw-h6b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JQz-sh-ZdA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="z6l-s9-IIk">
+                                <rect key="frame" x="0.0" y="59" width="375" height="559"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="biv-p3-jTD">
-                                        <rect key="frame" x="20" y="20" width="335" height="550"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gI6-IB-O0a">
+                                        <rect key="frame" x="15" y="0.0" width="345" height="267"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33k-Az-aaQ" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="270"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EpD-cs-JPh" customClass="LineChartView" customModule="Charts">
-                                                <rect key="frame" x="0.0" y="280" width="335" height="270"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="0.0" y="10" width="345" height="247"/>
+                                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="550" id="a3b-rK-vPx"/>
+                                            <constraint firstItem="EpD-cs-JPh" firstAttribute="top" secondItem="gI6-IB-O0a" secondAttribute="top" constant="10" id="HA3-uo-rZT"/>
+                                            <constraint firstItem="EpD-cs-JPh" firstAttribute="leading" secondItem="gI6-IB-O0a" secondAttribute="leading" id="mJR-4w-uI1"/>
+                                            <constraint firstAttribute="trailing" secondItem="EpD-cs-JPh" secondAttribute="trailing" id="qe9-F4-pz8"/>
+                                            <constraint firstAttribute="bottom" secondItem="EpD-cs-JPh" secondAttribute="bottom" constant="10" id="rEv-9L-hGX"/>
                                         </constraints>
-                                    </stackView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DmG-md-qj2">
+                                        <rect key="frame" x="0.0" y="292" width="375" height="267"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="biv-p3-jTD" firstAttribute="top" secondItem="JQz-sh-ZdA" secondAttribute="top" constant="20" id="3DJ-8T-A5r"/>
-                                    <constraint firstAttribute="trailing" secondItem="biv-p3-jTD" secondAttribute="trailing" constant="20" id="PYq-1A-EeZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="biv-p3-jTD" secondAttribute="bottom" constant="20" id="Qzt-JH-uYJ"/>
-                                    <constraint firstItem="biv-p3-jTD" firstAttribute="centerX" secondItem="JQz-sh-ZdA" secondAttribute="centerX" id="VAd-zN-XdK"/>
-                                    <constraint firstItem="biv-p3-jTD" firstAttribute="leading" secondItem="JQz-sh-ZdA" secondAttribute="leading" constant="20" id="WqC-Ah-GqM"/>
+                                    <constraint firstItem="gI6-IB-O0a" firstAttribute="leading" secondItem="z6l-s9-IIk" secondAttribute="leading" constant="15" id="RI2-vY-0vx"/>
+                                    <constraint firstItem="gI6-IB-O0a" firstAttribute="top" secondItem="z6l-s9-IIk" secondAttribute="top" id="YKy-zJ-zHZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="gI6-IB-O0a" secondAttribute="trailing" constant="15" id="ilq-s4-Ab3"/>
                                 </constraints>
-                            </scrollView>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JQz-sh-ZdA" secondAttribute="trailing" id="KIY-1C-46r"/>
-                            <constraint firstItem="JQz-sh-ZdA" firstAttribute="leading" secondItem="EuP-Iw-h6b" secondAttribute="leading" id="OkP-Fh-t50"/>
-                            <constraint firstItem="JQz-sh-ZdA" firstAttribute="top" secondItem="EuP-Iw-h6b" secondAttribute="top" id="Q53-pn-y8y"/>
-                            <constraint firstItem="JQz-sh-ZdA" firstAttribute="bottom" secondItem="C8h-rs-MdT" secondAttribute="bottom" id="xo3-QU-cK5"/>
+                            <constraint firstItem="C8h-rs-MdT" firstAttribute="trailing" secondItem="z6l-s9-IIk" secondAttribute="trailing" id="DWV-OD-Tfy"/>
+                            <constraint firstItem="z6l-s9-IIk" firstAttribute="leading" secondItem="C8h-rs-MdT" secondAttribute="leading" id="NCj-Ej-z1w"/>
+                            <constraint firstItem="C8h-rs-MdT" firstAttribute="bottom" secondItem="z6l-s9-IIk" secondAttribute="bottom" id="XAD-iI-ovU"/>
+                            <constraint firstItem="z6l-s9-IIk" firstAttribute="top" secondItem="C8h-rs-MdT" secondAttribute="top" constant="15" id="t4L-9M-nuJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C8h-rs-MdT"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Reports" image="reports" id="eHd-Tv-aXP"/>
+                    <navigationItem key="navigationItem" title="Reports" id="alr-Vu-tRE">
+                        <barButtonItem key="rightBarButtonItem" id="sob-vV-Yjm">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="n8u-1K-WGf">
+                                <rect key="frame" x="242" y="5.5" width="117" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Line"/>
+                                    <segment title="Chart"/>
+                                </segments>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="barChartView" destination="EpD-cs-JPh" id="l1S-T4-0MM"/>
-                        <outlet property="pieChartView" destination="33k-Az-aaQ" id="8RP-yi-Bqw"/>
+                        <outlet property="lineChartView" destination="EpD-cs-JPh" id="rex-9W-d8p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJh-e9-Fqk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-700" y="-808.24587706146929"/>
+            <point key="canvasLocation" x="239.19999999999999" y="-808.24587706146929"/>
         </scene>
         <!--Budget-->
         <scene sceneID="PDC-NP-oZw">
             <objects>
                 <viewController id="doC-9P-yCb" customClass="BudgetViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9n-JP-3VI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="WfU-dt-Qx9"/>
@@ -976,14 +989,13 @@
         <scene sceneID="LVK-MA-pqm">
             <objects>
                 <tabBarController id="bJX-ul-6Qj" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="BC6-vL-ZXc">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BC6-vL-ZXc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" red="0.57390427489999996" green="0.43835377780000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="A35-eE-c5J" kind="relationship" relationship="viewControllers" id="FmN-09-5Dq"/>
+                        <segue destination="VoL-yn-tq3" kind="relationship" relationship="viewControllers" id="FmN-09-5Dq"/>
                         <segue destination="588-9n-058" kind="relationship" relationship="viewControllers" id="6dt-Aj-uCJ"/>
                         <segue destination="doC-9P-yCb" kind="relationship" relationship="viewControllers" id="hTz-Ez-68g"/>
                     </connections>
@@ -991,6 +1003,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqj-pH-Dk2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-699" y="-52"/>
+        </scene>
+        <!--Reports-->
+        <scene sceneID="94v-QU-lvZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VoL-yn-tq3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Reports" image="reports" id="eHd-Tv-aXP"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="e5X-tY-AGd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="A35-eE-c5J" kind="relationship" relationship="rootViewController" id="tsc-cj-c5x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P6Z-Qi-Sgx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-700" y="-808.24587706146929"/>
         </scene>
     </scenes>
     <resources>
@@ -1000,6 +1031,6 @@
         <image name="transactions" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WB9-eA-gYC"/>
+        <segue reference="hvB-aU-aBF"/>
     </inferredMetricsTieBreakers>
 </document>

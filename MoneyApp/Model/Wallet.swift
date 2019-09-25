@@ -108,6 +108,19 @@ class Wallet: NSObject {
         return total
     }
    
+    func getTotalByIntervalNoSort (dateInterval: DateInterval) -> Decimal {
+        var dateArray = transactionDates.filter {
+            dateInterval.contains($0)
+        }
+        dateArray.sort(by: <)
+        var total: Decimal = 0
+        for date in dateArray {
+            for transaction in allTransactionsGrouped[date]! {
+                total += transaction.amount
+            }
+        }
+        return total
+    }
     
     // Calculates balance for wallet based on its transactions
     func calculateBalance () {

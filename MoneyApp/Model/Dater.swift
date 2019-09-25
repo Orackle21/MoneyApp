@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Dater {
+class Dater {
     
     private let calendar = Calendar.current
     var selectedTimeRange: Calendar.Component {
@@ -29,7 +29,7 @@ struct Dater {
         switch selectedTimeRange {
         case .day: dateFormatter.dateFormat = "dd MMM"
         case .weekOfMonth: dateFormatter.dateFormat =  "dd MMM"
-        case .month: dateFormatter.dateFormat = "MMMM"
+        case .month: dateFormatter.dateFormat = "MMM"
         case .quarter: dateFormatter.dateFormat = "MMMM yy"
         case .year: dateFormatter.dateFormat = "yyyy"
         default: dateFormatter.dateFormat = "dd MMMM yyyy"

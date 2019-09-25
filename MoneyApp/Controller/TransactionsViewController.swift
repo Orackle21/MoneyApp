@@ -26,6 +26,8 @@ class TransactionsViewController: UIViewController {
     
     lazy var selectedDate = Date()
     lazy var dater = stateController.dater
+    
+    //FIXME: Return to setting transactions dates through a function
     var transactionDates: [Date] {
         return selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
     }
@@ -160,7 +162,7 @@ class TransactionsViewController: UIViewController {
     
     
 ///////////////////////////////////////////////////////////////////
-// Chooses appropriate segue when user taps buttons or cells
+// MARK: SEGUE CHOOSER
 ///////////////////////////////////////////////////////////////////
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
@@ -206,8 +208,8 @@ class TransactionsViewController: UIViewController {
 }
 
 
-//////////////////////////////////////////////////////////////////
-// TableView Delegate and DataSource methods
+/////////////////////////////////////////////////////////////////
+//MARK: TableView Delegate and DataSource methods
 /////////////////////////////////////////////////////////////////
 
 extension TransactionsViewController: UITableViewDataSource {
@@ -295,7 +297,12 @@ extension TransactionsViewController: UITableViewDataSource {
 extension TransactionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
-        headerView.contentView.backgroundColor = #colorLiteral(red: 0.9528481364, green: 0.952988565, blue: 0.9528290629, alpha: 1)
+        if #available(iOS 13.0, *) {
+            headerView.contentView.backgroundColor = UIColor.systemGroupedBackground
+        } else {
+                        headerView.contentView.backgroundColor = UIColor.gray
+
+        }
         
     }
     
@@ -307,7 +314,7 @@ extension TransactionsViewController: UITableViewDelegate {
 }
 
 //////////////////////////////////////////////////////////////////
-// WalletBar CollectionView Delegate and DataSource methods
+//MARK: WalletBar CollectionView Delegate and DataSource methods
 /////////////////////////////////////////////////////////////////
 
 extension TransactionsViewController: UICollectionViewDelegate {
@@ -370,7 +377,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
 
 extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
 {
-    //MARK: - UICollectionViewDelegateFlowLayout
+   
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //

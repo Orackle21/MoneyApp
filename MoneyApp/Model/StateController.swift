@@ -11,7 +11,7 @@ import Foundation
 class StateController {
     
     var listOfAllWallets = [Wallet]()
-    var dater: Dater
+    let dater: Dater
     private var selectedWalletIndex = 0
     
     init() {

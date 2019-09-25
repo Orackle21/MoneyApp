@@ -7,67 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "157D518F-3C38-47CA-AEA3-F9A3F8274EEB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Model/Currency.swift"
-            timestampString = "590173893.23543"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "loadEveryCurrency()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0CB3E13C-E086-4CCB-AD1F-8E7AA0B3EB66"
-            shouldBeEnabled = "No"
+            uuid = "BF59C1B3-0C20-448D-9B4B-A92C803AF3D3"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyApp/Controller/ReportsViewController.swift"
-            timestampString = "590929477.931903"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "customizeLineChart(dataPoints:values:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "updateChartData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BC78E46E-8720-4C4E-9F18-34E745CEAED5"
-            shouldBeEnabled = "No"
+            uuid = "5A69D35C-C2E8-47CA-8D7F-4CE6D77902E5"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/TransactionsViewController.swift"
+            filePath = "MoneyApp/Controller/ReportsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "tableView(_:willDisplayHeaderView:forSection:)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "updateChartData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1D4AAD10-ED9B-49C5-A99A-722BE9559F4F"
-            shouldBeEnabled = "No"
+            uuid = "A09FBD0C-3913-4260-8DD8-DBC8E690F6BB"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/TransactionsViewController.swift"
+            filePath = "MoneyApp/Controller/ReportsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "tableView(_:willDisplayHeaderView:forSection:)"
-            landmarkType = "7">
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "ReportsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -10,26 +10,30 @@ import UIKit
 import Charts
 
 class ReportsViewController: UIViewController {
-
-    @IBOutlet weak var pieChartView: PieChartView!
-    @IBOutlet weak var barChartView: LineChartView!
+   
+    @IBOutlet weak var lineChartView: LineChartView!
     
     var stateController: StateController!
     lazy private var dater = stateController.dater
+    lazy private var wallet = stateController.getSelectedWallet()
+    
+    private var dateStrings = [String]()
+    private var amountsByDate = [Double]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let players = ["Ozil", "Ramsey", "Laca", "Auba", "Xhaka", "Torreira", "Xhaka", "Torreira"]
-        let goals = [6, 8, 26, 30, 8, 10, 15, 16]
-        
-        customizeChart(dataPoints: players, values: goals.map{ Double($0) })
-        customizeLineChart(dataPoints: players, values: goals.map{ Double($0) })
-        
+        updateChartData()
+        updateChart(dataPoints: dateStrings, values: amountsByDate)
+        customizeChartLooks()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateChartData()
+        updateChart(dataPoints: dateStrings, values: amountsByDate)
+    }
     
-    func customizeLineChart (dataPoints: [String], values: [Double]) {
+    func updateChart (dataPoints: [String], values: [Double]) {
         
         var dataEntries: [ChartDataEntry] = []
         for i in 0..<dataPoints.count {
@@ -37,60 +41,71 @@ class ReportsViewController: UIViewController {
             dataEntries.append(dataEntry)
         }
         
-        let xAxis = barChartView.xAxis
-        xAxis.axisLineWidth = 1
-        xAxis.labelPosition = .bottom
-        xAxis.labelRotationAngle = CGFloat(-50)
-        xAxis.labelRotatedHeight = CGFloat(120)
-        xAxis.drawGridLinesEnabled = false
-        xAxis.forceLabelsEnabled = false
-        xAxis.labelTextColor = UIColor.black
-        xAxis.labelFont = UIFont.systemFont(ofSize: 13)
-        xAxis.granularity = 1
-        xAxis.labelCount = dataPoints.count
-        xAxis.valueFormatter = DayAxisValueFormatter(chart: barChartView, data: [Date()])
-        
-
         let chartDataSet = LineChartDataSet(entries: dataEntries, label: "BarChart")
-        
+        customizeChartSet(chartDataSet: chartDataSet)
         let chartData = LineChartData(dataSet: chartDataSet)
         
-        barChartView.data = chartData
+        lineChartView.data = chartData
+        lineChartView.legend.enabled = false
+        lineChartView.xAxis.valueFormatter = DayAxisValueFormatter(chart: lineChartView, data: dateStrings)
+    }
+    
+    func updateChartData() {
+        let dates = dater.getRelevantTimeRangesFrom(date: Date())
         
-    
-    }
-    
-    func customizeChart(dataPoints: [String], values: [Double]) {
-        var dataEntries: [ChartDataEntry] = []
-        for i in 0..<dataPoints.count {
-            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
-            dataEntries.append(dataEntry)
+        dateStrings = [String]()
+        amountsByDate = [Double]()
+        if let wallet = wallet  {
+            for date in dates {
+                let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dater.getTimeIntervalFor(date: date))
+                amountsByDate.append(sumByDate.doubleValue)
+            }
         }
-        // 2. Set ChartDataSet
-        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
-        pieChartDataSet.colors = colorsOfCharts(numbersOfColor: dataPoints.count)
-        // 3. Set ChartData
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        let format = NumberFormatter()
-        format.numberStyle = .none
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieChartData.setValueFormatter(formatter)
-        // 4. Assign it to the chart’s data
-        pieChartView.data = pieChartData
-    }
-    
-    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
-        var colors: [UIColor] = []
-        for _ in 0..<numbersOfColor {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
+        
+        for date in dates {
+            let string = dater.dateFormatter.string(from: date)
+            dateStrings.append(string)
         }
-        return colors
     }
     
+
+    func customizeChartLooks() {
+        let xAxis = lineChartView.xAxis
+        xAxis.axisLineWidth = 1
+        xAxis.labelPosition = .bottom
+        xAxis.drawGridLinesEnabled = false
+        xAxis.forceLabelsEnabled = false
+        xAxis.labelFont = UIFont.systemFont(ofSize: 13)
+        xAxis.granularity = 1
+        xAxis.labelCount = 7
+        xAxis.valueFormatter = DayAxisValueFormatter(chart: lineChartView, data: dateStrings)
+       
+        let yAxis = lineChartView.leftAxis
+        
+        if #available(iOS 13.0, *) {
+            xAxis.labelTextColor = UIColor.label
+            yAxis.labelTextColor = UIColor.label
+        } else {
+            yAxis.labelTextColor = UIColor.black
+            xAxis.labelTextColor = UIColor.black
+        }
+        
+        lineChartView.zoom(scaleX: 6, scaleY: 0, x: 0, y: 0)
+        lineChartView.rightAxis.enabled = false
+    }
+    
+    func customizeChartSet (chartDataSet: LineChartDataSet) {
+        if #available(iOS 13.0, *) {
+            chartDataSet.setColor(UIColor.label)
+            chartDataSet.valueTextColor = UIColor.label
+        } else {
+            chartDataSet.setColor(UIColor.black)
+            chartDataSet.valueTextColor = UIColor.black
+
+        }
+        chartDataSet.mode = .cubicBezier
+        chartDataSet.lineWidth = 2.5
+    }
     
     
     /*
@@ -106,15 +121,30 @@ class ReportsViewController: UIViewController {
 }
 
 
+//extension ReportsViewController: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        <#code#>
+//    }
+//    
+//    
+//}
+
 public class DayAxisValueFormatter: NSObject, IAxisValueFormatter {
     weak var chart: BarLineChartViewBase?
    
-    init(chart: BarLineChartViewBase, data: [Date]) {
+    let data: [String]
+    
+    init(chart: BarLineChartViewBase, data: [String]) {
         self.chart = chart
+        self.data = data
     }
     
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return "nigga"
+        return data[Int(value)]
         }
     
     }

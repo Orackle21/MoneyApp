@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     initialViewController.stateController = stateController
                 }
             }
-            if let reportsController = tabController.viewControllers![0] as? ReportsViewController {
-                
-                    reportsController.stateController = stateController
-                
+            if let navigationController = tabController.viewControllers![0] as? UINavigationController {
+                if  let initialViewController = navigationController.viewControllers.first as? ReportsViewController {
+                    initialViewController.stateController = stateController
+                }                
             }
         }
         
