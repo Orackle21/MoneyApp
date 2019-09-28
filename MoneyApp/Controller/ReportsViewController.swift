@@ -12,6 +12,8 @@ import Charts
 class ReportsViewController: UIViewController {
    
     @IBOutlet weak var lineChartView: LineChartView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var chartContainer: UIView!
     
     var stateController: StateController!
     lazy private var dater = stateController.dater
@@ -27,10 +29,19 @@ class ReportsViewController: UIViewController {
         customizeChartLooks()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        let frameWidth = self.chartContainer.frame.width
+//        let frameHeight = (tableView.superview?.frame.height ?? 0) / 2
+//        let frame = CGRect(x: 0, y: 0, width: frameWidth, height: frameHeight)
+//        chartContainer.frame = frame
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateChartData()
         updateChart(dataPoints: dateStrings, values: amountsByDate)
+        tableView.reloadData()
     }
     
     func updateChart (dataPoints: [String], values: [Double]) {
@@ -121,17 +132,39 @@ class ReportsViewController: UIViewController {
 }
 
 
-//extension ReportsViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//    
-//    
-//}
+extension ReportsViewController: UITableViewDataSource {
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return amountsByDate.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reportsCell", for: indexPath)
+        
+        if let cell = cell as? ReportsCell {
+            
+            let amount = amountsByDate[indexPath.row]
+            if amount > 0 {
+                cell.iconView.backgroundColor = UIColor.systemGreen
+            } else {
+                cell.iconView.backgroundColor = UIColor.systemRed
+
+            }
+            
+            cell.amountLabel.text = String(amountsByDate[indexPath.row])
+            cell.periodNameLabel.text = dateStrings[indexPath.row]
+            
+            
+        }
+        
+        return cell
+    }
+    
+    
+}
 
 public class DayAxisValueFormatter: NSObject, IAxisValueFormatter {
     weak var chart: BarLineChartViewBase?
