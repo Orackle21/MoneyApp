@@ -19,6 +19,7 @@ class ReportsViewController: UIViewController {
     lazy private var dater = stateController.dater
     lazy private var wallet = stateController.getSelectedWallet()
     
+    private var dates = [Date]()
     private var dateStrings = [String]()
     private var amountsByDate = [Double]()
     
@@ -58,14 +59,15 @@ class ReportsViewController: UIViewController {
         
         lineChartView.data = chartData
         lineChartView.legend.enabled = false
-        lineChartView.xAxis.valueFormatter = DayAxisValueFormatter(chart: lineChartView, data: dateStrings)
+        lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
     }
     
     func updateChartData() {
-        let dates = dater.getRelevantTimeRangesFrom(date: Date())
+        dates = dater.getRelevantTimeRangesFrom(date: Date())
         
         dateStrings = [String]()
         amountsByDate = [Double]()
+        wallet = stateController.getSelectedWallet()
         if let wallet = wallet  {
             for date in dates {
                 let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dater.getTimeIntervalFor(date: date))
@@ -89,7 +91,7 @@ class ReportsViewController: UIViewController {
         xAxis.labelFont = UIFont.systemFont(ofSize: 13)
         xAxis.granularity = 1
         xAxis.labelCount = 7
-        xAxis.valueFormatter = DayAxisValueFormatter(chart: lineChartView, data: dateStrings)
+        xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
        
         let yAxis = lineChartView.leftAxis
         
@@ -119,21 +121,28 @@ class ReportsViewController: UIViewController {
     }
     
     
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "reportsDetail" {
+            if let destination = segue.destination as? ReportsDetailViewController {
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    
+                    let date = dates[indexPath.row]
+                    destination.selectedTimeRange = date
+                    destination.stateController = stateController
+                }
+            }
+        }
+        
     }
-    */
-
 }
 
+    // MARK: - TableView Methods
 
 extension ReportsViewController: UITableViewDataSource {
-    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -156,17 +165,14 @@ extension ReportsViewController: UITableViewDataSource {
             
             cell.amountLabel.text = String(amountsByDate[indexPath.row])
             cell.periodNameLabel.text = dateStrings[indexPath.row]
-            
-            
         }
-        
         return cell
     }
     
     
 }
 
-public class DayAxisValueFormatter: NSObject, IAxisValueFormatter {
+public class AxisValueFormatter: NSObject, IAxisValueFormatter {
     weak var chart: BarLineChartViewBase?
    
     let data: [String]
