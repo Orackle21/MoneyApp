@@ -8,16 +8,19 @@
 
 import UIKit
 import Charts
-class ReportsChartCell: UITableViewCell {
+class ReportsDetailCell: UITableViewCell {
 
-    @IBOutlet weak var lineChartView: LineChartView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
+    @IBOutlet weak var incomeIcon: IconView!
+    @IBOutlet weak var expenseIcon: IconView!
     
-
+    @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var expenseLabel: UILabel!
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

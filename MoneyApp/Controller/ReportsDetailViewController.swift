@@ -15,6 +15,15 @@ class ReportsDetailViewController: UIViewController {
     var transactionsGroupedByCategories = [Category: [Transaction]]()
     lazy var categories = Array(transactionsGroupedByCategories.keys)
     
+    @IBOutlet weak var chartContainer: UIView!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+       
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +42,8 @@ class ReportsDetailViewController: UIViewController {
         transactionsGroupedByCategories = Dictionary(grouping: transactions, by: {
             $0.category!
         })
+
+        
     }
     
 
@@ -50,24 +61,74 @@ class ReportsDetailViewController: UIViewController {
 
 
 extension ReportsDetailViewController: UITableViewDataSource {
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        transactionsGroupedByCategories.keys.count
+        if section == 0 {
+            return 1
+        }
+        else if section == 1 {
+            return transactionsGroupedByCategories.keys.count
+
+        }
+        else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reportsCell", for: indexPath)
         
-            if let cell = cell as? ReportsCell {
-                cell.periodNameLabel.text = categories[indexPath.row].name
-                
-                if let icon = cell.iconView as? IconView {
-                    icon.setGradeintForCategory(category: categories[indexPath.row])
-                    icon.setNeedsDisplay()
-                }
-                
+        let cellIdentifier: String
+        
+        if indexPath.section == 0 {
+            cellIdentifier = "detailReportCell"
         }
+        else {
+            cellIdentifier = "reportsCell"
+
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        if let cell = cell as? ReportsDetailCell {
+            cell.incomeIcon.backgroundColor = UIColor.systemGreen
+            cell.expenseIcon.backgroundColor = UIColor.systemRed
+            
+        }
+        
+        if let cell = cell as? ReportsCell {
+            cell.periodNameLabel.text = categories[indexPath.row].name
+            
+            if let icon = cell.iconView as? IconView {
+                icon.setGradeintForCategory(category: categories[indexPath.row])
+                icon.setNeedsDisplay()
+            }
+            
+        }
+        
+        
         return cell
     }
     
     
+}
+
+extension ReportsDetailViewController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 55.0
+//    }
+//
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 22.0
+    }
 }

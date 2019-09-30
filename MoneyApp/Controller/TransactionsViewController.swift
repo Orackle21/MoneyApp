@@ -300,7 +300,7 @@ extension TransactionsViewController: UITableViewDelegate {
         if #available(iOS 13.0, *) {
             headerView.contentView.backgroundColor = UIColor.systemGroupedBackground
         } else {
-                        headerView.contentView.backgroundColor = UIColor.gray
+                        headerView.contentView.backgroundColor = UIColor.white
 
         }
         
