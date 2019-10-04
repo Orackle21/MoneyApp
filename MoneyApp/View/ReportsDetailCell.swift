@@ -17,6 +17,7 @@ class ReportsDetailCell: UITableViewCell {
     
     @IBOutlet weak var incomeIcon: IconView!
     @IBOutlet weak var expenseIcon: IconView!
+    @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var expenseLabel: UILabel!
