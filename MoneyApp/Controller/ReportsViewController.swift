@@ -62,7 +62,7 @@ class ReportsViewController: UIViewController {
         lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
     }
     
-    func updateChartData() {
+    private func updateChartData() {
         dates = dater.getRelevantTimeRangesFrom(date: Date())
         
         dateStrings = [String]()
@@ -82,7 +82,7 @@ class ReportsViewController: UIViewController {
     }
     
 
-    func customizeChartLooks() {
+    private func customizeChartLooks() {
         let xAxis = lineChartView.xAxis
         xAxis.axisLineWidth = 1
         xAxis.labelPosition = .bottom
@@ -107,7 +107,7 @@ class ReportsViewController: UIViewController {
         lineChartView.rightAxis.enabled = false
     }
     
-    func customizeChartSet (chartDataSet: LineChartDataSet) {
+    private func customizeChartSet (chartDataSet: LineChartDataSet) {
         if #available(iOS 13.0, *) {
             chartDataSet.setColor(UIColor.label)
             chartDataSet.valueTextColor = UIColor.label
@@ -199,6 +199,8 @@ extension ReportsViewController: UITableViewDelegate {
         return 22.0
     }
 }
+
+    // MARK: - Chart Axis text customization class
 
 public class AxisValueFormatter: NSObject, IAxisValueFormatter {
     weak var chart: BarLineChartViewBase?

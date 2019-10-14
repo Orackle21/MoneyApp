@@ -29,10 +29,6 @@ class ReportsDetailViewController: UIViewController {
     private var amounts: [Decimal] {
         get {
             return getChartAmounts()
-
-        }
-        set {
-           
         }
     }
     

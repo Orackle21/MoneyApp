@@ -1106,19 +1106,10 @@
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSm-6g-DqL">
                                                                             <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                                            <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="BRj-Wk-tuQ">
-                                                                                    <rect key="frame" x="7.3333333333333339" y="7.3333333333333339" width="17.666666666666664" height="18.333333333333332"/>
-                                                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
-                                                                                </imageView>
-                                                                            </subviews>
                                                                             <color key="backgroundColor" systemColor="separatorColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="32" id="GJ5-Q3-Ahi"/>
-                                                                                <constraint firstItem="BRj-Wk-tuQ" firstAttribute="centerY" secondItem="iSm-6g-DqL" secondAttribute="centerY" id="SBq-zC-lA8"/>
                                                                                 <constraint firstAttribute="width" constant="32" id="lFq-c8-cmO"/>
-                                                                                <constraint firstItem="BRj-Wk-tuQ" firstAttribute="centerX" secondItem="iSm-6g-DqL" secondAttribute="centerX" id="lXf-01-Uhl"/>
                                                                                 <constraint firstAttribute="width" secondItem="iSm-6g-DqL" secondAttribute="height" multiplier="1:1" id="o4c-DA-fg5"/>
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
@@ -1166,20 +1157,11 @@
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YxZ-15-Tjt">
                                                                             <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                                            <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Uzx-6K-83Y">
-                                                                                    <rect key="frame" x="7.3333333333333446" y="7.3333333333333339" width="17.666666666666671" height="18.333333333333332"/>
-                                                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
-                                                                                </imageView>
-                                                                            </subviews>
                                                                             <color key="backgroundColor" systemColor="separatorColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="YxZ-15-Tjt" secondAttribute="height" multiplier="1:1" id="Fht-hz-M4Y"/>
                                                                                 <constraint firstAttribute="width" constant="32" id="Fvs-mC-fcy"/>
-                                                                                <constraint firstItem="Uzx-6K-83Y" firstAttribute="centerY" secondItem="YxZ-15-Tjt" secondAttribute="centerY" id="jgg-SW-yIe"/>
                                                                                 <constraint firstAttribute="height" constant="32" id="kgI-Id-pU9"/>
-                                                                                <constraint firstItem="Uzx-6K-83Y" firstAttribute="centerX" secondItem="YxZ-15-Tjt" secondAttribute="centerX" id="uhi-Gz-T6M"/>
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1378,8 +1360,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.down" catalog="system" width="58" height="64"/>
-        <image name="arrow.up" catalog="system" width="58" height="64"/>
         <image name="budget" width="24" height="24"/>
         <image name="menu" width="24" height="24"/>
         <image name="reports" width="24" height="24"/>
