@@ -13,7 +13,7 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var walletBarCollection: UICollectionView!
     @IBOutlet weak var dateBarCollection: UICollectionView!
-    @IBOutlet weak var dateBarBackgroundView: UIView!
+
     @IBAction func changeTimeRange(_ sender: Any) {
         prepareAlert()
         self.present(actionSheet!, animated: true, completion: nil)
@@ -28,9 +28,7 @@ class TransactionsViewController: UIViewController {
     lazy var dater = stateController.dater
     
     //FIXME: Return to setting transactions dates through a function
-    var transactionDates: [Date] {
-        return selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
-    }
+    var transactionDates = [Date]()
     var dateBarMonths: [Date] {
         return dater.getRelevantTimeRangesFrom(date: Date())
     }
@@ -60,15 +58,23 @@ class TransactionsViewController: UIViewController {
         selectedWallet = stateController.getSelectedWallet()
         walletBarCollection.reloadData()
         if selectedWallet == nil {
+             getTransactionDates()
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
         }
         else {
+             getTransactionDates()
             tableView.restore()
             tableView.reloadData()
         }
+       
+
     }
     
+    
+    func getTransactionDates() {
+       transactionDates = selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
+    }
     
     // Gets appropriate date by sectionIndex
     private func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
@@ -161,9 +167,9 @@ class TransactionsViewController: UIViewController {
     
     
     
-///////////////////////////////////////////////////////////////////
-// MARK: SEGUE CHOOSER
-///////////////////////////////////////////////////////////////////
+
+// MARK: - SEGUE CHOOSER
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             if let destination = segue.destination as? TransactionDetailViewController {
@@ -323,11 +329,13 @@ extension TransactionsViewController: UICollectionViewDelegate {
         
         if collectionView == self.dateBarCollection {
             selectedDate = dateBarMonths[indexPath.row]
+            getTransactionDates()
             tableView.reloadData()
             
         } else {
             stateController.setSelectedWallet(index: indexPath.row)
             selectedWallet = stateController.getSelectedWallet()
+            getTransactionDates()
             self.tableView.reloadData()
             walletBarCollection.reloadData()
         }
@@ -426,7 +434,7 @@ extension TransactionsViewController {
         let blurEffect = UIBlurEffect(style: .regular)
         let blurView = UIVisualEffectView(effect: blurEffect)
         dateBarCollection.backgroundView = blurView
-        dateBarCollection.layer.cornerRadius = 10.0
+        dateBarCollection.layer.cornerRadius = 20.0
         dateBarCollection.layer.borderWidth = 1.0
         dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
         dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)

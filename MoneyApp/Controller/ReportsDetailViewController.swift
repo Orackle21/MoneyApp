@@ -14,10 +14,7 @@ class ReportsDetailViewController: UIViewController {
     var stateController: StateController!
     var selectedTimeRange: Date!
     
-    private var transactionsGroupedByCategories = [Category: [Transaction]]() {
-        didSet {
-        }
-    }
+    private var transactionsGroupedByCategories = [Category: [Transaction]]()
     
     private var incomeTransactionsGrouped = [Category: [Transaction]]()
     private var expenseTransactionsGrouped = [Category: [Transaction]]()
@@ -147,15 +144,23 @@ class ReportsDetailViewController: UIViewController {
     
    
     
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "categoryReport" {
+            if let destination = segue.destination as? CategoryReportViewController {
+                
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    destination.category = categories[indexPath.row]
+                    destination.transactions = transactionsGroupedByCategories[categories[indexPath.row]]
+                }
+                
+            }
+        }
     }
-    */
+    
 
 }
 
@@ -206,9 +211,7 @@ extension ReportsDetailViewController: UITableViewDataSource {
             if let name = categories[indexPath.row].name {
                 cell.periodNameLabel.text = name
             }
-            
-            
-            
+           
             let category = categories[indexPath.row]
             
             cell.amountLabel.text = getAmountByCategory(category).description

@@ -147,9 +147,10 @@ class Wallet: NSObject {
     
     // Gets random Date for Testing Purposes
     func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 0...8)
+        let randomMonth = Int.random(in: 0...11)
         let randomDay = Int.random(in: 1...31)
-        let randomDate = DateComponents( timeZone: TimeZone(abbreviation: "GMT"), year: 2019, month: randomMonth, day: randomDay)
+        let randomYear = Int.random(in: 2005...2019)
+        let randomDate = DateComponents( timeZone: TimeZone(abbreviation: "GMT"), year: randomYear, month: randomMonth, day: randomDay)
         
         let calendar = Calendar.current
         let date = calendar.date(from: randomDate)!
@@ -161,7 +162,6 @@ class Wallet: NSObject {
         var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
         components.timeZone = TimeZone(abbreviation: "GMT")
         let date = calendar.date(from: components)
-        print (date!)
         return date!
     }
     
