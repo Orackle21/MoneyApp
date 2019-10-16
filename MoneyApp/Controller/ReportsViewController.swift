@@ -19,7 +19,7 @@ class ReportsViewController: UIViewController {
     lazy private var dater = stateController.dater
     lazy private var wallet = stateController.getSelectedWallet()
     
-    private var dates = [Date]()
+    private var dateIntervals = [DateInterval]()
     private var dateStrings = [String]()
     private var amountsByDate = [Double]()
     
@@ -63,20 +63,20 @@ class ReportsViewController: UIViewController {
     }
     
     private func updateChartData() {
-        dates = dater.getRelevantTimeRangesFrom(date: Date())
+        dateIntervals = dater.getRelevantTimeRangesFrom(date: Date())
         
         dateStrings = [String]()
         amountsByDate = [Double]()
         wallet = stateController.getSelectedWallet()
         if let wallet = wallet  {
-            for date in dates {
-                let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dater.getTimeIntervalFor(date: date))
+            for dateInterval in dateIntervals {
+                let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
                 amountsByDate.append(sumByDate.doubleValue)
             }
         }
         
-        for date in dates {
-            let string = dater.dateFormatter.string(from: date)
+        for dateInterval in dateIntervals {
+            let string = dater.dateFormatter.string(from: dateInterval.start)
             dateStrings.append(string)
         }
     }
@@ -130,8 +130,8 @@ class ReportsViewController: UIViewController {
             if let destination = segue.destination as? ReportsDetailViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     
-                    let date = dates[indexPath.row]
-                    destination.selectedTimeRange = date
+                    let dateInterval = dateIntervals[indexPath.row]
+                    destination.selectedTimeRange = dateInterval.start
                     destination.stateController = stateController
                 }
             }

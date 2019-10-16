@@ -22,14 +22,14 @@ class TransactionsViewController: UIViewController {
     var actionSheet: UIAlertController?
 
     var stateController: StateController!
-    var selectedWallet: Wallet?
+    lazy var selectedWallet = stateController.getSelectedWallet()
     
     lazy var selectedDate = Date()
     lazy var dater = stateController.dater
     
     //FIXME: Return to setting transactions dates through a function
     var transactionDates = [Date]()
-    var dateBarMonths: [Date] {
+    var dateBarDateNames: [DateInterval] {
         return dater.getRelevantTimeRangesFrom(date: Date())
     }
     
@@ -55,7 +55,7 @@ class TransactionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        selectedWallet = stateController.getSelectedWallet()
+        //selectedWallet = stateController.getSelectedWallet()
         walletBarCollection.reloadData()
         if selectedWallet == nil {
              getTransactionDates()
@@ -124,7 +124,7 @@ class TransactionsViewController: UIViewController {
     
     private func upDater(_ timeRange: Calendar.Component) {
         dater.selectedTimeRange = timeRange
-        selectedDate = dateBarMonths[0]
+        selectedDate = dateBarDateNames[0].start
         tableView.reloadData()
         dateBarCollection.reloadData()
         dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
@@ -214,9 +214,7 @@ class TransactionsViewController: UIViewController {
 }
 
 
-/////////////////////////////////////////////////////////////////
-//MARK: TableView Delegate and DataSource methods
-/////////////////////////////////////////////////////////////////
+//MARK: - TableView Delegate and DataSource methods
 
 extension TransactionsViewController: UITableViewDataSource {
    
@@ -224,6 +222,8 @@ extension TransactionsViewController: UITableViewDataSource {
         guard let wallet = selectedWallet else {
             return 0
         }
+        getTransactionDates()
+
         // Shows a message if there are no sections
         if wallet.allTransactionsGrouped.keys.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions", message: "Add some transactions, please")
@@ -233,6 +233,7 @@ extension TransactionsViewController: UITableViewDataSource {
         else {
             tableView.restore()
         }
+        
         return transactionDates.count
     }
     
@@ -259,7 +260,7 @@ extension TransactionsViewController: UITableViewDataSource {
                 configureTransactions(for: cell, with: item)
             }
         }
-//        cell.applyConfig(for: indexPath, numberOfCellsInSection: tableView.numberOfRows(inSection: indexPath.section))
+
         return cell
     }
     
@@ -276,6 +277,7 @@ extension TransactionsViewController: UITableViewDataSource {
             // Remove transaction by "dateBySection" with index
 
             wallet.removeTransaction(by: dateBySection, with: indexPath.row)
+        
             
             // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove its Date Container
             // Else just delete the row
@@ -328,7 +330,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.dateBarCollection {
-            selectedDate = dateBarMonths[indexPath.row]
+            selectedDate = dateBarDateNames[indexPath.row].start
             getTransactionDates()
             tableView.reloadData()
             
@@ -350,7 +352,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.dateBarCollection {
-            return dateBarMonths.count
+            return dateBarDateNames.count
         } else {
              return stateController.listOfAllWallets.count
         }
@@ -359,7 +361,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
         if collectionView == self.dateBarCollection {
-            let monthString = dater.dateFormatter.string(from: dateBarMonths[indexPath.row])
+            let monthString = dater.dateFormatter.string(from: dateBarDateNames[indexPath.row].start)
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath)
             if let cell = cell as? DateBarCell {

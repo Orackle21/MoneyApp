@@ -24,7 +24,7 @@ class Dater {
     
     init() {
         selectedTimeRange = .month
-        daterRange = .thisMonth
+        daterRange = .months
         setDateFormatter()
         sectionHeaderDateFormatter.dateFormat = "MMMM d"
        
@@ -41,17 +41,19 @@ class Dater {
         }
     }
     
-    func getRelevantTimeRangesFrom(date: Date) -> [Date] {
+    func getRelevantTimeRangesFrom(date: Date) -> [DateInterval] {
         var date = date
-        var dates = [Date]()
+        var dates = [DateInterval]()
         var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.quarter], from: date)
         components.timeZone = TimeZone(abbreviation: "GMT")
         date = calendar.date(from: components)!
-        dates.append(date)
+        let dateInterval = getTimeIntervalFor(date: date)
+        dates.append(dateInterval)
         
         for _ in 0...24 {
             date = calendar.date(byAdding: selectedTimeRange, value: -1, to: date)!
-            dates.append(date)
+            let dateInterval = getTimeIntervalFor(date: date)
+            dates.append(dateInterval)
         }
         return dates
     }
@@ -71,16 +73,11 @@ class Dater {
 }
 
 enum DaterRange {
-    
-    
+
     case days
-    case thisWeek
-    case lastWeek
-    case thisMonth
-    case lastMonth
-    case lastThreeMonths
-    case quarter
-    case halfAYear
+    case weeks
+    case months
+    case quarters
     case year
     case all
     case customRange
