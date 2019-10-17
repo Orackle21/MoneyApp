@@ -13,14 +13,14 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var walletBarCollection: UICollectionView!
     @IBOutlet weak var dateBarCollection: UICollectionView!
-
+    
     private var actionSheet: UIAlertController?
     @IBAction func changeTimeRange(_ sender: Any) {
         prepareAlert()
         self.present(actionSheet!, animated: true, completion: nil)
     }
     
-
+    
     var stateController: StateController!
     lazy var selectedWallet = stateController.getSelectedWallet()
     
@@ -29,16 +29,14 @@ class TransactionsViewController: UIViewController {
     
     //FIXME: Return to setting transactions dates through a function
     var transactionDates = [Date]()
-    var dateBarDateNames: [DateInterval] {
-        return dater.getRelevantTimeRangesFrom(date: Date())
-    }
+    var dateBarDateNames = [DateInterval]()
     
     
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        recalculateCellSize()
+   //     recalculateCellSize()
         let indexPath = dateBarCollection.indexPathsForSelectedItems?.first
         dateBarCollection.scrollToItem(at: indexPath!, at: .right, animated: true)
     }
@@ -46,11 +44,15 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  self.navigationItem.leftBarButtonItem = self.editButtonItem
+        dater.setDaterRange(.months)
+        configureDateBarData()
+        selectedDate = dateBarDateNames[0]
+        getTransactionDates()
         tableView.tableFooterView = UIView()
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         styleDateBar()
         setupAddButton()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,14 +67,19 @@ class TransactionsViewController: UIViewController {
             tableView.restore()
             tableView.reloadData()
         }
-       
-
+        
+        
     }
     
     
     func getTransactionDates() {
-       transactionDates = selectedWallet!.getTransactionsBy(dateInterval: selectedDate)
+        selectedWallet!.getTransactionDates()
+        transactionDates = selectedWallet!.getTransactionsBy(dateInterval: selectedDate)
     }
+    
+    
+    
+    
     
     // Gets appropriate date by sectionIndex
     private func getDateBySectionNumber (_ sectionIndex: Int) -> Date {
@@ -96,7 +103,7 @@ class TransactionsViewController: UIViewController {
             return numberOfTransactionsByDate ?? 0
         }
     }
-  
+    
     
     // Configures cell's labels for passed item
     private func configureTransactions(for cell: UITableViewCell, with transaction: Transaction) {
@@ -114,60 +121,13 @@ class TransactionsViewController: UIViewController {
         }
     }
     
-    private func configureWalletBarItems (for cell: WalletBarViewCell, with item: Wallet) {
-        item.isSelected ? (cell.backgroundColor = item.color) : (cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
-    }
     
     
     
-    private func upDater(_ timeRange: Calendar.Component) {
-        dater.selectedTimeRange = timeRange
-        selectedDate = dateBarDateNames[0]
-        tableView.reloadData()
-        dateBarCollection.reloadData()
-        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
-    }
-    
-    private func prepareAlert() {
-        actionSheet = UIAlertController(title: "Select Time Range", message: "Filter transactions by selected date", preferredStyle: .actionSheet)
-        actionSheet!.addAction(UIAlertAction(
-            title: "Day",
-            style: .default,
-            handler: { _ in
-                self.upDater(.day)
-        }))
-        actionSheet!.addAction(UIAlertAction(
-            title: "Week",
-            style: .default,
-            handler: { _ in
-                self.upDater(.weekOfMonth)
-        }))
-        actionSheet!.addAction(UIAlertAction(
-            title: "Month",
-            style: .default,
-            handler: { _ in
-                self.upDater(.month)
-        }))
-        actionSheet!.addAction(UIAlertAction(
-            title: "Year",
-            style: .default,
-            handler: { _ in
-                self.upDater(.year)
-        }))
-        actionSheet!.addAction(UIAlertAction(
-            title: "Cancel",
-            style: .cancel,
-            handler: nil
-        ))
-        
-        
-    }
     
     
+    // MARK: - SEGUE CHOOSER
     
-
-// MARK: - SEGUE CHOOSER
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             if let destination = segue.destination as? TransactionDetailViewController {
@@ -215,13 +175,13 @@ class TransactionsViewController: UIViewController {
 //MARK: - TableView Delegate and DataSource methods
 
 extension TransactionsViewController: UITableViewDataSource {
-   
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let wallet = selectedWallet else {
             return 0
         }
         getTransactionDates()
-
+        
         // Shows a message if there are no sections
         if wallet.allTransactionsGrouped.keys.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions", message: "Add some transactions, please")
@@ -258,7 +218,7 @@ extension TransactionsViewController: UITableViewDataSource {
                 configureTransactions(for: cell, with: item)
             }
         }
-
+        
         return cell
     }
     
@@ -273,9 +233,9 @@ extension TransactionsViewController: UITableViewDataSource {
             let dateBySection = transactionDates[indexPath.section]
             
             // Remove transaction by "dateBySection" with index
-
+            
             wallet.removeTransaction(by: dateBySection, with: indexPath.row)
-        
+            
             
             // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove its Date Container
             // Else just delete the row
@@ -306,8 +266,8 @@ extension TransactionsViewController: UITableViewDelegate {
         if #available(iOS 13.0, *) {
             headerView.contentView.backgroundColor = UIColor.systemGroupedBackground
         } else {
-                        headerView.contentView.backgroundColor = UIColor.white
-
+            headerView.contentView.backgroundColor = UIColor.white
+            
         }
         
     }
@@ -352,20 +312,20 @@ extension TransactionsViewController: UICollectionViewDataSource {
         if collectionView == self.dateBarCollection {
             return dateBarDateNames.count
         } else {
-             return stateController.listOfAllWallets.count
+            return stateController.listOfAllWallets.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
+        
         if collectionView == self.dateBarCollection {
             let monthString = dater.dateFormatter.string(from: dateBarDateNames[indexPath.row].start)
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell", for: indexPath)
             if let cell = cell as? DateBarCell {
                 cell.monthName.text = monthString
-//                cell.layer.addBorder(edge: .left, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
-//                cell.layer.addBorder(edge: .right, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
+                //                cell.layer.addBorder(edge: .left, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
+                //                cell.layer.addBorder(edge: .right, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3961633133), thickness: 1.0)
             }
             return cell
         }
@@ -385,17 +345,17 @@ extension TransactionsViewController: UICollectionViewDataSource {
 
 extension TransactionsViewController:  UICollectionViewDelegateFlowLayout
 {
-   
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        if collectionView == self.dateBarCollection {
-//            let width = collectionView.frame.width
-//            return CGSize(width: cellWidth, height: 34.0)
-//        } else {
-//        return CGSize(width: 125, height: collectionView.frame.height)
-//        }
-//    }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //
+    //        if collectionView == self.dateBarCollection {
+    //            let width = collectionView.frame.width
+    //            return CGSize(width: cellWidth, height: 34.0)
+    //        } else {
+    //        return CGSize(width: 125, height: collectionView.frame.height)
+    //        }
+    //    }
 }
 
 extension TransactionsViewController {
@@ -417,11 +377,21 @@ extension TransactionsViewController {
         centerButton.imageView?.contentMode = .scaleAspectFill
         view.addSubview(centerButton)
         centerButton.addTarget(self, action: #selector(self.addTransaction), for: .touchUpInside)
-
+        
         
         let barButton = UIBarButtonItem(customView: centerButton)
         navigationItem.rightBarButtonItem = barButton
         view.layoutIfNeeded()
+    }
+    
+    
+    
+}
+
+extension TransactionsViewController {
+    
+    private func configureDateBarData() {
+        dateBarDateNames = dater.getTimeIntervals()
     }
     
     private func recalculateCellSize() {
@@ -429,6 +399,8 @@ extension TransactionsViewController {
         var cellWidth: CGFloat { return (view.frame.size.width - 30.0) / 3 }
         layout.itemSize = CGSize(width: cellWidth, height: 34.0)
     }
+    
+    
     
     private func styleDateBar() {
         let blurEffect = UIBlurEffect(style: .regular)
@@ -438,7 +410,71 @@ extension TransactionsViewController {
         dateBarCollection.layer.borderWidth = 1.0
         dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
         dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+        
+        
     }
+    
+    private func configureWalletBarItems (for cell: WalletBarViewCell, with item: Wallet) {
+        item.isSelected ? (cell.backgroundColor = item.color) : (cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+    }
+    
+    
+    
+    private func upDater(_ timeRange: DaterRange) {
+        dater.setDaterRange(timeRange)
+        configureDateBarData()
+        selectedDate = dateBarDateNames[0]
+        tableView.reloadData()
+        dateBarCollection.reloadData()
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
+        
+        
+        
+    }
+    
+    private func prepareAlert() {
+        actionSheet = UIAlertController(title: "Select Time Range", message: "Filter transactions by selected date", preferredStyle: .actionSheet)
+        actionSheet!.addAction(UIAlertAction(
+            title: "Day",
+            style: .default,
+            handler: { _ in
+                self.upDater(.days)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Week",
+            style: .default,
+            handler: { _ in
+                self.upDater(.weeks)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Month",
+            style: .default,
+            handler: { _ in
+                self.upDater(.months)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Year",
+            style: .default,
+            handler: { _ in
+                self.upDater(.year)
+        }))
+        
+        actionSheet!.addAction(UIAlertAction(
+            title: "All Time",
+            style: .default,
+            handler: { _ in
+                self.upDater(.all)
+        }))
+        actionSheet!.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        ))
+        
+        
+    }
+    
+    
     
 }
 

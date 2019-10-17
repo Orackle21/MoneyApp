@@ -13,16 +13,17 @@ class Wallet: NSObject {
   
     var name: String
     var balance: Decimal
+    
     var currency: Currency
     var categoryList: CategoryList
+    
     var color: UIColor
+    
     var isSelected = false
+    
+    
     var transactionDates = [Date]()
-    var allTransactionsGrouped = [Date: [Transaction]]() {
-        didSet {
-            calculateBalance()
-        }
-    }
+    var allTransactionsGrouped = [Date: [Transaction]]()
     
     
     init(name: String, initialBalance: Decimal, currency: Currency) {
@@ -33,7 +34,7 @@ class Wallet: NSObject {
         self.color = Colors().getRandomColor()
         super.init()
         let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
-        for _ in 0...1000 {
+        for _ in 0...15 {
             createRandomTransaction()
         }
         getTransactionDates()
@@ -86,25 +87,23 @@ class Wallet: NSObject {
         else {
             allTransactionsGrouped.updateValue([transaction], forKey: transaction.date)
         }
+        balance += transaction.amount
     }
     
     
     // Removes transaction by date from "allTransactionGrouped" dict
     func removeTransaction(by date: Date, with index: Int) {
-        allTransactionsGrouped[date]?.remove(at: index)
-        getTransactionDates()
-
+        let deletedTransaction = allTransactionsGrouped[date]?.remove(at: index)
+        balance -= deletedTransaction?.amount ?? 0       
     }
     
     func removeTransactionContainer (with date: Date) {
         if allTransactionsGrouped[date]!.isEmpty {
             allTransactionsGrouped.removeValue(forKey: date)
         }
-        getTransactionDates()
     }
     
     func getTransactionsBy (dateInterval: DateInterval) -> [Date] {
-        getTransactionDates()
 
         var dateArray = transactionDates.filter {
             dateInterval.contains($0)
@@ -198,3 +197,17 @@ class Wallet: NSObject {
     }
     
 }
+
+
+extension Wallet {
+    
+}
+
+extension Wallet {
+    
+}
+
+extension Wallet {
+    
+}
+

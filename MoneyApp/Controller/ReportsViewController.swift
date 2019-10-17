@@ -63,7 +63,7 @@ class ReportsViewController: UIViewController {
     }
     
     private func updateChartData() {
-        dateIntervals = dater.getRelevantTimeRangesFrom(date: Date())
+        dateIntervals = dater.getTimeIntervals()
         
         dateStrings = [String]()
         amountsByDate = [Double]()
