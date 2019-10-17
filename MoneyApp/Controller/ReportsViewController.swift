@@ -131,7 +131,7 @@ class ReportsViewController: UIViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     
                     let dateInterval = dateIntervals[indexPath.row]
-                    destination.selectedTimeRange = dateInterval.start
+                    destination.selectedTimeRange = dateInterval
                     destination.stateController = stateController
                 }
             }

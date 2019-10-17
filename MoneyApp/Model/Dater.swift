@@ -59,7 +59,7 @@ class Dater {
     }
     
     
-    func getTimeIntervalFor (date: Date) -> DateInterval {
+    private func getTimeIntervalFor (date: Date) -> DateInterval {
         var beginningOf: Date?
         var endOf: Date?
         beginningOf = calendar.dateInterval(of: selectedTimeRange, for: date)?.start

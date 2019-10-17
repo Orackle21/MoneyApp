@@ -12,7 +12,7 @@ import Charts
 class ReportsDetailViewController: UIViewController {
 
     var stateController: StateController!
-    var selectedTimeRange: Date!
+    var selectedTimeRange: DateInterval!
     
     private var transactionsGroupedByCategories = [Category: [Transaction]]()
     
@@ -115,8 +115,8 @@ class ReportsDetailViewController: UIViewController {
         guard let wallet = stateController.getSelectedWallet() else {
             return
         }
-        let dateInterval = stateController.dater.getTimeIntervalFor(date: selectedTimeRange)
-        let transactionDates = wallet.getTransactionsBy(dateInterval: dateInterval)
+        
+        let transactionDates = wallet.getTransactionsBy(dateInterval: selectedTimeRange)
         var transactions = [Transaction]()
         for date in transactionDates {
             guard let transactionsByDate = wallet.allTransactionsGrouped[date] else { return }

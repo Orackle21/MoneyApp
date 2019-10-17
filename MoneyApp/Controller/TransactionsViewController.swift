@@ -14,17 +14,17 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var walletBarCollection: UICollectionView!
     @IBOutlet weak var dateBarCollection: UICollectionView!
 
+    private var actionSheet: UIAlertController?
     @IBAction func changeTimeRange(_ sender: Any) {
         prepareAlert()
         self.present(actionSheet!, animated: true, completion: nil)
     }
     
-    var actionSheet: UIAlertController?
 
     var stateController: StateController!
     lazy var selectedWallet = stateController.getSelectedWallet()
     
-    lazy var selectedDate = Date()
+    lazy var selectedDate = DateInterval()
     lazy var dater = stateController.dater
     
     //FIXME: Return to setting transactions dates through a function
@@ -40,7 +40,7 @@ class TransactionsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         recalculateCellSize()
         let indexPath = dateBarCollection.indexPathsForSelectedItems?.first
-        dateBarCollection.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
+        dateBarCollection.scrollToItem(at: indexPath!, at: .right, animated: true)
     }
     
     
@@ -58,12 +58,10 @@ class TransactionsViewController: UIViewController {
         //selectedWallet = stateController.getSelectedWallet()
         walletBarCollection.reloadData()
         if selectedWallet == nil {
-             getTransactionDates()
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
         }
         else {
-             getTransactionDates()
             tableView.restore()
             tableView.reloadData()
         }
@@ -73,7 +71,7 @@ class TransactionsViewController: UIViewController {
     
     
     func getTransactionDates() {
-       transactionDates = selectedWallet!.getTransactionsBy(dateInterval: dater.getTimeIntervalFor(date: selectedDate))
+       transactionDates = selectedWallet!.getTransactionsBy(dateInterval: selectedDate)
     }
     
     // Gets appropriate date by sectionIndex
@@ -124,7 +122,7 @@ class TransactionsViewController: UIViewController {
     
     private func upDater(_ timeRange: Calendar.Component) {
         dater.selectedTimeRange = timeRange
-        selectedDate = dateBarDateNames[0].start
+        selectedDate = dateBarDateNames[0]
         tableView.reloadData()
         dateBarCollection.reloadData()
         dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
@@ -330,7 +328,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.dateBarCollection {
-            selectedDate = dateBarDateNames[indexPath.row].start
+            selectedDate = dateBarDateNames[indexPath.row]
             getTransactionDates()
             tableView.reloadData()
             
