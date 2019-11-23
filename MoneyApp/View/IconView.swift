@@ -22,14 +22,17 @@ class IconView: UIView {
         let path = UIBezierPath(ovalIn: bounds)
         let colors = categoryGradient
         
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
+//        UIColor.red.setFill()
+//        path.fill()
         
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+
         let colorLocations: [CGFloat] = [0.0, 1.0]
         path.addClip()
         let gradient = CGGradient(colorsSpace: colorSpace,
                                   colors: colors! as CFArray,
                                   locations: colorLocations)!
-        
+
         let startPoint = CGPoint.zero
         let endPoint = CGPoint(x: 0, y: bounds.height)
         context.drawLinearGradient(gradient,
@@ -37,16 +40,16 @@ class IconView: UIView {
                                    end: endPoint,
                                    options: [])
         
-        
-        let image = UIImage(named: "foodIcon")
-        let imageView = UIImageView(image: image)
-        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        imageView.frame = CGRect(x: bounds.minX , y: bounds.minY , width: (self.frame.width/2), height: (self.frame.height/2))
-        imageView.center = CGPoint(x: self.frame.size.width  / 2,
-        y: self.frame.size.height / 2)
-        imageView.contentMode = UIView.ContentMode.scaleToFill
-        self.addSubview(imageView)
+//         adding an icon
+//        let image = UIImage(named: "foodIcon")
+//        let imageView = UIImageView(image: image)
+//        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+//        imageView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        imageView.frame = CGRect(x: bounds.minX , y: bounds.minY , width: (self.frame.width/2), height: (self.frame.height/2))
+//        imageView.center = CGPoint(x: self.frame.size.width  / 2,
+//        y: self.frame.size.height / 2)
+//        imageView.contentMode = UIView.ContentMode.scaleToFill
+//        self.addSubview(imageView)
         
     }
     

@@ -22,21 +22,19 @@ class TransactionsViewController: UIViewController {
     
     
     var stateController: StateController!
-    lazy var selectedWallet = stateController.getSelectedWallet()
+    private var selectedWallet: Wallet?
+    private lazy var selectedDateInterval = DateInterval()
+    private lazy var dater = stateController.dater
     
-    lazy var selectedDate = DateInterval()
-    lazy var dater = stateController.dater
-    
-    //FIXME: Return to setting transactions dates through a function
-    var transactionDates = [Date]()
-    var dateBarDateNames = [DateInterval]()
+    private var transactionDates = [Date]()
+    private var dateBarDateNames = [DateInterval]()
     
     
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-   //     recalculateCellSize()
+        recalculateCellSize()
         let indexPath = dateBarCollection.indexPathsForSelectedItems?.first
         dateBarCollection.scrollToItem(at: indexPath!, at: .right, animated: true)
     }
@@ -44,11 +42,13 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectedWallet = stateController.getSelectedWallet()
         dater.setDaterRange(.months)
         configureDateBarData()
-        selectedDate = dateBarDateNames[0]
-        getTransactionDates()
+        selectedDateInterval = dateBarDateNames[0]
+        prepareTableViewData()
         tableView.tableFooterView = UIView()
+        tableView.clearsContextBeforeDrawing = true
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         styleDateBar()
         setupAddButton()
@@ -57,7 +57,7 @@ class TransactionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //selectedWallet = stateController.getSelectedWallet()
+        selectedWallet = stateController.getSelectedWallet()
         walletBarCollection.reloadData()
         if selectedWallet == nil {
             tableView.reloadData()
@@ -65,16 +65,21 @@ class TransactionsViewController: UIViewController {
         }
         else {
             tableView.restore()
-            tableView.reloadData()
+          //  tableView.reloadData()
         }
         
-        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     
-    func getTransactionDates() {
-        selectedWallet!.getTransactionDates()
-        transactionDates = selectedWallet!.getTransactionsBy(dateInterval: selectedDate)
+    func prepareTableViewData() {
+        
+        guard let wallet = selectedWallet else { return }
+
+        wallet.getTransactionDates()
+        transactionDates = wallet.getTransactionsBy(dateInterval: selectedDateInterval)
     }
     
     
@@ -180,7 +185,7 @@ extension TransactionsViewController: UITableViewDataSource {
         guard let wallet = selectedWallet else {
             return 0
         }
-        getTransactionDates()
+        prepareTableViewData()
         
         // Shows a message if there are no sections
         if wallet.allTransactionsGrouped.keys.count == 0 {
@@ -217,6 +222,8 @@ extension TransactionsViewController: UITableViewDataSource {
                 let item = transactionsByDate[indexPath.row]
                 configureTransactions(for: cell, with: item)
             }
+            cell.selectionStyle = .default
+
         }
         
         return cell
@@ -288,14 +295,14 @@ extension TransactionsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.dateBarCollection {
-            selectedDate = dateBarDateNames[indexPath.row]
-            getTransactionDates()
+            selectedDateInterval = dateBarDateNames[indexPath.row]
+            prepareTableViewData()
             tableView.reloadData()
             
         } else {
             stateController.setSelectedWallet(index: indexPath.row)
             selectedWallet = stateController.getSelectedWallet()
-            getTransactionDates()
+            prepareTableViewData()
             self.tableView.reloadData()
             walletBarCollection.reloadData()
         }
@@ -395,8 +402,17 @@ extension TransactionsViewController {
     }
     
     private func recalculateCellSize() {
+        
+        var divider: CGFloat  {
+            switch dateBarDateNames.count {
+            case 1: return 1.0
+            case 2: return 2.0
+            default: return 3.0
+            }
+        }
+
         let layout = dateBarCollection.collectionViewLayout as! UICollectionViewFlowLayout
-        var cellWidth: CGFloat { return (view.frame.size.width - 30.0) / 3 }
+        var cellWidth: CGFloat { return (view.frame.size.width - 30.0) / divider }
         layout.itemSize = CGSize(width: cellWidth, height: 34.0)
     }
     
@@ -423,13 +439,11 @@ extension TransactionsViewController {
     private func upDater(_ timeRange: DaterRange) {
         dater.setDaterRange(timeRange)
         configureDateBarData()
-        selectedDate = dateBarDateNames[0]
+        recalculateCellSize()
+        selectedDateInterval = dateBarDateNames[0]
         tableView.reloadData()
         dateBarCollection.reloadData()
-        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
-        
-        
-        
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
     }
     
     private func prepareAlert() {

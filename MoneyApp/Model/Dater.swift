@@ -58,6 +58,9 @@ class Dater {
         dates.append(dateInterval)
         
         for _ in 0...upperRange {
+            if timeRange == .era {
+                break
+            }
             date = calendar.date(byAdding: timeRange, value: -1, to: date)!
             let dateInterval = getTimeIntervalFor(date: date, using: timeRange)
             dates.append(dateInterval)
@@ -74,7 +77,7 @@ class Dater {
         case .weekOfMonth: return 12
         case .quarter: return 100
         case .year: return 20
-        case .era: return 1
+        case .era: return 0
         default: return 7
         }
     }
