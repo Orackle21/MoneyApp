@@ -15,6 +15,7 @@
 		9A0705F32283EF68003817A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F12283EF68003817A1 /* Main.storyboard */; };
 		9A0705F52283EF6A003817A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F42283EF6A003817A1 /* Assets.xcassets */; };
 		9A0705F82283EF6A003817A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F62283EF6A003817A1 /* LaunchScreen.storyboard */; };
+		9A16F839238B147A0096C0C2 /* Sorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A16F838238B147A0096C0C2 /* Sorter.swift */; };
 		9A3774CC23408B0C00C6982C /* ReportsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3774CB23408B0C00C6982C /* ReportsDetailCell.swift */; };
 		9A47104422C4F2F700A3662B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47104322C4F2F700A3662B /* Currency.swift */; };
 		9A4DBCD22329EBAA0072B9A5 /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DBCD12329EBAA0072B9A5 /* currencies.json */; };
@@ -57,6 +58,7 @@
 		9A0705F42283EF6A003817A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A0705F72283EF6A003817A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A0705F92283EF6A003817A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A16F838238B147A0096C0C2 /* Sorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorter.swift; sourceTree = "<group>"; };
 		9A3774CB23408B0C00C6982C /* ReportsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsDetailCell.swift; sourceTree = "<group>"; };
 		9A47104322C4F2F700A3662B /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9A4DBCD12329EBAA0072B9A5 /* currencies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = currencies.json; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				9AE3BCB322C5ED3E00089927 /* StateController.swift */,
 				9A6A9C0C231D323A00A252E5 /* Dater.swift */,
 				9A05558B22A18BA7009398CD /* Wallet.swift */,
+				9A16F838238B147A0096C0C2 /* Sorter.swift */,
 				9A05558622A18A5C009398CD /* Transaction.swift */,
 				9A47104322C4F2F700A3662B /* Currency.swift */,
 				9A05558822A18B3A009398CD /* Category.swift */,
@@ -337,6 +340,7 @@
 				9A6F4D0C233C6D9B0012F300 /* ReportsCell.swift in Sources */,
 				9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */,
 				9A57A17522D0E2B700DC6624 /* CategoryList.swift in Sources */,
+				9A16F839238B147A0096C0C2 /* Sorter.swift in Sources */,
 				9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */,
 				9A7E8E1D232139890009365F /* TabBarViewController.swift in Sources */,
 				9A7B4A3723557E0D00FA198C /* CategoryReportViewController.swift in Sources */,

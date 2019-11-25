@@ -21,7 +21,6 @@ class Wallet: NSObject {
     
     var isSelected = false
     
-    
     var transactionDates = [Date]()
     var allTransactionsGrouped = [Date: [Transaction]]()
     
@@ -34,44 +33,29 @@ class Wallet: NSObject {
         self.color = Colors().getRandomColor()
         super.init()
         let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
-        for _ in 0...1500 {
+        for _ in 0...150000 {
             createRandomTransaction()
         }
-        getTransactionDates()
+        updateTransactionDates()
     }
     
     
-    func getTransactionDates() {
+    func updateTransactionDates() {
         
      transactionDates =  Array(allTransactionsGrouped.keys).sorted(by: >)
         
     }
-    
-   
-    // Changes transaction date and moves it into an appropriate array by date. If the old array container is empty - deletes it and deletes its date from the array.
-    func changeDate (transaction: Transaction, newDate: Date) {
-        if let transactionArrayByDate = allTransactionsGrouped[transaction.date],
-           let index = transactionArrayByDate.firstIndex(of: transaction) {
-            
-            allTransactionsGrouped[transaction.date]?.remove(at: index)
-            if allTransactionsGrouped[transaction.date]!.isEmpty {
-                allTransactionsGrouped.removeValue(forKey: transaction.date)
-            }
-            transaction.date = newDate
-            addToAllTransactions(transaction: transaction)
-        }
-        getTransactionDates()
-    }
-    
+
     // Creates new transaction, calls "addToAllTransactions", returns said transaction.
     @discardableResult func newTransaction (
         in category: Category,
         name: String,
         amount: Decimal,
         date: Date
-    ) -> Transaction {
+        ) -> Transaction {
         
         let transaction = Transaction(name: name, amount: amount, category: category, date: date, currency: self.currency)
+                
         addToAllTransactions(transaction: transaction)
         return transaction
         
@@ -92,8 +76,8 @@ class Wallet: NSObject {
     
     
     // Removes transaction by date from "allTransactionGrouped" dict
-    func removeTransaction(by date: Date, with index: Int) {
-        let deletedTransaction = allTransactionsGrouped[date]?.remove(at: index)
+    func removeTransaction(by date: DateInterval, with index: Int) {
+        let deletedTransaction = allTransactionsGrouped[date.start]?.remove(at: index)
         balance -= deletedTransaction?.amount ?? 0       
     }
     
@@ -112,25 +96,39 @@ class Wallet: NSObject {
         return dateArray
     }
     
-    func getTotalByInterval (dateInterval: DateInterval) -> Decimal {
-        var dateArray = transactionDates.filter {
-            dateInterval.contains($0)
-        }
-        dateArray.sort(by: >)
-        var total: Decimal = 0
-        for date in dateArray {
-            for transaction in allTransactionsGrouped[date]! {
-                total += transaction.amount
+    // Changes transaction date and moves it into an appropriate array by date. If the old array container is empty - deletes it and deletes its date from the array.
+    func changeDate (transaction: Transaction, newDate: Date) {
+        if let transactionArrayByDate = allTransactionsGrouped[transaction.date],
+           let index = transactionArrayByDate.firstIndex(of: transaction) {
+            
+            allTransactionsGrouped[transaction.date]?.remove(at: index)
+            if allTransactionsGrouped[transaction.date]!.isEmpty {
+                allTransactionsGrouped.removeValue(forKey: transaction.date)
             }
+            transaction.date = newDate
+            addToAllTransactions(transaction: transaction)
         }
-        return total
+        updateTransactionDates()
     }
+//    func getTotalByInterval (dateInterval: DateInterval) -> Decimal {
+//        var dateArray = transactionDates.filter {
+//            dateInterval.contains($0)
+//        }
+//        dateArray.sort(by: >)
+//        var total: Decimal = 0
+//        for date in dateArray {
+//            for transaction in allTransactionsGrouped[date]! {
+//                total += transaction.amount
+//            }
+//        }
+//        return total
+//    }
    
     func getTotalByIntervalNoSort (dateInterval: DateInterval) -> Decimal {
-        var dateArray = transactionDates.filter {
+        let dateArray = transactionDates.filter {
             dateInterval.contains($0)
         }
-        dateArray.sort(by: <)
+      //  dateArray.sort(by: <)
         var total: Decimal = 0
         for date in dateArray {
             for transaction in allTransactionsGrouped[date]! {
@@ -140,7 +138,7 @@ class Wallet: NSObject {
         return total
     }
     
-    // Calculates balance for wallet based on its transactions
+    // Calculates wallets balance based on its transactions
     func calculateBalance () {
         balance = 0
         for key in allTransactionsGrouped.keys {

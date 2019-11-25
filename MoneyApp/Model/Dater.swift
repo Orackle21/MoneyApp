@@ -11,7 +11,7 @@ import Foundation
 class Dater {
     
     
-    private var daterRange: DaterRange
+    var daterRange: DaterRange
     private let calendar = Calendar.current
     
     
@@ -26,6 +26,7 @@ class Dater {
     
     func setDaterRange (_ daterRange: DaterRange) {
         self.daterRange = daterRange
+        setSectionHeaderDateFormatter(timeRange: daterRange)
     }
     
     
@@ -82,7 +83,7 @@ class Dater {
         }
     }
     
-    private func getTimeIntervalFor (date: Date, using selectedTimeRange: Calendar.Component) -> DateInterval {
+    func getTimeIntervalFor (date: Date, using selectedTimeRange: Calendar.Component) -> DateInterval {
         var beginningOf: Date?
         var endOf: Date?
         beginningOf = calendar.dateInterval(of: selectedTimeRange, for: date)?.start
@@ -101,6 +102,16 @@ class Dater {
         }
     }
     
+    private func setSectionHeaderDateFormatter(timeRange: DaterRange){
+        switch timeRange {
+        case .days: sectionHeaderDateFormatter.dateFormat = "dd"
+        case .weeks: sectionHeaderDateFormatter.dateFormat =  "dd MMMM"
+        case .months: sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .quarters: sectionHeaderDateFormatter.dateFormat = "MMMM yy"
+        case .year: sectionHeaderDateFormatter.dateFormat = "MMMM"
+        case .all: sectionHeaderDateFormatter.dateFormat = "yyyy"
+        }
+    }
     
     
 }
