@@ -23,6 +23,7 @@ class TransactionsViewController: UIViewController {
     
     var stateController: StateController!
     private var selectedWallet: Wallet?
+    
     private lazy var selectedDateInterval = DateInterval()
     private lazy var dater = stateController.dater
     
@@ -43,13 +44,16 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // datasource preparation
         selectedWallet = stateController.getSelectedWallet()
         dater.setDaterRange(.months)
         configureDateBarData()
         selectedDateInterval = dateBarDateNames[0]
         prepareTableViewData()
+        
+        // styling
         tableView.tableFooterView = UIView()
-        tableView.clearsContextBeforeDrawing = true
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         styleDateBar()
         setupAddButton()
@@ -64,11 +68,9 @@ class TransactionsViewController: UIViewController {
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
         }
         else {
-            prepareTableViewData()
+       //     prepareTableViewData()
             tableView.reloadData()
             tableView.restore()
-            
-          //  tableView.reloadData()
         }
         
         if let indexPath = tableView.indexPathForSelectedRow {
@@ -198,7 +200,7 @@ extension TransactionsViewController: UITableViewDataSource {
         guard let _ = selectedWallet else {
             return 0
         }
-        prepareTableViewData()
+       // prepareTableViewData()
         
         // Shows a message if there are no sections
         if transactionsFilteredByDate.keys.count == 0 {
@@ -209,7 +211,6 @@ extension TransactionsViewController: UITableViewDataSource {
         else {
             tableView.restore()
         }
-        
         return transactionDates.count
     }
     
@@ -230,13 +231,12 @@ extension TransactionsViewController: UITableViewDataSource {
         guard let _ = selectedWallet else {
             return cell
         }
+        
         if let cell = cell as? TransactionCell {
             if let transactionsByDate = transactionsFilteredByDate[date] {
                 let item = transactionsByDate[indexPath.row]
                 configureTransactions(for: cell, with: item)
             }
-            cell.selectionStyle = .default
-
         }
         
         return cell
@@ -252,17 +252,24 @@ extension TransactionsViewController: UITableViewDataSource {
             }
             let dateBySection = transactionDates[indexPath.section]
             
+            let transactionToRemove = transactionsFilteredByDate[dateBySection]?.remove(at: indexPath.row)
+            let transactionDate = transactionToRemove!.date
+            
             // Remove transaction by "dateBySection" with index
             
-            wallet.removeTransaction(by: dateBySection, with: indexPath.row)
+            wallet.removeTransaction(transactionToRemove: transactionToRemove!, by: transactionDate)
             
-            
+           //
             // Get number of rows for section after deleting the transaction. If said section has "0" rows - delete section completely and remove its Date Container
             // Else just delete the row
             let numberOfRows = getNumberOfRows(for: indexPath.section)
+            print(numberOfRows)
             if numberOfRows == 0 {
-                wallet.removeTransactionContainer(with: dateBySection.start)
+                wallet.removeTransactionContainer(with: transactionDate)
+                 prepareTableViewData()
                 tableView.deleteSections([indexPath.section], with: .fade)
+              
+
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }

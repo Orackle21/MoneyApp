@@ -33,7 +33,7 @@ class Wallet: NSObject {
         self.color = Colors().getRandomColor()
         super.init()
         let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
-        for _ in 0...150000 {
+        for _ in 0...15000 {
             createRandomTransaction()
         }
         updateTransactionDates()
@@ -76,8 +76,11 @@ class Wallet: NSObject {
     
     
     // Removes transaction by date from "allTransactionGrouped" dict
-    func removeTransaction(by date: DateInterval, with index: Int) {
-        let deletedTransaction = allTransactionsGrouped[date.start]?.remove(at: index)
+    func removeTransaction(transactionToRemove: Transaction, by date: Date) {
+        
+        let index = allTransactionsGrouped[date]?.firstIndex(of: transactionToRemove)
+        
+        let deletedTransaction = allTransactionsGrouped[date]?.remove(at: index!)
         balance -= deletedTransaction?.amount ?? 0       
     }
     

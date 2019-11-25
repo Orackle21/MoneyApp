@@ -26,8 +26,6 @@ public class Sorter {
             if  let transactionsByDate = wallet.allTransactionsGrouped[date] {
                 transactions.append(contentsOf: transactionsByDate)
             }
-
-            
         }
         
         switch daterRange {
@@ -38,11 +36,7 @@ public class Sorter {
         case .all: sortedTransactions = sortBy(calendarComponent: .year, transactionArray: transactions)
         default: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
         }
-        
-        
-     //   print (sortedTransactions)
-        
-        
+   
         return sortedTransactions
     }
     
