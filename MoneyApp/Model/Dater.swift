@@ -15,22 +15,27 @@ class Dater {
     private let calendar = Calendar.current
     
     
-    var dateFormatter = DateFormatter()
+    let dateFormatter = DateFormatter()
     let sectionHeaderDateFormatter = DateFormatter()
+    let reportsHeaderDateFormatter = DateFormatter()
     
     
     init() {
         daterRange = .months
-        sectionHeaderDateFormatter.dateFormat = "MMMM d"
+        setReportsHeaderDateFormatter(timeRange: daterRange)
+        setSectionHeaderDateFormatter(timeRange: daterRange)
     }
     
     func setDaterRange (_ daterRange: DaterRange) {
         self.daterRange = daterRange
+        setReportsHeaderDateFormatter(timeRange: daterRange)
         setSectionHeaderDateFormatter(timeRange: daterRange)
     }
     
     
     func getTimeIntervals() -> [DateInterval] {
+        
+        print(calendar.firstWeekday)
         
         switch daterRange {
         case .days: return calculateDateIntervals(timeRange: .day)
@@ -47,6 +52,7 @@ class Dater {
     
     private func calculateDateIntervals (timeRange: Calendar.Component) -> [DateInterval] {
         setDateFormatter(timeRange: timeRange)
+        
         var date = Date()
         var dates = [DateInterval]()
         let upperRange = getUpperRange(for: timeRange)
@@ -76,8 +82,8 @@ class Dater {
         case .day: return 30
         case .month: return 12
         case .weekOfMonth: return 12
-        case .quarter: return 100
-        case .year: return 20
+        case .quarter: return 10
+        case .year: return 10
         case .era: return 0
         default: return 7
         }
@@ -113,6 +119,16 @@ class Dater {
         }
     }
     
+    private func setReportsHeaderDateFormatter(timeRange: DaterRange){
+           switch timeRange {
+           case .days: reportsHeaderDateFormatter.dateFormat = "MMMM"
+           case .weeks: reportsHeaderDateFormatter.dateFormat =  "MMMM"
+           case .months: reportsHeaderDateFormatter.dateFormat = "yyyy"
+           case .quarters: reportsHeaderDateFormatter.dateFormat = "MMMM yy"
+           case .year: reportsHeaderDateFormatter.dateFormat = " "
+           case .all: reportsHeaderDateFormatter.dateFormat = "yyyy"
+           }
+       }
     
 }
 

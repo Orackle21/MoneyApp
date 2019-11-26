@@ -116,7 +116,7 @@ class ReportsDetailViewController: UIViewController {
             return
         }
         
-        let transactionDates = wallet.getTransactionsBy(dateInterval: selectedTimeRange)
+        let transactionDates = wallet.getTransactionDatesBy(dateInterval: selectedTimeRange)
         var transactions = [Transaction]()
         for date in transactionDates {
             guard let transactionsByDate = wallet.allTransactionsGrouped[date] else { return }

@@ -84,8 +84,8 @@ class TransactionsViewController: UIViewController {
         guard let wallet = selectedWallet else { return }
          
         wallet.updateTransactionDates()
-        let sorter = Sorter()
-        transactionsFilteredByDate = sorter.sort(wallet: selectedWallet!, broadDateInterval: selectedDateInterval, daterRange: dater.daterRange)
+        let sorter = Sorter(dater: self.dater)
+        transactionsFilteredByDate = sorter.sort(wallet: selectedWallet!, broadDateInterval: selectedDateInterval)
 
         
         var dateIntervalArray = Array(transactionsFilteredByDate.keys)
@@ -508,9 +508,7 @@ extension TransactionsViewController {
         
         
     }
-    
-    
-    
+
 }
 
 

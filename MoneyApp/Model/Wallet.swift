@@ -32,10 +32,11 @@ class Wallet: NSObject {
         self.categoryList = CategoryList()
         self.color = Colors().getRandomColor()
         super.init()
-        let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
-        for _ in 0...15000 {
+        
+        for _ in 0...0 {
             createRandomTransaction()
         }
+        let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
         updateTransactionDates()
     }
     
@@ -65,7 +66,8 @@ class Wallet: NSObject {
     
     private func addToAllTransactions (transaction: Transaction) {
         if var transactionArrayByDate = allTransactionsGrouped[transaction.date] {
-            transactionArrayByDate.insert(transaction, at: 0)
+          //  transactionArrayByDate.insert(transaction, at: 0)
+             transactionArrayByDate.append(transaction)
             allTransactionsGrouped.updateValue(transactionArrayByDate, forKey: transaction.date)
         }
         else {
@@ -79,7 +81,6 @@ class Wallet: NSObject {
     func removeTransaction(transactionToRemove: Transaction, by date: Date) {
         
         let index = allTransactionsGrouped[date]?.firstIndex(of: transactionToRemove)
-        
         let deletedTransaction = allTransactionsGrouped[date]?.remove(at: index!)
         balance -= deletedTransaction?.amount ?? 0       
     }
@@ -90,7 +91,7 @@ class Wallet: NSObject {
         }
     }
     
-    func getTransactionsBy (dateInterval: DateInterval) -> [Date] {
+    func getTransactionDatesBy (dateInterval: DateInterval) -> [Date] {
 
         var dateArray = transactionDates.filter {
             dateInterval.contains($0)

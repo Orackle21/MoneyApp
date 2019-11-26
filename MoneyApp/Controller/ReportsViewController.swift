@@ -15,11 +15,19 @@ class ReportsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var chartContainer: UIView!
     
+    private var actionSheet: UIAlertController?
+    @IBAction func chooseTimeInterval(_ sender: Any) {
+        prepareAlert()
+        self.present(actionSheet!, animated: true, completion: nil)
+    }
+    
     var stateController: StateController!
-    lazy private var dater = stateController.dater
+    lazy private var dater = Dater()
+    lazy private var sorter = Sorter(dater: dater)
     lazy private var wallet = stateController.getSelectedWallet()
     
-    private var dateIntervals = [DateInterval]()
+    private var outerIntervals = [DateInterval]()
+    private var dateIntervals = [DateInterval: [DateInterval]]()
     private var dateStrings = [String]()
     private var amountsByDate = [Double]()
     
@@ -63,22 +71,32 @@ class ReportsViewController: UIViewController {
     }
     
     private func updateChartData() {
-        dateIntervals = dater.getTimeIntervals()
+        
+        guard let wallet = stateController.getSelectedWallet() else { return }
+        
+        dateIntervals = sorter.getSortedDateIntervals()
+        print(dateIntervals)
         
         dateStrings = [String]()
         amountsByDate = [Double]()
-        wallet = stateController.getSelectedWallet()
-        if let wallet = wallet  {
-            for dateInterval in dateIntervals {
+        
+        outerIntervals = dateIntervals.keys.sorted(by: >)
+        
+        for outerInterval in outerIntervals {
+            
+            for dateInterval in dateIntervals[outerInterval]! {
                 let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
                 amountsByDate.append(sumByDate.doubleValue)
+           
+                
+                let string = dater.dateFormatter.string(from: dateInterval.start)
+                dateStrings.append(string)
+               
             }
+            
         }
         
-        for dateInterval in dateIntervals {
-            let string = dater.dateFormatter.string(from: dateInterval.start)
-            dateStrings.append(string)
-        }
+       
     }
     
 
@@ -130,8 +148,8 @@ class ReportsViewController: UIViewController {
             if let destination = segue.destination as? ReportsDetailViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     
-                    let dateInterval = dateIntervals[indexPath.row]
-                    destination.selectedTimeRange = dateInterval
+                  //  let dateInterval = dateIntervals[indexPath.row]
+                  //  destination.selectedTimeRange = dateInterval
                     destination.stateController = stateController
                 }
             }
@@ -144,10 +162,26 @@ class ReportsViewController: UIViewController {
 
 extension ReportsViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        outerIntervals.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if dater.daterRange == .year {
+            return "All Years"
+        }
+        else {
+            let sectionDate = outerIntervals[section]
+            return dater.reportsHeaderDateFormatter.string(from: sectionDate.start)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return amountsByDate.count
+        let outerInterval = outerIntervals[section]
+        return dateIntervals[outerInterval]?.count ?? 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -172,33 +206,30 @@ extension ReportsViewController: UITableViewDataSource {
     
 }
 
-extension ReportsViewController: UITableViewDelegate {
+//extension ReportsViewController: UITableViewDelegate {
     
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 22.0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.0
-       }
-
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return 0.0
-    }
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 22.0
-    }
-}
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 22.0
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 0.0
+//       }
+//
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return UIView()
+//    }
+//
+//    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+//        return 0.0
+//    }
+//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+//        return 22.0
+//    }
+//}
 
     // MARK: - Chart Axis text customization class
 
@@ -218,3 +249,53 @@ public class AxisValueFormatter: NSObject, IAxisValueFormatter {
     
     }
 
+extension ReportsViewController {
+    
+    private func prepareAlert() {
+           actionSheet = UIAlertController(title: "Select Time Range", message: "Filter transactions by selected date", preferredStyle: .actionSheet)
+           actionSheet!.addAction(UIAlertAction(
+               title: "Day",
+               style: .default,
+               handler: { _ in
+                self.upDater(.days)
+           }))
+           actionSheet!.addAction(UIAlertAction(
+               title: "Week",
+               style: .default,
+               handler: { _ in
+                   self.upDater(.weeks)
+           }))
+           actionSheet!.addAction(UIAlertAction(
+               title: "Month",
+               style: .default,
+               handler: { _ in
+                                  self.upDater(.months)
+
+           }))
+           actionSheet!.addAction(UIAlertAction(
+               title: "Year",
+               style: .default,
+               handler: { _ in
+                   self.upDater(.year)
+           }))
+           
+           
+           actionSheet!.addAction(UIAlertAction(
+               title: "Cancel",
+               style: .cancel,
+               handler: nil
+           ))
+           
+           
+       }
+    
+    private func upDater(_ daterRange: DaterRange) {
+        
+        dater.setDaterRange(daterRange)
+        updateChartData()
+        updateChart(dataPoints: dateStrings, values: amountsByDate)
+        tableView.reloadData()
+        
+    }
+    
+}
