@@ -148,8 +148,9 @@ class ReportsViewController: UIViewController {
             if let destination = segue.destination as? ReportsDetailViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     
-                  //  let dateInterval = dateIntervals[indexPath.row]
-                  //  destination.selectedTimeRange = dateInterval
+                    let innerArray = dateIntervals[outerIntervals[indexPath.section]]
+                    let dateInterval = innerArray![indexPath.row]
+                    destination.selectedTimeRange = dateInterval
                     destination.stateController = stateController
                 }
             }
@@ -178,7 +179,6 @@ extension ReportsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         let outerInterval = outerIntervals[section]
         return dateIntervals[outerInterval]?.count ?? 0
         
@@ -188,48 +188,33 @@ extension ReportsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportsCell", for: indexPath)
         
         if let cell = cell as? ReportsCell {
+            guard let wallet = wallet else {return cell}
             
-            let amount = amountsByDate[indexPath.row]
+            let innerArray = dateIntervals[outerIntervals[indexPath.section]]
+            let dateInterval = innerArray![indexPath.row]
+            let amount = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
+            
             if amount > 0 {
                 cell.iconView.backgroundColor = UIColor.systemGreen
             } else {
                 cell.iconView.backgroundColor = UIColor.systemRed
-
             }
             
-            cell.amountLabel.text = String(amountsByDate[indexPath.row])
-            cell.periodNameLabel.text = dateStrings[indexPath.row]
+            cell.amountLabel.text = String(amount.doubleValue)
+            
+            
+            cell.periodNameLabel.text = dater.dateFormatter.string(from: dateInterval.start)
         }
         return cell
     }
     
-    
 }
 
-//extension ReportsViewController: UITableViewDelegate {
+extension ReportsViewController: UITableViewDelegate {
     
     
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 22.0
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 0.0
-//       }
-//
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-//        return 0.0
-//    }
-//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-//        return 22.0
-//    }
-//}
+
+}
 
     // MARK: - Chart Axis text customization class
 

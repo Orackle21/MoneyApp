@@ -33,7 +33,7 @@ class Wallet: NSObject {
         self.color = Colors().getRandomColor()
         super.init()
         
-        for _ in 0...0 {
+        for _ in 0...5000 {
             createRandomTransaction()
         }
         let _ = newTransaction(in: categoryList.listOfAllCategories[0], name: "Balance Update", amount: initialBalance, date: getTodaysDate())
