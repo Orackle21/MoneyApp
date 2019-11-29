@@ -202,8 +202,12 @@ extension ReportsViewController: UITableViewDataSource {
             
             cell.amountLabel.text = String(amount.doubleValue)
             
-            
-            cell.periodNameLabel.text = dater.dateFormatter.string(from: dateInterval.start)
+            if dater.daterRange == .weeks {
+                let string = dater.dateFormatter.string(from: dateInterval.start) + " - " + dater.dateFormatter.string(from: dateInterval.end)
+                cell.periodNameLabel.text = string
+            } else {
+                cell.periodNameLabel.text = dater.dateFormatter.string(from: dateInterval.start)
+            }
         }
         return cell
     }
@@ -212,6 +216,10 @@ extension ReportsViewController: UITableViewDataSource {
 
 extension ReportsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.font = UIFont.systemFont(ofSize: 15)
+    }
     
 
 }

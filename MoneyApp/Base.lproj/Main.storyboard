@@ -951,7 +951,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Period Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ch-HS-dZT">
-                                                    <rect key="frame" x="59" y="11" width="136" height="22"/>
+                                                    <rect key="frame" x="59" y="11" width="190" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -987,7 +987,7 @@
                                                 <constraint firstItem="kgM-X2-vyN" firstAttribute="firstBaseline" secondItem="7ch-HS-dZT" secondAttribute="firstBaseline" id="Tt1-ME-J8f"/>
                                                 <constraint firstItem="7ch-HS-dZT" firstAttribute="leading" secondItem="PEy-V8-GTb" secondAttribute="leading" constant="59" id="aN5-w1-gVa"/>
                                                 <constraint firstItem="7ch-HS-dZT" firstAttribute="centerY" secondItem="wX7-yJ-4qg" secondAttribute="centerY" id="apj-LB-wTa"/>
-                                                <constraint firstItem="kgM-X2-vyN" firstAttribute="leading" secondItem="7ch-HS-dZT" secondAttribute="trailing" constant="8" id="bhh-cB-bsO"/>
+                                                <constraint firstItem="kgM-X2-vyN" firstAttribute="leading" secondItem="7ch-HS-dZT" secondAttribute="trailing" constant="-46" id="bhh-cB-bsO"/>
                                                 <constraint firstItem="kgM-X2-vyN" firstAttribute="trailing" secondItem="PEy-V8-GTb" secondAttribute="trailingMargin" id="bld-48-pay"/>
                                                 <constraint firstItem="7ch-HS-dZT" firstAttribute="top" secondItem="PEy-V8-GTb" secondAttribute="topMargin" id="qV0-kx-RpG"/>
                                                 <constraint firstItem="7ch-HS-dZT" firstAttribute="leading" secondItem="wX7-yJ-4qg" secondAttribute="trailing" constant="14" id="uR2-DJ-iO6"/>
