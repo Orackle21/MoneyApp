@@ -43,7 +43,6 @@ class CategoryDetailViewController: UITableViewController {
         }
         wallet.categoryList.addNewCategory(name: name,
                                            iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor],
-                                           isSubcategory: false,
                                            canBeDeleted: true, isSubcategoryOf: subCategory ?? nil)
         self.navigationController?.popViewController(animated: true)
     }

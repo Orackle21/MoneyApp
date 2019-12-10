@@ -19,13 +19,13 @@ public class Sorter {
     
     func sort(wallet: Wallet, broadDateInterval: DateInterval) -> [DateInterval : [Transaction]] {
          
-        let start = CFAbsoluteTimeGetCurrent()
-        
+     //   let start = CFAbsoluteTimeGetCurrent()
         var sortedTransactions = [DateInterval: [Transaction]]()
-        
         var transactions = [Transaction]()
-        let transactionDates = wallet.getTransactionDatesBy(dateInterval: broadDateInterval)
         
+        
+        // Get all transactions by passed dates
+        let transactionDates = wallet.getTransactionDatesBy(dateInterval: broadDateInterval)
         for date in transactionDates {
             if  let transactionsByDate = wallet.allTransactionsGrouped[date] {
                 transactions.append(contentsOf: transactionsByDate)
@@ -33,16 +33,16 @@ public class Sorter {
         }
         
         switch dater.daterRange {
-        case .days: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
-        case .weeks: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
-        case .months : sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
-        case .year: sortedTransactions = sortBy(calendarComponent: .month, transactionArray: transactions)
-        case .all: sortedTransactions = sortBy(calendarComponent: .year, transactionArray: transactions)
-        default: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
+            case .days: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
+            case .weeks: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
+            case .months : sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
+            case .year: sortedTransactions = sortBy(calendarComponent: .month, transactionArray: transactions)
+            case .all: sortedTransactions = sortBy(calendarComponent: .year, transactionArray: transactions)
+            default: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
         }
    
-        let diff = CFAbsoluteTimeGetCurrent() - start
-        print("Took \(diff) seconds")
+//        let diff = CFAbsoluteTimeGetCurrent() - start
+//        print("Took \(diff) seconds")
         
         
         return sortedTransactions

@@ -17,8 +17,6 @@ struct Currency: Comparable, Codable {
             return false }
     }
     
-    
-
     var name: String
     var symbol :String?
     var id: String

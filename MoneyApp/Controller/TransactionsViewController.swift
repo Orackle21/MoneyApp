@@ -24,14 +24,15 @@ class TransactionsViewController: UIViewController {
     var stateController: StateController!
     private var selectedWallet: Wallet?
     
-    private lazy var selectedDateInterval = DateInterval()
     private lazy var dater = stateController.dater
-    
+    private lazy var selectedDateInterval = DateInterval()
+
     private var transactionDates = [DateInterval]()
     private var transactionsFilteredByDate = [DateInterval: [Transaction]]()
     private var dateBarDateNames = [DateInterval]()
     
     
+    // MARK: - Implement cell update through delegate 
     
     
     override func viewDidLayoutSubviews() {
@@ -150,8 +151,11 @@ class TransactionsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
-            if let destination = segue.destination as? TransactionDetailViewController {
-                destination.wallet = selectedWallet
+            if let navigationController = segue.destination as? UINavigationController {
+                if let destination = navigationController.viewControllers.first as? TransactionDetailViewController {
+                    destination.wallet = selectedWallet
+                    
+                }
             }
         }
         
@@ -162,18 +166,20 @@ class TransactionsViewController: UIViewController {
         }
         
         if segue.identifier == "editItemSegue" {
-            if let destination = segue.destination as? TransactionDetailViewController {
-                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    
-                    let date = getDateBySectionNumber(indexPath.section)
-                    let index = indexPath.row
-                    guard let wallet = selectedWallet else {
-                        return
-                    }
-                    if let arrayByDate = transactionsFilteredByDate[date] {
-                        destination.transactionToEdit = arrayByDate[index]
-                        destination.wallet = wallet
-                        destination.title = "Edit Transaction"
+            if let navigationController = segue.destination as? UINavigationController {
+                if let destination = navigationController.viewControllers.first as? TransactionDetailViewController  {
+                    if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                        
+                        let date = getDateBySectionNumber(indexPath.section)
+                        let index = indexPath.row
+                        guard let wallet = selectedWallet else {
+                            return
+                        }
+                        if let arrayByDate = transactionsFilteredByDate[date] {
+                            destination.transactionToEdit = arrayByDate[index]
+                            destination.wallet = wallet
+                            destination.title = "Edit Transaction"
+                        }
                     }
                 }
             }

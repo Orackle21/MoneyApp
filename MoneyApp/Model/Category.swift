@@ -13,14 +13,13 @@ class Category: NSObject {
    
     let name: String?
     let iconGradients: [CGColor]?
-    let isSubcategory: Bool?
     let canBeDeleted: Bool?
     let isSubcategoryOf: Category?
     
-    init(name: String, gradients: [CGColor], isSubcategory: Bool, canBeDeleted: Bool, isSubcategoryOf: Category?) {
+    
+    init(name: String, gradients: [CGColor], canBeDeleted: Bool, isSubcategoryOf: Category?) {
         self.name = name
         self.iconGradients = gradients
-        self.isSubcategory = isSubcategory
         self.canBeDeleted = canBeDeleted
         self.isSubcategoryOf = isSubcategoryOf
     }

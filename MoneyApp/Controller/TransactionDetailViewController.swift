@@ -34,6 +34,9 @@ class TransactionDetailViewController: UITableViewController {
             dateLabel.text = dateFormatter.string(from: datePickerDate)
         }
     }
+    @IBAction func cancelAdding(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

@@ -10,11 +10,12 @@ import UIKit
 
 class IconView: UIView {
     
-    var categoryGradient: [CGColor]? {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
+    var categoryGradient: [CGColor]?
+//    {
+//        didSet {
+//            self.setNeedsDisplay()
+//        }
+//    }
     
     override func draw(_ rect: CGRect) {
        
@@ -41,15 +42,15 @@ class IconView: UIView {
                                    options: [])
         
 //         adding an icon
-//        let image = UIImage(named: "foodIcon")
-//        let imageView = UIImageView(image: image)
-//        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-//        imageView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        imageView.frame = CGRect(x: bounds.minX , y: bounds.minY , width: (self.frame.width/2), height: (self.frame.height/2))
-//        imageView.center = CGPoint(x: self.frame.size.width  / 2,
-//        y: self.frame.size.height / 2)
-//        imageView.contentMode = UIView.ContentMode.scaleToFill
-//        self.addSubview(imageView)
+        let image = UIImage(named: "foodIcon")
+        let imageView = UIImageView(image: image)
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        imageView.frame = CGRect(x: bounds.minX , y: bounds.minY , width: (self.frame.width/2), height: (self.frame.height/2))
+        imageView.center = CGPoint(x: self.frame.size.width  / 2,
+        y: self.frame.size.height / 2)
+        imageView.contentMode = UIView.ContentMode.scaleToFill
+        self.addSubview(imageView)
         
     }
     

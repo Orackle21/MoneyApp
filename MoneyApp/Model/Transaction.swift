@@ -9,6 +9,7 @@
 import Foundation
 
 class Transaction: NSObject, Comparable{
+    
     static func < (lhs: Transaction, rhs: Transaction) -> Bool {
         return lhs.date < rhs.date
     }

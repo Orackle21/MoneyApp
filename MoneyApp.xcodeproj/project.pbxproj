@@ -16,6 +16,7 @@
 		9A0705F52283EF6A003817A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F42283EF6A003817A1 /* Assets.xcassets */; };
 		9A0705F82283EF6A003817A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F62283EF6A003817A1 /* LaunchScreen.storyboard */; };
 		9A16F839238B147A0096C0C2 /* Sorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A16F838238B147A0096C0C2 /* Sorter.swift */; };
+		9A1E3DD9239EC81D0003A20C /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1E3DD8239EC81D0003A20C /* Skin.swift */; };
 		9A3774CC23408B0C00C6982C /* ReportsDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3774CB23408B0C00C6982C /* ReportsDetailCell.swift */; };
 		9A47104422C4F2F700A3662B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47104322C4F2F700A3662B /* Currency.swift */; };
 		9A4DBCD22329EBAA0072B9A5 /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DBCD12329EBAA0072B9A5 /* currencies.json */; };
@@ -59,6 +60,7 @@
 		9A0705F72283EF6A003817A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A0705F92283EF6A003817A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A16F838238B147A0096C0C2 /* Sorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorter.swift; sourceTree = "<group>"; };
+		9A1E3DD8239EC81D0003A20C /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 		9A3774CB23408B0C00C6982C /* ReportsDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsDetailCell.swift; sourceTree = "<group>"; };
 		9A47104322C4F2F700A3662B /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9A4DBCD12329EBAA0072B9A5 /* currencies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = currencies.json; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		9A05558A22A18B41009398CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9A1E3DD8239EC81D0003A20C /* Skin.swift */,
 				9A591D09231BE1F400F14E82 /* Extensions.swift */,
 				9AE3BCB322C5ED3E00089927 /* StateController.swift */,
 				9A6A9C0C231D323A00A252E5 /* Dater.swift */,
@@ -352,6 +355,7 @@
 				9A3774CC23408B0C00C6982C /* ReportsDetailCell.swift in Sources */,
 				9A57A17322CF25FD00DC6624 /* IconView.swift in Sources */,
 				9A57A17122CC883900DC6624 /* WalletCell.swift in Sources */,
+				9A1E3DD9239EC81D0003A20C /* Skin.swift in Sources */,
 				9AB9C6B422C3315900E401DC /* CategoryListViewController.swift in Sources */,
 				9A596850233F1EFE00C83B7A /* ReportsDetailViewController.swift in Sources */,
 				9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */,

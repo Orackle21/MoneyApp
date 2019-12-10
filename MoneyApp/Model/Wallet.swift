@@ -154,42 +154,59 @@ class Wallet: NSObject {
     }
     
     
-    //////////////////////////////////////////////////////////////////////////
-    ////Random testing stuff//////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////
-    
-    func createRandomTransaction() {
-        let _ = newTransaction(in: categoryList.listOfAllCategories[Int.random(in: 0...categoryList.listOfAllCategories.count - 1)],
-                                         name: " ",
-                                         amount: Decimal(getRandomAmount()),
-                                         date: getRandomDate())
-    }
-    
-    // Gets random Date for Testing Purposes
-    func getRandomDate() -> Date {
-        let randomMonth = Int.random(in: 0...11)
-        let randomDay = Int.random(in: 1...31)
-        let randomYear = Int.random(in: 2005...2019)
-        let randomDate = DateComponents( timeZone: TimeZone(abbreviation: "GMT"), year: randomYear, month: randomMonth, day: randomDay)
-        
-        let calendar = Calendar.current
-        let date = calendar.date(from: randomDate)!
-        return date
-    }
-    
-    func getTodaysDate() -> Date {
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
-        components.timeZone = TimeZone(abbreviation: "GMT")
-        let date = calendar.date(from: components)
-        return date!
-    }
-    
-    func getRandomAmount() -> Int {
-            return Int.random(in: -1500...1500)
-    }
+ 
     
    
+    
+    
+}
+
+
+extension Wallet {
+    
+}
+
+extension Wallet {
+    
+}
+
+
+ // MARK: - Random Testing Methods
+
+extension Wallet {
+     
+     func createRandomTransaction() {
+         let _ = newTransaction(in: categoryList.listOfAllCategories[Int.random(in: 0...categoryList.listOfAllCategories.count - 1)],
+                                          name: " ",
+                                          amount: Decimal(getRandomAmount()),
+                                          date: getRandomDate())
+     }
+     
+     // Gets random Date for Testing Purposes
+     func getRandomDate() -> Date {
+         let randomMonth = Int.random(in: 0...11)
+         let randomDay = Int.random(in: 1...31)
+         let randomYear = Int.random(in: 2005...2019)
+         let randomDate = DateComponents( timeZone: TimeZone(abbreviation: "GMT"), year: randomYear, month: randomMonth, day: randomDay)
+         
+         let calendar = Calendar.current
+         let date = calendar.date(from: randomDate)!
+         return date
+     }
+     
+     func getTodaysDate() -> Date {
+         let calendar = Calendar.current
+         var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: Date())
+         components.timeZone = TimeZone(abbreviation: "GMT")
+         let date = calendar.date(from: components)
+         return date!
+     }
+     
+     func getRandomAmount() -> Int {
+             return Int.random(in: -1500...1500)
+     }
+    
+    
     struct Colors {
         let list = [#colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]
         
@@ -201,15 +218,5 @@ class Wallet: NSObject {
 }
 
 
-extension Wallet {
-    
-}
 
-extension Wallet {
-    
-}
-
-extension Wallet {
-    
-}
 

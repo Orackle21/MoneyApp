@@ -184,7 +184,6 @@ extension ReportsDetailViewController: UITableViewDataSource {
         }
         else {
             cellIdentifier = "reportsCell"
-            
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
