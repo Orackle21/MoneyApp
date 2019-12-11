@@ -20,6 +20,8 @@ public class Sorter {
     func sort(wallet: Wallet, broadDateInterval: DateInterval) -> [DateInterval : [Transaction]] {
          
      //   let start = CFAbsoluteTimeGetCurrent()
+        //        let diff = CFAbsoluteTimeGetCurrent() - start
+        //        print("Took \(diff) seconds")
         var sortedTransactions = [DateInterval: [Transaction]]()
         var transactions = [Transaction]()
         
@@ -41,8 +43,7 @@ public class Sorter {
             default: sortedTransactions = sortBy(calendarComponent: .day, transactionArray: transactions)
         }
    
-//        let diff = CFAbsoluteTimeGetCurrent() - start
-//        print("Took \(diff) seconds")
+
         
         
         return sortedTransactions
@@ -56,7 +57,7 @@ public class Sorter {
         for transaction in transactionArray{
 
             let date = transaction.date
-            let dateInterval = dater.getTimeIntervalFor(date: date, using: calendarComponent)
+            let dateInterval = dater.getDateIntervalFor(date: date, using: calendarComponent)
 
             if var transactionArrayByDate = sortedTransactions[dateInterval] {
                  transactionArrayByDate.insert(transaction, at: 0)
@@ -87,7 +88,7 @@ extension Sorter {
         for innerInterval in timeIntervals {
             
             
-            let outerInterval = dater.getTimeIntervalFor(date: innerInterval.start, using: calendarComponent)
+            let outerInterval = dater.getDateIntervalFor(date: innerInterval.start, using: calendarComponent)
             
             if var innerIntervalArray = sortedIntervals[outerInterval] {
                 innerIntervalArray.insert(innerInterval, at: 0)

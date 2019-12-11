@@ -9,9 +9,16 @@
 import Foundation
 import UIKit
 
-struct Skin {
+struct Skin: Codable {
     
-    var color: UIColor?
-    var icon: UIImage?
+    let name: String
+    var color: String
+    var icon: String
     
+    
+    init(name: String, color: String, icon: String) {
+        self.name = name
+        self.color = color
+        self.icon = icon
+    }
 }

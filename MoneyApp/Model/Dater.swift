@@ -61,7 +61,7 @@ class Dater {
         components.timeZone = TimeZone(abbreviation: "GMT")
         date = calendar.date(from: components)!
         
-        let dateInterval = getTimeIntervalFor(date: date, using: timeRange)
+        let dateInterval = getDateIntervalFor(date: date, using: timeRange)
         dates.append(dateInterval)
         
         for _ in 0...upperRange {
@@ -69,7 +69,7 @@ class Dater {
                 break
             }
             date = calendar.date(byAdding: timeRange, value: -1, to: date)!
-            let dateInterval = getTimeIntervalFor(date: date, using: timeRange)
+            let dateInterval = getDateIntervalFor(date: date, using: timeRange)
             dates.append(dateInterval)
         }
         
@@ -89,7 +89,7 @@ class Dater {
         }
     }
     
-    func getTimeIntervalFor (date: Date, using selectedTimeRange: Calendar.Component) -> DateInterval {
+    func getDateIntervalFor (date: Date, using selectedTimeRange: Calendar.Component) -> DateInterval {
         var beginningOf: Date?
         var endOf: Date?
         beginningOf = calendar.dateInterval(of: selectedTimeRange, for: date)?.start

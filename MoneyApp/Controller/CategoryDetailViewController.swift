@@ -19,7 +19,7 @@ class CategoryDetailViewController: UITableViewController {
     @IBOutlet weak var walletIcon: UIView!
    
     var wallet: Wallet?
-    var subCategory: Category?
+    var parentCategory: Category?
     
     
     override func viewDidLoad() {
@@ -42,8 +42,8 @@ class CategoryDetailViewController: UITableViewController {
             return
         }
         wallet.categoryList.addNewCategory(name: name,
-                                           iconColors: [UIColor.orange.cgColor, UIColor.yellow.cgColor],
-                                           canBeDeleted: true, isSubcategoryOf: subCategory ?? nil)
+                                           skin: Skin(name: "dusk", color: "Dusk", icon: "coffee"),
+                                           canBeDeleted: true, isSubcategoryOf: parentCategory ?? nil)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -59,8 +59,8 @@ class CategoryDetailViewController: UITableViewController {
    
     @IBAction func unwindToCategoryDetail(_ unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? ParentCategoriesTableViewController {
-            subCategory = sourceViewController.subCategory
-            subcategoryLabel.text = "Subcategory of: \(subCategory?.name ?? "None")"
+            parentCategory = sourceViewController.subCategory
+            subcategoryLabel.text = "Subcategory of: \(parentCategory?.name ?? "None")"
         }
     }
     

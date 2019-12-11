@@ -13,6 +13,7 @@ class CategoryListViewController: UITableViewController {
     var selectedCategory: Category?
     var wallet: Wallet!
     var actionSheet: UIAlertController?
+    var subCategories = [[Category]]()
 //    lazy var transactionsByCategory = categorizeTransactions(wallet: wallet!)
    
     

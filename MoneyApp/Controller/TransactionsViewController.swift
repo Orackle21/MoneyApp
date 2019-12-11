@@ -136,7 +136,7 @@ class TransactionsViewController: UIViewController {
             transaction.amount > 0 ? (cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : (cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1))
             
             if let icon = cell.categoryIcon as? IconView {
-                icon.setGradeintForCategory(category: transaction.category!)
+                icon.setGradientForCategory(category: transaction.category!)
                 icon.setNeedsDisplay()
             }
         }
@@ -170,6 +170,8 @@ class TransactionsViewController: UIViewController {
                 if let destination = navigationController.viewControllers.first as? TransactionDetailViewController  {
                     if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                         
+                  
+                          
                         let date = getDateBySectionNumber(indexPath.section)
                         let index = indexPath.row
                         guard let wallet = selectedWallet else {
@@ -180,6 +182,8 @@ class TransactionsViewController: UIViewController {
                             destination.wallet = wallet
                             destination.title = "Edit Transaction"
                         }
+                        
+                                               
                     }
                 }
             }

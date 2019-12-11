@@ -12,14 +12,14 @@ import UIKit
 class Category: NSObject {
    
     let name: String?
-    let iconGradients: [CGColor]?
+    let skin: Skin
     let canBeDeleted: Bool?
     let isSubcategoryOf: Category?
     
     
-    init(name: String, gradients: [CGColor], canBeDeleted: Bool, isSubcategoryOf: Category?) {
+    init(name: String, skin: Skin, canBeDeleted: Bool, isSubcategoryOf: Category?) {
         self.name = name
-        self.iconGradients = gradients
+        self.skin = skin
         self.canBeDeleted = canBeDeleted
         self.isSubcategoryOf = isSubcategoryOf
     }

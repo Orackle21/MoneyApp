@@ -207,16 +207,16 @@ extension ReportsDetailViewController: UITableViewDataSource {
         if let cell = cell as? ReportsCell {
             
             
-            if let name = categories[indexPath.row].name {
-                cell.periodNameLabel.text = name
-            }
+            let name = categories[indexPath.row].name
+            cell.periodNameLabel.text = name
+            
            
             let category = categories[indexPath.row]
             
             cell.amountLabel.text = getAmountByCategory(category).description
             
             if let icon = cell.iconView as? IconView {
-                icon.setGradeintForCategory(category: categories[indexPath.row])
+                icon.setGradientForCategory(category: categories[indexPath.row])
                 icon.setNeedsDisplay()
             }
             
