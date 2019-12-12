@@ -10,7 +10,7 @@ import UIKit
 
 class SkinChooserViewController: UIViewController {
 
-    private var skinGroups = ["Misc", "Food", "Vehicles"]
+    private var skinGroups = ["Transport", "Food"]
     private var skins = [String:[Skin]]()
     
     
@@ -47,15 +47,31 @@ class SkinChooserViewController: UIViewController {
 
 }
 
-
-//extension SkinChooserViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//
-//
-//}
+extension SkinChooserViewController: UICollectionViewDataSource {
+    func
+    
+    numberOfSections(in collectionView: UICollectionView) -> Int {
+          return skinGroups.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+         return skins[skinGroups[section]]!.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "skinCollectionCell", for: indexPath)
+        
+        let skinArray = skins[skinGroups[indexPath.section]]
+        let skin = skinArray![indexPath.row]
+        
+        if let cell = cell as? SkinCollectionViewCell {
+            
+            cell.iconView.drawIcon(skin: skin)
+            cell.nameLabel.text = skin.name
+            
+        }
+        return cell
+    }
+    
+    
+}

@@ -216,7 +216,7 @@ extension ReportsDetailViewController: UITableViewDataSource {
             cell.amountLabel.text = getAmountByCategory(category).description
             
             if let icon = cell.iconView as? IconView {
-                icon.setGradientForCategory(category: categories[indexPath.row])
+                icon.drawIcon(skin: categories[indexPath.row].skin)
                 icon.setNeedsDisplay()
             }
             

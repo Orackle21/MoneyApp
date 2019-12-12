@@ -48,7 +48,7 @@ extension CategoryReportViewController: UITableViewDataSource {
             cell.amountLabel.text = transactions![indexPath.row].amount.description
             
             if let icon = cell.iconView as? IconView {
-                icon.setGradientForCategory(category: category!)
+                icon.drawIcon(skin: category!.skin)
                 icon.setNeedsDisplay()
             }
         }

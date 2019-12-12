@@ -24,6 +24,12 @@ class IconView: UIView {
         color!.setFill()
         path.fill()
         
+        
+//        self.layer.shadowOpacity = 0.30
+//        self.layer.shadowOffset = CGSize(width: 0, height: 5)
+//        self.layer.shadowRadius = 4.0
+        
+        
 //        let colorSpace = CGColorSpaceCreateDeviceRGB()
 //
 //        let colorLocations: [CGFloat] = [0.0, 1.0]
@@ -54,11 +60,11 @@ class IconView: UIView {
     }
     
     
-    func setGradientForCategory(category: Category) {
+    func drawIcon(skin: Skin) {
 //       let gradient = category.iconGradients
 //            categoryGradient = gradient
-        categoryColor = UIColor(named: category.skin.color)
-        iconName = category.skin.icon
+        categoryColor = UIColor(named: skin.color)
+        iconName = skin.icon
             backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         }
 }

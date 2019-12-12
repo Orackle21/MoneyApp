@@ -15,7 +15,25 @@
         "color" : "Dusk",
         "icon" : "cart"
       }
-    ]
+    ],
+    
+    "Food": [
+         {
+           "name" : "Bus",
+           "color" : "Field",
+           "icon" : "bus"
+         },
+         {
+           "name" : "Taxi",
+           "color" : "Sunrise",
+           "icon" : "taxi"
+         },
+         {
+           "name" : "Cart",
+           "color" : "Dusk",
+           "icon" : "cart"
+         }
+       ]
     
     
     
