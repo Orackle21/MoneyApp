@@ -32,6 +32,26 @@
            "name" : "Cart",
            "color" : "Dusk",
            "icon" : "cart"
+         },
+         {
+           "name" : "Taxi",
+           "color" : "Sunrise",
+           "icon" : "taxi"
+         },
+         {
+           "name" : "Cart",
+           "color" : "Dusk",
+           "icon" : "cart"
+         },
+         {
+           "name" : "Taxi",
+           "color" : "Sunrise",
+           "icon" : "taxi"
+         },
+         {
+           "name" : "Cart",
+           "color" : "Dusk",
+           "icon" : "cart"
          }
        ]
     

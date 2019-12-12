@@ -35,6 +35,7 @@
 		9A8F78F723A15CC800DCD9D2 /* ColorChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F78F623A15CC800DCD9D2 /* ColorChooserViewController.swift */; };
 		9A8F78F923A1689C00DCD9D2 /* SkinChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F78F823A1689C00DCD9D2 /* SkinChooserViewController.swift */; };
 		9A8F78FE23A179A100DCD9D2 /* SkinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */; };
+		9A8F790223A2509C00DCD9D2 /* SkinHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */; };
 		9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */; };
 		9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */; };
 		9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */; };
@@ -84,6 +85,7 @@
 		9A8F78F823A1689C00DCD9D2 /* SkinChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinChooserViewController.swift; sourceTree = "<group>"; };
 		9A8F78FA23A16AC100DCD9D2 /* ui colors copy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ui colors copy.json"; sourceTree = "<group>"; };
 		9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkinCollectionViewCell.swift; path = MoneyApp/SkinCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHeaderView.swift; sourceTree = "<group>"; };
 		9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCell.swift; sourceTree = "<group>"; };
 		9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarViewCell.swift; sourceTree = "<group>"; };
 		9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		9AD3814622E9DA9800344831 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */,
 				9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */,
 				9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */,
 				9A57A17222CF25FD00DC6624 /* IconView.swift */,
@@ -368,6 +371,7 @@
 				9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */,
 				9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */,
 				9A05558922A18B3A009398CD /* Category.swift in Sources */,
+				9A8F790223A2509C00DCD9D2 /* SkinHeaderView.swift in Sources */,
 				9A0705EE2283EF68003817A1 /* AppDelegate.swift in Sources */,
 				9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */,
 				9A3774CC23408B0C00C6982C /* ReportsDetailCell.swift in Sources */,

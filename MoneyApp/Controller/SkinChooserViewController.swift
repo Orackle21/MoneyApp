@@ -9,19 +9,19 @@
 import UIKit
 
 class SkinChooserViewController: UIViewController {
-
+    
     private var skinGroups = ["Transport", "Food"]
     private var skins = [String:[Skin]]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         getSkinsFromJSON()
         print (skins)
     }
     
-
+    
     func getSkinsFromJSON() {
         
         let decoder = JSONDecoder()
@@ -44,18 +44,16 @@ class SkinChooserViewController: UIViewController {
         
         
     }
-
+    
 }
 
 extension SkinChooserViewController: UICollectionViewDataSource {
-    func
-    
-    numberOfSections(in collectionView: UICollectionView) -> Int {
-          return skinGroups.count
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return skinGroups.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return skins[skinGroups[section]]!.count
+        return skins[skinGroups[section]]!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,4 +72,27 @@ extension SkinChooserViewController: UICollectionViewDataSource {
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "skinHeader", for: indexPath) as? SkinHeaderView{
+            sectionHeader.headerLabel.text = skinGroups[indexPath.section]
+            return sectionHeader
+        }
+        return UICollectionReusableView()
+    }
+    
 }
+    
+    
+    
+    
+    extension SkinChooserViewController: UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+        {
+            // In this function is the code you must implement to your code project if you want to change size of Collection view
+            let width  = (view.frame.width-20)/4
+            return CGSize(width: width, height: width)
+        }
+    }
+
+
