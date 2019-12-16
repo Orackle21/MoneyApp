@@ -54,9 +54,13 @@ class IconView: UIView {
         imageView.center = CGPoint(x: self.frame.size.width  / 2,
         y: self.frame.size.height / 2)
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
-        if self.subviews.isEmpty {
-            self.addSubview(imageView)
-        }   
+
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
+        
+        self.addSubview(imageView)
+   
     }
     
     

@@ -20,6 +20,7 @@ class CategoryDetailViewController: UITableViewController {
    
     var wallet: Wallet?
     var parentCategory: Category?
+    var skin: Skin?
     
     
     override func viewDidLoad() {
@@ -29,8 +30,6 @@ class CategoryDetailViewController: UITableViewController {
         }
         walletNameLabel.text = wallet.name
         walletIcon.backgroundColor = wallet.color
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -42,8 +41,9 @@ class CategoryDetailViewController: UITableViewController {
             return
         }
         wallet.categoryList.addNewCategory(name: name,
-                                           skin: Skin(name: "dusk", color: "Dusk", icon: "coffee"),
-                                           canBeDeleted: true, isSubcategoryOf: parentCategory ?? nil)
+                                           skin: skin!,
+                                           canBeDeleted: true,
+                                           isSubcategoryOf: parentCategory ?? nil)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -59,11 +59,19 @@ class CategoryDetailViewController: UITableViewController {
    
     @IBAction func unwindToCategoryDetail(_ unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? ParentCategoriesTableViewController {
-            parentCategory = sourceViewController.subCategory
+            parentCategory = sourceViewController.parentCategory
             subcategoryLabel.text = "Subcategory of: \(parentCategory?.name ?? "None")"
         }
     }
     
+    
+    @IBAction func unwindToCategoryDetailWithSkin(_ unwindSegue: UIStoryboardSegue) {
+        let sourceViewController = unwindSegue.source
+        if let source = sourceViewController as? SkinChooserViewController {
+            self.skin = source.selectedSkin
+        }
+        
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

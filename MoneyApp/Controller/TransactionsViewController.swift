@@ -39,7 +39,7 @@ class TransactionsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         recalculateCellSize()
         let indexPath = dateBarCollection.indexPathsForSelectedItems?.first
-        dateBarCollection.scrollToItem(at: indexPath!, at: .right, animated: true)
+        dateBarCollection.scrollToItem(at: indexPath!, at: .right, animated: false)
     }
     
     
@@ -70,7 +70,7 @@ class TransactionsViewController: UIViewController {
         }
         else {
        //     prepareTableViewData()
-            tableView.reloadData()
+       //     tableView.reloadData()
             tableView.restore()
         }
         
@@ -212,10 +212,12 @@ extension TransactionsViewController: UITableViewDataSource {
         }
        // prepareTableViewData()
         
+        // FIXME: Look Into this method
+        
         // Shows a message if there are no sections
-        if transactionsFilteredByDate.keys.count == 0 {
+        if transactionDates.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions", message: "Add some transactions, please")
-        } else if transactionDates.count == 0 {
+        } else if  transactionsFilteredByDate.keys.count == 0 {
             tableView.setEmptyView(title: "You don't have any transactions for this date", message: "📅")
         }
         else {
@@ -278,8 +280,6 @@ extension TransactionsViewController: UITableViewDataSource {
                 wallet.removeTransactionContainer(with: transactionDate)
                  prepareTableViewData()
                 tableView.deleteSections([indexPath.section], with: .fade)
-              
-
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
@@ -455,7 +455,7 @@ extension TransactionsViewController {
         dateBarCollection.layer.cornerRadius = 20.0
         dateBarCollection.layer.borderWidth = 1.0
         dateBarCollection.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1526915668)
-        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
         
         
     }
@@ -474,7 +474,7 @@ extension TransactionsViewController {
         prepareTableViewData()
         tableView.reloadData()
         dateBarCollection.reloadData()
-        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .right)
+        dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
     }
     
     private func prepareAlert() {

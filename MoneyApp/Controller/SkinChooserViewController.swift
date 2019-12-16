@@ -12,6 +12,7 @@ class SkinChooserViewController: UIViewController {
     
     private var skinGroups = ["Transport", "Food"]
     private var skins = [String:[Skin]]()
+    var selectedSkin: Skin?
     
     
     override func viewDidLoad() {
@@ -44,6 +45,12 @@ class SkinChooserViewController: UIViewController {
         
         
     }
+    
+    
+
+    
+    
+    
     
 }
 
@@ -81,18 +88,25 @@ extension SkinChooserViewController: UICollectionViewDataSource {
         return UICollectionReusableView()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        
+        let skinArray = skins[skinGroups[indexPath.section]]
+        let skin = skinArray![indexPath.row]
+        selectedSkin = skin
+    }
+    
 }
     
     
     
     
-    extension SkinChooserViewController: UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-        {
-            // In this function is the code you must implement to your code project if you want to change size of Collection view
-            let width  = (view.frame.width-20)/4
-            return CGSize(width: width, height: width)
-        }
+extension SkinChooserViewController: UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // In this function is the code you must implement to your code project if you want to change size of Collection view
+        let width  = (view.frame.width-20)/4
+        return CGSize(width: width, height: width)
     }
+
+}
 
 

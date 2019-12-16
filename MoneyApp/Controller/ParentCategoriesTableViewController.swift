@@ -12,7 +12,7 @@ class ParentCategoriesTableViewController: UITableViewController {
 
     var wallet: Wallet?
     var categories: [Category]?
-    var subCategory: Category?
+    var parentCategory: Category?
 
     
     override func viewDidLoad() {
@@ -62,9 +62,9 @@ class ParentCategoriesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.section == 0 {
-            subCategory = nil
+            parentCategory = nil
         } else {
-            subCategory = categories![indexPath.row]
+            parentCategory = categories![indexPath.row]
         }
         return indexPath
     }

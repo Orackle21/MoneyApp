@@ -41,6 +41,7 @@
 		9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */; };
 		9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */; };
 		9AB9C6B422C3315900E401DC /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */; };
+		9AC4C92023A6523B00C8E2F0 /* MoneyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC4C91F23A6523B00C8E2F0 /* MoneyAppUITests.swift */; };
 		9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */; };
 		9ACDDE5722AE77B500793219 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */; };
 		9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */; };
@@ -50,6 +51,16 @@
 		9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4CCF230997020059EFCF /* DateBarCell.swift */; };
 		EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9AC4C92223A6523B00C8E2F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0705E22283EF68003817A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A0705E92283EF68003817A1;
+			remoteInfo = MoneyApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +102,9 @@
 		9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCategoriesTableViewController.swift; sourceTree = "<group>"; };
 		9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
+		9AC4C91D23A6523B00C8E2F0 /* MoneyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC4C91F23A6523B00C8E2F0 /* MoneyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAppUITests.swift; sourceTree = "<group>"; };
+		9AC4C92123A6523B00C8E2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +121,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AC4C91A23A6523B00C8E2F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				9A0705EC2283EF68003817A1 /* MoneyApp */,
+				9AC4C91E23A6523B00C8E2F0 /* MoneyAppUITests */,
 				9A0705EB2283EF68003817A1 /* Products */,
 				6F3F72EB275EFFB37A2AC68B /* Pods */,
 				F32928E07C3BC4446A4BD8E0 /* Frameworks */,
@@ -153,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				9A0705EA2283EF68003817A1 /* MoneyApp.app */,
+				9AC4C91D23A6523B00C8E2F0 /* MoneyAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,6 +206,15 @@
 			path = "Supporting FIles";
 			sourceTree = "<group>";
 		};
+		9AC4C91E23A6523B00C8E2F0 /* MoneyAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9AC4C91F23A6523B00C8E2F0 /* MoneyAppUITests.swift */,
+				9AC4C92123A6523B00C8E2F0 /* Info.plist */,
+			);
+			path = MoneyAppUITests;
+			sourceTree = "<group>";
+		};
 		9AD3814622E9DA9800344831 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,12 +235,11 @@
 		9AD3814722E9DAAE00344831 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9A8F78F623A15CC800DCD9D2 /* ColorChooserViewController.swift */,
-				9A8F78F823A1689C00DCD9D2 /* SkinChooserViewController.swift */,
 				9A05558422A18A2A009398CD /* TransactionsViewController.swift */,
 				9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */,
 				9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */,
 				9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */,
+				9A8F78F823A1689C00DCD9D2 /* SkinChooserViewController.swift */,
 				9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */,
 				9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */,
 				9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */,
@@ -216,6 +247,7 @@
 				9A591D07231AC6C900F14E82 /* ReportsViewController.swift */,
 				9A59684F233F1EFE00C83B7A /* ReportsDetailViewController.swift */,
 				9A7B4A3623557E0D00FA198C /* CategoryReportViewController.swift */,
+				9A8F78F623A15CC800DCD9D2 /* ColorChooserViewController.swift */,
 				9A7E8E1E23213F380009365F /* BudgetViewController.swift */,
 				9A7E8E1C232139890009365F /* TabBarViewController.swift */,
 			);
@@ -252,18 +284,40 @@
 			productReference = 9A0705EA2283EF68003817A1 /* MoneyApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9AC4C91C23A6523B00C8E2F0 /* MoneyAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AC4C92423A6523B00C8E2F0 /* Build configuration list for PBXNativeTarget "MoneyAppUITests" */;
+			buildPhases = (
+				9AC4C91923A6523B00C8E2F0 /* Sources */,
+				9AC4C91A23A6523B00C8E2F0 /* Frameworks */,
+				9AC4C91B23A6523B00C8E2F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AC4C92323A6523B00C8E2F0 /* PBXTargetDependency */,
+			);
+			name = MoneyAppUITests;
+			productName = MoneyAppUITests;
+			productReference = 9AC4C91D23A6523B00C8E2F0 /* MoneyAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9A0705E22283EF68003817A1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Orackle;
 				TargetAttributes = {
 					9A0705E92283EF68003817A1 = {
 						CreatedOnToolsVersion = 10.2.1;
+					};
+					9AC4C91C23A6523B00C8E2F0 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 9A0705E92283EF68003817A1;
 					};
 				};
 			};
@@ -281,6 +335,7 @@
 			projectRoot = "";
 			targets = (
 				9A0705E92283EF68003817A1 /* MoneyApp */,
+				9AC4C91C23A6523B00C8E2F0 /* MoneyAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,6 +350,13 @@
 				9A8F78F323A15B8000DCD9D2 /* Skins.json in Resources */,
 				9A4DBCD22329EBAA0072B9A5 /* currencies.json in Resources */,
 				9A0705F32283EF68003817A1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AC4C91B23A6523B00C8E2F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +448,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AC4C91923A6523B00C8E2F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AC4C92023A6523B00C8E2F0 /* MoneyAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9AC4C92323A6523B00C8E2F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A0705E92283EF68003817A1 /* MoneyApp */;
+			targetProxy = 9AC4C92223A6523B00C8E2F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9A0705F12283EF68003817A1 /* Main.storyboard */ = {
@@ -564,6 +642,44 @@
 			};
 			name = Release;
 		};
+		9AC4C92523A6523B00C8E2F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MoneyAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.moneo.MoneyAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MoneyApp;
+			};
+			name = Debug;
+		};
+		9AC4C92623A6523B00C8E2F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MoneyAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.moneo.MoneyAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MoneyApp;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -581,6 +697,15 @@
 			buildConfigurations = (
 				9A0705FD2283EF6A003817A1 /* Debug */,
 				9A0705FE2283EF6A003817A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AC4C92423A6523B00C8E2F0 /* Build configuration list for PBXNativeTarget "MoneyAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AC4C92523A6523B00C8E2F0 /* Debug */,
+				9AC4C92623A6523B00C8E2F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

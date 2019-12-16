@@ -880,8 +880,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IRl-Y5-G5Y">
-                                <rect key="frame" x="0.0" y="56" width="375" height="591"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IRl-Y5-G5Y">
+                                <rect key="frame" x="0.0" y="161" width="375" height="486"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="xYv-dN-gPA">
                                     <size key="itemSize" width="167" height="167"/>
@@ -925,6 +925,7 @@
                                         <connections>
                                             <outlet property="iconView" destination="bth-5H-Gwn" id="G9e-iN-BSp"/>
                                             <outlet property="nameLabel" destination="dyH-Rf-elI" id="EQZ-g8-uue"/>
+                                            <segue destination="2Rq-9N-ECT" kind="unwind" unwindAction="unwindToCategoryDetailWithSkin:" id="eBt-vH-BNk"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -967,6 +968,7 @@
                     <navigationItem key="navigationItem" id="sjw-io-Qr1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z2F-eH-JOx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="2Rq-9N-ECT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6223.1999999999998" y="728.18590704647681"/>
         </scene>
@@ -1450,20 +1452,20 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reportsCell" id="eRN-ar-E1a" customClass="ReportsCell" customModule="MoneyApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eRN-ar-E1a" id="5Yj-rz-lAF">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Category Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUc-WV-lQs">
-                                                    <rect key="frame" x="59" y="11" width="142" height="21"/>
+                                                    <rect key="frame" x="59" y="11" width="142" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15l-Pq-Wi0" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
-                                                    <rect key="frame" x="13" y="5.5" width="32" height="32"/>
+                                                    <rect key="frame" x="13" y="6" width="32" height="32"/>
                                                     <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="X7A-30-CI1"/>
@@ -1477,7 +1479,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMn-Vh-DLB">
-                                                    <rect key="frame" x="209" y="11" width="132" height="21"/>
+                                                    <rect key="frame" x="209" y="11" width="132" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="F5T-Ok-ze1"/>
                                                     </constraints>
