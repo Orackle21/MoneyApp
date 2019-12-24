@@ -25,9 +25,7 @@ class ParentCategoriesTableViewController: UITableViewController {
         guard let wallet = wallet else {
             return
         }
-        categories = wallet.categoryList.listOfAllCategories.filter ( {
-            $0.isSubcategoryOf == nil
-        })
+        //FIXME: Get all parent categories
     }
 
     // MARK: - Table view data source

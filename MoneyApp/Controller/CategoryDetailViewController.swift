@@ -29,7 +29,8 @@ class CategoryDetailViewController: UITableViewController {
             return
         }
         walletNameLabel.text = wallet.name
-        walletIcon.backgroundColor = wallet.color
+        
+        walletIcon.backgroundColor = UIColor(named: wallet.skin!.color)
     }
 
     // MARK: - Table view data source
@@ -40,10 +41,7 @@ class CategoryDetailViewController: UITableViewController {
         else {
             return
         }
-        wallet.categoryList.addNewCategory(name: name,
-                                           skin: skin!,
-                                           canBeDeleted: true,
-                                           isSubcategoryOf: parentCategory ?? nil)
+        // FIXME: Category creationq
         self.navigationController?.popViewController(animated: true)
     }
     

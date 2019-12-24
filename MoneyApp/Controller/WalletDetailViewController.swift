@@ -10,6 +10,17 @@ import UIKit
 
 class WalletDetailViewController: UITableViewController {
 
+    
+
+    @IBOutlet weak var walletName: UITextField!
+    @IBOutlet weak var walletBalance: UITextField!
+    @IBOutlet weak var currencyLabel: UILabel!
+    
+    var walletCurrency: Currency?
+    var coreDataStack: CoreDataStack!
+    var walletContainer: WalletContainer!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,24 +30,19 @@ class WalletDetailViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    @IBOutlet weak var walletName: UITextField!
-    @IBOutlet weak var walletBalance: UITextField!
-    @IBOutlet weak var currencyLabel: UILabel!
-    
-    var walletCurrency: Currency?
-    var stateController: StateController!
-    
     
     @IBAction func saveAction(_ sender: Any) {
         
-        guard let name = walletName.text,
-            let balance = Decimal (string: walletBalance.text ?? "0"),
-              let currency = walletCurrency else {
-                  return
-              }
+        let wallet = Wallet(context: coreDataStack.managedContext)
+        wallet.name = walletName.text
+        wallet.isSelected = true
+        wallet.amount = NSDecimalNumber(string: walletBalance.text ?? "0.0")
+        wallet.currency = walletCurrency
+        wallet.walletContainer = walletContainer
+       
+        coreDataStack.saveContext()
         
-        stateController.addNewWallet(name: name, balance: balance, currency: currency)
+        //FIXME: New wallet creation
         navigationController?.popViewController(animated: true)
     }
     

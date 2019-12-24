@@ -45,10 +45,10 @@ extension CategoryReportViewController: UITableViewDataSource {
         
         if let cell = cell as? ReportsCell {
             cell.periodNameLabel.text = category!.name
-            cell.amountLabel.text = transactions![indexPath.row].amount.description
+            cell.amountLabel.text = transactions![indexPath.row].amount!.description
             
             if let icon = cell.iconView as? IconView {
-                icon.drawIcon(skin: category!.skin)
+                icon.drawIcon(skin: category!.skin!)
                 icon.setNeedsDisplay()
             }
         }

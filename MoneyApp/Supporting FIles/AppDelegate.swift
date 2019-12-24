@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let stateController = StateController()
+    let coreDataStack = CoreDataStack(modelName: "AppData")
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -27,12 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let tabController = window?.rootViewController as? UITabBarController {
             if let navigationController = tabController.viewControllers![1] as? UINavigationController {
                 if  let initialViewController = navigationController.viewControllers.first as? TransactionsViewController {
-                    initialViewController.stateController = stateController
+                    initialViewController.coreDataStack = coreDataStack
                 }
             }
             if let navigationController = tabController.viewControllers![0] as? UINavigationController {
                 if  let initialViewController = navigationController.viewControllers.first as? ReportsViewController {
-                    initialViewController.stateController = stateController
+                    initialViewController.coreDataStack = coreDataStack
                 }                
             }
         }

@@ -40,16 +40,9 @@ class SkinChooserViewController: UIViewController {
         for (skinGroup, skinsArray) in result {
             
             skins.updateValue(skinsArray, forKey: skinGroup)
-        }
-        
-        
+        }  
         
     }
-    
-    
-
-    
-    
     
     
 }

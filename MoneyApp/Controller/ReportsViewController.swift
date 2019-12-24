@@ -21,10 +21,11 @@ class ReportsViewController: UIViewController {
         self.present(actionSheet!, animated: true, completion: nil)
     }
     
-    var stateController: StateController!
+    var coreDataStack: CoreDataStack!
     lazy private var dater = Dater()
-    lazy private var sorter = Sorter(dater: dater)
-    lazy private var wallet = stateController.getSelectedWallet()
+   
+    //FIXME: Get selected wallet
+ //   lazy private var wallet = stateController.getSelectedWallet()
     
     private var outerIntervals = [DateInterval]()
     private var dateIntervals = [DateInterval: [DateInterval]]()
@@ -72,29 +73,30 @@ class ReportsViewController: UIViewController {
     
     private func updateChartData() {
         
-        guard let wallet = stateController.getSelectedWallet() else { return }
+      //  guard let wallet = stateController.getSelectedWallet() else { return }
         
-        dateIntervals = sorter.getSortedDateIntervals()
-        print(dateIntervals)
-        
-        dateStrings = [String]()
-        amountsByDate = [Double]()
-        
-        outerIntervals = dateIntervals.keys.sorted(by: >)
-        
-        for outerInterval in outerIntervals {
-            
-            for dateInterval in dateIntervals[outerInterval]! {
-                let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
-                amountsByDate.append(sumByDate.doubleValue)
-           
-                
-                let string = dater.dateFormatter.string(from: dateInterval.start)
-                dateStrings.append(string)
+//        dateIntervals = dater.getTimeIntervals()()
+//        print(dateIntervals)
+//
+//        dateStrings = [String]()
+//        amountsByDate = [Double]()
+//
+//        outerIntervals = dateIntervals.keys.sorted(by: >)
+//
+//        for outerInterval in outerIntervals {
+//
+//            for dateInterval in dateIntervals[outerInterval]! {
+////                let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
+//                //FIXME: Get total by categorie in interval
+//              //  amountsByDate.append(sumByDate.doubleValue)
+//
+//
+//                let string = dater.dateFormatter.string(from: dateInterval.start)
+//                dateStrings.append(string)
                
-            }
-            
-        }
+//            }
+//            
+//        }
         
        
     }
@@ -151,7 +153,7 @@ class ReportsViewController: UIViewController {
                     let innerArray = dateIntervals[outerIntervals[indexPath.section]]
                     let dateInterval = innerArray![indexPath.row]
                     destination.selectedTimeRange = dateInterval
-                    destination.stateController = stateController
+                    destination.coreDataStack = coreDataStack
                 }
             }
         }
@@ -188,11 +190,11 @@ extension ReportsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportsCell", for: indexPath)
         
         if let cell = cell as? ReportsCell {
-            guard let wallet = wallet else {return cell}
+        //    guard let wallet = wallet else {return cell}
             
             let innerArray = dateIntervals[outerIntervals[indexPath.section]]
             let dateInterval = innerArray![indexPath.row]
-            let amount = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
+            let amount = 0 //FIXME: Fix amount calculation
             
             if amount > 0 {
                 cell.iconView.backgroundColor = UIColor.systemGreen
@@ -200,7 +202,7 @@ extension ReportsViewController: UITableViewDataSource {
                 cell.iconView.backgroundColor = UIColor.systemRed
             }
             
-            cell.amountLabel.text = String(amount.doubleValue)
+            cell.amountLabel.text = amount.description //FIXME: Fix it
             
             if dater.daterRange == .weeks {
                 let string = dater.dateFormatter.string(from: dateInterval.start) + " - " + dater.dateFormatter.string(from: dateInterval.end)

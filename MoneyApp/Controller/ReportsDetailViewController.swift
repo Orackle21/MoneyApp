@@ -11,7 +11,7 @@ import Charts
 
 class ReportsDetailViewController: UIViewController {
 
-    var stateController: StateController!
+    var coreDataStack: CoreDataStack!
     var selectedTimeRange: DateInterval!
     
     private var transactionsGroupedByCategories = [Category: [Transaction]]()
@@ -23,7 +23,7 @@ class ReportsDetailViewController: UIViewController {
     private var categories: [Category] {
         Array(transactionsGroupedByCategories.keys)
     }
-    private var amounts: [Decimal] {
+    private var amounts: [NSDecimalNumber] {
         get {
             return getChartAmounts()
         }
@@ -45,8 +45,8 @@ class ReportsDetailViewController: UIViewController {
     }
     
     
-    private var income: Decimal = 0.0
-    private var expenses: Decimal = 0.0
+    private var income: NSDecimalNumber = 0.0
+    private var expenses: NSDecimalNumber = 0.0
     
     
     override func viewDidLoad() {
@@ -73,17 +73,17 @@ class ReportsDetailViewController: UIViewController {
 
     }
     
-    private func getAmountByCategory(_ category: Category) -> Decimal {
-        var amount: Decimal = 0.0
+    private func getAmountByCategory(_ category: Category) -> NSDecimalNumber {
+        var amount: NSDecimalNumber = 0.0
         let transactions = transactionsGroupedByCategories[category]
         for transaction in transactions! {
-            amount += transaction.amount
+            amount = amount + transaction.amount!
         }
         return amount
     }
     
-    private func getChartAmounts() -> [Decimal] {
-        var amounts = [Decimal]()
+    private func getChartAmounts() -> [NSDecimalNumber] {
+        var amounts = [NSDecimalNumber]()
         for category in categories {
             let amount = getAmountByCategory(category)
             amounts.append(amount)
@@ -96,7 +96,7 @@ class ReportsDetailViewController: UIViewController {
             let transactions = expenseTransactionsGrouped[category]
             for transaction in transactions! {
                 let amount = transaction.amount
-                expenses += amount
+                expenses = expenses + amount!
             }
         }
         
@@ -104,7 +104,7 @@ class ReportsDetailViewController: UIViewController {
             let transactions = incomeTransactionsGrouped[category]
             for transaction in transactions! {
                 let amount = transaction.amount
-                income += amount
+                income = income + amount!
             }
         }
     }
@@ -112,29 +112,32 @@ class ReportsDetailViewController: UIViewController {
     
     
     private func customizeChartData() {
-        guard let wallet = stateController.getSelectedWallet() else {
-            return
-        }
+//        guard let wallet = stateController.getSelectedWallet() else {
+//            return
+//        }
+//
+//        let transactionDates = wallet.getTransactionDatesBy(dateInterval: selectedTimeRange)
+//        var transactions = [Transaction]()
+//        for date in transactionDates {
+//            guard let transactionsByDate = wallet.allTransactionsGrouped[date] else { return }
+//            for transaction in transactionsByDate {
+//                transactions.append(transaction)
+//            }
+//        }
+//
+//        let incomeTransactions = Array(transactions.filter({ $0.amount > 0 }))
+//        let expenseTransactions = Array(transactions.filter({ $0.amount < 0 }))
+//
+//        incomeTransactionsGrouped = Dictionary(grouping: incomeTransactions, by: {
+//            $0.category!
+//        })
+//        expenseTransactionsGrouped = Dictionary(grouping: expenseTransactions, by: {
+//            $0.category!
+//        })
+//        transactionsGroupedByCategories = expenseTransactionsGrouped
         
-        let transactionDates = wallet.getTransactionDatesBy(dateInterval: selectedTimeRange)
-        var transactions = [Transaction]()
-        for date in transactionDates {
-            guard let transactionsByDate = wallet.allTransactionsGrouped[date] else { return }
-            for transaction in transactionsByDate {
-                transactions.append(transaction)
-            }
-        }
         
-        let incomeTransactions = Array(transactions.filter({ $0.amount > 0 }))
-        let expenseTransactions = Array(transactions.filter({ $0.amount < 0 }))
-        
-        incomeTransactionsGrouped = Dictionary(grouping: incomeTransactions, by: {
-            $0.category!
-        })
-        expenseTransactionsGrouped = Dictionary(grouping: expenseTransactions, by: {
-            $0.category!
-        })
-        transactionsGroupedByCategories = expenseTransactionsGrouped
+        //FIXME: FIX ALL THIS 
         
     }
     
@@ -216,7 +219,7 @@ extension ReportsDetailViewController: UITableViewDataSource {
             cell.amountLabel.text = getAmountByCategory(category).description
             
             if let icon = cell.iconView as? IconView {
-                icon.drawIcon(skin: categories[indexPath.row].skin)
+                icon.drawIcon(skin: categories[indexPath.row].skin!)
                 icon.setNeedsDisplay()
             }
             

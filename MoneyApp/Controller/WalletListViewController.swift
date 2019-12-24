@@ -7,51 +7,72 @@
 //
 
 import UIKit
+import CoreData
 
 class WalletListViewController: UITableViewController {
+    
+    
+    var coreDataStack: CoreDataStack!
+    var wallets = NSOrderedSet()
+    var fetchRequest: NSFetchRequest<WalletContainer>?
+    var walletContainer: WalletContainer?
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+       fetchRequest = WalletContainer.fetchRequest()
+ 
+        do {
+            let walletContainers = try coreDataStack.managedContext.fetch(fetchRequest!)
+            if walletContainers.count > 0 {
+                walletContainer = walletContainers[0]
+                wallets = walletContainer!.wallets ?? NSOrderedSet()
+            }
+            else {
+                walletContainer = WalletContainer(context: coreDataStack.managedContext)
+                walletContainer!.wallets = NSOrderedSet()
+                coreDataStack.saveContext()
+            }
+        } catch let error as NSError {
+            print (error)
+        }
+        
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tableView.reloadData()
-        if let tabBar = self.tabBarController as? CustomTabBarController {
-            tabBar.hideCenterButton()
-        }
     }
-
     
-    var selectedWallet: Wallet?
-    var stateController: StateController!
-
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stateController.listOfAllWallets.count
+        return wallets.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "walletCell", for: indexPath)
         
-        if let cell = cell as? WalletCell {
-            cell.textLabel?.text = stateController.listOfAllWallets[indexPath.row].name
-            cell.walletAmountLabel.text =  stateController.listOfAllWallets[indexPath.row].balance.description
+        if let cell = cell as? WalletCell, let wallet = wallets[indexPath.row] as? Wallet {
+            cell.textLabel?.text = wallet.name
+            cell.walletAmountLabel.text = wallet.amount?.description
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedWallet = stateController.listOfAllWallets[indexPath.row]
-        stateController.setSelectedWallet(index: stateController.listOfAllWallets.firstIndex(of: selectedWallet!)!)
+        
+        //FIXME: Selected wallet choosing
         
         return indexPath
     }
@@ -59,27 +80,28 @@ class WalletListViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-           stateController.removeWallet(with: indexPath.row)
+            //FIXME: Implement deletion
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
-
+    
     
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-       stateController.moveWallet(from: fromIndexPath.row, to: to.row)
-    }
+    //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    //       stateController.moveWallet(from: fromIndexPath.row, to: to.row)
+    //    }
     
-
-   
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? WalletDetailViewController {
-            destination.stateController = stateController
+            destination.coreDataStack = coreDataStack
+            destination.walletContainer = walletContainer!
         }
     }
-   
-
-
+    
+    
+    
 }

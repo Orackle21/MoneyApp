@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Currency: Comparable, Codable {
+@objc public final class Currency: NSObject, NSCoding {
     static func < (lhs: Currency, rhs: Currency) -> Bool {
         if lhs.name < rhs.name {
             return true
@@ -20,6 +20,28 @@ struct Currency: Comparable, Codable {
     var name: String
     var symbol :String?
     var id: String
+    
+    public func encode(with coder: NSCoder) {
+        coder.encode(name, forKey: "name")
+        coder.encode(symbol, forKey: "symbol")
+        coder.encode(id, forKey: "id")
+        
+    }
+    
+    public convenience init?(coder: NSCoder) {
+        let name = coder.decodeObject(forKey: "name") as! String
+        let symbol = coder.decodeObject(forKey: "symbol") as! String
+        let id = coder.decodeObject(forKey: "id") as! String
+        
+        self.init(name: name, symbol: symbol, id: id)
+    }
+    
+    
+    init(name: String, symbol: String?, id: String) {
+        self.name = name
+        self.symbol = symbol
+        self.id = id
+    }
     
 }
 

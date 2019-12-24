@@ -51,11 +51,11 @@ class TransactionDetailViewController: UITableViewController {
         dateLabel.text = dateFormatter.string(from: datePickerDate)
         
         if let item = transactionToEdit {
-            nameTextField.text = item.name
-            amountTextField.text = item.amount.description
+            nameTextField.text = item.note
+            amountTextField.text = item.amount!.description
             selectedCategory = item.category
-            datePickerDate = item.date
-            datePicker.date = item.date
+            datePickerDate = item.date!
+            datePicker.date = item.date!
         }
         
     }
@@ -67,11 +67,10 @@ class TransactionDetailViewController: UITableViewController {
     
     @IBAction func saveAction(_ sender: Any) {
         if let item = transactionToEdit {
-            item.name = nameTextField.text ?? " "
-            item.amount = Decimal(string: amountTextField.text ?? "0") ?? 0
+            item.note = nameTextField.text ?? " "
+            item.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
             tryToChangeDate(transaction: item)
-            item.category = selectedCategory ?? (wallet?.categoryList.listOfAllCategories[0])!
-            wallet?.calculateBalance()
+            item.category = selectedCategory
         }
         else if transactionToEdit == nil {
             if let wallet = wallet  {
@@ -81,12 +80,7 @@ class TransactionDetailViewController: UITableViewController {
                 components.timeZone = TimeZone(abbreviation: "GMT")
                 let date = calendar.date(from: components)
                 
-                wallet.newTransaction(
-                    in: selectedCategory ?? wallet.categoryList.listOfAllCategories[0],
-                    name: nameTextField.text ?? "",
-                    amount: Decimal(string: amountTextField.text!) ?? 0,
-                    date: date ?? Date()
-                )
+                //FIXME: Add Transaction creation
             }
         }
         self.navigationController?.popViewController(animated: true)
@@ -96,9 +90,8 @@ class TransactionDetailViewController: UITableViewController {
         if transaction.date == datePickerDate {
             return
         } else {
-            if let wallet = wallet {
-                wallet.changeDate(transaction: transaction, newDate: datePickerDate)
-            }
+            //FIXME: Transaction date change. Change day, month and year
+            
         }
     }
     
@@ -123,15 +116,7 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     private func checkTheCategory() {
-        guard let wallet = wallet,
-              let selectedCategory = selectedCategory
-            else { return }
-        if wallet.categoryList.listOfAllCategories.contains(selectedCategory) {
-            saveButton.isEnabled = true
-        } else {
-            categoryNameLabel.text = "Choose Category"
-            saveButton.isEnabled = false
-        }
+        //FIXME: Check for category
     }
     
     private func showDatePicker() {

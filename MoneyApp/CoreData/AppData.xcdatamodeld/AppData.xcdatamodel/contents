@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="Category" syncable="YES">
+        <attribute name="isDeletable" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="skin" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Skin"/>
+        <relationship name="subCategories" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SubCategory" inverseName="parentCategory" inverseEntity="SubCategory"/>
+        <relationship name="transactions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Transaction" inverseName="category" inverseEntity="Transaction"/>
+        <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="categories" inverseEntity="Wallet"/>
+    </entity>
+    <entity name="SubCategory" representedClassName="SubCategory" parentEntity="Category" syncable="YES">
+        <relationship name="parentCategory" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="subCategories" inverseEntity="Category"/>
+    </entity>
+    <entity name="Transaction" representedClassName=".Transaction" syncable="YES">
+        <attribute name="amount" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="currency" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Currency"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="day" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="month" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="transactions" inverseEntity="Category"/>
+        <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="transactions" inverseEntity="Wallet"/>
+    </entity>
+    <entity name="Wallet" representedClassName="Wallet" syncable="YES">
+        <attribute name="amount" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="currency" attributeType="Transformable" valueTransformerName="" customClassName="Currency"/>
+        <attribute name="isSelected" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="skin" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="Skin"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="wallet" inverseEntity="Category"/>
+        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="wallet" inverseEntity="Transaction"/>
+        <relationship name="walletContainer" maxCount="1" deletionRule="Nullify" destinationEntity="WalletContainer" inverseName="wallets" inverseEntity="WalletContainer"/>
+    </entity>
+    <entity name="WalletContainer" representedClassName="WalletContainer" syncable="YES">
+        <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Wallet" inverseName="walletContainer" inverseEntity="Wallet"/>
+    </entity>
+    <elements>
+        <element name="Category" positionX="59.90234375" positionY="102.3828125" width="128" height="133"/>
+        <element name="SubCategory" positionX="57.0234375" positionY="281.44921875" width="128" height="58"/>
+        <element name="Transaction" positionX="-345.34375" positionY="137.28515625" width="128" height="178"/>
+        <element name="Wallet" positionX="-129.73828125" positionY="-19.22265625" width="128" height="163"/>
+        <element name="WalletContainer" positionX="-129.3515625" positionY="-160.84765625" width="128" height="58"/>
+    </elements>
+</model>
