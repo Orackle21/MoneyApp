@@ -225,3 +225,15 @@ public func /(lhs: NSDecimalNumber, rhs: NSDecimalNumber) -> NSDecimalNumber {
 public func ^(lhs: NSDecimalNumber, rhs: Int) -> NSDecimalNumber {
     return lhs.raising(toPower: rhs)
 }
+
+
+extension Date {
+    
+    func getComponenets() -> DateComponents {
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: self)
+        return components
+    }
+    
+}

@@ -39,7 +39,27 @@ class WalletDetailViewController: UITableViewController {
         wallet.amount = NSDecimalNumber(string: walletBalance.text ?? "0.0")
         wallet.currency = walletCurrency
         wallet.walletContainer = walletContainer
-       
+        wallet.skin = Skin(name: "", color: "Dusk", icon: "atm")
+        
+        let category = Category(context: coreDataStack.managedContext)
+        category.wallet = wallet
+        category.name = "Other"
+        category.isDeletable = false
+        category.skin = Skin(name: "other", color: "Field", icon: "atm")
+        
+        let initialBalance = Transaction(context: coreDataStack.managedContext)
+        initialBalance.note = "Balance Update"
+        initialBalance.amount = NSDecimalNumber(string: walletBalance.text)
+        initialBalance.category = category
+        initialBalance.currency = walletCurrency
+        initialBalance.wallet = wallet
+        initialBalance.date = Date()
+        let components = initialBalance.date!.getComponenets()
+        initialBalance.day = Int32(components.day!)
+        initialBalance.month = Int32(components.month!)
+        initialBalance.year = Int32(components.year!)
+        
+        walletContainer.setSelectedWallet(wallet: wallet)
         coreDataStack.saveContext()
         
         //FIXME: New wallet creation
@@ -60,3 +80,4 @@ class WalletDetailViewController: UITableViewController {
 */
 
 }
+

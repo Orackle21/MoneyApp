@@ -13,34 +13,18 @@ class WalletListViewController: UITableViewController {
     
     
     var coreDataStack: CoreDataStack!
-    var wallets = NSOrderedSet()
-    var fetchRequest: NSFetchRequest<WalletContainer>?
     var walletContainer: WalletContainer?
-
+    var wallets = NSOrderedSet()
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       fetchRequest = WalletContainer.fetchRequest()
- 
-        do {
-            let walletContainers = try coreDataStack.managedContext.fetch(fetchRequest!)
-            if walletContainers.count > 0 {
-                walletContainer = walletContainers[0]
-                wallets = walletContainer!.wallets ?? NSOrderedSet()
-            }
-            else {
-                walletContainer = WalletContainer(context: coreDataStack.managedContext)
-                walletContainer!.wallets = NSOrderedSet()
-                coreDataStack.saveContext()
-            }
-        } catch let error as NSError {
-            print (error)
-        }
-        
-        
+        wallets = walletContainer!.wallets ?? NSOrderedSet()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

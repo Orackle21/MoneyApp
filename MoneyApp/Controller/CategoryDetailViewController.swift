@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryDetailViewController: UITableViewController {
 
+    var coreDataStack: CoreDataStack!
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var categoryIcon: UIView!
@@ -18,6 +20,8 @@ class CategoryDetailViewController: UITableViewController {
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var walletIcon: UIView!
    
+    
+    
     var wallet: Wallet?
     var parentCategory: Category?
     var skin: Skin?

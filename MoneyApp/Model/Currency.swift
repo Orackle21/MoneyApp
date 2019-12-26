@@ -30,7 +30,7 @@ import Foundation
     
     public convenience init?(coder: NSCoder) {
         let name = coder.decodeObject(forKey: "name") as! String
-        let symbol = coder.decodeObject(forKey: "symbol") as! String
+        let symbol = coder.decodeObject(forKey: "symbol") as? String
         let id = coder.decodeObject(forKey: "id") as! String
         
         self.init(name: name, symbol: symbol, id: id)

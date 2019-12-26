@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let coreDataStack = CoreDataStack(modelName: "AppData")
+    private let coreDataStack = CoreDataStack(modelName: "AppData")
+    private var fetchRequest: NSFetchRequest<WalletContainer>?
+
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -23,11 +26,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
 //        }
 
+        var walletContainer: WalletContainer!
+        fetchRequest = WalletContainer.fetchRequest()
+        do {
+            let walletContainers = try coreDataStack.managedContext.fetch(fetchRequest!)
+            if walletContainers.count > 0 {
+                walletContainer = walletContainers[0]
+               
+            }
+            else {
+                walletContainer = WalletContainer(context: coreDataStack.managedContext)
+                walletContainer.wallets = NSOrderedSet()
+                coreDataStack.saveContext()
+            }
+        } catch let error as NSError {
+            print (error)
+        }
         
         if let tabController = window?.rootViewController as? UITabBarController {
             if let navigationController = tabController.viewControllers![1] as? UINavigationController {
                 if  let initialViewController = navigationController.viewControllers.first as? TransactionsViewController {
                     initialViewController.coreDataStack = coreDataStack
+                    initialViewController.walletContainer = walletContainer
                 }
             }
             if let navigationController = tabController.viewControllers![0] as? UINavigationController {

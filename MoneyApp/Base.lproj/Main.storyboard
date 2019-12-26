@@ -80,7 +80,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Initial Balance" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="umb-Jk-7f5">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -185,12 +185,11 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ajU-ZA-H1M">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rLQ-ME-Nap">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
-                            <state key="normal" title="ADD NEW WALLET +">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Add wallet +">
                                 <color key="titleColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -477,6 +476,7 @@
                                 <action selector="changeTimeRange:" destination="E9S-jm-KGj" id="ZBX-Om-Lha"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="addButton" id="6gq-f0-lBQ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="dateBarCollection" destination="0XO-5N-TbH" id="tFV-XA-s3w"/>
@@ -608,10 +608,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hx7-aT-dIe">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="19" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hx7-aT-dIe">
                                                     <rect key="frame" x="15" y="0.0" width="340" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartDashesType="no"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -647,7 +647,7 @@
                         <outlet property="categoryNameLabel" destination="Ls0-0p-jJg" id="gKw-70-QE9"/>
                         <outlet property="dateLabel" destination="3TZ-12-gOW" id="8Bo-mj-CG4"/>
                         <outlet property="datePicker" destination="cVq-aA-j0E" id="t0b-nx-Zfn"/>
-                        <outlet property="nameTextField" destination="Rxt-In-25R" id="URh-2Q-aQA"/>
+                        <outlet property="noteTextField" destination="Rxt-In-25R" id="URh-2Q-aQA"/>
                         <outlet property="saveButton" destination="ykT-tK-URx" id="tCz-BV-lYc"/>
                     </connections>
                 </tableViewController>
@@ -1452,20 +1452,20 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reportsCell" id="eRN-ar-E1a" customClass="ReportsCell" customModule="MoneyApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eRN-ar-E1a" id="5Yj-rz-lAF">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Category Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUc-WV-lQs">
-                                                    <rect key="frame" x="59" y="11" width="142" height="21"/>
+                                                    <rect key="frame" x="59" y="11" width="142" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15l-Pq-Wi0" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
-                                                    <rect key="frame" x="13" y="5.5" width="32" height="32"/>
+                                                    <rect key="frame" x="13" y="6" width="32" height="32"/>
                                                     <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="X7A-30-CI1"/>
@@ -1479,7 +1479,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMn-Vh-DLB">
-                                                    <rect key="frame" x="209" y="11" width="132" height="21"/>
+                                                    <rect key="frame" x="209" y="11" width="132" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="F5T-Ok-ze1"/>
                                                     </constraints>
@@ -1589,6 +1589,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="addButton" width="24" height="24"/>
         <image name="budget" width="22.333333969116211" height="21.333333969116211"/>
         <image name="reports" width="21.666666030883789" height="21.666666030883789"/>
         <image name="transactions" width="21.666666030883789" height="21"/>

@@ -24,6 +24,8 @@ class TransactionsViewController: UIViewController {
     var coreDataStack: CoreDataStack!
     lazy var fetchedResultsController: NSFetchedResultsController<Transaction> = getController()
     var keyPath = #keyPath(Transaction.day)
+    var walletContainer: WalletContainer!
+    var transactionsFetch: NSFetchRequest<Transaction>!
 
 
     private var wallets = [Wallet]()
@@ -49,16 +51,23 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectedWallet = walletContainer.getSelectedWallet()
+
+       
+       
         
-        //get "selected" wallet
-        
-        // fetch wallet container and set "wallets"
-        // get and set "selected wallet"
         
         // dateBar preparation
         dater.setDaterRange(.months)
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]
+        
+        do {
+                   try fetchedResultsController.performFetch()
+               } catch let error as NSError {
+                   print("Fetching error: \(error), \(error.userInfo)")
+                   
+               }
         
         // styling
         tableView.tableFooterView = UIView()
@@ -69,6 +78,15 @@ class TransactionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        selectedWallet = walletContainer.getSelectedWallet()
+        
+        wallets.removeAll()
+        print(walletContainer.wallets!.count)
+        for object in walletContainer.wallets! {
+            wallets.append(object as! Wallet)
+        }
+        
+        
         walletBarCollection.reloadData()
         if selectedWallet == nil {
             tableView.reloadData()
@@ -91,11 +109,13 @@ class TransactionsViewController: UIViewController {
         let endDate = selectedDateInterval.end as NSDate
 
         let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-        let predicate = NSPredicate(format: "date >=  %@ AND date <=  %@", startDate, endDate)
+        let predicate = NSPredicate(format: "date >=  %@ AND date <=  %@ AND wallet == %@", startDate, endDate, selectedWallet ?? "0")
+        
+        let compoundPredicate = NSCompoundPredicate()
         fetchRequest.predicate = predicate
         
         let sort1 = NSSortDescriptor(key: keyPath, ascending: false)
-        let sort2 = NSSortDescriptor(key: #keyPath(Transaction.date), ascending: false)
+        let sort2 = NSSortDescriptor(key: #keyPath(Transaction.date), ascending: true)
         fetchRequest.sortDescriptors = [sort1, sort2]
         
         // 2
@@ -106,16 +126,7 @@ class TransactionsViewController: UIViewController {
         return fetchedResultsController
     }
     
-    func prepareTableViewData() {
-        
-        guard let wallet = selectedWallet else { return }
-      
-        
-    }
-    
-    
-    
-    
+
     // Configures cell's labels for passed item
     private func configureTransactions(for cell: UITableViewCell, with transaction: Transaction) {
         if let cell = cell as? TransactionCell {
@@ -144,7 +155,7 @@ class TransactionsViewController: UIViewController {
             if let navigationController = segue.destination as? UINavigationController {
                 if let destination = navigationController.viewControllers.first as? TransactionDetailViewController {
                     destination.wallet = selectedWallet
-                    
+                    destination.coreDataStack = coreDataStack
                 }
             }
         }
@@ -152,6 +163,7 @@ class TransactionsViewController: UIViewController {
         if segue.identifier == "allWalletsSegue" {
             if let destination = segue.destination as? WalletListViewController {
                 destination.coreDataStack = coreDataStack!
+                destination.walletContainer = walletContainer
             }
         }
         
@@ -167,7 +179,7 @@ class TransactionsViewController: UIViewController {
                         destination.transactionToEdit = fetchedResultsController.object(at: indexPath)
                             destination.wallet = wallet
                             destination.title = "Edit Transaction"
-                        
+                        destination.coreDataStack = coreDataStack
                         
                         
                     }
@@ -178,10 +190,10 @@ class TransactionsViewController: UIViewController {
     
     @IBAction func unwindBack(_ unwindSegue: UIStoryboardSegue) {
         if let walletList = unwindSegue.source as? WalletListViewController {
-//            if let wallet = walletList.selectedWallet {
-//                selectedWallet = wallet
-//                tableView.reloadData()
-//            }
+            if let wallet = walletList.walletContainer?.getSelectedWallet() {
+                selectedWallet = wallet
+                tableView.reloadData()
+            }
             
             //FIXME: Get selected wallet
         }
@@ -281,14 +293,10 @@ extension TransactionsViewController: UICollectionViewDelegate {
         
         if collectionView == self.dateBarCollection {
             selectedDateInterval = dateBarItems[indexPath.row]
-            prepareTableViewData()
-            tableView.reloadData()
-            
         } else {
-            //FIXME: Fix wallet selection
-//            stateController.setSelectedWallet(index: indexPath.row)
-//            selectedWallet = stateController.getSelectedWallet()
-            prepareTableViewData()
+            walletContainer.setSelectedWallet(wallet: wallets[indexPath.row])
+            coreDataStack.saveContext()
+            selectedWallet = walletContainer.getSelectedWallet()
             self.tableView.reloadData()
             walletBarCollection.reloadData()
         }
@@ -305,6 +313,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
         if collectionView == self.dateBarCollection {
             return dateBarItems.count
         } else {
+            print( wallets.count)
             return wallets.count
         }
     }
@@ -405,7 +414,7 @@ extension TransactionsViewController {
     
     
     private func styleDateBar() {
-        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffect = UIBlurEffect(style: .prominent)
         let blurView = UIVisualEffectView(effect: blurEffect)
         dateBarCollection.backgroundView = blurView
         dateBarCollection.layer.cornerRadius = 20.0
@@ -418,7 +427,6 @@ extension TransactionsViewController {
     
     private func configureWalletBarItems (for cell: WalletBarViewCell, with item: Wallet) {
         let color = UIColor(named: item.skin?.color ?? " ")
-        
         item.isSelected ? (cell.backgroundColor = color) : (cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
     }
     
@@ -429,7 +437,6 @@ extension TransactionsViewController {
         configureDateBarData()
         recalculateCellSize()
         selectedDateInterval = dateBarItems[0]
-        prepareTableViewData()
         tableView.reloadData()
         dateBarCollection.reloadData()
         dateBarCollection.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
