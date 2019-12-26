@@ -35,6 +35,7 @@
     <entity name="WalletContainer" representedClassName="WalletContainer" syncable="YES">
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Wallet" inverseName="walletContainer" inverseEntity="Wallet"/>
     </entity>
+    <fetchRequest name="FetchRequest" entity="Category" predicateString="TRUEPREDICATE"/>
     <elements>
         <element name="Category" positionX="59.90234375" positionY="102.3828125" width="128" height="133"/>
         <element name="SubCategory" positionX="57.0234375" positionY="281.44921875" width="128" height="58"/>

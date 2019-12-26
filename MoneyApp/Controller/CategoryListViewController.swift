@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryListViewController: UITableViewController {
 
@@ -15,8 +16,6 @@ class CategoryListViewController: UITableViewController {
     var selectedCategory: Category?
     var wallet: Wallet!
     var actionSheet: UIAlertController?
-    var subCategories = [[Category]]()
-    lazy var transactionsByCategory = [Transaction]()
     var categories = [Category]()
    
 
@@ -26,7 +25,7 @@ class CategoryListViewController: UITableViewController {
             title: "Delete Category And Associated Transactions",
             style: .destructive,
             handler: { _ in
-               // FIXME: Remove categoriy from controller
+               // FIXME: Remove category from controller
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }))
 
@@ -38,43 +37,61 @@ class CategoryListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Choose Category"
+        
+        
+        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
+        let predicate = NSPredicate(format: "wallet == %@", wallet)
+        fetchRequest.includesSubentities = false
+        fetchRequest.predicate = predicate
+
+        do {
+            categories = try coreDataStack.managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print(error)
+        }
+        print(categories.count)
+        categories.sort(by: {
+            $0.transactions!.count > $1.transactions!.count
+        } )
+        
         tableView.tableFooterView = UIView()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
-        for object in wallet.categories! {
-            categories.append(object as! Category)
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+       
     }
-
+    
     func recategorizeTransactions (in wallet: Wallet, from: Category, to: Category) {
         //FIXME: Fix this
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return categories.count
+
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return wallet.categories!.count
+        
+        return categories[section].subCategories?.count ?? 0
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        
+        let subCategories = categories[indexPath.section]
+        let subCategory = subCategories.subCategories![indexPath.row] as! Category
                     
-            cell.textLabel?.text = categories[indexPath.row].name
+            cell.textLabel?.text = subCategory.name
         
         return cell
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedCategory = categories[indexPath.row]
+        selectedCategory = categories[indexPath.row].subCategories![indexPath.row] as? Category
         return indexPath
     }
 
@@ -97,6 +114,11 @@ class CategoryListViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
+    // Sets header title for section using "sectionDateFormatter"
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return categories[section].name
+    }
 
 
 
@@ -110,6 +132,7 @@ class CategoryListViewController: UITableViewController {
         if segue.identifier == "categoryDetailSegue" {
             if let destination = segue.destination as? CategoryDetailViewController {
                 destination.wallet = wallet!
+                destination.coreDataStack = coreDataStack
             }
         }
     }

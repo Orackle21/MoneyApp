@@ -20,8 +20,12 @@ class IconView: UIView {
         let path = UIBezierPath(ovalIn: bounds)
         let color = categoryColor
         
+        if let color = color {
+            color.setFill()
+        } else {
+            #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).setFill()
+        }
         
-        color!.setFill()
         path.fill()
         
         
@@ -46,30 +50,36 @@ class IconView: UIView {
 //                                   options: [])
         
 //         adding an icon
-        let image = UIImage(named: iconName!)
-        let imageView = UIImageView(image: image)
-        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = UIColor.white
-        imageView.frame = CGRect(x: bounds.minX , y: bounds.minY , width: (self.frame.width/2), height: (self.frame.height/2))
-        imageView.center = CGPoint(x: self.frame.size.width  / 2,
-        y: self.frame.size.height / 2)
-        imageView.contentMode = UIView.ContentMode.scaleAspectFill
-
-        for view in self.subviews {
-            view.removeFromSuperview()
+        
+        if let iconName = iconName {
+            let image = UIImage(named: iconName)
+            let imageView = UIImageView(image: image)
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+            imageView.tintColor = UIColor.white
+            imageView.frame = CGRect(x: bounds.minX , y: bounds.minY , width: (self.frame.width/2), height: (self.frame.height/2))
+            imageView.center = CGPoint(x: self.frame.size.width  / 2,
+                                       y: self.frame.size.height / 2)
+            imageView.contentMode = UIView.ContentMode.scaleAspectFill
+            
+            for view in self.subviews {
+                view.removeFromSuperview()
+            }
+            
+            self.addSubview(imageView)
         }
         
-        self.addSubview(imageView)
-   
+        
     }
     
     
-    func drawIcon(skin: Skin) {
+    func drawIcon(skin: Skin?) {
 //       let gradient = category.iconGradients
 //            categoryGradient = gradient
+        if let skin = skin {
         categoryColor = UIColor(named: skin.color)
         iconName = skin.icon
-            backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+           
         }
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
 }
-
+}

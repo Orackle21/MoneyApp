@@ -22,19 +22,36 @@ class CategoryDetailViewController: UITableViewController {
    
     
     
-    var wallet: Wallet?
+    var wallet: Wallet!
     var parentCategory: Category?
     var skin: Skin?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         guard let wallet = wallet else {
             return
         }
         walletNameLabel.text = wallet.name
-        
-        walletIcon.backgroundColor = UIColor(named: wallet.skin!.color)
+        if let categoryIcon = categoryIcon as? IconView,
+            let subcategoryIcon = subcategoryIcon as? IconView,
+            let walletIcon = walletIcon as? IconView {
+            
+            
+            categoryIcon.drawIcon(skin: skin)
+            categoryIcon.setNeedsDisplay()
+            subcategoryIcon.drawIcon(skin: parentCategory?.skin)
+            subcategoryIcon.setNeedsDisplay()
+            walletIcon.drawIcon(skin: wallet.skin!)
+            
+        }
     }
 
     // MARK: - Table view data source
@@ -61,7 +78,7 @@ class CategoryDetailViewController: UITableViewController {
    
     @IBAction func unwindToCategoryDetail(_ unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? ParentCategoriesTableViewController {
-            parentCategory = sourceViewController.parentCategory
+            parentCategory = sourceViewController.selectedCategory
             subcategoryLabel.text = "Subcategory of: \(parentCategory?.name ?? "None")"
         }
     }
@@ -80,6 +97,7 @@ class CategoryDetailViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ParentCategoriesTableViewController {
             destination.wallet = wallet!
+            destination.coreDataStack = coreDataStack
         }
     }
     

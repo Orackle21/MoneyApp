@@ -63,11 +63,11 @@ class TransactionsViewController: UIViewController {
         selectedDateInterval = dateBarItems[0]
         
         do {
-                   try fetchedResultsController.performFetch()
-               } catch let error as NSError {
-                   print("Fetching error: \(error), \(error.userInfo)")
-                   
-               }
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Fetching error: \(error), \(error.userInfo)")
+            
+        }
         
         // styling
         tableView.tableFooterView = UIView()

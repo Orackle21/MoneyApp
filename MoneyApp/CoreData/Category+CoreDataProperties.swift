@@ -2,7 +2,7 @@
 //  Category+CoreDataProperties.swift
 //  MoneyApp
 //
-//  Created by Orackle on 24.12.2019.
+//  Created by Orackle on 26.12.2019.
 //  Copyright © 2019 Orackle. All rights reserved.
 //
 //
@@ -17,12 +17,12 @@ extension Category {
         return NSFetchRequest<Category>(entityName: "Category")
     }
 
+    @NSManaged public var isDeletable: Bool
     @NSManaged public var name: String?
     @NSManaged public var skin: Skin?
-    @NSManaged public var isDeletable: Bool
     @NSManaged public var subCategories: NSOrderedSet?
-    @NSManaged public var transactions: Transaction?
     @NSManaged public var wallet: Wallet?
+    @NSManaged public var transactions: NSSet?
 
 }
 
@@ -58,5 +58,22 @@ extension Category {
 
     @objc(removeSubCategories:)
     @NSManaged public func removeFromSubCategories(_ values: NSOrderedSet)
+
+}
+
+// MARK: Generated accessors for transactions
+extension Category {
+
+    @objc(addTransactionsObject:)
+    @NSManaged public func addToTransactions(_ value: Transaction)
+
+    @objc(removeTransactionsObject:)
+    @NSManaged public func removeFromTransactions(_ value: Transaction)
+
+    @objc(addTransactions:)
+    @NSManaged public func addToTransactions(_ values: NSSet)
+
+    @objc(removeTransactions:)
+    @NSManaged public func removeFromTransactions(_ values: NSSet)
 
 }

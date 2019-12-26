@@ -87,7 +87,6 @@ class TransactionDetailViewController: UITableViewController {
                 
                 let transaction = Transaction(context: coreDataStack.managedContext)
                 transaction.wallet = wallet
-                print(selectedCategory?.name)
                 transaction.category = selectedCategory!
                 transaction.currency = wallet.currency
                 transaction.amount = NSDecimalNumber(string: amountTextField.text ?? "0")

@@ -749,7 +749,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" spellCheckingType="yes" textContentType="name"/>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="73R-dE-YfS">
+                                                <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="73R-dE-YfS" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
                                                     <rect key="frame" x="15" y="2" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <gestureRecognizers/>
@@ -785,7 +785,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cK-vF-vBQ">
+                                                <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="9cK-vF-vBQ" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
                                                     <rect key="frame" x="15" y="2" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -814,7 +814,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AMM-1d-PZg">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AMM-1d-PZg" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
                                                     <rect key="frame" x="15" y="2" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>

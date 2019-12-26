@@ -7,17 +7,34 @@
 //
 
 import UIKit
+import CoreData
 
 class ParentCategoriesTableViewController: UITableViewController {
 
-    var wallet: Wallet?
-    var categories: [Category]?
-    var parentCategory: Category?
+    
+    var coreDataStack: CoreDataStack!
+    var wallet: Wallet!
+    
+    var categories = [Category]()
+    var selectedCategory: Category?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
+        let predicate = NSPredicate(format: "wallet == %@", wallet)
+        fetchRequest.includesSubentities = false
+        fetchRequest.predicate = predicate
+        
+        do {
+            categories = try coreDataStack.managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print(error)
+        }
+        categories.sort(by: {
+            $0.transactions!.count > $1.transactions!.count
+        } )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +55,7 @@ class ParentCategoriesTableViewController: UITableViewController {
         if section == 0 {
             return 1
         } else {
-            return categories!.count
+            return categories.count
         }
     }
 
@@ -51,7 +68,7 @@ class ParentCategoriesTableViewController: UITableViewController {
         } else {
         let cell = tableView.dequeueReusableCell(withIdentifier: "parentCategoryCell", for: indexPath)
 
-            cell.textLabel?.text = categories![indexPath.row].name
+            cell.textLabel?.text = categories[indexPath.row].name
              return cell
         }
 
@@ -60,9 +77,9 @@ class ParentCategoriesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.section == 0 {
-            parentCategory = nil
+            selectedCategory = nil
         } else {
-            parentCategory = categories![indexPath.row]
+            selectedCategory = categories[indexPath.row]
         }
         return indexPath
     }
