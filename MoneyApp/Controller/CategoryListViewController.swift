@@ -94,6 +94,13 @@ class CategoryListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        if let _ = tableView.cellForRow(at: indexPath) as? HeaderView {
+            tableView.deselectRow(at: indexPath, animated: true)
+            print("+++++HeaderCell was tapped")
+          //  return // nothing should happen
+        }
+        
         selectedCategory = categories[indexPath.row].subCategories![indexPath.row] as? Category
         return indexPath
     }
@@ -131,10 +138,35 @@ class CategoryListViewController: UITableViewController {
         let headerView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeaderView" ) as! HeaderView
         headerView.nameLabel.text = categories[section].name
         headerView.iconView.drawIcon(skin: categories[section].skin)
-
+      //  headerView.contentView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        let backgroundView = UIView(frame: headerView.bounds)
+        backgroundView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        headerView.backgroundView = backgroundView
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(headerTapped(_:))
+        )
+        headerView.tag = section
+        headerView.addGestureRecognizer(tapGestureRecognizer)
+        
         return headerView
     }
 
+    
+    @objc func headerTapped(_ sender: UITapGestureRecognizer?) {
+        guard let section = sender?.view?.tag else { return }
+        
+        let view = sender?.view as! HeaderView
+        view.contentView.backgroundColor = #colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8392156863, alpha: 1)
+        
+
+        selectedCategory = categories[section]
+        performSegue(withIdentifier: "unwindBack", sender: self)
+    }
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "categoryDetailSegue" {

@@ -29,7 +29,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="dM2-wP-i4N" firstAttribute="centerY" secondItem="eyP-Bo-MUo" secondAttribute="centerY" id="C5b-pw-ysp"/>
                 <constraint firstItem="eyP-Bo-MUo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Jle-65-kE2"/>

@@ -10,6 +10,7 @@ import UIKit
 
 class HeaderView: UITableViewHeaderFooterView {
     
+    
     @IBOutlet weak var iconView: IconView!
     
     @IBOutlet weak var nameLabel: UILabel!
