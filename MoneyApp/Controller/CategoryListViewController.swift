@@ -38,6 +38,9 @@ class CategoryListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nibName = UINib(nibName: "CategoryHeader", bundle: nil)
+        self.tableView.register(nibName, forHeaderFooterViewReuseIdentifier: "CustomHeaderView")
+        
         
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let predicate = NSPredicate(format: "wallet == %@", wallet)
@@ -114,17 +117,22 @@ class CategoryListViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-    // Sets header title for section using "sectionDateFormatter"
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return categories[section].name
+//    // Sets header title for section using "sectionDateFormatter"
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        return categories[section].name
+//    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50.0
     }
 
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeaderView" ) as! HeaderView
+        headerView.nameLabel.text = categories[section].name
+        headerView.iconView.drawIcon(skin: categories[section].skin)
 
-
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-      //  wallet.categoryList.moveCategory(from: fromIndexPath.row, to: to.row)
+        return headerView
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

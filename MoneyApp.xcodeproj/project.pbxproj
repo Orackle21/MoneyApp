@@ -56,6 +56,8 @@
 		9AC4C92023A6523B00C8E2F0 /* MoneyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC4C91F23A6523B00C8E2F0 /* MoneyAppUITests.swift */; };
 		9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */; };
 		9ACDDE5722AE77B500793219 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */; };
+		9AD066D423B6419C008AF13E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD066D323B6419C008AF13E /* HeaderView.swift */; };
+		9AD066D623B64620008AF13E /* CategoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AD066D523B64620008AF13E /* CategoryHeader.xib */; };
 		9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */; };
 		9AE3BCB422C5ED3E00089927 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB322C5ED3E00089927 /* StateController.swift */; };
 		9AE3BCB622C5F02C00089927 /* WalletListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */; };
@@ -131,6 +133,8 @@
 		9AC4C92123A6523B00C8E2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		9ACDDE5622AE77B500793219 /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
+		9AD066D323B6419C008AF13E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = MoneyApp/View/HeaderView.swift; sourceTree = SOURCE_ROOT; };
+		9AD066D523B64620008AF13E /* CategoryHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryHeader.xib; sourceTree = "<group>"; };
 		9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB322C5ED3E00089927 /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +269,8 @@
 				9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */,
 				9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */,
 				9ACDDE5222AD3ACF00793219 /* TransactionCell.swift */,
+				9AD066D323B6419C008AF13E /* HeaderView.swift */,
+				9AD066D523B64620008AF13E /* CategoryHeader.xib */,
 				9A57A17222CF25FD00DC6624 /* IconView.swift */,
 				9A6F4D0B233C6D9B0012F300 /* ReportsCell.swift */,
 				9A3774CB23408B0C00C6982C /* ReportsDetailCell.swift */,
@@ -389,6 +395,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD066D623B64620008AF13E /* CategoryHeader.xib in Resources */,
 				9A0705F82283EF6A003817A1 /* LaunchScreen.storyboard in Resources */,
 				9A0705F52283EF6A003817A1 /* Assets.xcassets in Resources */,
 				9A8F78F323A15B8000DCD9D2 /* Skins.json in Resources */,
@@ -473,6 +480,7 @@
 				9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */,
 				9A3FC15A23B236B40085DD9D /* SubCategory+CoreDataProperties.swift in Sources */,
 				9A57A17522D0E2B700DC6624 /* CategoryList.swift in Sources */,
+				9AD066D423B6419C008AF13E /* HeaderView.swift in Sources */,
 				9A8F78F923A1689C00DCD9D2 /* SkinChooserViewController.swift in Sources */,
 				9A3FC15D23B236B40085DD9D /* WalletContainer+CoreDataClass.swift in Sources */,
 				9A3FC15923B236B40085DD9D /* SubCategory+CoreDataClass.swift in Sources */,
