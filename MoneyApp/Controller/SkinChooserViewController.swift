@@ -17,7 +17,6 @@ class SkinChooserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         getSkinsFromJSON()
         print (skins)
     }
@@ -95,7 +94,7 @@ extension SkinChooserViewController: UICollectionViewDataSource {
     
 extension SkinChooserViewController: UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // In this function is the code you must implement to your code project if you want to change size of Collection view
+ 
         let width  = (view.frame.width-20)/4
         return CGSize(width: width, height: width)
     }

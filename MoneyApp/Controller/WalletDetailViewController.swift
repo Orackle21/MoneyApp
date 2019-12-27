@@ -8,27 +8,25 @@
 
 import UIKit
 
+protocol WalletDetailViewControllerDelegate: AnyObject {
+    func didAddNewWallet()
+}
+
 class WalletDetailViewController: UITableViewController {
 
+    weak var delegate: WalletDetailViewControllerDelegate?
     
-
     @IBOutlet weak var walletName: UITextField!
     @IBOutlet weak var walletBalance: UITextField!
     @IBOutlet weak var currencyLabel: UILabel!
     
-    var walletCurrency: Currency?
     var coreDataStack: CoreDataStack!
     var walletContainer: WalletContainer!
     
-    
+    private var walletCurrency: Currency?
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     @IBAction func saveAction(_ sender: Any) {
@@ -70,7 +68,7 @@ class WalletDetailViewController: UITableViewController {
         
         walletContainer.setSelectedWallet(wallet: wallet)
         coreDataStack.saveContext()
-        
+        delegate?.didAddNewWallet()
         //FIXME: New wallet creation
         navigationController?.popViewController(animated: true)
     }

@@ -22,14 +22,15 @@ class WalletListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        wallets = walletContainer!.wallets ?? NSOrderedSet()
+        if let wallets = walletContainer!.wallets {
+            self.wallets =  wallets
+        }
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        tableView.reloadData()
     }
     
     
@@ -83,9 +84,18 @@ class WalletListViewController: UITableViewController {
         if let destination = segue.destination as? WalletDetailViewController {
             destination.coreDataStack = coreDataStack
             destination.walletContainer = walletContainer!
+            destination.delegate = self
         }
     }
     
+    
+    
+}
+
+extension WalletListViewController: WalletDetailViewControllerDelegate {
+    func didAddNewWallet() {
+        tableView.reloadData()
+    }
     
     
 }
