@@ -659,10 +659,10 @@
         <scene sceneID="qCe-lP-Qc3">
             <objects>
                 <tableViewController id="nNX-wg-fJ3" customClass="CategoryListViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tPq-Np-EpG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="1" id="tPq-Np-EpG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Waj-ee-5dP">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -810,7 +810,7 @@
                                             <segue destination="LWf-Ew-Ky2" kind="show" id="xqz-Q2-P2k"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="74u-Ln-RSg">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="74u-Ln-RSg">
                                         <rect key="frame" x="0.0" y="106" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="74u-Ln-RSg" id="zQx-Vf-LaE">
@@ -860,8 +860,8 @@
                     <connections>
                         <outlet property="categoryIcon" destination="73R-dE-YfS" id="s90-Zt-Xf3"/>
                         <outlet property="nameTextField" destination="T8I-Ci-gFa" id="KcI-p3-Ws2"/>
-                        <outlet property="subcategoryIcon" destination="9cK-vF-vBQ" id="3n5-p1-PtG"/>
-                        <outlet property="subcategoryLabel" destination="mj8-Tq-s3S" id="Kqn-OR-iLR"/>
+                        <outlet property="parentCategoryIcon" destination="9cK-vF-vBQ" id="3n5-p1-PtG"/>
+                        <outlet property="parentCategoryLabel" destination="mj8-Tq-s3S" id="Kqn-OR-iLR"/>
                         <outlet property="walletIcon" destination="AMM-1d-PZg" id="PAD-5M-9YE"/>
                         <outlet property="walletNameLabel" destination="aOd-la-Z6z" id="hzO-gv-9x0"/>
                     </connections>

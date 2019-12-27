@@ -9,29 +9,40 @@
 import UIKit
 import CoreData
 
-class CategoryDetailViewController: UITableViewController {
+protocol CategoryDetailViewControllerDelegate: AnyObject {
+    func didCreateNewCategory()
+}
 
+class CategoryDetailViewController: UITableViewController {
+    
+    weak var delegate: CategoryDetailViewControllerDelegate?
     var coreDataStack: CoreDataStack!
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var categoryIcon: UIView!
-    @IBOutlet weak var subcategoryIcon: UIView!
-    @IBOutlet weak var subcategoryLabel: UILabel!
+    @IBOutlet weak var parentCategoryIcon: UIView!
+    @IBOutlet weak var parentCategoryLabel: UILabel!
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var walletIcon: UIView!
    
     
     
     var wallet: Wallet!
-    var parentCategory: Category?
-    var skin: Skin?
+    var parentCategory: Category? {
+        didSet {
+            parentCategoryIcon.setNeedsDisplay()
+        }
+    }
+    var skin: Skin? {
+        didSet {
+            parentCategoryIcon.setNeedsDisplay()
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,14 +52,13 @@ class CategoryDetailViewController: UITableViewController {
         }
         walletNameLabel.text = wallet.name
         if let categoryIcon = categoryIcon as? IconView,
-            let subcategoryIcon = subcategoryIcon as? IconView,
+            let subcategoryIcon = parentCategoryIcon as? IconView,
             let walletIcon = walletIcon as? IconView {
             
             
             categoryIcon.drawIcon(skin: skin)
             categoryIcon.setNeedsDisplay()
             subcategoryIcon.drawIcon(skin: parentCategory?.skin)
-            subcategoryIcon.setNeedsDisplay()
             walletIcon.drawIcon(skin: wallet.skin!)
             
         }
@@ -58,12 +68,25 @@ class CategoryDetailViewController: UITableViewController {
 
     @IBAction func saveCategory(_ sender: Any) {
         guard let wallet = wallet,
-        let name = nameTextField.text
-        else {
-            return
+        let name = nameTextField.text else { return }
+        
+        if let parentCategory = parentCategory {
+            let category = SubCategory(context: coreDataStack.managedContext)
+            category.name = name
+            category.wallet = wallet
+            category.skin = skin
+            category.parentCategory = parentCategory
+            
+        } else {
+            let category = Category(context: coreDataStack.managedContext)
+            category.name = name
+            category.wallet = wallet
+            category.skin = skin
         }
-        // FIXME: Category creationq
-        self.navigationController?.popViewController(animated: true)
+        
+        coreDataStack.saveContext()
+        delegate?.didCreateNewCategory()
+        navigationController?.popViewController(animated: true)
     }
     
     
@@ -79,10 +102,15 @@ class CategoryDetailViewController: UITableViewController {
     @IBAction func unwindToCategoryDetail(_ unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? ParentCategoriesTableViewController {
             parentCategory = sourceViewController.selectedCategory
-            subcategoryLabel.text = "Subcategory of: \(parentCategory?.name ?? "None")"
+            parentCategoryLabel.text = "Subcategory of: \(parentCategory?.name ?? "None")"
+            
+            // resets the icon if parent category in unchecked
+            if parentCategory == nil, let parentCategoryIcon = parentCategoryIcon as? IconView {
+                parentCategoryIcon.drawIcon(skin: Skin(name: "", color: "", icon: ""))
+                
+            }
         }
     }
-    
     
     @IBAction func unwindToCategoryDetailWithSkin(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source
@@ -96,7 +124,7 @@ class CategoryDetailViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ParentCategoriesTableViewController {
-            destination.wallet = wallet!
+            destination.wallet = wallet
             destination.coreDataStack = coreDataStack
         }
     }

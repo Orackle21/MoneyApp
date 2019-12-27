@@ -31,17 +31,18 @@ class CategoryListViewController: UITableViewController {
 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       // tableView.tableFooterView = UIView()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         let nibName = UINib(nibName: "CategoryHeader", bundle: nil)
         self.tableView.register(nibName, forHeaderFooterViewReuseIdentifier: "CustomHeaderView")
-        
-        
+        fetchCategories()
+    }
+    
+    func fetchCategories() {
+        guard let wallet = wallet else { return }
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let predicate = NSPredicate(format: "wallet == %@", wallet)
         fetchRequest.includesSubentities = false
@@ -52,18 +53,15 @@ class CategoryListViewController: UITableViewController {
         } catch let error as NSError {
             print(error)
         }
-        print(categories.count)
         categories.sort(by: {
             $0.transactions!.count > $1.transactions!.count
         } )
-        
-        tableView.tableFooterView = UIView()
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+         
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+      
     }
     
     func recategorizeTransactions (in wallet: Wallet, from: Category, to: Category) {
@@ -94,14 +92,8 @@ class CategoryListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        
-        if let _ = tableView.cellForRow(at: indexPath) as? HeaderView {
-            tableView.deselectRow(at: indexPath, animated: true)
-            print("+++++HeaderCell was tapped")
-          //  return // nothing should happen
-        }
-        
-        selectedCategory = categories[indexPath.row].subCategories![indexPath.row] as? Category
+ 
+        selectedCategory = categories[indexPath.section].subCategories![indexPath.row] as? Category
         return indexPath
     }
 
@@ -120,15 +112,9 @@ class CategoryListViewController: UITableViewController {
             prepareAlert(for: indexPath)
             self.present(actionSheet!, animated: true, completion: nil)
 
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-//    // Sets header title for section using "sectionDateFormatter"
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//
-//        return categories[section].name
-//    }
+
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50.0
@@ -138,7 +124,9 @@ class CategoryListViewController: UITableViewController {
         let headerView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeaderView" ) as! HeaderView
         headerView.nameLabel.text = categories[section].name
         headerView.iconView.drawIcon(skin: categories[section].skin)
-      //  headerView.contentView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        headerView.iconView.setNeedsDisplay()
+        
+        // Set backround color for a grouped type of tableview
         
         let backgroundView = UIView(frame: headerView.bounds)
         backgroundView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -171,11 +159,20 @@ class CategoryListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "categoryDetailSegue" {
             if let destination = segue.destination as? CategoryDetailViewController {
-                destination.wallet = wallet!
+                destination.wallet = wallet
                 destination.coreDataStack = coreDataStack
+                destination.delegate = self
             }
         }
     }
 
 
+
+}
+
+extension CategoryListViewController: CategoryDetailViewControllerDelegate {
+    func didCreateNewCategory() {
+        fetchCategories()
+        tableView.reloadData()
+    }
 }

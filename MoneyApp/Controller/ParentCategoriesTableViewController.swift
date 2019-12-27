@@ -22,6 +22,8 @@ class ParentCategoriesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let wallet = wallet else { return }
+        
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let predicate = NSPredicate(format: "wallet == %@", wallet)
         fetchRequest.includesSubentities = false
@@ -42,7 +44,7 @@ class ParentCategoriesTableViewController: UITableViewController {
         guard let wallet = wallet else {
             return
         }
-        //FIXME: Get all parent categories
+        
     }
 
     // MARK: - Table view data source

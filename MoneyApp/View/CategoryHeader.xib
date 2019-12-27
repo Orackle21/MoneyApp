@@ -20,7 +20,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyP-Bo-MUo" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
+                <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eyP-Bo-MUo" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
                     <rect key="frame" x="16" y="5" width="40" height="40"/>
                     <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
