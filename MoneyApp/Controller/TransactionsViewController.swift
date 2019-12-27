@@ -127,27 +127,6 @@ class TransactionsViewController: UIViewController {
     }
     
 
-    // Configures cell's labels for passed item
-    private func configureTransactions(for cell: UITableViewCell, with transaction: Transaction) {
-        if let cell = cell as? TransactionCell {
-            cell.categoryLabel.text = transaction.category?.name
-            cell.nameLabel.text = transaction.note
-            cell.amountLabel.text = (transaction.currency!.symbol ?? transaction.currency!.id) + " " + transaction.amount!.description
-            cell.dateLabel.text = dater.dateFormatter.string(from: transaction.date!)
-            Int(truncating: transaction.amount!) > 0 ? (cell.amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : (cell.amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1))
-            
-            if let icon = cell.categoryIcon as? IconView {
-                icon.drawIcon(skin: transaction.category!.skin!)
-                icon.setNeedsDisplay()
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    
 // MARK: - SEGUE CHOOSER
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -238,7 +217,7 @@ extension TransactionsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
         if let cell = cell as? TransactionCell {
-            configureTransactions(for: cell, with: fetchedResultsController.object(at: indexPath))
+            cell.configureCell(with: fetchedResultsController.object(at: indexPath))
         }
         
         

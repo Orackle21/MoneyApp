@@ -69,7 +69,6 @@ class WalletDetailViewController: UITableViewController {
         walletContainer.setSelectedWallet(wallet: wallet)
         coreDataStack.saveContext()
         delegate?.didAddNewWallet()
-        //FIXME: New wallet creation
         navigationController?.popViewController(animated: true)
     }
     
@@ -80,11 +79,7 @@ class WalletDetailViewController: UITableViewController {
         }
     }
     
-/*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-    }
-*/
 
 }
 
