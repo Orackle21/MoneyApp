@@ -395,6 +395,7 @@ extension TransactionsViewController {
         tableView.reloadData()
         dateBar.reloadData()
         dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+        setControllerAndFetch()
     }
     
     private func prepareAlert() {
@@ -403,29 +404,33 @@ extension TransactionsViewController {
             title: "Day",
             style: .default,
             handler: { _ in
-                self.upDater(.days)
+             
                 self.keyPath = #keyPath(Transaction.day)
+                   self.upDater(.days)
         }))
         actionSheet!.addAction(UIAlertAction(
             title: "Week",
             style: .default,
             handler: { _ in
-                self.upDater(.weeks)
+                
                 self.keyPath = #keyPath(Transaction.day)
+                self.upDater(.weeks)
         }))
         actionSheet!.addAction(UIAlertAction(
             title: "Month",
             style: .default,
             handler: { _ in
-                self.upDater(.months)
+              
                 self.keyPath = #keyPath(Transaction.day)
+                  self.upDater(.months)
         }))
         actionSheet!.addAction(UIAlertAction(
             title: "Year",
             style: .default,
             handler: { _ in
-                self.upDater(.year)
+               
                 self.keyPath = #keyPath(Transaction.month)
+                 self.upDater(.year)
 
         }))
         
@@ -433,8 +438,9 @@ extension TransactionsViewController {
             title: "All Time",
             style: .default,
             handler: { _ in
-                self.upDater(.all)
+                
                 self.keyPath = #keyPath(Transaction.year)
+                self.upDater(.all)
         }))
         actionSheet!.addAction(UIAlertAction(
             title: "Cancel",

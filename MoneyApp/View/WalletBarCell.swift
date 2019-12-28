@@ -15,9 +15,9 @@ class WalletBarCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5)
-        layer.shadowRadius = 7.0
-        layer.shadowOpacity = 0.25
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 6.0
+        layer.shadowOpacity = 0.20
         layer.masksToBounds = false
     }
     
