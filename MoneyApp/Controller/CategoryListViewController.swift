@@ -129,7 +129,11 @@ class CategoryListViewController: UITableViewController {
         // Set backround color for a grouped type of tableview
         
         let backgroundView = UIView(frame: headerView.bounds)
-        backgroundView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        if #available(iOS 13.0, *) {
+            backgroundView.backgroundColor = UIColor.tertiarySystemBackground
+        } else {
+             backgroundView.backgroundColor = UIColor.white
+        }
         headerView.backgroundView = backgroundView
         
         let tapGestureRecognizer = UITapGestureRecognizer(

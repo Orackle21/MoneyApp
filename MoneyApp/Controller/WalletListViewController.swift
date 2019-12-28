@@ -57,7 +57,7 @@ class WalletListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        //FIXME: Selected wallet choosing
+        walletContainer?.setSelectedWallet(wallet: wallets[indexPath.row] as! Wallet)
         
         return indexPath
     }
@@ -72,10 +72,18 @@ class WalletListViewController: UITableViewController {
     
     
     
-    // Override to support rearranging the table view.
-    //    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-    //       stateController.moveWallet(from: fromIndexPath.row, to: to.row)
-    //    }
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        
+        let wallet = wallets[fromIndexPath.row] as! Wallet
+        walletContainer?.removeFromWallets(at: fromIndexPath.row)
+        walletContainer?.insertIntoWallets(wallet, at: to.row)
+        
+        coreDataStack.saveContext()
+        if let wallets = walletContainer!.wallets {
+            self.wallets =  wallets
+        }
+        
+    }
     
     
     
@@ -87,15 +95,10 @@ class WalletListViewController: UITableViewController {
             destination.delegate = self
         }
     }
-    
-    
-    
 }
 
 extension WalletListViewController: WalletDetailViewControllerDelegate {
     func didAddNewWallet() {
         tableView.reloadData()
     }
-    
-    
 }

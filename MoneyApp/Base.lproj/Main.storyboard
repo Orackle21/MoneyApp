@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bJX-ul-6Qj">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -248,6 +248,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" estimatedRowHeight="-1" sectionHeaderHeight="42" estimatedSectionHeaderHeight="49" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fZs-Uk-Xgy">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7pK-Xw-eo2" userLabel="Wallet Bar">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -263,10 +264,10 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="walletBarCollectionCell" id="pjv-7F-G0e" customClass="WalletBarCell" customModule="MoneyApp" customModuleProvider="target">
-                                                    <rect key="frame" x="18" y="2" width="120" height="62"/>
+                                                    <rect key="frame" x="18" y="3" width="120" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="62"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLD-fw-5kt">
@@ -285,7 +286,7 @@
                                                         <constraint firstItem="cLD-fw-5kt" firstAttribute="leading" secondItem="pjv-7F-G0e" secondAttribute="leading" constant="8" id="Xw0-LF-oMs"/>
                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cLD-fw-5kt" secondAttribute="bottom" constant="25" id="hil-pn-EsU"/>
                                                     </constraints>
-                                                    <size key="customSize" width="120" height="62"/>
+                                                    <size key="customSize" width="120" height="60"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="10"/>
@@ -339,7 +340,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KT-AU-Ytj">
-                                                    <rect key="frame" x="67" y="45.5" width="26" height="21.5"/>
+                                                    <rect key="frame" x="67" y="45.5" width="25.5" height="21.5"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -393,30 +394,30 @@
                                     <outlet property="delegate" destination="E9S-jm-KGj" id="Dc8-lh-dX7"/>
                                 </connections>
                             </tableView>
-                            <view autoresizesSubviews="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="290" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="PHa-Ce-qh3">
+                            <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="290" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="PHa-Ce-qh3" customClass="DateBarContainer" customModule="MoneyApp" customModuleProvider="target">
                                 <rect key="frame" x="15" y="568" width="345" height="40"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" preservesSuperviewLayoutMargins="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0XO-5N-TbH">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="40"/>
-                                        <color key="backgroundColor" red="0.3724817576142132" green="0.3724817576142132" blue="0.3724817576142132" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <collectionView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" preservesSuperviewLayoutMargins="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0XO-5N-TbH">
+                                        <rect key="frame" x="4" y="0.0" width="337" height="40"/>
+                                        <color key="backgroundColor" red="0.99519230769230771" green="0.99038461538461542" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Pfi-ap-eHQ">
-                                            <size key="itemSize" width="75" height="34"/>
+                                            <size key="itemSize" width="94" height="34"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" reuseIdentifier="dateCell" id="vlV-No-Iih" customClass="DateBarCell" customModule="MoneyApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="3" width="75" height="34"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="dateCell" id="vlV-No-Iih" customClass="DateBarCell" customModule="MoneyApp" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="3" width="94" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="34"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="94" height="34"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pp0-dT-Jdp">
-                                                            <rect key="frame" x="0.0" y="0.0" width="75" height="34"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="94" height="34"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -427,6 +428,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="pp0-dT-Jdp" secondAttribute="trailing" id="Psu-k2-3qj"/>
                                                     <constraint firstItem="pp0-dT-Jdp" firstAttribute="top" secondItem="vlV-No-Iih" secondAttribute="top" id="nOQ-r8-evu"/>
                                                 </constraints>
+                                                <size key="customSize" width="94" height="34"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="15"/>
@@ -446,27 +448,21 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="0XO-5N-TbH" secondAttribute="bottom" id="Nua-mN-VW8"/>
                                     <constraint firstItem="0XO-5N-TbH" firstAttribute="top" secondItem="PHa-Ce-qh3" secondAttribute="top" id="Z8K-Px-gqm"/>
-                                    <constraint firstAttribute="trailing" secondItem="0XO-5N-TbH" secondAttribute="trailing" id="dDI-o7-igW"/>
-                                    <constraint firstItem="0XO-5N-TbH" firstAttribute="leading" secondItem="PHa-Ce-qh3" secondAttribute="leading" id="mlH-S1-Ss7"/>
+                                    <constraint firstAttribute="trailing" secondItem="0XO-5N-TbH" secondAttribute="trailing" constant="4" id="dDI-o7-igW"/>
+                                    <constraint firstItem="0XO-5N-TbH" firstAttribute="leading" secondItem="PHa-Ce-qh3" secondAttribute="leading" constant="4" id="mlH-S1-Ss7"/>
                                     <constraint firstAttribute="height" constant="40" id="wM5-Wb-HEh"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="GbW-rq-e9L" firstAttribute="trailing" secondItem="fZs-Uk-Xgy" secondAttribute="trailing" priority="250" id="FKt-QR-spi"/>
-                            <constraint firstItem="fZs-Uk-Xgy" firstAttribute="centerX" secondItem="GbW-rq-e9L" secondAttribute="centerX" id="RZ8-05-8lv"/>
-                            <constraint firstAttribute="bottom" secondItem="fZs-Uk-Xgy" secondAttribute="bottom" id="WH2-hT-ztI"/>
+                            <constraint firstAttribute="top" secondItem="fZs-Uk-Xgy" secondAttribute="top" id="CJ9-8o-S7p"/>
+                            <constraint firstItem="fZs-Uk-Xgy" firstAttribute="bottom" secondItem="v8S-DS-wcG" secondAttribute="bottom" id="QgS-J9-YsH"/>
+                            <constraint firstItem="fZs-Uk-Xgy" firstAttribute="leading" secondItem="v8S-DS-wcG" secondAttribute="leading" id="V0S-lo-veo"/>
                             <constraint firstItem="GbW-rq-e9L" firstAttribute="bottom" secondItem="PHa-Ce-qh3" secondAttribute="bottom" constant="10" id="Wi0-H3-Tb7"/>
                             <constraint firstItem="GbW-rq-e9L" firstAttribute="trailing" secondItem="PHa-Ce-qh3" secondAttribute="trailing" constant="15" id="bT7-JE-Fi5"/>
+                            <constraint firstAttribute="trailing" secondItem="fZs-Uk-Xgy" secondAttribute="trailing" id="clJ-aL-vhc"/>
                             <constraint firstItem="PHa-Ce-qh3" firstAttribute="leading" secondItem="GbW-rq-e9L" secondAttribute="leading" constant="15" id="gPr-Q0-j6l"/>
-                            <constraint firstItem="fZs-Uk-Xgy" firstAttribute="top" secondItem="v8S-DS-wcG" secondAttribute="top" id="lzd-dL-OPH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GbW-rq-e9L"/>
                     </view>
@@ -477,13 +473,17 @@
                                 <action selector="changeTimeRange:" destination="E9S-jm-KGj" id="ZBX-Om-Lha"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="addButton" id="6gq-f0-lBQ"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="6gq-f0-lBQ">
+                            <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="pYm-5h-rzE" kind="show" identifier="detailSegue" id="axB-yS-UcA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateBarCollection" destination="0XO-5N-TbH" id="tFV-XA-s3w"/>
+                        <outlet property="dateBar" destination="0XO-5N-TbH" id="tFV-XA-s3w"/>
                         <outlet property="tableView" destination="fZs-Uk-Xgy" id="ioO-5K-RSd"/>
-                        <outlet property="walletBarCollection" destination="6uD-RM-hMt" id="mIP-F0-0oY"/>
-                        <segue destination="pYm-5h-rzE" kind="presentation" identifier="detailSegue" id="Nzd-sx-fIj"/>
+                        <outlet property="walletBar" destination="6uD-RM-hMt" id="mIP-F0-0oY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10f-ya-R2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -495,7 +495,7 @@
             <objects>
                 <tableViewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="d7J-W1-892" userLabel="Transaction Detail" customClass="TransactionDetailViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ulv-lX-vad">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -660,8 +660,8 @@
         <scene sceneID="qCe-lP-Qc3">
             <objects>
                 <tableViewController id="nNX-wg-fJ3" customClass="CategoryListViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="1" id="tPq-Np-EpG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="-1" id="tPq-Np-EpG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Waj-ee-5dP">
@@ -693,6 +693,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <segue destination="axJ-ZL-jjE" kind="unwind" unwindAction="unwindBack:" id="sqU-E9-KRZ"/>
                                 </connections>
@@ -717,8 +718,9 @@
         <scene sceneID="M5g-X2-1tK">
             <objects>
                 <navigationController id="pYm-5h-rzE" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="S3d-S0-4Dc"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GD0-ze-rXz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -734,7 +736,7 @@
             <objects>
                 <tableViewController id="6Xy-LG-frk" customClass="CategoryDetailViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Zs-OY-pTT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -881,11 +883,11 @@
             <objects>
                 <viewController id="eh1-Rg-q0W" customClass="SkinChooserViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hcc-Hn-z7a">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IRl-Y5-G5Y">
-                                <rect key="frame" x="0.0" y="56" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="xYv-dN-gPA">
                                     <size key="itemSize" width="167" height="167"/>
@@ -909,7 +911,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyH-Rf-elI">
-                                                    <rect key="frame" x="66" y="146" width="35.5" height="16"/>
+                                                    <rect key="frame" x="65.5" y="146" width="36" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -981,7 +983,7 @@
             <objects>
                 <tableViewController id="LWf-Ew-Ky2" customClass="ParentCategoriesTableViewController" customModule="MoneyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="56j-Eg-Yzj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -1593,12 +1595,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="addButton" width="24" height="24"/>
         <image name="budget" width="22.333333969116211" height="21.333333969116211"/>
         <image name="reports" width="21.666666030883789" height="21.666666030883789"/>
         <image name="transactions" width="21.666666030883789" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ijU-ze-dVk"/>
+        <segue reference="axB-yS-UcA"/>
     </inferredMetricsTieBreakers>
 </document>

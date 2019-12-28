@@ -18,7 +18,7 @@ import Foundation
     }
     
     var name: String
-    var symbol :String?
+    var symbol: String?
     var id: String
     
     public func encode(with coder: NSCoder) {

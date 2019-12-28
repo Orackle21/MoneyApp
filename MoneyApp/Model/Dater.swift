@@ -80,7 +80,7 @@ class Dater {
     private func getUpperRange(for timeRange: Calendar.Component) -> Int {
         switch timeRange {
         case .day: return 30
-        case .month: return 12
+        case .month: return 10
         case .weekOfMonth: return 12
         case .quarter: return 10
         case .year: return 10
