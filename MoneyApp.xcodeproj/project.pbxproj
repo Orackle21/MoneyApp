@@ -49,7 +49,7 @@
 		9A8F78FE23A179A100DCD9D2 /* SkinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */; };
 		9A8F790223A2509C00DCD9D2 /* SkinHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */; };
 		9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */; };
-		9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */; };
+		9AB22B2222DEF6EC00AE145F /* WalletBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */; };
 		9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */; };
 		9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */; };
 		9AB9C6B422C3315900E401DC /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */; };
@@ -124,7 +124,7 @@
 		9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkinCollectionViewCell.swift; path = MoneyApp/SkinCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHeaderView.swift; sourceTree = "<group>"; };
 		9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCell.swift; sourceTree = "<group>"; };
-		9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarViewCell.swift; sourceTree = "<group>"; };
+		9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarCell.swift; sourceTree = "<group>"; };
 		9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCategoriesTableViewController.swift; sourceTree = "<group>"; };
 		9AB9C6B322C3315900E401DC /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 				9A3774CB23408B0C00C6982C /* ReportsDetailCell.swift */,
 				9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */,
 				9A57A17022CC883900DC6624 /* WalletCell.swift */,
-				9AB22B2122DEF6EC00AE145F /* WalletBarViewCell.swift */,
+				9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */,
 				9AEC4CCF230997020059EFCF /* DateBarCell.swift */,
 			);
 			path = View;
@@ -489,7 +489,7 @@
 				9A7E8E1D232139890009365F /* TabBarViewController.swift in Sources */,
 				9A8F78F723A15CC800DCD9D2 /* ColorChooserViewController.swift in Sources */,
 				9A7B4A3723557E0D00FA198C /* CategoryReportViewController.swift in Sources */,
-				9AB22B2222DEF6EC00AE145F /* WalletBarViewCell.swift in Sources */,
+				9AB22B2222DEF6EC00AE145F /* WalletBarCell.swift in Sources */,
 				9A3FC16223B236B40085DD9D /* Wallet+CoreDataProperties.swift in Sources */,
 				9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */,
 				9A05558922A18B3A009398CD /* Category.swift in Sources */,

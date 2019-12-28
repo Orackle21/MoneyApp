@@ -66,6 +66,7 @@ class WalletDetailViewController: UITableViewController {
         initialBalance.month = Int32(components.month!)
         initialBalance.year = Int32(components.year!)
         
+        
         walletContainer.setSelectedWallet(wallet: wallet)
         coreDataStack.saveContext()
         delegate?.didAddNewWallet()

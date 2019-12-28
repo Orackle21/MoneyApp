@@ -12,6 +12,7 @@ class DateBarCell: UICollectionViewCell {
     
     @IBOutlet weak var monthName: UILabel!
     
+    
    
     
     override var isSelected: Bool {
