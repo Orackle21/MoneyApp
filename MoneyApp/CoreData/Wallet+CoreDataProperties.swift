@@ -2,7 +2,7 @@
 //  Wallet+CoreDataProperties.swift
 //  MoneyApp
 //
-//  Created by Orackle on 24.12.2019.
+//  Created by Orackle on 28.12.2019.
 //  Copyright © 2019 Orackle. All rights reserved.
 //
 //
@@ -19,9 +19,10 @@ extension Wallet {
 
     @NSManaged public var amount: NSDecimalNumber?
     @NSManaged public var currency: Currency?
+    @NSManaged public var isSelected: Bool
     @NSManaged public var name: String?
     @NSManaged public var skin: Skin?
-    @NSManaged public var isSelected: Bool
+    @NSManaged public var dateCreated: Date?
     @NSManaged public var categories: NSSet?
     @NSManaged public var transactions: NSSet?
     @NSManaged public var walletContainer: WalletContainer?

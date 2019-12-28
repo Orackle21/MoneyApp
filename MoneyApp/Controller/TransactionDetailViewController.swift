@@ -44,8 +44,12 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkTheCategory()
-        
+        checkTheCategory() //FIXME:
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
     }
     
     override func viewDidLoad() {
@@ -90,6 +94,7 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.category = selectedCategory!
                 transaction.currency = wallet.currency
                 transaction.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
+                transaction.dateCreated = Date()
                 transaction.date = date
                 transaction.day = Int32(components.day!)
                 transaction.month = Int32(components.month!)
@@ -113,7 +118,7 @@ class TransactionDetailViewController: UITableViewController {
             transaction.day = Int32(components.day!)
             transaction.month = Int32(components.month!)
             transaction.year = Int32(components.year!)
-            
+            transaction.dateCreated = Date()
             
         }
     } 

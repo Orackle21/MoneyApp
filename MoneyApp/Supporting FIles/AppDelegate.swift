@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let walletContainers = try coreDataStack.managedContext.fetch(fetchRequest!)
             if walletContainers.count > 0 {
                 walletContainer = walletContainers[0]
-               
             }
             else {
                 walletContainer = WalletContainer(context: coreDataStack.managedContext)

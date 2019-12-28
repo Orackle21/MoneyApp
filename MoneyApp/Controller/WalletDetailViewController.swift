@@ -38,6 +38,7 @@ class WalletDetailViewController: UITableViewController {
         wallet.currency = walletCurrency
         wallet.walletContainer = walletContainer
         wallet.skin = Skin(name: "", color: "Dusk", icon: "atm")
+        wallet.dateCreated = Date()
         
         let category = Category(context: coreDataStack.managedContext)
         category.wallet = wallet
@@ -61,6 +62,7 @@ class WalletDetailViewController: UITableViewController {
         initialBalance.currency = walletCurrency
         initialBalance.wallet = wallet
         initialBalance.date = Date()
+        initialBalance.dateCreated = Date()
         let components = initialBalance.date!.getComponenets()
         initialBalance.day = Int32(components.day!)
         initialBalance.month = Int32(components.month!)
