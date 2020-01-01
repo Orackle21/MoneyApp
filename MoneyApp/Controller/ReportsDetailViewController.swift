@@ -192,6 +192,7 @@ extension ReportsDetailViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         if let cell = cell as? ReportsDetailCell {
+            cell.selectionStyle = .none
             cell.incomeIcon.backgroundColor = UIColor.systemGreen
             cell.expenseIcon.backgroundColor = UIColor.systemRed
             
@@ -307,3 +308,5 @@ extension ReportsDetailViewController {
         return colors
     }
 }
+
+

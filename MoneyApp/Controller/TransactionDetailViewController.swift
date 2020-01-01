@@ -107,7 +107,6 @@ class TransactionDetailViewController: UITableViewController {
         if transaction.simpleDate == datePickerDate.getSimpleDescr() {
             return
         } else {
-            
             let date = datePickerDate
             transaction.date = date
             transaction.simpleDate = Int64(date.getSimpleDescr())

@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import CoreData
 
 class ReportsViewController: UIViewController {
     
@@ -40,6 +41,21 @@ class ReportsViewController: UIViewController {
         customizeChartLooks()
     }
     
+    func getAmounts() {
+        for (_, innerIntervals) in dateIntervals {
+            for dateInterval in innerIntervals {
+                let result =  sumAmount(dateInterval: dateInterval)
+                print (result)
+                amountsByDate.append(result.doubleValue)
+                let string = dater.dateFormatter.string(from: dateInterval.start)
+                dateStrings.append(string)
+            }
+        }
+    }
+    
+    
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //        let frameWidth = self.chartContainer.frame.width
@@ -53,23 +69,24 @@ class ReportsViewController: UIViewController {
         updateChartData()
         updateChart(dataPoints: dateStrings, values: amountsByDate)
         tableView.reloadData()
+        getAmounts()
     }
     
     func updateChart (dataPoints: [String], values: [Double]) {
         
-        //        var dataEntries: [ChartDataEntry] = []
-        //        for i in 0..<dataPoints.count {
-        //            let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]), data: dataPoints[i])
-        //            dataEntries.append(dataEntry)
-        //        }
-        //
-        //        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "BarChart")
-        //        customizeChartSet(chartDataSet: chartDataSet)
-        //        let chartData = LineChartData(dataSet: chartDataSet)
-        //
-        //        lineChartView.data = chartData
-        //        lineChartView.legend.enabled = false
-        //        lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
+                var dataEntries: [ChartDataEntry] = []
+                for i in 0..<dataPoints.count {
+                    let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]), data: dataPoints[i])
+                    dataEntries.append(dataEntry)
+                }
+        
+                let chartDataSet = LineChartDataSet(entries: dataEntries, label: "BarChart")
+                customizeChartSet(chartDataSet: chartDataSet)
+                let chartData = LineChartData(dataSet: chartDataSet)
+        
+                lineChartView.data = chartData
+                lineChartView.legend.enabled = false
+                lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
     }
     
     private func updateChartData() {
@@ -82,19 +99,7 @@ class ReportsViewController: UIViewController {
         
         outerIntervals = dateIntervals.keys.sorted(by: >)
         
-        for outerInterval in outerIntervals {
-            
-            for dateInterval in dateIntervals[outerInterval]! {
-                //                let sumByDate = wallet.getTotalByIntervalNoSort(dateInterval: dateInterval)
-                //                amountsByDate.append(sumByDate.doubleValue)
-                
-                
-                let string = dater.dateFormatter.string(from: dateInterval.start)
-                dateStrings.append(string)
-                
-            }
-            
-        }
+        getAmounts()
         
         
     }
@@ -194,11 +199,14 @@ extension ReportsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportsCell", for: indexPath)
         
         if let cell = cell as? ReportsCell {
-            guard let wallet = wallet else {return cell}
+            guard let _ = wallet else {return cell}
             
             let innerArray = dateIntervals[outerIntervals[indexPath.section]]
             let dateInterval = innerArray![indexPath.row]
-            let amount = 0 //FIXME: Fix amount calculation
+            
+           
+            let index = getAmountIndex(sectionNumber: indexPath.section, rowNumber: indexPath.row)
+            let amount = amountsByDate[index]
             
             if amount > 0 {
                 cell.iconView.backgroundColor = UIColor.systemGreen
@@ -315,5 +323,74 @@ extension ReportsViewController {
         tableView.reloadData()
         
     }
+    
+}
+
+
+extension ReportsViewController {
+    
+    func getAmountIndex(sectionNumber: Int, rowNumber: Int) -> Int {
+        var result = 0
+        
+        for number in 0..<sectionNumber {
+            let rows = tableView.numberOfRows(inSection: number)
+            result += rows
+        }
+        
+        return result + rowNumber
+        
+    }
+    
+}
+
+extension ReportsViewController {
+    
+    func sumAmount(dateInterval: DateInterval) -> Decimal {
+        var amountSum : Decimal = 0
+        let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
+        let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
+
+        
+        // Fetch Request
+        let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "Transaction")
+        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+
+        let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, wallet! )
+        fetchRequest.predicate = predicate
+
+        
+        //Exrpession
+        let sumExpressionDesc = NSExpressionDescription()
+        sumExpressionDesc.name = "sumAmounts"
+        
+        let specialCountExp =  NSExpression(forKeyPath: #keyPath(Transaction.amount))
+        sumExpressionDesc.expression = NSExpression(
+            forFunction: "sum:",
+            arguments: [specialCountExp])
+        sumExpressionDesc.expressionResultType = .decimalAttributeType
+
+        
+        fetchRequest.propertiesToFetch = [sumExpressionDesc]
+
+        // Step 3:
+        // - Execute the fetch request which returns an array.
+        // - There will only be one result. Get the first array
+        //   element and assign to 'resultMap'.
+        // - The summed amount value is in the dictionary as
+        //   'amountTotal'. This will be summed value.
+
+        do {
+            let results = try coreDataStack.managedContext.fetch(fetchRequest)
+            let resultDict = results.first!
+            amountSum = resultDict["sumAmounts"] as! Decimal
+        } catch let error as NSError {
+            NSLog("Error when summing amounts: \(error.localizedDescription)")
+        }
+
+        return amountSum
+    }
+    
+    
+    
     
 }

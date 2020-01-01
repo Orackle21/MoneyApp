@@ -335,10 +335,9 @@ extension  TransactionsViewController {
         
         let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, selectedWallet ?? "0")
+
         
-        let compountPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate])
-        
-        fetchRequest.predicate = compountPredicate
+        fetchRequest.predicate = predicate
         
         let sort1 = NSSortDescriptor(key: keyPath, ascending: false)
         let sort2 = NSSortDescriptor(key: #keyPath(Transaction.dateCreated), ascending: false)
