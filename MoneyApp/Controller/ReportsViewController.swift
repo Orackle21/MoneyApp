@@ -42,13 +42,16 @@ class ReportsViewController: UIViewController {
     }
     
     func getAmounts() {
-        for (_, innerIntervals) in dateIntervals {
-            for dateInterval in innerIntervals {
-                let result =  sumAmount(dateInterval: dateInterval)
-                print (result)
-                amountsByDate.append(result.doubleValue)
-                let string = dater.dateFormatter.string(from: dateInterval.start)
-                dateStrings.append(string)
+        
+        for outerInterval in outerIntervals {
+            if let innerIntervals = dateIntervals[outerInterval] {
+                for dateInterval in innerIntervals {
+                    let result =  sumAmount(dateInterval: dateInterval)
+                    print (result)
+                    amountsByDate.append(result.doubleValue)
+                    let string = dater.dateFormatter.string(from: dateInterval.start)
+                    dateStrings.append(string)
+                }
             }
         }
     }
@@ -69,7 +72,7 @@ class ReportsViewController: UIViewController {
         updateChartData()
         updateChart(dataPoints: dateStrings, values: amountsByDate)
         tableView.reloadData()
-        getAmounts()
+       
     }
     
     func updateChart (dataPoints: [String], values: [Double]) {
