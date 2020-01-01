@@ -39,7 +39,7 @@ class TransactionDetailViewController: UITableViewController {
         }
     }
     @IBAction func cancelAdding(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,8 +54,8 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        datePicker.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.timeZone = TimeZone.current
+        datePicker.timeZone = TimeZone.current
         dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePickerDate)
         
@@ -86,7 +86,7 @@ class TransactionDetailViewController: UITableViewController {
                 
                 let calendar = Calendar.current
                 var components = datePickerDate.getComponenets()
-                components.timeZone = TimeZone(abbreviation: "GMT")
+                components.timeZone = TimeZone.current
                 let date = calendar.date(from: components)
                 
                 let transaction = Transaction(context: coreDataStack.managedContext)
@@ -95,10 +95,8 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.currency = wallet.currency
                 transaction.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
                 transaction.dateCreated = Date()
+                transaction.simpleDate = Int64(date!.getSimpleDescr())
                 transaction.date = date
-                transaction.day = Int32(components.day!)
-                transaction.month = Int32(components.month!)
-                transaction.year = Int32(components.year!)
             }
         }
         coreDataStack.saveContext()
@@ -106,18 +104,13 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     func tryToChangeDate (transaction: Transaction) {
-        if transaction.date == datePickerDate {
+        if transaction.simpleDate == datePickerDate.getSimpleDescr() {
             return
         } else {
-            let calendar = Calendar.current
-            var components = datePickerDate.getComponenets()
-            components.timeZone = TimeZone(abbreviation: "GMT")
-            let date = calendar.date(from: components)
             
+            let date = datePickerDate
             transaction.date = date
-            transaction.day = Int32(components.day!)
-            transaction.month = Int32(components.month!)
-            transaction.year = Int32(components.year!)
+            transaction.simpleDate = Int64(date.getSimpleDescr())
             transaction.dateCreated = Date()
             
         }

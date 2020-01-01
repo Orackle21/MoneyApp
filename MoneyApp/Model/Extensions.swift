@@ -232,9 +232,27 @@ extension Date {
     func getComponenets() -> DateComponents {
         
         let calendar = Calendar.current
-        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: self)
+        let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.timeZone], from: self)
         return components
     }
+    
+    func getStrippedDate() -> Date {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.timeZone], from: self)
+        components.timeZone = TimeZone.current
+        return calendar.date(from: components)!
+    }
+    
+    func getSimpleDescr() -> Int {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        
+        return Int(dateFormatter.string(from: self))!
+        
+    }
+    
+    
     
 }
 
@@ -274,4 +292,34 @@ extension UIDevice {
         }
     }
 
+}
+
+
+extension Date {
+    
+    func year() -> Int? {
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([Calendar.Component.year], from: self)
+        return components.year
+        
+    }
+    
+    func month() -> Int? {
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([Calendar.Component.month], from: self)
+        return components.month
+        
+    }
+    
+    func day() -> Int? {
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([Calendar.Component.day], from: self)
+        return components.day
+        
+    }
+    
+    
 }

@@ -23,7 +23,7 @@ class TransactionsViewController: UIViewController {
     
     var coreDataStack: CoreDataStack!
     lazy var fetchedResultsController: NSFetchedResultsController<Transaction> = getController()
-    private var keyPath = #keyPath(Transaction.day)
+    private var keyPath = #keyPath(Transaction.date)
     private var transactionsFetch: NSFetchRequest<Transaction>!
 
     var walletContainer: WalletContainer!
@@ -33,10 +33,9 @@ class TransactionsViewController: UIViewController {
     }()
     
     private lazy var dater = Dater()
-    private lazy var selectedDateInterval = DateInterval()
+    private lazy var dateBarItems = dater.calculateDateIntervals()
+    private lazy var selectedDateInterval = dateBarItems[0]
 
-   
-    private var dateBarItems = [DateInterval]()
     
     
     // FIXME: - Implement cell update through delegate
@@ -46,7 +45,6 @@ class TransactionsViewController: UIViewController {
         
         
         // dateBar preparation
-        dater.setDaterRange(.months)
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]
         
@@ -56,7 +54,7 @@ class TransactionsViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
-        styleDateBar()
+       
     }
     
     override func viewDidLayoutSubviews() {
@@ -92,46 +90,7 @@ class TransactionsViewController: UIViewController {
     }
     
     
-    func getController() -> NSFetchedResultsController<Transaction> {
-        // 1
-        
-        let startDate = selectedDateInterval.start as NSDate
-        let endDate = selectedDateInterval.end as NSDate
-
-        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-        let predicate = NSPredicate(format: "date >=  %@ AND date <=  %@ AND wallet == %@", startDate, endDate, selectedWallet ?? "0")
-        
-        fetchRequest.predicate = predicate
-        
-        let sort1 = NSSortDescriptor(key: keyPath, ascending: false)
-        let sort2 = NSSortDescriptor(key: #keyPath(Transaction.dateCreated), ascending: false)
-        fetchRequest.sortDescriptors = [sort1, sort2]
-        
-        // 2
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: coreDataStack!.managedContext,
-            sectionNameKeyPath: keyPath,
-            cacheName: nil)
-        
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-    }
-    
-    func fetchTransactions() {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
-            
-        }
-    }
-    
-    func setControllerAndFetch() {
-        fetchedResultsController = getController()
-        fetchTransactions()
-        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    }
+   
     
 
 // MARK: - SEGUE CHOOSER
@@ -341,7 +300,7 @@ extension TransactionsViewController:  UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == walletBar {
-            return CGSize(width: 120.0, height: 64.0)
+            return CGSize(width: 120.0, height: 65.0)
         }
             
         else {
@@ -361,6 +320,56 @@ extension TransactionsViewController:  UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - CoreData Methods and Delegates
+
+extension  TransactionsViewController {
+    
+    func getController() -> NSFetchedResultsController<Transaction> {
+        // 1
+        
+        let startDate = NSNumber(value: selectedDateInterval.start.getSimpleDescr())
+        let endDate = NSNumber(value: selectedDateInterval.end.getSimpleDescr())
+        
+        print (startDate)
+        print (endDate)
+        
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, selectedWallet ?? "0")
+        
+        let compountPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate])
+        
+        fetchRequest.predicate = compountPredicate
+        
+        let sort1 = NSSortDescriptor(key: keyPath, ascending: false)
+        let sort2 = NSSortDescriptor(key: #keyPath(Transaction.dateCreated), ascending: false)
+        fetchRequest.sortDescriptors = [sort1, sort2]
+        
+        // 2
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: coreDataStack!.managedContext,
+            sectionNameKeyPath: keyPath,
+            cacheName: nil)
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }
+    
+       func fetchTransactions() {
+           do {
+               try fetchedResultsController.performFetch()
+           } catch let error as NSError {
+               print("Fetching error: \(error), \(error.userInfo)")
+               
+           }
+       }
+       
+       func setControllerAndFetch() {
+           fetchedResultsController = getController()
+           fetchTransactions()
+           controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+       }
+}
 
 extension TransactionsViewController: NSFetchedResultsControllerDelegate {
     
@@ -376,23 +385,15 @@ extension TransactionsViewController: NSFetchedResultsControllerDelegate {
 extension TransactionsViewController {
     
     private func configureDateBarData() {
-        dateBarItems = dater.getTimeIntervals()
-    }
-    
-    private func styleDateBar() {
+        dateBarItems = dater.calculateDateIntervals()
         dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
-
     }
-    
-    
-    
     
     
     private func upDater(_ timeRange: DaterRange) {
-        dater.setDaterRange(timeRange)
+        dater.daterRange = timeRange
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]
-        tableView.reloadData()
         dateBar.reloadData()
         dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
         setControllerAndFetch()
@@ -405,7 +406,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
              
-                self.keyPath = #keyPath(Transaction.day)
+                self.keyPath = #keyPath(Transaction.simpleDate)
                    self.upDater(.days)
         }))
         actionSheet!.addAction(UIAlertAction(
@@ -413,7 +414,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
                 
-                self.keyPath = #keyPath(Transaction.day)
+                self.keyPath = #keyPath(Transaction.simpleDate)
                 self.upDater(.weeks)
         }))
         actionSheet!.addAction(UIAlertAction(
@@ -421,7 +422,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
               
-                self.keyPath = #keyPath(Transaction.day)
+                self.keyPath = #keyPath(Transaction.simpleDate)
                   self.upDater(.months)
         }))
         actionSheet!.addAction(UIAlertAction(
@@ -429,7 +430,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
                
-                self.keyPath = #keyPath(Transaction.month)
+                self.keyPath = #keyPath(Transaction.simpleDate)
                  self.upDater(.year)
 
         }))
@@ -439,7 +440,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
                 
-                self.keyPath = #keyPath(Transaction.year)
+                self.keyPath = #keyPath(Transaction.simpleDate)
                 self.upDater(.all)
         }))
         actionSheet!.addAction(UIAlertAction(

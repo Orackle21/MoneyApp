@@ -52,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let navigationController = tabController.viewControllers![0] as? UINavigationController {
                 if  let initialViewController = navigationController.viewControllers.first as? ReportsViewController {
                     initialViewController.coreDataStack = coreDataStack
+                    initialViewController.walletContainer = walletContainer
                 }                
             }
         }

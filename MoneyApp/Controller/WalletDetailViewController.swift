@@ -61,12 +61,9 @@ class WalletDetailViewController: UITableViewController {
         initialBalance.category = category
         initialBalance.currency = walletCurrency
         initialBalance.wallet = wallet
-        initialBalance.date = Date()
+        initialBalance.date = Date().getStrippedDate()
+        initialBalance.simpleDate = Int64(Date().getSimpleDescr())
         initialBalance.dateCreated = Date()
-        let components = initialBalance.date!.getComponenets()
-        initialBalance.day = Int32(components.day!)
-        initialBalance.month = Int32(components.month!)
-        initialBalance.year = Int32(components.year!)
         
         
         walletContainer.setSelectedWallet(wallet: wallet)
