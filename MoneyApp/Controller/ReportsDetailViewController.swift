@@ -236,7 +236,17 @@ extension ReportsDetailViewController {
            pFormatter.multiplier = 1
            pFormatter.percentSymbol = " %"
         pieChartData.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
-        pieChartData.setValueTextColor(.black)
+        if #available(iOS 13.0, *) {
+            pieChartData.setValueTextColor(.label)
+            pieChartDataSet.valueLineColor = .label
+            pieChart.legend.textColor = .label
+            pieChart.holeColor = .clear
+        } else {
+            pieChartData.setValueTextColor(.black)
+            pieChartDataSet.valueLineColor = .black
+            pieChart.legend.textColor = .black
+            pieChart.holeColor = .clear
+        }
         
         format.numberStyle = .decimal
         
