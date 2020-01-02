@@ -25,8 +25,6 @@ class CategoryReportViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         fetchTransactions()
     }
     

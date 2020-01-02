@@ -26,7 +26,6 @@ class ReportsViewController: UIViewController {
     lazy private var dater = Dater()
     var walletContainer: WalletContainer!
     
-    //FIXME: Get selected wallet
     lazy private var wallet = walletContainer.getSelectedWallet()
     
     private var outerIntervals = [DateInterval]()

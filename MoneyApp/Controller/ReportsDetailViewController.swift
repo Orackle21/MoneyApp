@@ -11,29 +11,15 @@ import Charts
 import CoreData
 
 class ReportsDetailViewController: UIViewController {
-
+    
     var coreDataStack: CoreDataStack!
     var wallet: Wallet!
     var dateInterval: DateInterval!
-    
-    
-    private var incomeTransactions = [Category: [Transaction]]()
-    private var expenseTransactions = [Category: [Transaction]]()
 
-    private var categories = [Category]()
-    
-    private var amounts: [NSDecimalNumber] {
-        get {
-            return getChartAmounts()
-        }
-    }
-    
-    
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-   
+    
     @IBAction func segmentChange(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0: setExpenseAndUpdate()
@@ -43,139 +29,48 @@ class ReportsDetailViewController: UIViewController {
         }
     }
     
+    private var incomeTransactions = [Category: [Transaction]]()
+    private var expenseTransactions = [Category: [Transaction]]()
+    private var categories = [Category]()
+    private var amounts: [NSDecimalNumber] {
+        get {
+            return getChartAmounts()
+        }
+    }
     
     private var income: NSDecimalNumber = 0.0
     private var expenses: NSDecimalNumber = 0.0
     
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         customizeChartData()
         calculateIncomeAndExpenses()
         updateChart()
     }
     
     private func setExpenseAndUpdate() {
-        categories = Array(expenseTransactions.keys)
+        categories = Array(self.expenseTransactions.keys).sorted(by: { getAmountByCategory($0) < getAmountByCategory($1) })
         updateChart()
     }
     
     private func setIncomeAndUpdate() {
-       categories = Array(incomeTransactions.keys)
+        categories = Array(self.incomeTransactions.keys).sorted(by: {getAmountByCategory($0) > getAmountByCategory($1)})
         updateChart()
     }
     
     private func updateChart() {
         customizeChart(dataPoints: categories.map({$0.name!}),
-                            values: amounts.map({$0.doubleValue}))
+                       values: amounts.map({$0.doubleValue}))
         tableView.reloadData()
-
-    }
-    
-    private func getAmountByCategory(_ category: Category) -> NSDecimalNumber {
-        var amount: NSDecimalNumber = 0.0
-        
-        var transactionsByCategory: [Category: [Transaction]]
-        
-        switch segmentedControl.selectedSegmentIndex {
-            case 0: transactionsByCategory = expenseTransactions
-            case 1: transactionsByCategory = incomeTransactions
-            default: transactionsByCategory = expenseTransactions
-            }
-        
-        
-        let transactions = transactionsByCategory[category]
-        for transaction in transactions! {
-            amount = amount + transaction.amount!
-        }
-        return amount
-    }
-    
-    private func getChartAmounts() -> [NSDecimalNumber] {
-        var amounts = [NSDecimalNumber]()
-        for category in categories {
-            let amount = getAmountByCategory(category)
-            amounts.append(amount)
-        }
-        return amounts
-    }
-    
-    private func calculateIncomeAndExpenses() {
-        for category in expenseTransactions.keys {
-            let transactions = expenseTransactions[category]
-            for transaction in transactions! {
-                let amount = transaction.amount
-                expenses = expenses + amount!
-            }
-        }
-        
-        for category in incomeTransactions.keys {
-            let transactions = incomeTransactions[category]
-            for transaction in transactions! {
-                let amount = transaction.amount
-                income = income + amount!
-            }
-        }
-    }
-    
-    
-    
-    private func customizeChartData() {
-        guard wallet != nil else {
-            return
-        }
-             
-        let transactions = fetchTransactions()
-        
-        let incomeTransactions = Array(transactions.filter({ $0.amount! > 0.0 }))
-        let expenseTransactions = Array(transactions.filter({ $0.amount! < 0.0 }))
-
-        self.incomeTransactions = Dictionary(grouping: incomeTransactions, by: {
-            $0.category!
-        })
-        self.expenseTransactions = Dictionary(grouping: expenseTransactions, by: {
-            $0.category!
-        })
-        categories = Array(self.expenseTransactions.keys)
-        
-        //FIXME: FIX ALL THIS 
         
     }
     
-    
-    
-    func fetchTransactions() -> [Transaction]{
-        
-        let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
-        let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
 
-        
-
-        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-
-        let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, wallet! )
-        fetchRequest.predicate = predicate
-        
-        var result = [Transaction]()
-        do {
-            result =  try coreDataStack.managedContext.fetch(fetchRequest)
-            print (result)
-        } catch let error as NSError {
-            print (error)
-        }
-        return result
-    }
-   
     
-    
-   
-    
-
     // MARK: - Navigation
-
-   
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "categoryReport" {
             if let destination = segue.destination as? CategoryReportViewController {
@@ -198,10 +93,10 @@ class ReportsDetailViewController: UIViewController {
         }
     }
     
-
+    
 }
 
-    //MARK: - TableView DataSource and Delegate methods
+//MARK: - TableView DataSource and Delegate methods
 
 extension ReportsDetailViewController: UITableViewDataSource {
     
@@ -211,12 +106,12 @@ extension ReportsDetailViewController: UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return categories.count
-//            switch segmentedControl.selectedSegmentIndex {
-//            case 0: return expenseTransactions.keys.count
-//            case 1: return incomeTransactions.keys.count
-//            default: return 0
-//            }
+            //  return categories.count
+            switch segmentedControl.selectedSegmentIndex {
+            case 0: return expenseTransactions.keys.count
+            case 1: return incomeTransactions.keys.count
+            default: return 0
+            }
         }
     }
     
@@ -255,10 +150,7 @@ extension ReportsDetailViewController: UITableViewDataSource {
             
             let name = categories[indexPath.row].name
             cell.periodNameLabel.text = name
-            
-           
             let category = categories[indexPath.row]
-            
             cell.amountLabel.text = getAmountByCategory(category).description
             
             if let icon = cell.iconView as? IconView {
@@ -288,8 +180,8 @@ extension ReportsDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0
-       }
-
+    }
+    
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
@@ -311,12 +203,13 @@ extension ReportsDetailViewController {
         let format = NumberFormatter()
         var newValue = values
         
+        // Negative number fix for pieChart
         if let value = values.first {
-           if value < 0 {
+            if value < 0 {
                 newValue = values.map( { $0 * -1 })
                 format.positivePrefix = "-"
             }
-           
+            
         }
         
         var dataEntries: [ChartDataEntry] = []
@@ -331,7 +224,7 @@ extension ReportsDetailViewController {
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         
         format.numberStyle = .decimal
-       
+        
         let formatter = DefaultValueFormatter(formatter: format)
         pieChartData.setValueFormatter(formatter)
         // 4. Assign it to the chart’s data
@@ -340,15 +233,120 @@ extension ReportsDetailViewController {
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
-        for _ in 0..<numbersOfColor {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
+        for category in categories {
+            
+            let colorName = category.skin!.color
+            let color = UIColor(named: colorName)
+            if let color = color {
+                colors.append(color)
+            }
+            
         }
         return colors
     }
 }
 
+// MARK: - Data Preparation and manipulation
+
+extension ReportsDetailViewController {
+     
+    private func customizeChartData() {
+        guard wallet != nil else {
+            return
+        }
+        
+        let transactions = fetchTransactions()
+        
+        let incomeTransactions = Array(transactions.filter({ $0.amount! > 0.0 }))
+        let expenseTransactions = Array(transactions.filter({ $0.amount! < 0.0 }))
+        
+        self.incomeTransactions = Dictionary(grouping: incomeTransactions, by: {
+            $0.category!
+        })
+        self.expenseTransactions = Dictionary(grouping: expenseTransactions, by: {
+            $0.category!
+        })
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            categories = Array(self.expenseTransactions.keys).sorted(by: {getAmountByCategory($0) < getAmountByCategory($1)})
+        } else {
+            categories = Array(self.incomeTransactions.keys).sorted(by: {getAmountByCategory($0) > getAmountByCategory($1)})
+        }
+    }
+    
+    private func getAmountByCategory(_ category: Category) -> NSDecimalNumber {
+        var amount: NSDecimalNumber = 0.0
+        
+        var transactionsByCategory: [Category: [Transaction]]
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            transactionsByCategory = expenseTransactions
+        } else {
+            transactionsByCategory = incomeTransactions
+        }
+        
+        let transactions = transactionsByCategory[category]
+        if let transactions = transactions {
+            for transaction in transactions {
+                amount = amount + transaction.amount!
+            }
+            
+        }
+        return amount
+    }
+    
+    private func getChartAmounts() -> [NSDecimalNumber] {
+        var amounts = [NSDecimalNumber]()
+        for category in categories {
+            let amount = getAmountByCategory(category)
+            amounts.append(amount)
+        }
+        return amounts
+    }
+    
+    private func calculateIncomeAndExpenses() {
+        expenses = 0
+        income = 0
+        for category in expenseTransactions.keys {
+            let transactions = expenseTransactions[category]
+            for transaction in transactions! {
+                let amount = transaction.amount
+                expenses = expenses + amount!
+            }
+        }
+        
+        for category in incomeTransactions.keys {
+            let transactions = incomeTransactions[category]
+            for transaction in transactions! {
+                let amount = transaction.amount
+                income = income + amount!
+            }
+        }
+    }
+    
+
+    private func fetchTransactions() -> [Transaction] {
+        
+        let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
+        let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
+        
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        
+        let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, wallet! )
+        fetchRequest.predicate = predicate
+        
+        var result = [Transaction]()
+        do {
+            result =  try coreDataStack.managedContext.fetch(fetchRequest)
+            print (result)
+        } catch let error as NSError {
+            print (error)
+        }
+        return result
+    }
+    
+    
+    
+    
+}
 
