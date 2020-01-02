@@ -23,9 +23,9 @@ class TransactionsViewController: UIViewController {
     
     var coreDataStack: CoreDataStack!
     lazy var fetchedResultsController: NSFetchedResultsController<Transaction> = getController()
-    private var keyPath = #keyPath(Transaction.date)
-    private var transactionsFetch: NSFetchRequest<Transaction>!
+    private var keyPath = #keyPath(Transaction.simpleDate)
 
+    
     var walletContainer: WalletContainer!
     private var wallets = [Wallet]()
     private lazy var selectedWallet: Wallet? = {

@@ -20,7 +20,7 @@ class ReportsDetailViewController: UIViewController {
     private var incomeTransactions = [Category: [Transaction]]()
     private var expenseTransactions = [Category: [Transaction]]()
 
-    private lazy var categories = [Category]()
+    private var categories = [Category]()
     
     private var amounts: [NSDecimalNumber] {
         get {
@@ -46,6 +46,8 @@ class ReportsDetailViewController: UIViewController {
     
     private var income: NSDecimalNumber = 0.0
     private var expenses: NSDecimalNumber = 0.0
+    
+    
     
     
     override func viewDidLoad() {
@@ -121,14 +123,14 @@ class ReportsDetailViewController: UIViewController {
     
     
     private func customizeChartData() {
-        guard let wallet = wallet else {
+        guard wallet != nil else {
             return
         }
              
         let transactions = fetchTransactions()
         
-        var incomeTransactions = Array(transactions.filter({ $0.amount! > 0.0 }))
-        var expenseTransactions = Array(transactions.filter({ $0.amount! < 0.0 }))
+        let incomeTransactions = Array(transactions.filter({ $0.amount! > 0.0 }))
+        let expenseTransactions = Array(transactions.filter({ $0.amount! < 0.0 }))
 
         self.incomeTransactions = Dictionary(grouping: incomeTransactions, by: {
             $0.category!
@@ -180,6 +182,16 @@ class ReportsDetailViewController: UIViewController {
                 
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     destination.category = categories[indexPath.row]
+                    destination.coreDataStack = coreDataStack
+                    destination.wallet = wallet
+                    destination.selectedDateInterval = dateInterval
+                    
+                    switch segmentedControl.selectedSegmentIndex {
+                    case 0: destination.isExpense = true
+                    case 1: destination.isExpense = false
+                    default: return
+                    }
+                    
                 }
                 
             }
@@ -199,12 +211,12 @@ extension ReportsDetailViewController: UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            
-            switch segmentedControl.selectedSegmentIndex {
-            case 0: return expenseTransactions.keys.count
-            case 1: return incomeTransactions.keys.count
-            default: return 0
-            }
+            return categories.count
+//            switch segmentedControl.selectedSegmentIndex {
+//            case 0: return expenseTransactions.keys.count
+//            case 1: return incomeTransactions.keys.count
+//            default: return 0
+//            }
         }
     }
     
