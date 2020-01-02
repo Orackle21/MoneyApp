@@ -8,21 +8,20 @@
 
 import UIKit
 import Charts
+import CoreData
 
 class ReportsDetailViewController: UIViewController {
 
     var coreDataStack: CoreDataStack!
-    var selectedTimeRange: DateInterval!
+    var wallet: Wallet!
+    var dateInterval: DateInterval!
     
-    private var transactionsGroupedByCategories = [Category: [Transaction]]()
     
-    private var incomeTransactionsGrouped = [Category: [Transaction]]()
-    private var expenseTransactionsGrouped = [Category: [Transaction]]()
+    private var incomeTransactions = [Category: [Transaction]]()
+    private var expenseTransactions = [Category: [Transaction]]()
 
+    private lazy var categories = [Category]()
     
-    private var categories: [Category] {
-        Array(transactionsGroupedByCategories.keys)
-    }
     private var amounts: [NSDecimalNumber] {
         get {
             return getChartAmounts()
@@ -57,12 +56,12 @@ class ReportsDetailViewController: UIViewController {
     }
     
     private func setExpenseAndUpdate() {
-        transactionsGroupedByCategories = expenseTransactionsGrouped
+        categories = Array(expenseTransactions.keys)
         updateChart()
     }
     
     private func setIncomeAndUpdate() {
-        transactionsGroupedByCategories = incomeTransactionsGrouped
+       categories = Array(incomeTransactions.keys)
         updateChart()
     }
     
@@ -75,7 +74,17 @@ class ReportsDetailViewController: UIViewController {
     
     private func getAmountByCategory(_ category: Category) -> NSDecimalNumber {
         var amount: NSDecimalNumber = 0.0
-        let transactions = transactionsGroupedByCategories[category]
+        
+        var transactionsByCategory: [Category: [Transaction]]
+        
+        switch segmentedControl.selectedSegmentIndex {
+            case 0: transactionsByCategory = expenseTransactions
+            case 1: transactionsByCategory = incomeTransactions
+            default: transactionsByCategory = expenseTransactions
+            }
+        
+        
+        let transactions = transactionsByCategory[category]
         for transaction in transactions! {
             amount = amount + transaction.amount!
         }
@@ -92,16 +101,16 @@ class ReportsDetailViewController: UIViewController {
     }
     
     private func calculateIncomeAndExpenses() {
-        for category in expenseTransactionsGrouped.keys {
-            let transactions = expenseTransactionsGrouped[category]
+        for category in expenseTransactions.keys {
+            let transactions = expenseTransactions[category]
             for transaction in transactions! {
                 let amount = transaction.amount
                 expenses = expenses + amount!
             }
         }
         
-        for category in incomeTransactionsGrouped.keys {
-            let transactions = incomeTransactionsGrouped[category]
+        for category in incomeTransactions.keys {
+            let transactions = incomeTransactions[category]
             for transaction in transactions! {
                 let amount = transaction.amount
                 income = income + amount!
@@ -112,36 +121,50 @@ class ReportsDetailViewController: UIViewController {
     
     
     private func customizeChartData() {
-//        guard let wallet = stateController.getSelectedWallet() else {
-//            return
-//        }
-//
-//        let transactionDates = wallet.getTransactionDatesBy(dateInterval: selectedTimeRange)
-//        var transactions = [Transaction]()
-//        for date in transactionDates {
-//            guard let transactionsByDate = wallet.allTransactionsGrouped[date] else { return }
-//            for transaction in transactionsByDate {
-//                transactions.append(transaction)
-//            }
-//        }
-//
-//        let incomeTransactions = Array(transactions.filter({ $0.amount > 0 }))
-//        let expenseTransactions = Array(transactions.filter({ $0.amount < 0 }))
-//
-//        incomeTransactionsGrouped = Dictionary(grouping: incomeTransactions, by: {
-//            $0.category!
-//        })
-//        expenseTransactionsGrouped = Dictionary(grouping: expenseTransactions, by: {
-//            $0.category!
-//        })
-//        transactionsGroupedByCategories = expenseTransactionsGrouped
+        guard let wallet = wallet else {
+            return
+        }
+             
+        let transactions = fetchTransactions()
         
+        var incomeTransactions = Array(transactions.filter({ $0.amount! > 0.0 }))
+        var expenseTransactions = Array(transactions.filter({ $0.amount! < 0.0 }))
+
+        self.incomeTransactions = Dictionary(grouping: incomeTransactions, by: {
+            $0.category!
+        })
+        self.expenseTransactions = Dictionary(grouping: expenseTransactions, by: {
+            $0.category!
+        })
+        categories = Array(self.expenseTransactions.keys)
         
         //FIXME: FIX ALL THIS 
         
     }
     
     
+    
+    func fetchTransactions() -> [Transaction]{
+        
+        let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
+        let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
+
+        
+
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+
+        let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, wallet! )
+        fetchRequest.predicate = predicate
+        
+        var result = [Transaction]()
+        do {
+            result =  try coreDataStack.managedContext.fetch(fetchRequest)
+            print (result)
+        } catch let error as NSError {
+            print (error)
+        }
+        return result
+    }
    
     
     
@@ -157,7 +180,6 @@ class ReportsDetailViewController: UIViewController {
                 
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     destination.category = categories[indexPath.row]
-                    destination.transactions = transactionsGroupedByCategories[categories[indexPath.row]]
                 }
                 
             }
@@ -174,8 +196,16 @@ extension ReportsDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        section == 0 ? 1 : transactionsGroupedByCategories.keys.count
-        
+        if section == 0 {
+            return 1
+        } else {
+            
+            switch segmentedControl.selectedSegmentIndex {
+            case 0: return expenseTransactions.keys.count
+            case 1: return incomeTransactions.keys.count
+            default: return 0
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -41,20 +41,8 @@ class ReportsViewController: UIViewController {
         customizeChartLooks()
     }
     
-    func getAmounts() {
-        
-        for outerInterval in outerIntervals {
-            if let innerIntervals = dateIntervals[outerInterval] {
-                for dateInterval in innerIntervals {
-                    let result =  sumAmount(dateInterval: dateInterval)
-                    print (result)
-                    amountsByDate.append(result.doubleValue)
-                    let string = dater.dateFormatter.string(from: dateInterval.start)
-                    dateStrings.append(string)
-                }
-            }
-        }
-    }
+    
+    
     
     
     
@@ -105,6 +93,22 @@ class ReportsViewController: UIViewController {
         getAmounts()
         
         
+    }
+    
+    // Fetches total amount of transactions for every dateInterval. Stores said totals in amountsByDate array + populates dateStrings array.
+    
+    func getAmounts() {
+        for outerInterval in outerIntervals {
+            if let innerIntervals = dateIntervals[outerInterval] {
+                for dateInterval in innerIntervals {
+                    let result =  sumAmount(dateInterval: dateInterval)
+                    print (result)
+                    amountsByDate.append(result.doubleValue)
+                    let string = dater.dateFormatter.string(from: dateInterval.start)
+                    dateStrings.append(string)
+                }
+            }
+        }
     }
     
     
@@ -158,8 +162,9 @@ class ReportsViewController: UIViewController {
                     
                     let innerArray = dateIntervals[outerIntervals[indexPath.section]]
                     let dateInterval = innerArray![indexPath.row]
-                    destination.selectedTimeRange = dateInterval
+                    destination.dateInterval = dateInterval
                     destination.coreDataStack = coreDataStack
+                    destination.wallet = wallet
                 }
             }
         }
@@ -366,21 +371,16 @@ extension ReportsViewController {
         let sumExpressionDesc = NSExpressionDescription()
         sumExpressionDesc.name = "sumAmounts"
         
-        let specialCountExp =  NSExpression(forKeyPath: #keyPath(Transaction.amount))
+        let transactionsAmountSum =  NSExpression(forKeyPath: #keyPath(Transaction.amount))
         sumExpressionDesc.expression = NSExpression(
             forFunction: "sum:",
-            arguments: [specialCountExp])
+            arguments: [transactionsAmountSum])
         sumExpressionDesc.expressionResultType = .decimalAttributeType
 
         
         fetchRequest.propertiesToFetch = [sumExpressionDesc]
 
-        // Step 3:
-        // - Execute the fetch request which returns an array.
-        // - There will only be one result. Get the first array
-        //   element and assign to 'resultMap'.
-        // - The summed amount value is in the dictionary as
-        //   'amountTotal'. This will be summed value.
+        
 
         do {
             let results = try coreDataStack.managedContext.fetch(fetchRequest)
