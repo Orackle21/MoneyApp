@@ -219,17 +219,37 @@ extension ReportsDetailViewController {
         }
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        
+        pieChartDataSet.valueLinePart1OffsetPercentage = 0.8
+        pieChartDataSet.valueLinePart1Length = 0.4
+        pieChartDataSet.valueLinePart2Length = 0.6
+        //set.xValuePosition = .outsideSlice
+        pieChartDataSet.yValuePosition = .outsideSlice
+        
         pieChartDataSet.colors = colorsOfCharts(numbersOfColor: dataPoints.count)
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         
+        let pFormatter = NumberFormatter()
+           pFormatter.numberStyle = .percent
+           pFormatter.maximumFractionDigits = 1
+           pFormatter.multiplier = 1
+           pFormatter.percentSymbol = " %"
+        pieChartData.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
+        pieChartData.setValueTextColor(.black)
+        
         format.numberStyle = .decimal
         
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieChartData.setValueFormatter(formatter)
+//        let formatter = DefaultValueFormatter(formatter: format)
+//        pieChartData.setValueFormatter(formatter)
         // 4. Assign it to the chart’s data
         pieChart.data = pieChartData
+        pieChart.usePercentValuesEnabled = true
+        pieChart.drawEntryLabelsEnabled = false
+        pieChart.rotationEnabled = false
     }
+    
+    
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
@@ -240,7 +260,6 @@ extension ReportsDetailViewController {
             if let color = color {
                 colors.append(color)
             }
-            
         }
         return colors
     }
