@@ -29,9 +29,10 @@ class IconView: UIView {
         path.fill()
         
         
-//        self.layer.shadowOpacity = 0.30
-//        self.layer.shadowOffset = CGSize(width: 0, height: 5)
-//        self.layer.shadowRadius = 4.0
+        self.layer.shadowOpacity = 0.17
+        self.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.layer.shadowRadius = 5.0
+        
         
         
 //        let colorSpace = CGColorSpaceCreateDeviceRGB()

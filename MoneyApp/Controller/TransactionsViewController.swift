@@ -117,15 +117,11 @@ class TransactionsViewController: UIViewController {
                 if let destination = navigationController.viewControllers.first as? TransactionDetailViewController  {
                     if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                         
-                        guard let wallet = selectedWallet else {
-                            return
-                        }
-                        
-                        destination.transactionToEdit = fetchedResultsController.object(at: indexPath)
-                            destination.wallet = wallet
-                            destination.title = "Edit Transaction"
                         destination.coreDataStack = coreDataStack
-    
+                        destination.wallet = selectedWallet
+                        destination.transactionToEdit = fetchedResultsController.object(at: indexPath)
+                        destination.title = "Edit Transaction"
+                        tableView.deselectRow(at: indexPath, animated: true)
                     }
                 }
             }
@@ -329,9 +325,6 @@ extension  TransactionsViewController {
         
         let startDate = NSNumber(value: selectedDateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: selectedDateInterval.end.getSimpleDescr())
-        
-        print (startDate)
-        print (endDate)
         
         let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, selectedWallet ?? "0")

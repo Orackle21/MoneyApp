@@ -42,8 +42,13 @@ class CategoryDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+           super.viewWillDisappear(animated)
+           self.view.endEditing(true)
+       }
+       
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

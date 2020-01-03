@@ -44,7 +44,7 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkTheCategory() //FIXME:
+     //   checkTheCategory() //FIXME:
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -54,11 +54,12 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateFormatter.timeZone = TimeZone.current
-        datePicker.timeZone = TimeZone.current
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-        dateLabel.text = dateFormatter.string(from: datePickerDate)
         
+     let start = CFAbsoluteTimeGetCurrent()
+        
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        dateLabel.text = dateFormatter.string(from: datePicker.date)
+
         if let item = transactionToEdit {
             noteTextField.text = item.note
             amountTextField.text = item.amount!.description
@@ -66,7 +67,8 @@ class TransactionDetailViewController: UITableViewController {
             datePickerDate = item.date!
             datePicker.date = item.date!
         }
-        
+      let diff = CFAbsoluteTimeGetCurrent() - start
+      print("Took \(diff) seconds")
     }
     
     
@@ -90,6 +92,7 @@ class TransactionDetailViewController: UITableViewController {
                 let date = calendar.date(from: components)
                 
                 let transaction = Transaction(context: coreDataStack.managedContext)
+                transaction.note = noteTextField.text ?? ""
                 transaction.wallet = wallet
                 transaction.category = selectedCategory!
                 transaction.currency = wallet.currency

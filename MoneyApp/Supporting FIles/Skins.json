@@ -20,38 +20,33 @@
     "Food": [
          {
            "name" : "Bus",
-           "color" : "Field",
+           "color" : "Faded Yellow",
            "icon" : "bus"
          },
          {
            "name" : "Taxi",
-           "color" : "Sunrise",
+           "color" : "Lollipop",
            "icon" : "taxi"
          },
          {
            "name" : "Cart",
-           "color" : "Dusk",
+           "color" : "Midnight",
            "icon" : "cart"
          },
          {
            "name" : "Taxi",
-           "color" : "Sunrise",
+           "color" : "Old Gold",
            "icon" : "taxi"
          },
          {
            "name" : "Cart",
-           "color" : "Dusk",
+           "color" : "Terracota",
            "icon" : "cart"
          },
          {
            "name" : "Taxi",
-           "color" : "Sunrise",
+           "color" : "Wave",
            "icon" : "taxi"
-         },
-         {
-           "name" : "Cart",
-           "color" : "Dusk",
-           "icon" : "cart"
          }
        ]
     

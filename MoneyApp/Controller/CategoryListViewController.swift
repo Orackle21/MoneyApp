@@ -34,14 +34,24 @@ class CategoryListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // tableView.tableFooterView = UIView()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
-        let nibName = UINib(nibName: "CategoryHeader", bundle: nil)
-        self.tableView.register(nibName, forHeaderFooterViewReuseIdentifier: "CustomHeaderView")
         fetchCategories()
+        addSubCategories()
     }
     
-    func fetchCategories() {
+   
+    private func addSubCategories() {
+        for category in categories {
+            let subcategories = category.subCategories?.array as! [Category]
+            let index = categories.firstIndex(of: category)
+            if !subcategories.isEmpty, let index = index {
+                categories.insert(contentsOf: subcategories, at: index + 1)
+            }
+        }
+    }
+    
+    
+    private func fetchCategories() {
         guard let wallet = wallet else { return }
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let predicate = NSPredicate(format: "wallet == %@", wallet)
@@ -69,31 +79,43 @@ class CategoryListViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return categories.count
+        return 1
 
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return categories[section].subCategories?.count ?? 0
+
+        return categories.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        let cellIdentifier: String
         
-        let subCategories = categories[indexPath.section]
-        let subCategory = subCategories.subCategories![indexPath.row] as! Category
-                    
-            cell.textLabel?.text = subCategory.name
+        let category = categories[indexPath.row]
         
+        if category is SubCategory {
+            cellIdentifier = "subCategoryCell"
+        } else {
+            cellIdentifier = "categoryCell"
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        if let cell = cell as? subCategoryCell {
+            cell.customize(skin: category.skin!, name: category.name!)
+        }
+        
+        if let cell = cell as? CategoryCell {
+            cell.customize(skin: category.skin!, name: category.name!)
+        }
+
         return cell
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
  
-        selectedCategory = categories[indexPath.section].subCategories![indexPath.row] as? Category
+        selectedCategory = categories[indexPath.row]
         return indexPath
     }
 
@@ -115,49 +137,6 @@ class CategoryListViewController: UITableViewController {
         }
     }
 
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50.0
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeaderView" ) as! HeaderView
-        headerView.nameLabel.text = categories[section].name
-        headerView.iconView.drawIcon(skin: categories[section].skin)
-        headerView.iconView.setNeedsDisplay()
-        
-        // Set backround color for a grouped type of tableview
-        
-        let backgroundView = UIView(frame: headerView.bounds)
-        if #available(iOS 13.0, *) {
-            backgroundView.backgroundColor = UIColor.tertiarySystemBackground
-        } else {
-             backgroundView.backgroundColor = UIColor.white
-        }
-        headerView.backgroundView = backgroundView
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(headerTapped(_:))
-        )
-        headerView.tag = section
-        headerView.addGestureRecognizer(tapGestureRecognizer)
-        
-        return headerView
-    }
-
-    
-    @objc func headerTapped(_ sender: UITapGestureRecognizer?) {
-        guard let section = sender?.view?.tag else { return }
-        
-        let view = sender?.view as! HeaderView
-        view.contentView.backgroundColor = #colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8392156863, alpha: 1)
-        
-
-        selectedCategory = categories[section]
-        performSegue(withIdentifier: "unwindBack", sender: self)
-    }
-    
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -169,14 +148,13 @@ class CategoryListViewController: UITableViewController {
             }
         }
     }
-
-
-
 }
+
 
 extension CategoryListViewController: CategoryDetailViewControllerDelegate {
     func didCreateNewCategory() {
         fetchCategories()
+        addSubCategories()
         tableView.reloadData()
     }
 }

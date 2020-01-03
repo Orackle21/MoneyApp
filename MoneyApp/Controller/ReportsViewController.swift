@@ -212,7 +212,7 @@ extension ReportsViewController: UITableViewDataSource {
             let dateInterval = innerArray![indexPath.row]
             
            
-            let index = getAmountIndex(sectionNumber: indexPath.section, rowNumber: indexPath.row)
+            let index = getCellIndex(sectionNumber: indexPath.section, rowNumber: indexPath.row)
             let amount = amountsByDate[index]
             
             if amount > 0 {
@@ -336,14 +336,13 @@ extension ReportsViewController {
 
 extension ReportsViewController {
     
-    func getAmountIndex(sectionNumber: Int, rowNumber: Int) -> Int {
+    func getCellIndex(sectionNumber: Int, rowNumber: Int) -> Int {
         var result = 0
         
         for number in 0..<sectionNumber {
             let rows = tableView.numberOfRows(inSection: number)
             result += rows
         }
-        
         return result + rowNumber
         
     }
