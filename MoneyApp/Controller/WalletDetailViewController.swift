@@ -31,6 +31,8 @@ class WalletDetailViewController: UITableViewController {
     
     @IBAction func saveAction(_ sender: Any) {
         
+        let today = Date()
+        
         let wallet = Wallet(context: coreDataStack.managedContext)
         wallet.name = walletName.text
         wallet.isSelected = true
@@ -38,7 +40,7 @@ class WalletDetailViewController: UITableViewController {
         wallet.currency = walletCurrency
         wallet.walletContainer = walletContainer
         wallet.skin = Skin(name: "", color: "Dusk", icon: "atm")
-        wallet.dateCreated = Date()
+        wallet.dateCreated = today
         
         let category = Category(context: coreDataStack.managedContext)
         category.wallet = wallet
@@ -62,8 +64,10 @@ class WalletDetailViewController: UITableViewController {
         initialBalance.currency = walletCurrency
         initialBalance.wallet = wallet
         initialBalance.date = Date().getStrippedDate()
-        initialBalance.simpleDate = Int64(Date().getSimpleDescr())
-        initialBalance.dateCreated = Date()
+        initialBalance.month = Int32(today.month()!)
+        initialBalance.year = Int32(today.year()!)
+        initialBalance.simpleDate = Int64(today.getSimpleDescr())
+        initialBalance.dateCreated = today
         
         
         walletContainer.setSelectedWallet(wallet: wallet)

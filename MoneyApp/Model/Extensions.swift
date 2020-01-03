@@ -299,25 +299,28 @@ extension Date {
     
     func year() -> Int? {
         
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([Calendar.Component.year], from: self)
-        return components.year
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        
+        return Int(dateFormatter.string(from: self))!
         
     }
     
     func month() -> Int? {
         
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([Calendar.Component.month], from: self)
-        return components.month
+       let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        
+        return Int(dateFormatter.string(from: self))!
         
     }
     
     func day() -> Int? {
         
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([Calendar.Component.day], from: self)
-        return components.day
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        return Int(dateFormatter.string(from: self))!
         
     }
     

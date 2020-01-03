@@ -16,8 +16,10 @@
         <attribute name="currency" attributeType="Transformable" valueTransformerName="" customClassName="Currency"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="month" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="simpleDate" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="transactions" inverseEntity="Category"/>
         <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="transactions" inverseEntity="Wallet"/>
     </entity>
@@ -39,7 +41,7 @@
     <elements>
         <element name="Category" positionX="59.90234375" positionY="102.3828125" width="128" height="133"/>
         <element name="SubCategory" positionX="57.0234375" positionY="281.44921875" width="128" height="58"/>
-        <element name="Transaction" positionX="-345.34375" positionY="137.28515625" width="128" height="163"/>
+        <element name="Transaction" positionX="-345.34375" positionY="137.28515625" width="128" height="193"/>
         <element name="Wallet" positionX="-129.73828125" positionY="-19.22265625" width="128" height="178"/>
         <element name="WalletContainer" positionX="-129.3515625" positionY="-160.84765625" width="128" height="58"/>
     </elements>

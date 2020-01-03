@@ -83,10 +83,6 @@ class TransactionsViewController: UIViewController {
         else {
             tableView.restore()
         }
-                
-//        if let indexPath = tableView.indexPathForSelectedRow {
-//            tableView.deselectRow(at: indexPath, animated: true)
-//        }
     }
     
     
@@ -164,7 +160,24 @@ extension TransactionsViewController: UITableViewDataSource {
     // Sets header title for section using "sectionDateFormatter"
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionInfo = fetchedResultsController.sections?[section]
-        return sectionInfo?.name
+        var result = sectionInfo?.name
+    
+        if let dateString = result {
+            let dateFormatter = DateFormatter()
+            
+            switch dater.daterRange {
+            case .all: dateFormatter.dateFormat = "yyyy"
+            case .year: dateFormatter.dateFormat = "MM"
+            default: dateFormatter.dateFormat = "yyyyMMdd"
+            }
+            
+            dateFormatter.locale = Locale.current
+            let date = dateFormatter.date(from:dateString)!
+            
+            result = dater.sectionHeaderDateFormatter.string(from: date)
+        }
+
+        return result
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -331,7 +344,6 @@ extension  TransactionsViewController {
 
         
         fetchRequest.predicate = predicate
-        
         let sort1 = NSSortDescriptor(key: keyPath, ascending: false)
         let sort2 = NSSortDescriptor(key: #keyPath(Transaction.dateCreated), ascending: false)
         fetchRequest.sortDescriptors = [sort1, sort2]
@@ -422,7 +434,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
                
-                self.keyPath = #keyPath(Transaction.simpleDate)
+                self.keyPath = #keyPath(Transaction.month)
                  self.upDater(.year)
 
         }))
@@ -432,7 +444,7 @@ extension TransactionsViewController {
             style: .default,
             handler: { _ in
                 
-                self.keyPath = #keyPath(Transaction.simpleDate)
+                self.keyPath = #keyPath(Transaction.year)
                 self.upDater(.all)
         }))
         actionSheet!.addAction(UIAlertAction(

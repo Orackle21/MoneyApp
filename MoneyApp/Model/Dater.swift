@@ -103,7 +103,7 @@ class Dater {
         case .month: return 12
         case .weekOfYear: return 12
         case .quarter: return 10
-        case .year: return 10
+        case .year: return 48
         case .era: return 0
         default: return 7
         }
@@ -131,7 +131,7 @@ class Dater {
     
     private func setSectionHeaderDateFormatter(timeRange: DaterRange){
         switch timeRange {
-        case .days: sectionHeaderDateFormatter.dateFormat = "dd"
+        case .days: sectionHeaderDateFormatter.dateFormat = "dd MMMM"
         case .weeks: sectionHeaderDateFormatter.dateFormat =  "dd MMMM"
         case .months: sectionHeaderDateFormatter.dateFormat = "dd MMMM"
         case .quarters: sectionHeaderDateFormatter.dateFormat = "MMMM yy"

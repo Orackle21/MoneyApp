@@ -29,8 +29,8 @@ class IconView: UIView {
         path.fill()
         
         
-        self.layer.shadowOpacity = 0.17
-        self.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.layer.shadowOpacity = 0.15
+        self.layer.shadowOffset = CGSize(width: 0, height: 4)
         self.layer.shadowRadius = 5.0
         
         

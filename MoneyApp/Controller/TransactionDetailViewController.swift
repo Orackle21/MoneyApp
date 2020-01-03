@@ -99,6 +99,8 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
                 transaction.dateCreated = Date()
                 transaction.simpleDate = Int64(date!.getSimpleDescr())
+                transaction.month = Int32(date!.month()!)
+                transaction.year = Int32(date!.month()!)
                 transaction.date = date
             }
         }
