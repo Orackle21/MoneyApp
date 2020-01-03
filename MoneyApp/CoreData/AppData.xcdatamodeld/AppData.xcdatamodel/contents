@@ -30,12 +30,12 @@
         <attribute name="isSelected" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="skin" attributeType="Transformable" valueTransformerName="" customClassName="Skin"/>
-        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="wallet" inverseEntity="Category"/>
-        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="wallet" inverseEntity="Transaction"/>
+        <relationship name="categories" toMany="YES" deletionRule="Cascade" destinationEntity="Category" inverseName="wallet" inverseEntity="Category"/>
+        <relationship name="transactions" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="wallet" inverseEntity="Transaction"/>
         <relationship name="walletContainer" maxCount="1" deletionRule="Nullify" destinationEntity="WalletContainer" inverseName="wallets" inverseEntity="WalletContainer"/>
     </entity>
     <entity name="WalletContainer" representedClassName="WalletContainer" syncable="YES">
-        <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Wallet" inverseName="walletContainer" inverseEntity="Wallet"/>
+        <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Wallet" inverseName="walletContainer" inverseEntity="Wallet"/>
     </entity>
     <fetchRequest name="FetchRequest" entity="Category" predicateString="TRUEPREDICATE"/>
     <elements>

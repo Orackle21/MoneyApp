@@ -65,8 +65,10 @@ class WalletListViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            walletContainer?.removeFromWallets(wallets[indexPath.row] as! Wallet)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let wallet = wallets[indexPath.row] as! Wallet
+            walletContainer?.removeFromWallets(wallet)
+            coreDataStack.managedContext.delete(wallet)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             coreDataStack.saveContext()
         }
     }

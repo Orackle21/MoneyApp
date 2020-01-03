@@ -131,8 +131,13 @@ class CategoryListViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            prepareAlert(for: indexPath)
-            self.present(actionSheet!, animated: true, completion: nil)
+            let category = categories[indexPath.row]
+            categories.remove(at: indexPath.row)
+            coreDataStack.managedContext.delete(category)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            coreDataStack.saveContext()
+//            prepareAlert(for: indexPath)
+//            self.present(actionSheet!, animated: true, completion: nil)
 
         }
     }

@@ -201,7 +201,9 @@ extension TransactionsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            // FIXME: Implement deletion
+            let transaction = fetchedResultsController.object(at: indexPath)
+            coreDataStack.managedContext.delete(transaction)
+            coreDataStack.saveContext()
         }
     }
     
@@ -368,19 +370,51 @@ extension  TransactionsViewController {
            }
        }
        
-       func setControllerAndFetch() {
-           fetchedResultsController = getController()
-           fetchTransactions()
-           controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    func setControllerAndFetch() {
+        fetchedResultsController = getController()
+        fetchTransactions()
+        tableView.reloadData()
+//           controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
        }
 }
 
 extension TransactionsViewController: NSFetchedResultsControllerDelegate {
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-            tableView.reloadData()
-            
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+        
     }
+    
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,                   didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert: tableView.insertRows(at: [newIndexPath!], with:
+            .automatic)
+            
+        case .delete: tableView.deleteRows(at: [indexPath!], with: .left)
+        case .update: let cell = tableView.cellForRow(at: indexPath!) as! TransactionCell
+            cell.configureCell(with: fetchedResultsController.object(at: indexPath!))
+        case .move: tableView.deleteRows(at: [indexPath!], with: .automatic)
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        @unknown default:
+            print("Unexpected NSFetchedResultsChangeType")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        let indexSet = IndexSet(integer: sectionIndex)
+        switch type {
+        case .insert: tableView.insertSections(indexSet, with: .top)
+        case .delete: tableView.deleteSections(indexSet, with: .fade)
+        default: break
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates() }
     
 }
 

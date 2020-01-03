@@ -26,7 +26,7 @@ class ReportsViewController: UIViewController {
     lazy private var dater = Dater()
     var walletContainer: WalletContainer!
     
-    lazy private var wallet = walletContainer.getSelectedWallet()
+    private var wallet: Wallet?
     
     private var outerIntervals = [DateInterval]()
     private var dateIntervals = [DateInterval: [DateInterval]]()
@@ -35,16 +35,11 @@ class ReportsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateChartData()
-        updateChart(dataPoints: dateStrings, values: amountsByDate)
         customizeChartLooks()
+//        updateChart(dataPoints: dateStrings, values: amountsByDate)
+//
     }
-    
-    
-    
-    
-    
-    
+
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -56,10 +51,19 @@ class ReportsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        wallet = walletContainer.getSelectedWallet()
+        guard wallet != nil else {
+            lineChartView.data = nil
+            outerIntervals = [DateInterval]()
+            dateIntervals = [DateInterval: [DateInterval]]()
+            tableView.reloadData()
+            return }
+        
         updateChartData()
         updateChart(dataPoints: dateStrings, values: amountsByDate)
+        
         tableView.reloadData()
-       
+        
     }
     
     func updateChart (dataPoints: [String], values: [Double]) {
@@ -101,7 +105,6 @@ class ReportsViewController: UIViewController {
             if let innerIntervals = dateIntervals[outerInterval] {
                 for dateInterval in innerIntervals {
                     let result =  sumAmount(dateInterval: dateInterval)
-                    print (result)
                     amountsByDate.append(result.doubleValue)
                     let string = dater.dateFormatter.string(from: dateInterval.start)
                     dateStrings.append(string)
