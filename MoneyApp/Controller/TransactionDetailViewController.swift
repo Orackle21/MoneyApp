@@ -59,18 +59,18 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        amountTextField.delegate = self
         dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePicker.date)
 
         if let item = transactionToEdit {
             noteTextField.text = item.note
-            amountTextField.text = item.amount!.description
+            amountTextField.text = getAmountString(amount: item.amount)
             selectedCategory = item.category
             datePickerDate = item.simpleDate.convertToDate()!
             datePicker.date = item.simpleDate.convertToDate()!
         }
-        amountTextField.delegate = self
+        
         
     }
     
@@ -83,7 +83,7 @@ class TransactionDetailViewController: UITableViewController {
         if let item = transactionToEdit, let wallet = wallet {
             item.note = noteTextField.text ?? ""
             wallet.amount! = wallet.amount! - item.amount!
-            item.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
+            item.amount = getAmount()
             wallet.amount! = wallet.amount! + item.amount!
             tryToChangeDate(transaction: item)
             item.category = selectedCategory
@@ -101,7 +101,7 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.wallet = wallet
                 transaction.category = selectedCategory!
                 transaction.currency = wallet.currency
-                transaction.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
+                transaction.amount = getAmount()
                 transaction.dateCreated = Date()
                 transaction.simpleDate = Int64(date!.getSimpleDescr())
                 transaction.month = Int32(date!.month()!)
@@ -113,7 +113,41 @@ class TransactionDetailViewController: UITableViewController {
         self.dismiss(animated: true)
     }
     
-    func tryToChangeDate (transaction: Transaction) {
+    private func getAmountString(amount: NSDecimalNumber?) -> String {
+        
+        if let amount = amount {
+            let number = abs(amount.decimalValue)
+            return number.description
+        }
+        else {
+            return ""
+        }
+        
+    }
+    
+    private func getAmount() -> NSDecimalNumber {
+        
+        if let category = selectedCategory {
+            var absoluteValue = 0
+            if let textfieldAmount = Int(amountTextField.text ?? "0") {
+                absoluteValue = abs(textfieldAmount)
+            }
+            
+            if category.isExpense {
+                return -(NSDecimalNumber(value: absoluteValue))
+            } else {
+                return NSDecimalNumber(value: absoluteValue)
+            }
+        }
+        else{
+            return 0
+        }
+        
+    }
+    
+    
+    
+    private func tryToChangeDate (transaction: Transaction) {
         if transaction.simpleDate == datePickerDate.getSimpleDescr() {
             return
         } else {
@@ -232,7 +266,7 @@ extension TransactionDetailViewController: UITextFieldDelegate {
 
         // Only allow numbers and decimal separator
         switch(string) {
-        case "", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", decimalSeparator:
+        case "", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", decimalSeparator:
             return true
         default:
             return false
