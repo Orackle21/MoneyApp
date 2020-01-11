@@ -10,13 +10,21 @@ import UIKit
 
 class IconView: UIView {
     
-//    var categoryGradient: [CGColor]?
-    var categoryColor: UIColor?
-    var iconName: String?
+    //    var categoryGradient: [CGColor]?
+    var categoryColor: UIColor? {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+    var iconName: String? {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
     
     override func draw(_ rect: CGRect) {
-       
-//        let context = UIGraphicsGetCurrentContext()!
+        
+        //        let context = UIGraphicsGetCurrentContext()!
         let path = UIBezierPath(ovalIn: bounds)
         let color = categoryColor
         
@@ -35,22 +43,22 @@ class IconView: UIView {
         
         
         
-//        let colorSpace = CGColorSpaceCreateDeviceRGB()
-//
-//        let colorLocations: [CGFloat] = [0.0, 1.0]
-//        path.addClip()
-//        let gradient = CGGradient(colorsSpace: colorSpace,
-//                                  colors: colors! as CFArray,
-//                                  locations: colorLocations)!
-//
-//        let startPoint = CGPoint.zero
-//        let endPoint = CGPoint(x: 0, y: bounds.height)
-//        context.drawLinearGradient(gradient,
-//                                   start: startPoint,
-//                                   end: endPoint,
-//                                   options: [])
+        //        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        //
+        //        let colorLocations: [CGFloat] = [0.0, 1.0]
+        //        path.addClip()
+        //        let gradient = CGGradient(colorsSpace: colorSpace,
+        //                                  colors: colors! as CFArray,
+        //                                  locations: colorLocations)!
+        //
+        //        let startPoint = CGPoint.zero
+        //        let endPoint = CGPoint(x: 0, y: bounds.height)
+        //        context.drawLinearGradient(gradient,
+        //                                   start: startPoint,
+        //                                   end: endPoint,
+        //                                   options: [])
         
-//         adding an icon
+        //         adding an icon
         
         if let iconName = iconName {
             let image = UIImage(named: iconName)
@@ -67,6 +75,10 @@ class IconView: UIView {
             }
             
             self.addSubview(imageView)
+        } else {
+            for view in self.subviews {
+                view.removeFromSuperview()
+            }
         }
         
         
@@ -74,13 +86,15 @@ class IconView: UIView {
     
     
     func drawIcon(skin: Skin?) {
-//       let gradient = category.iconGradients
-//            categoryGradient = gradient
+        //       let gradient = category.iconGradients
+        //            categoryGradient = gradient
         if let skin = skin {
-        categoryColor = UIColor(named: skin.color)
-        iconName = skin.icon
-           
+            categoryColor = UIColor(named: skin.color)
+            iconName = skin.icon
+        } else {
+            categoryColor = nil
+            iconName = nil
         }
         backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-}
+    }
 }

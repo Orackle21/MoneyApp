@@ -25,6 +25,8 @@ class TransactionDetailViewController: UITableViewController {
         }
     }
     
+
+    
     @IBOutlet weak var noteTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
     
@@ -68,7 +70,8 @@ class TransactionDetailViewController: UITableViewController {
             datePickerDate = item.simpleDate.convertToDate()!
             datePicker.date = item.simpleDate.convertToDate()!
         }
-
+        amountTextField.delegate = self
+        
     }
     
     
@@ -77,18 +80,20 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        if let item = transactionToEdit {
+        if let item = transactionToEdit, let wallet = wallet {
             item.note = noteTextField.text ?? ""
+            wallet.amount! = wallet.amount! - item.amount!
             item.amount = NSDecimalNumber(string: amountTextField.text ?? "0")
+            wallet.amount! = wallet.amount! + item.amount!
             tryToChangeDate(transaction: item)
             item.category = selectedCategory
         }
         else if transactionToEdit == nil {
             if let wallet = wallet  {
                 
-                let calendar = Calendar.current
-                var components = datePickerDate.getComponenets()
-                components.timeZone = TimeZone.current
+                var calendar = Calendar.current
+                calendar.timeZone = TimeZone.current
+                let components = datePickerDate.getComponenets()
                 let date = calendar.date(from: components)
                 
                 let transaction = Transaction(context: coreDataStack.managedContext)
@@ -115,7 +120,6 @@ class TransactionDetailViewController: UITableViewController {
             let date = datePickerDate
             transaction.simpleDate = date.getSimpleDescr()
             transaction.dateCreated = Date()
-            
         }
     } 
     
@@ -199,3 +203,40 @@ class TransactionDetailViewController: UITableViewController {
     
 }
 
+
+extension TransactionDetailViewController: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+       guard let text = textField.text, let decimalSeparator = NSLocale.current.decimalSeparator else {
+           return true
+       }
+
+        var splitText = text.components(separatedBy: decimalSeparator)
+        let totalDecimalSeparators = splitText.count - 1
+        let isEditingEnd = (text.count - 3) < range.lowerBound
+
+        splitText.removeFirst()
+
+        // Check if we will exceed 2 dp
+        if
+            splitText.last?.count ?? 0 > 1 && string.count != 0 &&
+            isEditingEnd
+        {
+            return false
+        }
+
+        // If there is already a dot we don't want to allow further dots
+        if totalDecimalSeparators > 0 && string == decimalSeparator {
+            return false
+        }
+
+        // Only allow numbers and decimal separator
+        switch(string) {
+        case "", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", decimalSeparator:
+            return true
+        default:
+            return false
+        }
+    }
+
+}

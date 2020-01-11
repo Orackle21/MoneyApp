@@ -193,6 +193,7 @@ extension TransactionsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTransaction", for: indexPath)
         
         if let cell = cell as? TransactionCell {
+            
             cell.configureCell(with: fetchedResultsController.object(at: indexPath))
         }
 
@@ -204,6 +205,7 @@ extension TransactionsViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             let transaction = fetchedResultsController.object(at: indexPath)
+            selectedWallet!.amount! = selectedWallet!.amount! - transaction.amount!
             coreDataStack.managedContext.delete(transaction)
             coreDataStack.saveContext()
         }
@@ -373,6 +375,7 @@ extension  TransactionsViewController {
        }
        
     func setControllerAndFetch() {
+        
         fetchedResultsController = getController()
         fetchTransactions()
         tableView.reloadData()
@@ -407,11 +410,13 @@ extension TransactionsViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
         let indexSet = IndexSet(integer: sectionIndex)
+        
         switch type {
-        case .insert: tableView.insertSections(indexSet, with: .top)
-        case .delete: tableView.deleteSections(indexSet, with: .fade)
-        default: break
+            case .insert: tableView.insertSections(indexSet, with: .top)
+            case .delete: tableView.deleteSections(indexSet, with: .fade)
+            default: break
         }
     }
     
