@@ -25,7 +25,7 @@ class TransactionDetailViewController: UITableViewController {
         }
     }
     
-    @IBOutlet weak var noteTextField: UITextField!
+    @IBOutlet weak var noteTextField: UITextView!
     @IBOutlet weak var amountTextField: UITextField!
     
     @IBOutlet weak var categoryNameLabel: UILabel!
@@ -57,18 +57,37 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         amountTextField.delegate = self
         dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePicker.date)
 
         if let item = transactionToEdit {
             noteTextField.text = item.note
-            amountTextField.text = getAmountString(amount: item.amount)
+            amountTextField.text = getCurrencySymbol() + getAmountString(amount: item.amount)
+            
             selectedCategory = item.category
+            
+            
+            
+            if selectedCategory?.isExpense ?? true {
+                amountTextField.textColor = UIColor.red
+            } else {
+                amountTextField.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+
+            }
+            
             datePickerDate = item.simpleDate.convertToDate()!
             datePicker.date = item.simpleDate.convertToDate()!
         }
         
+        
+    }
+    
+    private func getCurrencySymbol() -> String{
+        
+        let symbol = (wallet?.currency?.symbol  ?? (wallet?.currency!.id)!) + " "
+        return symbol
         
     }
     
@@ -127,8 +146,9 @@ class TransactionDetailViewController: UITableViewController {
         
         if let category = selectedCategory {
             var absoluteValue: Decimal
-            let textfieldAmount = Decimal(string: amountTextField.text ?? "0")!
-            absoluteValue = abs(textfieldAmount)
+            let string = amountTextField.text?.split(separator: " ")
+            let textfieldAmount = Decimal(string: String((string?[1])!))
+            absoluteValue = abs(textfieldAmount ?? 0)
             
             if category.isExpense {
                 return -(NSDecimalNumber(decimal: absoluteValue))
@@ -164,12 +184,16 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 2 && indexPath.row == 1 {
+        if indexPath.section == 2 && indexPath.row == 0 {
             if datePickerIsCollapsed {
-                return 0
+                return 44
             } else if !datePickerIsCollapsed{
-                return 216
+                return 270
             }
+        }
+        
+        if indexPath.section == 0 {
+            return 55
         }
         return 44
     }
@@ -261,6 +285,11 @@ extension TransactionDetailViewController: UITextFieldDelegate {
             return false
         }
 
+        if range.length>0  && (range.location == 0 || range.location == 1) {
+                return false
+        }
+        
+        
         // Only allow numbers and decimal separator
         switch(string) {
         case "", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", decimalSeparator:
