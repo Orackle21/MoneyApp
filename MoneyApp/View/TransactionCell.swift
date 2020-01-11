@@ -25,10 +25,10 @@ class TransactionCell: UITableViewCell {
         nameLabel.text = transaction.note
         amountLabel.text = (transaction.currency!.symbol ?? transaction.currency!.id) + " " + transaction.amount!.description
         Int(truncating: transaction.amount!) > 0 ? (amountLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)) : (amountLabel.textColor = #colorLiteral(red: 0.9203510284, green: 0.1116499379, blue: 0.1756132543, alpha: 1))
-        dateLabel.text = transaction.date!.description(with: Locale(identifier: "ru"))
+        dateLabel.text = transaction.dateCreated!.description(with: Locale(identifier: "ru"))
         if let icon = categoryIcon as? IconView {
-            icon.drawIcon(skin: transaction.category!.skin!)
-            icon.setNeedsDisplay()
+            icon.drawIcon(skin: transaction.category?.skin)
+          //  icon.setNeedsDisplay()
             
         }
     }

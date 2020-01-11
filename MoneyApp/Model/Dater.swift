@@ -182,15 +182,9 @@ extension Dater {
         var sortedIntervals =  [DateInterval : [DateInterval]]()
         let calendarComponent = getReportComponent(from: self.daterRange)
 
-        
-        
-        
         let timeIntervals = calculateDateIntervals(startingFrom: Date(), with: getComponentForDaterRange(), upTo: 100)
 
-        
-       
-        
-        
+
         for innerInterval in timeIntervals {
             
             

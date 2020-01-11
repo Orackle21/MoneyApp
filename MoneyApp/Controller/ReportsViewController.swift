@@ -85,7 +85,7 @@ class ReportsViewController: UIViewController {
     
     private func updateChartData() {
         
-        guard let wallet = wallet else { return }
+        guard wallet != nil else { return }
         
         dateIntervals = dater.getReportsIntervals(broad: 3)
         dateStrings = [String]()
@@ -148,8 +148,8 @@ class ReportsViewController: UIViewController {
             chartDataSet.valueTextColor = UIColor.black
             
         }
-        chartDataSet.mode = .cubicBezier
-        chartDataSet.lineWidth = 2.5
+        chartDataSet.mode = .horizontalBezier
+        chartDataSet.lineWidth = 2.0
     }
     
     

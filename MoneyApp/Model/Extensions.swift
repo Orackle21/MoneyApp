@@ -50,7 +50,7 @@ extension UITableView {
         if #available(iOS 13.0, *) {
             titleLabel.textColor = UIColor.label
         } else {
-          titleLabel.textColor = UIColor.black
+            titleLabel.textColor = UIColor.black
         }
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         messageLabel.textColor = UIColor.lightGray
@@ -162,32 +162,7 @@ extension UITableViewCell {
     }
 }
 
-extension UIImage {
-    
-    func maskWithColor(color: UIColor) -> UIImage? {
-        let maskImage = cgImage!
-        
-        let width = size.width
-        let height = size.height
-        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
-        
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
-        
-        context.clip(to: bounds, mask: maskImage)
-        context.setFillColor(color.cgColor)
-        context.fill(bounds)
-        
-        if let cgImage = context.makeImage() {
-            let coloredImage = UIImage(cgImage: cgImage)
-            return coloredImage
-        } else {
-            return nil
-        }
-    }
-    
-}
+
 
 extension Decimal {
     var doubleValue:Double {
@@ -231,6 +206,20 @@ public func ^(lhs: NSDecimalNumber, rhs: Int) -> NSDecimalNumber {
 }
 
 
+extension Int64 {
+    
+    func convertToDate() -> Date? {
+        let dateString = String(self)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        dateFormatter.locale = Locale.current
+        
+        let date = dateFormatter.date(from:dateString)
+        return date
+    }
+}
+
 extension Date {
     
     func getComponenets() -> DateComponents {
@@ -240,23 +229,42 @@ extension Date {
         return components
     }
     
-    func getStrippedDate() -> Date {
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.timeZone], from: self)
-        components.timeZone = TimeZone.current
-        return calendar.date(from: components)!
-    }
     
-    func getSimpleDescr() -> Int {
+    func getSimpleDescr() -> Int64 {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
+        
+        return Int64(dateFormatter.string(from: self))!
+        
+    }
+    
+    func year() -> Int? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
         
         return Int(dateFormatter.string(from: self))!
         
     }
     
+    func month() -> Int? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        
+        return Int(dateFormatter.string(from: self))!
+        
+    }
     
+    func day() -> Int? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        return Int(dateFormatter.string(from: self))!
+        
+    }
     
 }
 
@@ -295,38 +303,5 @@ extension UIDevice {
             return .unknown
         }
     }
-
-}
-
-
-extension Date {
-    
-    func year() -> Int? {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        
-        return Int(dateFormatter.string(from: self))!
-        
-    }
-    
-    func month() -> Int? {
-        
-       let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM"
-        
-        return Int(dateFormatter.string(from: self))!
-        
-    }
-    
-    func day() -> Int? {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd"
-        
-        return Int(dateFormatter.string(from: self))!
-        
-    }
-    
     
 }

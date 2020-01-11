@@ -12,12 +12,15 @@ import CoreData
 class TransactionDetailViewController: UITableViewController {
     
     var coreDataStack: CoreDataStack!
-    var transactionToEdit: Transaction?
     var wallet: Wallet?
+    
+    var transactionToEdit: Transaction?
     var selectedCategory: Category? {
         didSet {
             if let category = selectedCategory {
                 categoryNameLabel.text = category.name
+            } else {
+                categoryNameLabel.text = "Select Category"
             }
         }
     }
@@ -55,8 +58,6 @@ class TransactionDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-     let start = CFAbsoluteTimeGetCurrent()
-        
         dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePicker.date)
 
@@ -64,11 +65,10 @@ class TransactionDetailViewController: UITableViewController {
             noteTextField.text = item.note
             amountTextField.text = item.amount!.description
             selectedCategory = item.category
-            datePickerDate = item.date!
-            datePicker.date = item.date!
+            datePickerDate = item.simpleDate.convertToDate()!
+            datePicker.date = item.simpleDate.convertToDate()!
         }
-      let diff = CFAbsoluteTimeGetCurrent() - start
-      print("Took \(diff) seconds")
+
     }
     
     
@@ -101,7 +101,7 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.simpleDate = Int64(date!.getSimpleDescr())
                 transaction.month = Int32(date!.month()!)
                 transaction.year = Int32(date!.month()!)
-                transaction.date = date
+                wallet.amount = transaction.amount! + wallet.amount!
             }
         }
         coreDataStack.saveContext()
@@ -113,8 +113,7 @@ class TransactionDetailViewController: UITableViewController {
             return
         } else {
             let date = datePickerDate
-            transaction.date = date
-            transaction.simpleDate = Int64(date.getSimpleDescr())
+            transaction.simpleDate = date.getSimpleDescr()
             transaction.dateCreated = Date()
             
         }
@@ -175,7 +174,6 @@ class TransactionDetailViewController: UITableViewController {
                
         }, completion:  {
             _ in
-           //  self.datePicker.isHidden = true
         }
         )
         tableView.endUpdates()

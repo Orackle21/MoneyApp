@@ -157,12 +157,14 @@ extension TransactionsViewController: UITableViewDataSource {
         return count ?? 0
     }
     
+    
+    // FIXME: - use dater to automate this stuff
     // Sets header title for section using "sectionDateFormatter"
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionInfo = fetchedResultsController.sections?[section]
-        var result = sectionInfo?.name
+        var headerString = sectionInfo?.name
     
-        if let dateString = result {
+        if let dateString = headerString {
             let dateFormatter = DateFormatter()
             
             switch dater.daterRange {
@@ -174,10 +176,10 @@ extension TransactionsViewController: UITableViewDataSource {
             dateFormatter.locale = Locale.current
             let date = dateFormatter.date(from:dateString)!
             
-            result = dater.sectionHeaderDateFormatter.string(from: date)
+            headerString = dater.sectionHeaderDateFormatter.string(from: date)
         }
 
-        return result
+        return headerString
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
