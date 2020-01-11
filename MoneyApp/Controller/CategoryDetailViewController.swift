@@ -24,7 +24,8 @@ class CategoryDetailViewController: UITableViewController {
     @IBOutlet weak var parentCategoryLabel: UILabel!
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var walletIcon: UIView!
-   
+    @IBOutlet weak var expenseSwitch: UISegmentedControl!
+    
     
     
     var wallet: Wallet!
@@ -36,6 +37,14 @@ class CategoryDetailViewController: UITableViewController {
     var skin: Skin? {
         didSet {
             parentCategoryIcon.setNeedsDisplay()
+        }
+    }
+    private var isExpense: Bool {
+        switch expenseSwitch.selectedSegmentIndex {
+        case 0: return true
+        case 1: return false
+        default:
+            return true
         }
     }
     
@@ -64,7 +73,7 @@ class CategoryDetailViewController: UITableViewController {
             categoryIcon.drawIcon(skin: skin)
             categoryIcon.setNeedsDisplay()
             subcategoryIcon.drawIcon(skin: parentCategory?.skin)
-            walletIcon.drawIcon(skin: wallet.skin!)
+            walletIcon.drawIcon(skin: wallet.skin)
             
         }
     }
@@ -75,18 +84,21 @@ class CategoryDetailViewController: UITableViewController {
         guard let wallet = wallet,
         let name = nameTextField.text else { return }
         
+        
         if let parentCategory = parentCategory {
             let category = SubCategory(context: coreDataStack.managedContext)
             category.name = name
             category.wallet = wallet
             category.skin = skin
             category.parentCategory = parentCategory
+            category.isExpense = isExpense
             
         } else {
             let category = Category(context: coreDataStack.managedContext)
             category.name = name
             category.wallet = wallet
             category.skin = skin
+            category.isExpense = isExpense
         }
         
         coreDataStack.saveContext()
@@ -100,7 +112,7 @@ class CategoryDetailViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
 
    
@@ -131,6 +143,7 @@ class CategoryDetailViewController: UITableViewController {
         if let destination = segue.destination as? ParentCategoriesTableViewController {
             destination.wallet = wallet
             destination.coreDataStack = coreDataStack
+            destination.isExpense = isExpense
         }
     }
     

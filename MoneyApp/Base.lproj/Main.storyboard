@@ -665,29 +665,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Waj-ee-5dP">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQS-aD-qSO">
-                                    <rect key="frame" x="102" y="7" width="171" height="30"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" title="+ ADD NEW CATEGORY">
-                                        <color key="titleColor" red="0.2234953247" green="0.63057185910000002" blue="0.6245067419" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="6Xy-LG-frk" kind="show" identifier="categoryDetailSegue" id="UC5-ov-ROf"/>
-                                    </connections>
-                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="yr5-4s-pcX">
+                                    <rect key="frame" x="102" y="3.5" width="171" height="68"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQS-aD-qSO">
+                                            <rect key="frame" x="0.0" y="0.0" width="171" height="30"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="+ ADD NEW CATEGORY">
+                                                <color key="titleColor" red="0.2234953247" green="0.63057185910000002" blue="0.6245067419" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="6Xy-LG-frk" kind="show" identifier="categoryDetailSegue" id="UC5-ov-ROf"/>
+                                            </connections>
+                                        </button>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AMX-A6-at3">
+                                            <rect key="frame" x="14" y="37" width="143" height="32"/>
+                                            <segments>
+                                                <segment title="Expense"/>
+                                                <segment title="Income"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="switchExpense:" destination="nNX-wg-fJ3" eventType="valueChanged" id="Cae-jZ-tD3"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="KQS-aD-qSO" firstAttribute="centerY" secondItem="Waj-ee-5dP" secondAttribute="centerY" id="MyY-jC-mDD"/>
-                                <constraint firstItem="KQS-aD-qSO" firstAttribute="centerX" secondItem="Waj-ee-5dP" secondAttribute="centerX" id="lws-7h-ffx"/>
+                                <constraint firstItem="yr5-4s-pcX" firstAttribute="centerY" secondItem="Waj-ee-5dP" secondAttribute="centerY" id="EEf-EG-cQQ"/>
+                                <constraint firstItem="yr5-4s-pcX" firstAttribute="centerX" secondItem="Waj-ee-5dP" secondAttribute="centerX" id="OHS-dK-uFq"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" rowHeight="50" id="CmL-Al-cP0" customClass="CategoryCell" customModule="MoneyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="130.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CmL-Al-cP0" id="La6-oQ-RgE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -723,22 +738,22 @@
                                     <segue destination="axJ-ZL-jjE" kind="unwind" unwindAction="unwindBack:" id="sqU-E9-KRZ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="subCategoryCell" id="tTP-sF-GuI" customClass="subCategoryCell" customModule="MoneyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="149.5" width="375" height="46"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="subCategoryCell" id="tTP-sF-GuI" customClass="SubCategoryCell" customModule="MoneyApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="180.5" width="375" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tTP-sF-GuI" id="3TP-Xh-yzm">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="∟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyc-ae-gJc">
-                                            <rect key="frame" x="16" y="0.0" width="17" height="34.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="16.5" height="34.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                             <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                             <nil key="highlightedColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0I5-KH-06q" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
-                                            <rect key="frame" x="41" y="8" width="30" height="30.5"/>
+                                            <rect key="frame" x="40.5" y="8" width="30" height="30.5"/>
                                             <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="vEc-vp-3Qw"/>
@@ -746,7 +761,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SubCategoryName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ro6-dU-xmg">
-                                            <rect key="frame" x="79" y="14" width="130" height="18"/>
+                                            <rect key="frame" x="78.5" y="14" width="130" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -780,6 +795,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Categories" id="baj-7d-vvg"/>
                     <connections>
+                        <outlet property="expenseSwitch" destination="AMX-A6-at3" id="H6E-oD-vxH"/>
                         <segue destination="axJ-ZL-jjE" kind="unwind" identifier="unwindBack" unwindAction="unwindBack:" id="MeZ-CA-ea8"/>
                     </connections>
                 </tableViewController>
@@ -919,6 +935,36 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="6ZG-de-jfv">
+                                        <rect key="frame" x="0.0" y="150" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6ZG-de-jfv" id="Md5-x4-t6O">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLy-O3-jtn">
+                                                    <rect key="frame" x="20" y="12" width="42.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="53B-He-hEc">
+                                                    <rect key="frame" x="212" y="6.5" width="143" height="32"/>
+                                                    <segments>
+                                                        <segment title="Expense"/>
+                                                        <segment title="Income"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fLy-O3-jtn" firstAttribute="leading" secondItem="Md5-x4-t6O" secondAttribute="leadingMargin" constant="4" id="GUb-eK-tTZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="53B-He-hEc" secondAttribute="trailing" constant="20" symbolic="YES" id="U75-IB-fFJ"/>
+                                                <constraint firstItem="fLy-O3-jtn" firstAttribute="centerY" secondItem="Md5-x4-t6O" secondAttribute="centerY" id="XMT-Si-WAb"/>
+                                                <constraint firstItem="53B-He-hEc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fLy-O3-jtn" secondAttribute="trailing" constant="8" symbolic="YES" id="gdY-oB-Wl4"/>
+                                                <constraint firstItem="53B-He-hEc" firstAttribute="centerY" secondItem="Md5-x4-t6O" secondAttribute="centerY" id="koX-Ko-y8P"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -936,6 +982,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="categoryIcon" destination="73R-dE-YfS" id="s90-Zt-Xf3"/>
+                        <outlet property="expenseSwitch" destination="53B-He-hEc" id="hYR-zX-5ZH"/>
                         <outlet property="nameTextField" destination="T8I-Ci-gFa" id="KcI-p3-Ws2"/>
                         <outlet property="parentCategoryIcon" destination="9cK-vF-vBQ" id="3n5-p1-PtG"/>
                         <outlet property="parentCategoryLabel" destination="mj8-Tq-s3S" id="Kqn-OR-iLR"/>

@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="Category" syncable="YES">
         <attribute name="isDeletable" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="isExpense" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="skin" attributeType="Transformable" valueTransformerName="" customClassName="Skin"/>
         <relationship name="subCategories" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SubCategory" inverseName="parentCategory" inverseEntity="SubCategory"/>
@@ -36,9 +37,9 @@
     <entity name="WalletContainer" representedClassName="WalletContainer" syncable="YES">
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Wallet" inverseName="walletContainer" inverseEntity="Wallet"/>
     </entity>
-    <fetchRequest name="FetchRequest" entity="Category" predicateString="TRUEPREDICATE"/>
+    <fetchRequest name="FetchRequest" entity="Category" predicateString="isExpense == 1"/>
     <elements>
-        <element name="Category" positionX="59.90234375" positionY="102.3828125" width="128" height="133"/>
+        <element name="Category" positionX="59.90234375" positionY="102.3828125" width="128" height="148"/>
         <element name="SubCategory" positionX="57.0234375" positionY="281.44921875" width="128" height="58"/>
         <element name="Transaction" positionX="-345.34375" positionY="137.28515625" width="128" height="178"/>
         <element name="Wallet" positionX="-129.73828125" positionY="-19.22265625" width="128" height="178"/>

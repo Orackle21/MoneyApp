@@ -45,7 +45,7 @@
 		9A8F790223A2509C00DCD9D2 /* SkinHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */; };
 		9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */; };
 		9AB22B2222DEF6EC00AE145F /* WalletBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */; };
-		9AB59E0923BF4CE0005272E6 /* subCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB59E0823BF4CE0005272E6 /* subCategoryCell.swift */; };
+		9AB59E0923BF4CE0005272E6 /* SubCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB59E0823BF4CE0005272E6 /* SubCategoryCell.swift */; };
 		9AB59E0B23BF5023005272E6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB59E0A23BF5023005272E6 /* CategoryCell.swift */; };
 		9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */; };
 		9AB9A64D230EBA4B008E4951 /* ParentCategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */; };
@@ -115,7 +115,7 @@
 		9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHeaderView.swift; sourceTree = "<group>"; };
 		9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCell.swift; sourceTree = "<group>"; };
 		9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarCell.swift; sourceTree = "<group>"; };
-		9AB59E0823BF4CE0005272E6 /* subCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subCategoryCell.swift; sourceTree = "<group>"; };
+		9AB59E0823BF4CE0005272E6 /* SubCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryCell.swift; sourceTree = "<group>"; };
 		9AB59E0A23BF5023005272E6 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9AB9A64A230D797B008E4951 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		9AB9A64C230EBA4B008E4951 /* ParentCategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCategoriesTableViewController.swift; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				9AB59E0A23BF5023005272E6 /* CategoryCell.swift */,
-				9AB59E0823BF4CE0005272E6 /* subCategoryCell.swift */,
+				9AB59E0823BF4CE0005272E6 /* SubCategoryCell.swift */,
 				9A25595F23B7C0860004DBE1 /* DateBarContainer.swift */,
 				9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */,
 				9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */,
@@ -478,7 +478,7 @@
 				9ACDDE5322AD3ACF00793219 /* TransactionCell.swift in Sources */,
 				9A3774CC23408B0C00C6982C /* ReportsDetailCell.swift in Sources */,
 				9A57A17322CF25FD00DC6624 /* IconView.swift in Sources */,
-				9AB59E0923BF4CE0005272E6 /* subCategoryCell.swift in Sources */,
+				9AB59E0923BF4CE0005272E6 /* SubCategoryCell.swift in Sources */,
 				9A57A17122CC883900DC6624 /* WalletCell.swift in Sources */,
 				9A1E3DD9239EC81D0003A20C /* Skin.swift in Sources */,
 				9A3FC16423B238D40085DD9D /* CoreDataStack.swift in Sources */,

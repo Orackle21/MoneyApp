@@ -2,8 +2,8 @@
 //  Category+CoreDataProperties.swift
 //  MoneyApp
 //
-//  Created by Orackle on 26.12.2019.
-//  Copyright © 2019 Orackle. All rights reserved.
+//  Created by Orackle on 11.01.2020.
+//  Copyright © 2020 Orackle. All rights reserved.
 //
 //
 
@@ -20,9 +20,10 @@ extension Category {
     @NSManaged public var isDeletable: Bool
     @NSManaged public var name: String?
     @NSManaged public var skin: Skin?
+    @NSManaged public var isExpense: Bool
     @NSManaged public var subCategories: NSOrderedSet?
-    @NSManaged public var wallet: Wallet?
     @NSManaged public var transactions: NSSet?
+    @NSManaged public var wallet: Wallet?
 
 }
 

@@ -13,7 +13,7 @@ class WalletListViewController: UITableViewController {
     
     
     var coreDataStack: CoreDataStack!
-    var walletContainer: WalletContainer?
+    var walletContainer: WalletContainer!
     var wallets = NSOrderedSet()
     
     
@@ -22,7 +22,7 @@ class WalletListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let wallets = walletContainer!.wallets {
+        if let wallets = walletContainer.wallets {
             self.wallets =  wallets
         }
         self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -67,9 +67,16 @@ class WalletListViewController: UITableViewController {
         if editingStyle == .delete {
             let wallet = wallets[indexPath.row] as! Wallet
             walletContainer?.removeFromWallets(wallet)
+            
+            if wallet.isSelected && wallets.count > 0 {
+                walletContainer?.setSelectedWallet(wallet: wallets[0] as! Wallet)
+            }
+            
             coreDataStack.managedContext.delete(wallet)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             coreDataStack.saveContext()
+           
+
         }
     }
     

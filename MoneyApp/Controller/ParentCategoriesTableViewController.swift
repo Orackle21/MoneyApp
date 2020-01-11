@@ -17,6 +17,7 @@ class ParentCategoriesTableViewController: UITableViewController {
     
     var categories = [Category]()
     var selectedCategory: Category?
+    var isExpense: Bool!
 
     
     override func viewDidLoad() {
@@ -25,7 +26,7 @@ class ParentCategoriesTableViewController: UITableViewController {
         guard let wallet = wallet else { return }
         
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
-        let predicate = NSPredicate(format: "wallet == %@", wallet)
+        let predicate = NSPredicate(format: "wallet == %@ AND isExpense = %@", wallet, NSNumber(value: isExpense))
         fetchRequest.includesSubentities = false
         fetchRequest.predicate = predicate
         

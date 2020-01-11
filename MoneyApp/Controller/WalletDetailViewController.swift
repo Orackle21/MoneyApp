@@ -39,7 +39,7 @@ class WalletDetailViewController: UITableViewController {
         wallet.amount = NSDecimalNumber(string: walletBalance.text ?? "0.0")
         wallet.currency = walletCurrency
         wallet.walletContainer = walletContainer
-        wallet.skin = Skin(name: "", color: "Dusk", icon: "atm")
+        wallet.skin = Skin(name: "", color: "Dusk", icon: "")
         wallet.dateCreated = today
         
         let category = Category(context: coreDataStack.managedContext)

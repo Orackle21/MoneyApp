@@ -17,7 +17,28 @@ class CategoryListViewController: UITableViewController {
     var wallet: Wallet!
     var actionSheet: UIAlertController?
     var categories = [Category]()
-   
+    private var isExpense: Bool {
+        switch expenseSwitch.selectedSegmentIndex {
+        case 0: return true
+        case 1: return false
+        default:
+            return true
+        }
+    }
+    
+    @IBOutlet weak var expenseSwitch: UISegmentedControl!
+    
+    @IBAction func switchExpense(_ sender: Any) {
+        fetchAndReload()
+    }
+    
+    
+    func fetchAndReload() {
+        fetchCategories()
+        addSubCategories()
+        tableView.reloadData()
+    }
+    
 
     func prepareAlert(for indexPath: IndexPath) {
         actionSheet = UIAlertController(title: "Delete Category?", message: "Do you really want to delete this category?", preferredStyle: .actionSheet)
@@ -54,7 +75,8 @@ class CategoryListViewController: UITableViewController {
     private func fetchCategories() {
         guard let wallet = wallet else { return }
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
-        let predicate = NSPredicate(format: "wallet == %@", wallet)
+        print(isExpense)
+        let predicate = NSPredicate(format: "wallet == %@ AND isExpense == %@", wallet, NSNumber(value: isExpense))
         fetchRequest.includesSubentities = false
         fetchRequest.predicate = predicate
 
@@ -102,7 +124,7 @@ class CategoryListViewController: UITableViewController {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        if let cell = cell as? subCategoryCell {
+        if let cell = cell as? SubCategoryCell {
             cell.customize(skin: category.skin!, name: category.name!)
         }
         
@@ -158,8 +180,6 @@ class CategoryListViewController: UITableViewController {
 
 extension CategoryListViewController: CategoryDetailViewControllerDelegate {
     func didCreateNewCategory() {
-        fetchCategories()
-        addSubCategories()
-        tableView.reloadData()
+        fetchAndReload()
     }
 }
