@@ -57,7 +57,8 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+
         amountTextField.delegate = self
         dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePicker.date)
@@ -269,6 +270,7 @@ extension TransactionDetailViewController: UITextFieldDelegate {
        }
 
         var splitText = text.components(separatedBy: decimalSeparator)
+        let currencySymbolText = text.components(separatedBy: " ")[0]
         let totalDecimalSeparators = splitText.count - 1
         let isEditingEnd = (text.count - 3) < range.lowerBound
 
@@ -281,13 +283,14 @@ extension TransactionDetailViewController: UITextFieldDelegate {
         {
             return false
         }
-
+        
+        
         // If there is already a dot we don't want to allow further dots
         if totalDecimalSeparators > 0 && string == decimalSeparator {
             return false
         }
 
-        if range.length>0  && (range.location == 0 || range.location == 1) {
+        if range.length > 0  && range.location == currencySymbolText.count {
                 return false
         }
         
