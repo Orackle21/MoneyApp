@@ -143,17 +143,19 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     private func getAmount() -> NSDecimalNumber {
-        
-        if let category = selectedCategory {
+        let string = amountTextField.text?.components(separatedBy: " ")
+
+        if let category = selectedCategory, let string = string {
             var absoluteValue: Decimal
-            let string = amountTextField.text?.split(separator: " ")
-            let textfieldAmount = Decimal(string: String((string?[1])!))
+            
+            let textfieldAmount = Decimal(string: string[1])
             absoluteValue = abs(textfieldAmount ?? 0)
+            let resultValue = NSDecimalNumber(decimal: absoluteValue)
             
             if category.isExpense {
-                return -(NSDecimalNumber(decimal: absoluteValue))
+                return -resultValue
             } else {
-                return NSDecimalNumber(decimal: absoluteValue)
+                return resultValue
             }
         }
         else {

@@ -224,7 +224,7 @@ extension ReportsViewController: UITableViewDataSource {
                 cell.iconView.backgroundColor = UIColor.systemRed
             }
             
-            cell.amountLabel.text = amount.description //FIXME: Fix it
+            cell.amountLabel.text = Decimal(amount).description
             
             if dater.daterRange == .weeks {
                 let string = dater.dateFormatter.string(from: dateInterval.start) + " - " + dater.dateFormatter.string(from: dateInterval.end)
@@ -354,8 +354,8 @@ extension ReportsViewController {
 
 extension ReportsViewController {
     
-    func sumAmount(dateInterval: DateInterval) -> Decimal {
-        var amountSum : Decimal = 0
+    func sumAmount(dateInterval: DateInterval) -> NSDecimalNumber {
+        var amountSum : NSDecimalNumber = 0
         let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
 
@@ -386,7 +386,7 @@ extension ReportsViewController {
         do {
             let results = try coreDataStack.managedContext.fetch(fetchRequest)
             let resultDict = results.first!
-            amountSum = resultDict["sumAmounts"] as! Decimal
+            amountSum = resultDict["sumAmounts"] as! NSDecimalNumber
         } catch let error as NSError {
             NSLog("Error when summing amounts: \(error.localizedDescription)")
         }
