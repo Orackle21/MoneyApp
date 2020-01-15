@@ -19,20 +19,37 @@ class TransactionDetailViewController: UITableViewController {
         didSet {
             if let category = selectedCategory {
                 categoryNameLabel.text = category.name
+                switchSaveButton()
             } else {
                 categoryNameLabel.text = "Select Category"
             }
         }
     }
+   
     
-    @IBOutlet weak var noteTextField: UITextView!
-    @IBOutlet weak var amountTextField: UITextField!
+    
+    @IBOutlet weak var amountTextField: UITextField! {
+        didSet {
+           switchSaveButton()
+        }
+    }
+    @IBAction func didStartEditing(_ sender: Any) {
+        if amountTextField.text == "" {
+               self.amountTextField.text = getCurrencySymbol() + "0"
+           }
+       }
+    
+    @IBAction func editingChanged(_ sender: UITextField) {
+       switchSaveButton()
+    }
+    
+    
     
     @IBOutlet weak var categoryNameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var noteTextField: UITextView!
+  
     
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     private var datePickerIsCollapsed = true
     private let dateFormatter = DateFormatter()
@@ -41,14 +58,12 @@ class TransactionDetailViewController: UITableViewController {
             dateLabel.text = dateFormatter.string(from: datePickerDate)
         }
     }
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBAction func cancelAdding(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-     //   checkTheCategory() //FIXME:
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -57,32 +72,46 @@ class TransactionDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
         amountTextField.delegate = self
         dateFormatter.dateFormat = "MMMM d, yyyy"
         dateLabel.text = dateFormatter.string(from: datePicker.date)
-
+        
         if let item = transactionToEdit {
             noteTextField.text = item.note
             amountTextField.text = getCurrencySymbol() + getAmountString(amount: item.amount)
             
             selectedCategory = item.category
             
-            
-            
-            if selectedCategory?.isExpense ?? true {
-                amountTextField.textColor = UIColor.red
-            } else {
-                amountTextField.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-
-            }
-            
             datePickerDate = item.simpleDate.convertToDate()!
             datePicker.date = item.simpleDate.convertToDate()!
+        } else {
+            amountTextField.becomeFirstResponder()
         }
         
+        amountTextField.placeholder = getCurrencySymbol() + "0"
         
+    }
+    
+    private func switchSaveButton() {
+        if isWrongAmountText() || selectedCategory == nil  {
+            saveButton.isEnabled = false
+        } else {
+            saveButton.isEnabled = true
+        }
+
+    }
+    
+    private func isWrongAmountText() -> Bool {
+        switch amountTextField.text {
+        case  getCurrencySymbol(): return true
+        case getCurrencySymbol() + "0": return true
+        case .none:
+            return true
+        case .some(_):
+            return false
+        }
     }
     
     private func getCurrencySymbol() -> String{
@@ -144,8 +173,8 @@ class TransactionDetailViewController: UITableViewController {
     }
     
     private func getAmount() -> NSDecimalNumber {
-        let string = amountTextField.text?.components(separatedBy: " ")
-
+        let string = amountTextField.text?.components(separatedBy: getCurrencySymbol())
+        
         if let category = selectedCategory, let string = string {
             var absoluteValue: Decimal
             
@@ -183,7 +212,7 @@ class TransactionDetailViewController: UITableViewController {
         if indexPath.section == 2 && indexPath.row == 0 {
             datePickerIsCollapsed ? showDatePicker() : hideDatePicker()
         }
-         tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -233,7 +262,7 @@ class TransactionDetailViewController: UITableViewController {
             animations: {
                 self.datePicker.alpha = 0
                 self.datePickerIsCollapsed = true
-               
+                
         }, completion:  {
             _ in
         }
@@ -245,10 +274,10 @@ class TransactionDetailViewController: UITableViewController {
         if let categoryEdit = unwindSegue.source as? CategoryListViewController {
             selectedCategory = categoryEdit.selectedCategory
         }
-       
+        
     }
     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? CategoryListViewController {
             if let category = selectedCategory {
                 destination.selectedCategory = category
@@ -256,26 +285,26 @@ class TransactionDetailViewController: UITableViewController {
             destination.wallet = wallet
             destination.coreDataStack = coreDataStack
         }
-     }
+    }
     
     
 }
 
 
 extension TransactionDetailViewController: UITextFieldDelegate {
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-       guard let text = textField.text, let decimalSeparator = NSLocale.current.decimalSeparator else {
-           return true
-       }
-
+        guard let text = textField.text, let decimalSeparator = NSLocale.current.decimalSeparator else {
+            return true
+        }
+        
         var splitText = text.components(separatedBy: decimalSeparator)
         let currencySymbolText = text.components(separatedBy: " ")[0]
         let totalDecimalSeparators = splitText.count - 1
         let isEditingEnd = (text.count - 3) < range.lowerBound
-
+        
         splitText.removeFirst()
-
+        
         // Check if we will exceed 2 dp
         if
             splitText.last?.count ?? 0 > 1 && string.count != 0 &&
@@ -289,9 +318,15 @@ extension TransactionDetailViewController: UITextFieldDelegate {
         if totalDecimalSeparators > 0 && string == decimalSeparator {
             return false
         }
-
+        
         if range.length > 0  && range.location == currencySymbolText.count {
-                return false
+            return false
+        }
+        
+        if text == (getCurrencySymbol() + "0") {
+            amountTextField.text = getCurrencySymbol() + string
+            saveButton.isEnabled = true
+            return false
         }
         
         
@@ -303,5 +338,6 @@ extension TransactionDetailViewController: UITextFieldDelegate {
             return false
         }
     }
-
+    
+    
 }
