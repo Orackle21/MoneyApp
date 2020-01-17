@@ -1,18 +1,22 @@
 PODS:
-  - Charts (3.3.0):
-    - Charts/Core (= 3.3.0)
-  - Charts/Core (3.3.0)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
+  - GTProgressBar (0.3.3)
 
 DEPENDENCIES:
   - Charts
+  - GTProgressBar
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Charts
+    - GTProgressBar
 
 SPEC CHECKSUMS:
-  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
+  GTProgressBar: a480283ecb0ada50de16c71e634892826928f640
 
-PODFILE CHECKSUM: 05c42e91fc032f72a322ee8c7f72d89277a97a91
+PODFILE CHECKSUM: 208dd1180b0675b64d29c30332ea8764a1ac3c08
 
 COCOAPODS: 1.8.4

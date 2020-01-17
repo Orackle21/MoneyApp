@@ -5,4 +5,5 @@ target 'MoneyApp' do
   inhibit_all_warnings!
   use_frameworks!
   pod 'Charts'
+  pod "GTProgressBar"
 end
