@@ -50,10 +50,10 @@ extension Wallet {
 extension Wallet {
 
     @objc(addTransactionsObject:)
-    @NSManaged public func addToTransactions(_ value: Transaction)
+    @NSManaged public func addToTransactions(_ value: Budget)
 
     @objc(removeTransactionsObject:)
-    @NSManaged public func removeFromTransactions(_ value: Transaction)
+    @NSManaged public func removeFromTransactions(_ value: Budget)
 
     @objc(addTransactions:)
     @NSManaged public func addToTransactions(_ values: NSSet)

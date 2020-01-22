@@ -23,8 +23,10 @@ class ReportsViewController: UIViewController {
     }
     
     var coreDataStack: CoreDataStack!
-    lazy private var dater = Dater()
     var walletContainer: WalletContainer!
+    
+    lazy private var dater = Dater()
+    
     
     private var wallet: Wallet?
     

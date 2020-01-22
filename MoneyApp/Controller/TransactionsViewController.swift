@@ -42,8 +42,8 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        UITabBar.appearance().clipsToBounds = true
+        UITabBar.appearance().layer.borderWidth = 0.0
         // dateBar preparation
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]

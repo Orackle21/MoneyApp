@@ -151,8 +151,8 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.amount = getAmount()
                 transaction.dateCreated = Date()
                 transaction.simpleDate = Int64(date!.getSimpleDescr())
-                transaction.month = Int32(date!.month()!)
-                transaction.year = Int32(date!.month()!)
+                transaction.month = Int64(date!.month()!)
+                transaction.year = Int64(date!.month()!)
                 wallet.amount = transaction.amount! + wallet.amount!
             }
         }

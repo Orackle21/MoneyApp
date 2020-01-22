@@ -42,20 +42,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print (error)
         }
         
+        // Dependency Injection of "CoreDataStack" and "WalletContainer" into all tabs
+        
         if let tabController = window?.rootViewController as? UITabBarController {
+           
+            if let navigationController = tabController.viewControllers![0] as? UINavigationController {
+                if  let initialViewController = navigationController.viewControllers.first as? ReportsViewController {
+                    initialViewController.coreDataStack = coreDataStack
+                    initialViewController.walletContainer = walletContainer
+                }
+            }
+            
             if let navigationController = tabController.viewControllers![1] as? UINavigationController {
                 if  let initialViewController = navigationController.viewControllers.first as? TransactionsViewController {
                     initialViewController.coreDataStack = coreDataStack
                     initialViewController.walletContainer = walletContainer
                 }
             }
-            if let navigationController = tabController.viewControllers![0] as? UINavigationController {
-                if  let initialViewController = navigationController.viewControllers.first as? ReportsViewController {
+            
+            
+            if let navigationController = tabController.viewControllers![2] as? UINavigationController {
+                if  let initialViewController = navigationController.viewControllers.first as? BudgetViewController {
                     initialViewController.coreDataStack = coreDataStack
                     initialViewController.walletContainer = walletContainer
-                }                
+                }
             }
+            
+            
         }
+        
         
       
         

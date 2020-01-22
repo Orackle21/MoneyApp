@@ -63,8 +63,8 @@ class WalletDetailViewController: UITableViewController {
         initialBalance.category = category
         initialBalance.currency = walletCurrency
         initialBalance.wallet = wallet
-        initialBalance.month = Int32(today.month()!)
-        initialBalance.year = Int32(today.year()!)
+        initialBalance.month = Int64(today.month()!)
+        initialBalance.year = Int64(today.year()!)
         initialBalance.simpleDate = Int64(today.getSimpleDescr())
         initialBalance.dateCreated = today
         

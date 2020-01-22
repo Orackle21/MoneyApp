@@ -29,8 +29,8 @@ class ReportsDetailViewController: UIViewController {
         }
     }
     
-    private var incomeTransactions = [Category: [Transaction]]()
-    private var expenseTransactions = [Category: [Transaction]]()
+    private var incomeTransactions = [Category: [Budget]]()
+    private var expenseTransactions = [Category: [Budget]]()
     private var categories = [Category]()
     private var amounts: [NSDecimalNumber] {
         get {
@@ -306,7 +306,7 @@ extension ReportsDetailViewController {
     private func getAmountByCategory(_ category: Category) -> NSDecimalNumber {
         var amount: NSDecimalNumber = 0.0
         
-        var transactionsByCategory: [Category: [Transaction]]
+        var transactionsByCategory: [Category: [Budget]]
         
         if segmentedControl.selectedSegmentIndex == 0 {
             transactionsByCategory = expenseTransactions
@@ -354,17 +354,17 @@ extension ReportsDetailViewController {
     }
     
 
-    private func fetchTransactions() -> [Transaction] {
+    private func fetchTransactions() -> [Budget] {
         
         let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
         
-        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
         
         let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, wallet! )
         fetchRequest.predicate = predicate
         
-        var result = [Transaction]()
+        var result = [Budget]()
         do {
             result =  try coreDataStack.managedContext.fetch(fetchRequest)
             print (result)
