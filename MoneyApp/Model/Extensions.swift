@@ -119,7 +119,22 @@ public func ^(lhs: NSDecimalNumber, rhs: Int) -> NSDecimalNumber {
 }
 
 
+extension String {
 
+    func transformToDate() -> Date? {
+        
+        let dateString = self
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        dateFormatter.timeZone = TimeZone.current
+        
+        let date = dateFormatter.date(from:dateString)
+        return date
+        
+    }
+
+}
 
 
 extension Int64 {

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol TimePeriodViewControllerDelegate: AnyObject {
+    func didSelectDates()
+}
+
 class TimePeriodViewController: UITableViewController {
+    
+    weak var delegate: TimePeriodViewControllerDelegate?
     
     var startDate = Date()
     var endDate = Date()
@@ -27,15 +33,15 @@ class TimePeriodViewController: UITableViewController {
     
     @IBAction func startChanged(_ sender: UIDatePicker) {
         startDateLabel.text = dateFormatter.string(from: sender.date)
+        endDatePicker.minimumDate = sender.date
     }
     
     @IBAction func endChanged(_ sender: UIDatePicker) {
         endDateLabel.text = dateFormatter.string(from: sender.date)
+        startDatePicker.maximumDate = sender.date
     }
     
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false

@@ -1680,11 +1680,11 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="budgetCell" rowHeight="143" id="ypy-Uy-Slw">
-                                        <rect key="frame" x="20" y="55.333332061767578" width="374" height="143"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="budgetCell" rowHeight="140" id="ypy-Uy-Slw" customClass="BudgetCell" customModule="MoneyApp" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="55.333332061767578" width="374" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ypy-Uy-Slw" id="Gvk-D9-VQ6">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="143"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33p-TA-NQZ" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
@@ -1702,7 +1702,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNn-5y-yIv" customClass="GTProgressBar" customModule="GTProgressBar">
-                                                    <rect key="frame" x="20" y="98" width="334" height="23"/>
+                                                    <rect key="frame" x="20" y="98" width="334" height="20"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="barBorderColor">
                                                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1747,23 +1747,35 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="we2-y2-T7N" firstAttribute="top" secondItem="33p-TA-NQZ" secondAttribute="bottom" constant="21.333333333333314" id="4Bt-Yo-1OJ"/>
                                                 <constraint firstItem="Ir9-fB-pU9" firstAttribute="leading" secondItem="33p-TA-NQZ" secondAttribute="trailing" constant="8" symbolic="YES" id="6zw-82-gYE"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="pNn-5y-yIv" secondAttribute="bottom" constant="11" id="7DN-Vu-oCv"/>
-                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="top" secondItem="Gvk-D9-VQ6" secondAttribute="top" constant="98" id="7dB-YR-oqB"/>
+                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="top" secondItem="we2-y2-T7N" secondAttribute="bottom" constant="10" id="9hW-Rt-g2l"/>
                                                 <constraint firstItem="33p-TA-NQZ" firstAttribute="top" secondItem="Gvk-D9-VQ6" secondAttribute="topMargin" id="Bnc-H3-tGu"/>
-                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="top" secondItem="we2-y2-T7N" secondAttribute="bottom" constant="10" id="IZV-Nl-aPY"/>
+                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="centerX" secondItem="Gvk-D9-VQ6" secondAttribute="centerX" id="FHE-ym-EkP"/>
                                                 <constraint firstItem="Ir9-fB-pU9" firstAttribute="baseline" secondItem="pcY-qW-BCO" secondAttribute="baseline" id="JfP-ds-kEw"/>
                                                 <constraint firstItem="Ir9-fB-pU9" firstAttribute="centerY" secondItem="33p-TA-NQZ" secondAttribute="centerY" id="U8L-JP-BYn"/>
                                                 <constraint firstItem="pcY-qW-BCO" firstAttribute="trailing" secondItem="Gvk-D9-VQ6" secondAttribute="trailingMargin" id="Wpn-rv-cXG"/>
+                                                <constraint firstItem="we2-y2-T7N" firstAttribute="centerX" secondItem="Gvk-D9-VQ6" secondAttribute="centerX" id="YFL-Ed-8qF"/>
                                                 <constraint firstItem="pcY-qW-BCO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ir9-fB-pU9" secondAttribute="trailing" constant="8" symbolic="YES" id="dst-QW-G33"/>
-                                                <constraint firstItem="pcY-qW-BCO" firstAttribute="trailing" secondItem="pNn-5y-yIv" secondAttribute="trailing" id="kfT-sF-fqs"/>
+                                                <constraint firstAttribute="bottom" secondItem="pNn-5y-yIv" secondAttribute="bottom" constant="22" id="faY-zQ-iKY"/>
                                                 <constraint firstItem="33p-TA-NQZ" firstAttribute="leading" secondItem="Gvk-D9-VQ6" secondAttribute="leadingMargin" id="pd9-69-zIt"/>
-                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="leading" secondItem="we2-y2-T7N" secondAttribute="leading" id="wP9-bv-ioO"/>
-                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="leading" secondItem="33p-TA-NQZ" secondAttribute="leading" id="zR7-R0-apc"/>
+                                                <constraint firstItem="pNn-5y-yIv" firstAttribute="leading" secondItem="we2-y2-T7N" secondAttribute="leading" id="uZe-rU-exn"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="pcY-qW-BCO" id="MJS-PU-5m0"/>
+                                            <outlet property="categoryIcon" destination="33p-TA-NQZ" id="jk9-2g-7k9"/>
+                                            <outlet property="categoryName" destination="Ir9-fB-pU9" id="Sk0-bz-EtT"/>
+                                            <outlet property="leftLabel" destination="ELt-Rm-OoJ" id="jcz-bH-CWL"/>
+                                            <outlet property="progressBar" destination="pNn-5y-yIv" id="Tav-Ku-aC3"/>
+                                            <outlet property="spentLabel" destination="JuM-UZ-Amk" id="ecU-3f-ryk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BTs-Br-LcF" id="EYD-dq-EhC"/>
+                                    <outlet property="delegate" destination="BTs-Br-LcF" id="RJm-HO-0y3"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1776,13 +1788,16 @@
                         <viewLayoutGuide key="safeArea" id="5GM-jb-uHQ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Budgeting" largeTitleDisplayMode="always" id="VCW-3g-NAy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="oZl-IM-mAt">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="oZl-IM-mAt">
                             <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="60S-hA-Lcv" kind="presentation" identifier="budgetDetail" id="EEF-wn-gu7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="dOF-SK-1Uo" id="zYb-Hz-WPe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xz4-FD-A8a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1980,7 +1995,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Start Date" id="7dC-7z-for">
+                            <tableViewSection headerTitle="Starting Date" id="7dC-7z-for">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTransaction" rowHeight="271" id="xwL-Wm-aRC">
                                         <rect key="frame" x="20" y="55.333332061767578" width="374" height="271"/>
@@ -1989,14 +2004,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="271"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="May 10th, 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXQ-oE-Ucb">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="117" height="20.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Starting Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXQ-oE-Ucb">
+                                                    <rect key="frame" x="19.999999999999993" y="11" width="101.33333333333331" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="JKO-9G-tdK">
-                                                    <rect key="frame" x="20" y="39.666666666666657" width="334" height="216"/>
+                                                    <rect key="frame" x="20" y="40" width="334" height="216"/>
                                                     <connections>
                                                         <action selector="startChanged:" destination="dDc-PF-aO0" eventType="valueChanged" id="cdc-Vv-SEn"/>
                                                     </connections>
@@ -2024,14 +2039,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="271"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="May 10th, 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzI-Ir-BRm">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="117" height="20.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Ending Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzI-Ir-BRm">
+                                                    <rect key="frame" x="20" y="11" width="93" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="7Ad-8Y-xCO">
-                                                    <rect key="frame" x="20" y="39.666666666666657" width="334" height="216"/>
+                                                    <rect key="frame" x="20" y="40" width="334" height="216"/>
                                                     <connections>
                                                         <action selector="endChanged:" destination="dDc-PF-aO0" eventType="valueChanged" id="nb4-Rf-r47"/>
                                                     </connections>
@@ -2066,7 +2081,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q6T-9g-8ys" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3906" y="1442"/>
+            <point key="canvasLocation" x="3765" y="1423"/>
         </scene>
     </scenes>
     <resources>

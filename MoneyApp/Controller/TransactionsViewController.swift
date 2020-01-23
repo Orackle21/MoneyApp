@@ -42,8 +42,6 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().clipsToBounds = true
-        UITabBar.appearance().layer.borderWidth = 0.0
         // dateBar preparation
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]
@@ -64,7 +62,7 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
+        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || UIDevice.current.screenType == .iPhones_6_6s_7_8 {
             dateBar.scrollToItem(at: IndexPath(row: 0, section: 0), at: .right, animated: false)
         }
     }

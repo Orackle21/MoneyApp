@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class BudgetViewController: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView!
     var coreDataStack: CoreDataStack!
     var walletContainer: WalletContainer!
+    private var selectedWallet: Wallet?
+    lazy var fetchedResultsController: NSFetchedResultsController<Budget> = getController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        selectedWallet = walletContainer.getSelectedWallet()
+        fetchBudgets()
     }
     
     
@@ -29,12 +34,131 @@ class BudgetViewController: UIViewController {
             if let navigationController = segue.destination as? UINavigationController {
                 if let destination = navigationController.viewControllers.first as? BudgetDetailViewController {
                     destination.coreDataStack = coreDataStack
-                    destination.wallet = walletContainer.getSelectedWallet()
+                    destination.wallet = selectedWallet
                 }
-                
             }
         }
     }
+}
+
+
+extension BudgetViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sectionInfo = fetchedResultsController.sections?[section] else {
+            return 0
+        }
+        return sectionInfo.numberOfObjects
+    }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        let count = fetchedResultsController.sections?.count
+
+        guard selectedWallet != nil else { return 0 }
+        
+        return count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "budgetCell", for: indexPath)
+        
+        if let cell = cell as? BudgetCell {
+            cell.configureCell(with: fetchedResultsController.object(at: indexPath))
+        }
+        
+        return cell
+    }
+
+}
+
+extension BudgetViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 146
+    }
+    
+}
+
+
+
+extension  BudgetViewController {
+    
+    func getController() -> NSFetchedResultsController<Budget> {
+        // 1
+        
+        
+        let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
+        let predicate = NSPredicate(format: "wallet == %@",  selectedWallet ?? "0")
+        fetchRequest.predicate = predicate
+        
+        let sort = NSSortDescriptor(key: #keyPath(Budget.dateCreated), ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        
+        // 2
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: coreDataStack!.managedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }
+    
+       func fetchBudgets() {
+           do {
+               try fetchedResultsController.performFetch()
+           } catch let error as NSError {
+               print("Fetching error: \(error), \(error.userInfo)")
+               
+           }
+       }
+       
+    func setControllerAndFetch() {
+        
+        fetchedResultsController = getController()
+        fetchBudgets()
+        tableView.reloadData()
+       }
+}
+
+extension BudgetViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,                   didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert: tableView.insertRows(at: [newIndexPath!], with:
+            .automatic)
+            
+        case .delete: tableView.deleteRows(at: [indexPath!], with: .left)
+        case .update: let cell = tableView.cellForRow(at: indexPath!) as! BudgetCell
+            cell.configureCell(with: fetchedResultsController.object(at: indexPath!))
+        case .move: tableView.deleteRows(at: [indexPath!], with: .automatic)
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        @unknown default:
+            print("Unexpected NSFetchedResultsChangeType")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let indexSet = IndexSet(integer: sectionIndex)
+        
+        switch type {
+            case .insert: tableView.insertSections(indexSet, with: .top)
+            case .delete: tableView.deleteSections(indexSet, with: .fade)
+            default: break
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates() }
     
 }

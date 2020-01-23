@@ -14,7 +14,10 @@ class BudgetDetailViewController: UITableViewController {
     var wallet: Wallet?
     
     var budgetToEdit: Budget?
-    var selectedCategory: Category? {
+    private var startDate = Date()
+    private var endDate = Date()
+    
+    private var selectedCategory: Category? {
         didSet {
             if let category = selectedCategory {
                 categoryNameLabel.text = category.name
@@ -24,8 +27,7 @@ class BudgetDetailViewController: UITableViewController {
             }
         }
     }
-    
-    
+   
     
     @IBOutlet weak var amountTextField: UITextField! {
         didSet {
@@ -45,12 +47,8 @@ class BudgetDetailViewController: UITableViewController {
     
     
     @IBOutlet weak var categoryNameLabel: UILabel!
-    
-    
     @IBOutlet weak var dateLabel: UILabel!
     
-    
-   
     private let dateFormatter = DateFormatter()
     
     
@@ -67,7 +65,7 @@ class BudgetDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = true
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
         amountTextField.delegate = self
@@ -75,11 +73,13 @@ class BudgetDetailViewController: UITableViewController {
         
         if let item = budgetToEdit {
             amountTextField.text = getCurrencySymbol() + getAmountString(amount: item.amount)
-            
             selectedCategory = item.category
-            
-            
-        } else {
+            startDate = item.startDate.convertToDate()!
+            endDate = item.endDate.convertToDate()!
+            dateLabel.text = dateFormatter.string(from: startDate) + dateFormatter.string(from: endDate)
+        }
+        
+        else {
             amountTextField.becomeFirstResponder()
         }
         
@@ -88,7 +88,7 @@ class BudgetDetailViewController: UITableViewController {
     }
     
     private func switchSaveButton() {
-        if isWrongAmountText() || selectedCategory == nil  {
+        if amountIsWrong() || selectedCategory == nil  {
             saveButton.isEnabled = false
         } else {
             saveButton.isEnabled = true
@@ -96,7 +96,7 @@ class BudgetDetailViewController: UITableViewController {
         
     }
     
-    private func isWrongAmountText() -> Bool {
+    private func amountIsWrong() -> Bool {
         switch amountTextField.text {
         case  getCurrencySymbol(): return true
         case getCurrencySymbol() + "0": return true
@@ -111,37 +111,27 @@ class BudgetDetailViewController: UITableViewController {
         
         let symbol = (wallet?.currency?.symbol  ?? (wallet?.currency!.id)!) + " "
         return symbol
-        
     }
     
     
    
     
     @IBAction func saveAction(_ sender: Any) {
-        if let item = budgetToEdit, let wallet = wallet {
-            wallet.amount! = wallet.amount! - item.amount!
+        if let item = budgetToEdit, let _ = wallet {
             item.amount = getAmount()
-            wallet.amount! = wallet.amount! + item.amount!
             tryToChangeDate(budget: item)
             item.category = selectedCategory
         }
         else if budgetToEdit == nil {
-            if let wallet = wallet  {
-                
-                var calendar = Calendar.current
-                calendar.timeZone = TimeZone.current
-                let date = Date()
-                
-                let transaction = Transaction(context: coreDataStack.managedContext)
-                transaction.wallet = wallet
-                transaction.category = selectedCategory!
-                transaction.currency = wallet.currency
-                transaction.amount = getAmount()
-                transaction.dateCreated = Date()
-                transaction.simpleDate = Int64(date.getSimpleDescr())
-                transaction.month = Int64(date.month()!)
-                transaction.year = Int64(date.month()!)
-                wallet.amount = transaction.amount! + wallet.amount!
+             if let wallet = wallet  {
+
+                let budget = Budget(context: coreDataStack.managedContext)
+                budget.wallet = wallet
+                budget.category = selectedCategory!
+                budget.amount = getAmount()
+                budget.dateCreated = Date()
+                budget.startDate = startDate.getSimpleDescr()
+                budget.endDate = endDate.getSimpleDescr()
             }
         }
         coreDataStack.saveContext()
@@ -185,26 +175,25 @@ class BudgetDetailViewController: UITableViewController {
     
     
     private func tryToChangeDate (budget: Budget) {
-        //FIXME
-        //            if budget.simpleDate == datePickerDate.getSimpleDescr() {
-        //                return
-        //            } else {
-        //                let date = datePickerDate
-        //                budget.simpleDate = date.getSimpleDescr()
-        //                budget.dateCreated = Date()
-        //            }
+        
+        if budget.startDate == startDate.getSimpleDescr() &&
+           budget.endDate == endDate.getSimpleDescr() {
+            return
+        } else {
+          //  let date = datePickerDate
+//            budget.simpleDate = date.getSimpleDescr()
+//            budget.dateCreated = Date()
+        }
     }
     
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+      //  tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        
+
         if indexPath.section == 0 {
             return 55
         }
@@ -217,8 +206,8 @@ class BudgetDetailViewController: UITableViewController {
     
     
     @IBAction func unwindBack(_ unwindSegue: UIStoryboardSegue) {
-        if let categoryEdit = unwindSegue.source as? CategoryListViewController {
-            selectedCategory = categoryEdit.selectedCategory
+        if let categoryList = unwindSegue.source as? CategoryListViewController {
+            selectedCategory = categoryList.selectedCategory
         }
         
     }
@@ -288,19 +277,4 @@ extension BudgetDetailViewController: UITextFieldDelegate {
     
 }
 
-extension String {
 
-    func transformToDate() -> Date? {
-        
-        let dateString = self
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-        dateFormatter.timeZone = TimeZone.current
-        
-        let date = dateFormatter.date(from:dateString)
-        return date
-        
-    }
-
-}
