@@ -60,6 +60,7 @@
 		9AE3BCB222C5DC6700089927 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */; };
 		9AE3BCB622C5F02C00089927 /* WalletListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */; };
 		9AE3BCB822C5F75A00089927 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */; };
+		9AE910DC23D99ECA0040B337 /* TimePeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE910DB23D99ECA0040B337 /* TimePeriodViewController.swift */; };
 		9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4CCF230997020059EFCF /* DateBarCell.swift */; };
 		EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */; };
 /* End PBXBuildFile section */
@@ -135,6 +136,7 @@
 		9AE3BCB122C5DC6700089927 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB522C5F02C00089927 /* WalletListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewController.swift; sourceTree = "<group>"; };
 		9AE3BCB722C5F75A00089927 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
+		9AE910DB23D99ECA0040B337 /* TimePeriodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriodViewController.swift; sourceTree = "<group>"; };
 		9AEC4CCF230997020059EFCF /* DateBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBarCell.swift; sourceTree = "<group>"; };
 		F8AF828884BC35B3E3876870 /* Pods-MoneyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyApp.debug.xcconfig"; path = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -294,6 +296,7 @@
 				9A8F78F623A15CC800DCD9D2 /* ColorChooserViewController.swift */,
 				9A7E8E1E23213F380009365F /* BudgetViewController.swift */,
 				9ADD6A4423D8CB7300492066 /* BudgetDetailViewController.swift */,
+				9AE910DB23D99ECA0040B337 /* TimePeriodViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				9A3FC15923B236B40085DD9D /* SubCategory+CoreDataClass.swift in Sources */,
 				9AB9A64B230D797B008E4951 /* CategoryDetailViewController.swift in Sources */,
 				9AB59E0B23BF5023005272E6 /* CategoryCell.swift in Sources */,
+				9AE910DC23D99ECA0040B337 /* TimePeriodViewController.swift in Sources */,
 				9A8F78F723A15CC800DCD9D2 /* ColorChooserViewController.swift in Sources */,
 				9A7B4A3723557E0D00FA198C /* CategoryReportViewController.swift in Sources */,
 				9AB22B2222DEF6EC00AE145F /* WalletBarCell.swift in Sources */,
