@@ -29,8 +29,6 @@ class BudgetViewController: UIViewController {
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         selectedWallet = walletContainer.getSelectedWallet()
         fetchBudgets()
-       
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,11 +109,21 @@ extension BudgetViewController: UITableViewDataSource {
         
         if let cell = cell as? BudgetCell {
             let budget = fetchedResultsController.object(at: indexPath)
-            cell.configureCell(with: budget, spent: spentCache[indexPath.row])
+            cell.configureCell(with: budget, spent: spentCache[indexPath.section])
         }
         
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            let budget = fetchedResultsController.object(at: indexPath)
+            coreDataStack.managedContext.delete(budget)
+            spentCache.remove(at: indexPath.section)
+            coreDataStack.saveContext()
+        }
     }
 }
 
@@ -123,8 +131,14 @@ extension BudgetViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 146
+        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
     }
 }
+    
 
 
 
@@ -160,7 +174,6 @@ extension  BudgetViewController {
                print("Fetching error: \(error), \(error.userInfo)")
                
            }
-            setSpentCache()
        }
        
     func setControllerAndFetch() {
@@ -190,7 +203,7 @@ extension BudgetViewController: NSFetchedResultsControllerDelegate {
         case .insert: tableView.insertRows(at: [newIndexPath!], with:
             .automatic)
             
-        case .delete: tableView.deleteRows(at: [indexPath!], with: .left)
+        case .delete: tableView.deleteRows(at: [indexPath!], with: .none)
         case .update: let cell = tableView.cellForRow(at: indexPath!) as! BudgetCell
         cell.configureCell(with: fetchedResultsController.object(at: indexPath!), spent: spentCache[indexPath!.row])
         case .move: tableView.deleteRows(at: [indexPath!], with: .automatic)
@@ -206,7 +219,8 @@ extension BudgetViewController: NSFetchedResultsControllerDelegate {
         
         switch type {
             case .insert: tableView.insertSections(indexSet, with: .top)
-            case .delete: tableView.deleteSections(indexSet, with: .fade)
+                          setSpentCache()
+        case .delete: tableView.deleteSections(indexSet, with: .fade)
             default: break
         }
     }
@@ -215,3 +229,5 @@ extension BudgetViewController: NSFetchedResultsControllerDelegate {
         tableView.endUpdates() }
     
 }
+
+

@@ -1666,7 +1666,7 @@
                         </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="BTs-Br-LcF" kind="relationship" relationship="rootViewController" id="v78-7y-pq9"/>
+                        <segue destination="BTs-Br-LcF" kind="relationship" relationship="rootViewController" id="tkQ-q6-BPT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3s-t0-ZVM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1682,7 +1682,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dOF-SK-1Uo">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="budgetCell" rowHeight="140" id="ypy-Uy-Slw" customClass="BudgetCell" customModule="MoneyApp" customModuleProvider="target">
@@ -1719,25 +1719,25 @@
                                                             <color key="value" red="0.49759615384615385" green="0.49519230769230771" blue="0.5" alpha="0.15394905821917809" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="displayLabel" value="NO"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="progress">
-                                                            <real key="value" value="0.5"/>
-                                                        </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="barFillInset">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="progress">
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="182" translatesAutoresizingMaskIntoConstraints="NO" id="we2-y2-T7N">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="we2-y2-T7N">
                                                     <rect key="frame" x="20" y="72.333333333333329" width="334" height="15.666666666666671"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spent: $999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JuM-UZ-Amk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="76" height="15.666666666666666"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="181.33333333333334" height="15.666666666666666"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Left: $999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-Rm-OoJ">
-                                                            <rect key="frame" x="258" y="0.0" width="76" height="15.666666666666666"/>
+                                                            <rect key="frame" x="189.33333333333337" y="0.0" width="144.66666666666663" height="15.666666666666666"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1759,10 +1759,12 @@
                                                 <constraint firstItem="pNn-5y-yIv" firstAttribute="centerX" secondItem="Gvk-D9-VQ6" secondAttribute="centerX" id="FHE-ym-EkP"/>
                                                 <constraint firstItem="Ir9-fB-pU9" firstAttribute="baseline" secondItem="pcY-qW-BCO" secondAttribute="baseline" id="JfP-ds-kEw"/>
                                                 <constraint firstItem="Ir9-fB-pU9" firstAttribute="centerY" secondItem="33p-TA-NQZ" secondAttribute="centerY" id="U8L-JP-BYn"/>
+                                                <constraint firstItem="we2-y2-T7N" firstAttribute="leading" secondItem="Gvk-D9-VQ6" secondAttribute="leading" constant="20" symbolic="YES" id="VoV-Ay-UWG"/>
                                                 <constraint firstItem="pcY-qW-BCO" firstAttribute="trailing" secondItem="Gvk-D9-VQ6" secondAttribute="trailingMargin" id="Wpn-rv-cXG"/>
                                                 <constraint firstItem="we2-y2-T7N" firstAttribute="centerX" secondItem="Gvk-D9-VQ6" secondAttribute="centerX" id="YFL-Ed-8qF"/>
                                                 <constraint firstItem="pcY-qW-BCO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ir9-fB-pU9" secondAttribute="trailing" constant="8" symbolic="YES" id="dst-QW-G33"/>
                                                 <constraint firstAttribute="bottom" secondItem="pNn-5y-yIv" secondAttribute="bottom" constant="22" id="faY-zQ-iKY"/>
+                                                <constraint firstAttribute="trailing" secondItem="we2-y2-T7N" secondAttribute="trailing" constant="20" symbolic="YES" id="hgr-Ja-usw"/>
                                                 <constraint firstItem="33p-TA-NQZ" firstAttribute="leading" secondItem="Gvk-D9-VQ6" secondAttribute="leadingMargin" id="pd9-69-zIt"/>
                                                 <constraint firstItem="pNn-5y-yIv" firstAttribute="leading" secondItem="we2-y2-T7N" secondAttribute="leading" id="uZe-rU-exn"/>
                                             </constraints>
@@ -1785,14 +1787,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dOF-SK-1Uo" firstAttribute="top" secondItem="5GM-jb-uHQ" secondAttribute="top" id="1JE-GI-yKW"/>
-                            <constraint firstItem="5GM-jb-uHQ" firstAttribute="bottom" secondItem="dOF-SK-1Uo" secondAttribute="bottom" id="N5i-yu-mgJ"/>
+                            <constraint firstItem="dOF-SK-1Uo" firstAttribute="top" secondItem="tNw-ZU-SsR" secondAttribute="top" id="1JE-GI-yKW"/>
+                            <constraint firstAttribute="bottom" secondItem="dOF-SK-1Uo" secondAttribute="bottom" id="N5i-yu-mgJ"/>
                             <constraint firstItem="dOF-SK-1Uo" firstAttribute="leading" secondItem="5GM-jb-uHQ" secondAttribute="leading" id="Uax-Hv-Jb6"/>
                             <constraint firstItem="5GM-jb-uHQ" firstAttribute="trailing" secondItem="dOF-SK-1Uo" secondAttribute="trailing" id="d9w-vg-LG9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5GM-jb-uHQ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Budgeting" id="VCW-3g-NAy">
+                    <navigationItem key="navigationItem" title="Budgeting" largeTitleDisplayMode="always" id="VCW-3g-NAy">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="oZl-IM-mAt">
                             <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
