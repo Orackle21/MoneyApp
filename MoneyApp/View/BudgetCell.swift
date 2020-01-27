@@ -31,9 +31,12 @@ class BudgetCell: UITableViewCell {
     }
 
     func configureCell (with budget: Budget) {
+        
+        let currencySymbol = budget.wallet?.currency?.symbol ?? budget.wallet?.currency?.id
+        
         categoryIcon.drawIcon(skin: budget.category?.skin)
         categoryName.text = budget.category?.name
-        amountLabel.text = budget.amount?.description
+        amountLabel.text = currencySymbol! + " " + budget.amount!.description
         
         progressBar.progress = 0.5
     }

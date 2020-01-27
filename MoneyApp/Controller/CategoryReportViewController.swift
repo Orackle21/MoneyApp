@@ -18,7 +18,7 @@ class CategoryReportViewController: UIViewController {
     var category: Category?
     var isExpense: Bool!
     
-    private lazy var fetchedResultsController: NSFetchedResultsController<Budget> = getController()
+    private lazy var fetchedResultsController: NSFetchedResultsController<Transaction> = getController()
     
 
     
@@ -82,7 +82,7 @@ extension CategoryReportViewController: UITableViewDataSource {
 
 extension CategoryReportViewController {
     
-    func getController() -> NSFetchedResultsController<Budget> {
+    func getController() -> NSFetchedResultsController<Transaction> {
         // 1
         
         let startDate = NSNumber(value: selectedDateInterval.start.getSimpleDescr())
@@ -91,7 +91,7 @@ extension CategoryReportViewController {
         print (startDate)
         print (endDate)
         
-        let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@ AND category == %@", startDate, endDate, wallet, category ?? "0")
         
         let amountPredicate: NSPredicate = {

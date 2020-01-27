@@ -12,18 +12,34 @@ import CoreData
 class BudgetViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+   
+    lazy var fetchedResultsController: NSFetchedResultsController<Budget> = getController()
+
     var coreDataStack: CoreDataStack!
     var walletContainer: WalletContainer!
+    
     private var selectedWallet: Wallet?
-    lazy var fetchedResultsController: NSFetchedResultsController<Budget> = getController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         selectedWallet = walletContainer.getSelectedWallet()
         fetchBudgets()
+       
+       
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if selectedWallet == walletContainer.getSelectedWallet() {
+            return
+        } else {
+            selectedWallet = walletContainer.getSelectedWallet()
+            setControllerAndFetch()
+        }
+    }
     
     
     // MARK: - Navigation
@@ -41,6 +57,8 @@ class BudgetViewController: UIViewController {
     }
 }
 
+// MARK: - TableView DataSource and Delegate methods
+
 
 extension BudgetViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,22 +71,19 @@ extension BudgetViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         
         let count = fetchedResultsController.sections?.count
-
         guard selectedWallet != nil else { return 0 }
-        
         return count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "budgetCell", for: indexPath)
         
         if let cell = cell as? BudgetCell {
             cell.configureCell(with: fetchedResultsController.object(at: indexPath))
         }
-        
         return cell
     }
-
 }
 
 extension BudgetViewController: UITableViewDelegate {
@@ -76,16 +91,16 @@ extension BudgetViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 146
     }
-    
 }
 
 
+
+// MARK: - FetchedResultsController declaration and methods
 
 extension  BudgetViewController {
     
     func getController() -> NSFetchedResultsController<Budget> {
         // 1
-        
         
         let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
         let predicate = NSPredicate(format: "wallet == %@",  selectedWallet ?? "0")
@@ -98,7 +113,7 @@ extension  BudgetViewController {
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: coreDataStack!.managedContext,
-            sectionNameKeyPath: nil,
+            sectionNameKeyPath: #keyPath(Budget.dateCreated), 
             cacheName: nil)
         
         fetchedResultsController.delegate = self

@@ -153,18 +153,15 @@ class BudgetDetailViewController: UITableViewController {
     private func getAmount() -> NSDecimalNumber {
         let string = amountTextField.text?.components(separatedBy: getCurrencySymbol())
         
-        if let category = selectedCategory, let string = string {
+        if let _ = selectedCategory, let string = string {
             var absoluteValue: Decimal
             
             let textfieldAmount = Decimal(string: string[1])
             absoluteValue = abs(textfieldAmount ?? 0)
             let resultValue = NSDecimalNumber(decimal: absoluteValue)
             
-            if category.isExpense {
-                return -resultValue
-            } else {
-                return resultValue
-            }
+            return resultValue
+            
         }
         else {
             return 0
