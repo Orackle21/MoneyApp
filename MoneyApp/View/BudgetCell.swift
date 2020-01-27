@@ -28,7 +28,11 @@ class BudgetCell: UITableViewCell {
         
         let amount = budget.amount ?? 0
         let spent = spent
-        let left = amount - spent
+        var left = amount - spent
+        
+        if left < 0 {
+            left = 0
+        }
         
         let currencySymbol = budget.wallet?.currency?.symbol ?? budget.wallet?.currency?.id
         

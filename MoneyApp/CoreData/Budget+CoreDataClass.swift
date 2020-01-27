@@ -53,7 +53,7 @@ public class Budget: NSManagedObject {
             NSLog("Error when summing amounts: \(error.localizedDescription)")
         }
         
-        return amountSum
+        return -amountSum
         
     }
     

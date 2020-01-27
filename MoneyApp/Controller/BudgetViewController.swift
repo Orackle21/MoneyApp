@@ -21,6 +21,8 @@ class BudgetViewController: UIViewController {
     
     private var selectedWallet: Wallet?
     
+    private var spentCache = [NSDecimalNumber]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,36 +36,55 @@ class BudgetViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+       
         
         if selectedWallet == walletContainer.getSelectedWallet() {
-            return
+            setSpentCache()
+            tableView.reloadData()
         } else {
             selectedWallet = walletContainer.getSelectedWallet()
             setControllerAndFetch()
         }
+        
         if selectedWallet == nil {
             addButton.isEnabled = false
         } else {
             addButton.isEnabled = true
         }
+        
     }
     
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "budgetDetail" {
             if let navigationController = segue.destination as? UINavigationController {
                 if let destination = navigationController.viewControllers.first as? BudgetDetailViewController {
                     destination.coreDataStack = coreDataStack
                     destination.wallet = selectedWallet
-                    
                 }
             }
         }
     }
+}
+
+extension BudgetViewController {
+    
+    
+    func setSpentCache() {
+        
+        spentCache.removeAll()
+        
+        if let fetchedBudgets = fetchedResultsController.fetchedObjects {
+            for budget in fetchedBudgets {
+                let spentAmount = budget.getAmountSpent(coreDataStack: coreDataStack)
+                spentCache.append(spentAmount)
+            }
+        }
+        
+    }
+    
 }
 
 // MARK: - TableView DataSource and Delegate methods
@@ -90,7 +111,7 @@ extension BudgetViewController: UITableViewDataSource {
         
         if let cell = cell as? BudgetCell {
             let budget = fetchedResultsController.object(at: indexPath)
-            cell.configureCell(with: budget, spent: budget.getAmountSpent(coreDataStack: coreDataStack))
+            cell.configureCell(with: budget, spent: spentCache[indexPath.row])
         }
         
         
@@ -139,15 +160,20 @@ extension  BudgetViewController {
                print("Fetching error: \(error), \(error.userInfo)")
                
            }
+            setSpentCache()
        }
        
     func setControllerAndFetch() {
-        
         fetchedResultsController = getController()
         fetchBudgets()
+        setSpentCache()
         tableView.reloadData()
        }
 }
+
+
+// MARK: - Feteched Results Delegate Methods
+
 
 extension BudgetViewController: NSFetchedResultsControllerDelegate {
     
@@ -166,7 +192,7 @@ extension BudgetViewController: NSFetchedResultsControllerDelegate {
             
         case .delete: tableView.deleteRows(at: [indexPath!], with: .left)
         case .update: let cell = tableView.cellForRow(at: indexPath!) as! BudgetCell
-        cell.configureCell(with: fetchedResultsController.object(at: indexPath!), spent: fetchedResultsController.object(at: indexPath!).getAmountSpent(coreDataStack: coreDataStack))
+        cell.configureCell(with: fetchedResultsController.object(at: indexPath!), spent: spentCache[indexPath!.row])
         case .move: tableView.deleteRows(at: [indexPath!], with: .automatic)
         tableView.insertRows(at: [newIndexPath!], with: .automatic)
         @unknown default:
