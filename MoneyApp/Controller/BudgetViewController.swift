@@ -12,7 +12,8 @@ import CoreData
 class BudgetViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-   
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Budget> = getController()
 
     var coreDataStack: CoreDataStack!
@@ -33,11 +34,18 @@ class BudgetViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
+        
         if selectedWallet == walletContainer.getSelectedWallet() {
             return
         } else {
             selectedWallet = walletContainer.getSelectedWallet()
             setControllerAndFetch()
+        }
+        if selectedWallet == nil {
+            addButton.isEnabled = false
+        } else {
+            addButton.isEnabled = true
         }
     }
     
@@ -51,6 +59,7 @@ class BudgetViewController: UIViewController {
                 if let destination = navigationController.viewControllers.first as? BudgetDetailViewController {
                     destination.coreDataStack = coreDataStack
                     destination.wallet = selectedWallet
+                    
                 }
             }
         }
@@ -80,8 +89,11 @@ extension BudgetViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "budgetCell", for: indexPath)
         
         if let cell = cell as? BudgetCell {
-            cell.configureCell(with: fetchedResultsController.object(at: indexPath))
+            let budget = fetchedResultsController.object(at: indexPath)
+            cell.configureCell(with: budget, spent: budget.getAmountSpent(coreDataStack: coreDataStack))
         }
+        
+        
         return cell
     }
 }
@@ -154,7 +166,7 @@ extension BudgetViewController: NSFetchedResultsControllerDelegate {
             
         case .delete: tableView.deleteRows(at: [indexPath!], with: .left)
         case .update: let cell = tableView.cellForRow(at: indexPath!) as! BudgetCell
-            cell.configureCell(with: fetchedResultsController.object(at: indexPath!))
+        cell.configureCell(with: fetchedResultsController.object(at: indexPath!), spent: fetchedResultsController.object(at: indexPath!).getAmountSpent(coreDataStack: coreDataStack))
         case .move: tableView.deleteRows(at: [indexPath!], with: .automatic)
         tableView.insertRows(at: [newIndexPath!], with: .automatic)
         @unknown default:

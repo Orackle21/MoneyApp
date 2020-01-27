@@ -370,7 +370,7 @@ extension ReportsViewController {
         fetchRequest.predicate = predicate
 
         
-        //Exrpession
+        //Expression
         let sumExpressionDesc = NSExpressionDescription()
         sumExpressionDesc.name = "sumAmounts"
         

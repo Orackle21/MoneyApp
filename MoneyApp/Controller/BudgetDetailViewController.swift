@@ -108,8 +108,12 @@ class BudgetDetailViewController: UITableViewController {
     }
     
     private func getCurrencySymbol() -> String{
+        var symbol = ""
         
-        let symbol = (wallet?.currency?.symbol  ?? (wallet?.currency!.id)!) + " "
+        if let wallet = wallet {
+            symbol = (wallet.currency?.symbol  ?? (wallet.currency?.id)!) + " "
+        }
+        
         return symbol
     }
     
@@ -217,11 +221,16 @@ class BudgetDetailViewController: UITableViewController {
             destination.wallet = wallet
             destination.coreDataStack = coreDataStack
         }
+        if let destination = segue.destination as? TimePeriodViewController {
+            destination.delegate = self
+        }
     }
     
     
 }
 
+
+// MARK: - Amount text field valididation checks
 
 extension BudgetDetailViewController: UITextFieldDelegate {
     
@@ -275,3 +284,14 @@ extension BudgetDetailViewController: UITextFieldDelegate {
 }
 
 
+// MARK: - Delegate
+
+extension BudgetDetailViewController: TimePeriodViewControllerDelegate {
+    func didSelectDates(startDate: Date, endDate: Date) {
+        self.startDate = startDate
+        self.endDate = endDate
+    }
+    
+    
+    
+}

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TimePeriodViewControllerDelegate: AnyObject {
-    func didSelectDates()
+    func didSelectDates(startDate: Date, endDate: Date)
 }
 
 class TimePeriodViewController: UITableViewController {
@@ -24,21 +24,28 @@ class TimePeriodViewController: UITableViewController {
     private var startIsCollapsed = true
     private var endIsCollapsed = true
 
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
     
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     
+    @IBAction func doneAction(_ sender: Any) {
+        delegate?.didSelectDates(startDate: startDate, endDate: endDate)
+        navigationController?.popViewController(animated: true)
+    }
     
     @IBAction func startChanged(_ sender: UIDatePicker) {
         startDateLabel.text = dateFormatter.string(from: sender.date)
-        endDatePicker.minimumDate = sender.date
+        startDate = sender.date
+        switchDoneButton()
     }
     
     @IBAction func endChanged(_ sender: UIDatePicker) {
         endDateLabel.text = dateFormatter.string(from: sender.date)
-        startDatePicker.maximumDate = sender.date
+        endDate = sender.date
+        switchDoneButton()
     }
     
 
@@ -49,7 +56,15 @@ class TimePeriodViewController: UITableViewController {
     }
 
     
-    
+    func switchDoneButton() {
+        
+        if startDate > endDate {
+            doneButton.isEnabled = false
+        } else {
+            doneButton.isEnabled = true
+        }
+        
+    }
     
     
     

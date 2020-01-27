@@ -464,7 +464,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GbW-rq-e9L"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Transactions" largeTitleDisplayMode="always" id="n67-sH-yG1">
+                    <navigationItem key="navigationItem" title="Transactions" leftItemsSupplementBackButton="YES" id="n67-sH-yG1">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="action" id="33O-fN-XgZ">
                             <color key="tintColor" red="0.57390427489999996" green="0.43835377780000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -1158,7 +1158,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="35" estimatedSectionHeaderHeight="35" sectionFooterHeight="1" estimatedSectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmG-md-qj2">
-                                <rect key="frame" x="0.0" y="49" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="gI6-IB-O0a">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
@@ -1263,13 +1263,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="DmG-md-qj2" firstAttribute="centerX" secondItem="EuP-Iw-h6b" secondAttribute="centerX" id="2rk-EM-IIS"/>
-                            <constraint firstItem="DmG-md-qj2" firstAttribute="bottom" secondItem="EuP-Iw-h6b" secondAttribute="bottom" constant="5" id="QvL-Ha-BWC"/>
-                            <constraint firstItem="DmG-md-qj2" firstAttribute="centerY" secondItem="C8h-rs-MdT" secondAttribute="centerY" constant="5" id="TxA-I4-Dks"/>
+                            <constraint firstItem="DmG-md-qj2" firstAttribute="bottom" secondItem="EuP-Iw-h6b" secondAttribute="bottom" id="QvL-Ha-BWC"/>
+                            <constraint firstItem="DmG-md-qj2" firstAttribute="centerY" secondItem="C8h-rs-MdT" secondAttribute="centerY" id="TxA-I4-Dks"/>
                             <constraint firstItem="DmG-md-qj2" firstAttribute="leading" secondItem="C8h-rs-MdT" secondAttribute="leading" id="Y7l-QJ-QTt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C8h-rs-MdT"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Reports" id="alr-Vu-tRE">
+                    <navigationItem key="navigationItem" title="Reports" largeTitleDisplayMode="always" id="alr-Vu-tRE">
                         <barButtonItem key="leftBarButtonItem" title="Time Interval" style="done" id="y0V-3v-948">
                             <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -1801,6 +1801,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="oZl-IM-mAt" id="ph9-p7-Pra"/>
                         <outlet property="tableView" destination="dOF-SK-1Uo" id="zYb-Hz-WPe"/>
                     </connections>
                 </viewController>
@@ -1860,7 +1861,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="A35-eE-c5J" kind="relationship" relationship="rootViewController" id="tsc-cj-c5x"/>
+                        <segue destination="A35-eE-c5J" kind="relationship" relationship="rootViewController" id="hty-G6-w8O"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6Z-Qi-Sgx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2076,8 +2077,15 @@
                             <outlet property="delegate" destination="dDc-PF-aO0" id="4Ge-GT-tlA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Time Period" id="fff-3p-Fy0"/>
+                    <navigationItem key="navigationItem" title="Time Period" id="fff-3p-Fy0">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="oAi-a1-GUf">
+                            <connections>
+                                <action selector="doneAction:" destination="dDc-PF-aO0" id="EBd-AS-Gss"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="oAi-a1-GUf" id="NQh-tm-KmR"/>
                         <outlet property="endDateLabel" destination="OzI-Ir-BRm" id="0fD-F3-UFu"/>
                         <outlet property="endDatePicker" destination="7Ad-8Y-xCO" id="loT-Et-OZR"/>
                         <outlet property="startDateLabel" destination="eXQ-oE-Ucb" id="dr7-gN-db2"/>

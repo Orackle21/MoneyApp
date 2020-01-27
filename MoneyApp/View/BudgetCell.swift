@@ -21,16 +21,14 @@ class BudgetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-    }
-
-    func configureCell (with budget: Budget) {
+    func configureCell (with budget: Budget, spent: NSDecimalNumber) {
+        
+        let amount = budget.amount ?? 0
+        let spent = spent
+        let left = amount - spent
         
         let currencySymbol = budget.wallet?.currency?.symbol ?? budget.wallet?.currency?.id
         
@@ -38,6 +36,10 @@ class BudgetCell: UITableViewCell {
         categoryName.text = budget.category?.name
         amountLabel.text = currencySymbol! + " " + budget.amount!.description
         
-        progressBar.progress = 0.5
+        spentLabel.text =  "Spent: " + currencySymbol! + " " + spent.description
+        leftLabel.text = "Left: " + currencySymbol! + " " + left.description
+        
+        
+        progressBar.progress = CGFloat(truncating: spent / amount)
     }
 }
