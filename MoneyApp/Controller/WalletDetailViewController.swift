@@ -27,6 +27,8 @@ class WalletDetailViewController: UITableViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.view.backgroundColor = UIColor.white
+
     }
     
     @IBAction func saveAction(_ sender: Any) {

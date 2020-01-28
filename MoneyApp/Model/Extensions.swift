@@ -69,10 +69,20 @@ extension UITableView {
         // The only tricky part is here:
         self.backgroundView = emptyView
         self.separatorStyle = .none
+        if #available(iOS 13.0, *) {
+            self.backgroundColor = UIColor.systemBackground
+        } else {
+            self.backgroundColor = UIColor.white
+        }
     }
     func restore() {
         self.backgroundView = nil
         self.separatorStyle = .singleLine
+        if #available(iOS 13.0, *) {
+            self.backgroundColor = UIColor.systemGroupedBackground
+        } else {
+            self.backgroundColor = UIColor.groupTableViewBackground
+        }
     }
 }
 

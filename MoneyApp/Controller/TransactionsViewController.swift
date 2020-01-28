@@ -51,7 +51,7 @@ class TransactionsViewController: UIViewController {
         // TableView styling
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        
+        self.tableView.separatorStyle = .none
        
     }
     
@@ -64,8 +64,12 @@ class TransactionsViewController: UIViewController {
         super.viewDidAppear(animated)
         if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || UIDevice.current.screenType == .iPhones_6_6s_7_8 {
             dateBar.scrollToItem(at: IndexPath(row: 0, section: 0), at: .right, animated: false)
+            
+            
         }
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -222,11 +226,29 @@ extension TransactionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
         if #available(iOS 13.0, *) {
-            headerView.contentView.backgroundColor = UIColor.systemGroupedBackground
+            headerView.contentView.backgroundColor = UIColor.secondarySystemGroupedBackground
         } else {
             headerView.contentView.backgroundColor = UIColor.white
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UIView()
+        footer.backgroundColor = UIColor.clear
+        
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == numberOfSections(in: tableView) - 1 {
+            return 0
+        }
+        return 28
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -251,6 +273,9 @@ extension TransactionsViewController: UICollectionViewDelegate {
             
         } else {
             
+            if wallets.isEmpty {
+                return
+            } else {
             let wallet = wallets[indexPath.row]
             walletContainer.setSelectedWallet(wallet: wallet)
             coreDataStack.saveContext()
@@ -262,6 +287,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
             }
             walletBar.reloadData()
             setControllerAndFetch()
+            }
         }
     }
     
@@ -271,14 +297,19 @@ extension TransactionsViewController: UICollectionViewDelegate {
 extension TransactionsViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.dateBar {
             return dateBarItems.count
         } else {
-            return wallets.count
+            if section == 0 {
+                return wallets.count
+            } else {
+                return 1
+            }
+            
         }
     }
     
@@ -295,6 +326,8 @@ extension TransactionsViewController: UICollectionViewDataSource {
         }
             
         else {
+            
+            if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "walletBarCollectionCell", for: indexPath)
             
             if let cell = cell as? WalletBarCell {
@@ -302,7 +335,12 @@ extension TransactionsViewController: UICollectionViewDataSource {
                 cell.walletName.text = wallet.name
                 cell.configureWalletBarItems(with: wallet)
             }
-            return cell
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "newWalletCell", for: indexPath)
+                cell.backgroundView?.layer.addBorder(edge: .left, color: UIColor.red, thickness: 3.0)
+                return cell
+            }
         }
     }
 }
@@ -339,6 +377,7 @@ extension  TransactionsViewController {
     
     func getController() -> NSFetchedResultsController<Transaction> {
         // 1
+        
         
         let startDate = NSNumber(value: selectedDateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: selectedDateInterval.end.getSimpleDescr())
@@ -496,5 +535,4 @@ extension TransactionsViewController {
     }
 
 }
-
 

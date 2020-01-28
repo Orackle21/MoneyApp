@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol CategoryDetailViewControllerDelegate: AnyObject {
+protocol CategoryDetailViewControllerDelegate: AnyObject{
     func didCreateNewCategory()
 }
 

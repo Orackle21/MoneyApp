@@ -15,7 +15,7 @@
         <attribute name="isExpense" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="skin" attributeType="Transformable" valueTransformerName="" customClassName="Skin"/>
-        <relationship name="budgets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Budget" inverseName="category" inverseEntity="Budget"/>
+        <relationship name="budgets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Budget" inverseName="category" inverseEntity="Budget"/>
         <relationship name="subCategories" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SubCategory" inverseName="parentCategory" inverseEntity="SubCategory"/>
         <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="category" inverseEntity="Transaction"/>
         <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="categories" inverseEntity="Wallet"/>
@@ -41,9 +41,9 @@
         <attribute name="isSelected" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="skin" attributeType="Transformable" valueTransformerName="" customClassName="Skin"/>
-        <relationship name="budgets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Budget" inverseName="wallet" inverseEntity="Budget"/>
+        <relationship name="budgets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Budget" inverseName="wallet" inverseEntity="Budget"/>
         <relationship name="categories" toMany="YES" deletionRule="Cascade" destinationEntity="Category" inverseName="wallet" inverseEntity="Category"/>
-        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="wallet" inverseEntity="Transaction"/>
+        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="wallet" inverseEntity="Transaction"/>
         <relationship name="walletContainer" maxCount="1" deletionRule="Nullify" destinationEntity="WalletContainer" inverseName="wallets" inverseEntity="WalletContainer"/>
     </entity>
     <entity name="WalletContainer" representedClassName="WalletContainer" syncable="YES">

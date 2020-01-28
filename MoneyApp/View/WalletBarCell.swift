@@ -26,7 +26,7 @@ class WalletBarCell: UICollectionViewCell {
         let color = UIColor(named: item.skin?.color ?? " ")
         self.backgroundColor = color
     } else {
-        self.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 0.4013805651)
     }
 
    }

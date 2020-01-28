@@ -36,7 +36,7 @@ class Dater {
 
     
     // Starts from the refference date. Goes back in time using provided Calendar.Component. Is constrained by "limit".
-    // Ex. Passing today's Date, with ".day" component and a limit of "1" will return previous day in DateInterval format, meaning that it bears day's start and end.
+    // Ex. Passing today's Date, with ".day" component and a limit of "1" will return previous day in DateInterval format, meaning that it contains day's start and end.
     
     func calculateDateIntervals (startingFrom date: Date = Date(),
                                  with timeRange: Calendar.Component? = nil,
@@ -56,11 +56,15 @@ class Dater {
             limit = getUpperRange(for: timeRange!)
         }
         
-        
-        
+ 
         if let timeRange = timeRange{
             
-            let dateInterval = getDateIntervalFor(date: date, using: timeRange)
+            var dateInterval = getDateIntervalFor(date: date, using: timeRange)
+            
+            if timeRange == .month || timeRange == .weekOfMonth || timeRange == .year {
+                dateInterval.end = calendar.dateInterval(of: .day, for: date)!.end
+            }
+            
             
             dates.append(dateInterval)
             
@@ -189,9 +193,7 @@ extension Dater {
             
             
             let outerInterval = self.getDateIntervalFor(date: innerInterval.start, using: calendarComponent)
-            
-            
-            
+
             if var innerIntervalArray = sortedIntervals[outerInterval] {
                 innerIntervalArray.append(innerInterval)
                 sortedIntervals.updateValue(innerIntervalArray, forKey: outerInterval)
