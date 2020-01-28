@@ -325,7 +325,7 @@ extension TransactionDetailViewController: UITextFieldDelegate {
         
         if text == (getCurrencySymbol() + "0") {
             amountTextField.text = getCurrencySymbol() + string
-            saveButton.isEnabled = true
+            switchSaveButton()
             return false
         }
         
