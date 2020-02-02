@@ -7,144 +7,144 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E6F3A3B8-3F80-4CCD-B509-A836F502A6C9"
+            uuid = "A3C06873-4538-426E-97E7-04C0A9820232"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/BudgetViewController.swift"
+            filePath = "MoneyApp/Model/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "setSpentCache()"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "colorFromHexOrName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DD1B7737-46B8-49A5-9C75-8A56AE40ABAC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/BudgetViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4D7CABC5-3FBB-409B-8F42-49FA93BCD2EB"
+            uuid = "D1CC861D-706C-432A-810A-0D4E44679539"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/BudgetViewController.swift"
+            filePath = "MoneyApp/Model/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "tableView(_:commit:forRowAt:)"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "colorFromHexOrName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4AFC2FD2-7E50-4F01-AFB2-92BAD738F0DF"
+            uuid = "0B876711-1571-4955-ADA1-8F3FF864C928"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/BudgetViewController.swift"
+            filePath = "MoneyApp/Model/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "tableView(_:commit:forRowAt:)"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "colorFromHexOrName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4104AD10-9EB1-4223-B99C-9C627F530661"
+            uuid = "04CD5F5D-8EED-40DC-8A1F-357F8072125C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/BudgetViewController.swift"
+            filePath = "MoneyApp/Model/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "controller(_:didChange:atSectionIndex:for:)"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "colorFromHexOrName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8BDBDAC8-D53E-4B82-B675-3E95C9187E35"
+            uuid = "8C190192-761D-4726-9C7C-91AC4ECB32CB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/Controller/BudgetViewController.swift"
+            filePath = "MoneyApp/Model/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "colorFromHexOrName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "42D80493-8E60-4409-BEB1-82B97204321D"
+            uuid = "98C8E6EF-3A80-4CED-8E1E-FBA35B241005"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MoneyApp/View/IconView.swift"
+            filePath = "MoneyApp/Model/Extensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "draw(_:)"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "colorFromHexOrName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3C625B1F-8A46-4B47-8C8C-E53E271E1F69"
+            uuid = "8DCC36C4-1D42-4B17-A8F0-7A61AF4FB700"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyApp/View/IconView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "draw(_:)"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "drawIcon(skin:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D7CFCC75-E9EE-47C4-9585-08E68C592E22"
+            uuid = "F1C28BBC-0BB8-41D0-827C-25210F2887AC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneyApp/View/IconView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "draw(_:)"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "drawIcon(skin:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C1EDB0F-ADCE-46E2-A4FC-5CC5FCB4FD5D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoneyApp/View/IconView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "drawIcon(skin:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

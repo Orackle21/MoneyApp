@@ -22,44 +22,35 @@ class IconView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        
-     //   let context = UIGraphicsGetCurrentContext()!
+        let context = UIGraphicsGetCurrentContext()!
         let path = UIBezierPath(ovalIn: bounds)
-  //      let color = categoryColor
+        
+        
+        // If there's only one color - fill path with the color, if there are 2 colors - draw gradient, else - fill with grey color.
         
         if let colors = iconColors {
             if colors.count == 1 {
                 colors[0].setFill()
+                path.fill()
+            }
+            else if colors.count == 2 {
+                drawGradient(path: path, context: context)
             }
         } else {
             #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).setFill()
+            path.fill()
         }
         
-        path.fill()
         
+        
+        // Add shadow to the rounded path
         
         self.layer.shadowOpacity = 0.15
         self.layer.shadowOffset = CGSize(width: 0, height: 4)
         self.layer.shadowRadius = 5.0
         
-        
-        
-        //        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        //
-        //        let colorLocations: [CGFloat] = [0.0, 1.0]
-        //        path.addClip()
-        //        let gradient = CGGradient(colorsSpace: colorSpace,
-        //                                  colors: colors! as CFArray,
-        //                                  locations: colorLocations)!
-        //
-        //        let startPoint = CGPoint.zero
-        //        let endPoint = CGPoint(x: 0, y: bounds.height)
-        //        context.drawLinearGradient(gradient,
-        //                                   start: startPoint,
-        //                                   end: endPoint,
-        //                                   options: [])
-        
-        //         adding an icon
+
+        // Add an icon as a subview, if there is already an icon present - do nothing
         
         if let iconName = iconName {
             let image = UIImage(named: iconName)
@@ -86,13 +77,48 @@ class IconView: UIView {
     }
     
     
+    private func drawGradient(path: UIBezierPath, context: CGContext) {
+        var colors = [CGColor]()
+        if let uiColors = iconColors {
+            colors = convertToCGColors(colors: uiColors)
+        }
+        
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        
+        let colorLocations: [CGFloat] = [0.0, 1.0]
+        path.addClip()
+        let gradient = CGGradient(colorsSpace: colorSpace,
+                                  colors: colors as CFArray,
+                                  locations: colorLocations)!
+        
+        let startPoint = CGPoint.zero
+        let endPoint = CGPoint(x: 0, y: bounds.height)
+        context.drawLinearGradient(gradient,
+                                   start: startPoint,
+                                   end: endPoint,
+                                   options: [])
+    }
+    
+    private func convertToCGColors(colors: [UIColor]) -> [CGColor] {
+        var cgColors = [CGColor]()
+        if let uiColors = iconColors {
+            for color in uiColors {
+                cgColors.append(color.cgColor)
+            }
+        }
+        
+        return cgColors
+    }
+    
     func drawIcon(skin: Skin?) {
        
         if let skin = skin {
             iconName = skin.icon
+            iconColors = [UIColor]()
             for color in skin.colors {
                 let uiColor = color.colorFromHexOrName()
-                iconColors = [uiColor]
+                iconColors?.append(uiColor)
             }
         } else {
             iconName = nil
