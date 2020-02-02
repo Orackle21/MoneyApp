@@ -23,8 +23,15 @@ class WalletBarCell: UICollectionViewCell {
     
    func configureWalletBarItems (with item: Wallet) {
     if item.isSelected {
-        let color = UIColor(named: item.skin?.color ?? " ")
-        self.backgroundColor = color
+        if let skin = item.skin {
+            if let color = UIColor(named: skin.colors[0]) {
+                self.backgroundColor = color
+            } else {
+                let color = UIColor(hexFromString: skin.colors[0])
+                self.backgroundColor = color
+            }
+        }
+        
     } else {
         self.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 0.4013805651)
     }

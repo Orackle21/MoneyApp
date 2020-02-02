@@ -1,4 +1,4 @@
-framework module Pods_MoneyApp {
+module Pods_MoneyApp {
   umbrella header "Pods-MoneyApp-umbrella.h"
 
   export *

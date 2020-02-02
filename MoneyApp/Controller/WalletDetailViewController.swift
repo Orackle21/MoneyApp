@@ -41,22 +41,21 @@ class WalletDetailViewController: UITableViewController {
         wallet.amount = NSDecimalNumber(string: walletBalance.text ?? "0.0")
         wallet.currency = walletCurrency
         wallet.walletContainer = walletContainer
-        wallet.skin = Skin(name: "", color: "Dusk", icon: "")
+        wallet.skin = Skin(name: "", colors: ["Dusk"], icon: "")
         wallet.dateCreated = today
         
         let category = Category(context: coreDataStack.managedContext)
         category.wallet = wallet
         category.name = "Other"
         category.isDeletable = false
-        category.skin = Skin(name: "other", color: "Field", icon: "atm")
+        category.skin = Skin(name: "other", colors: ["Field"], icon: "atm")
         
         let category2 = SubCategory(context: coreDataStack.managedContext)
         category2.wallet = wallet
         category2.name = "Sub of Other"
         category2.isDeletable = true
         category2.parentCategory = category
-        category2.skin = Skin(name: "other", color: "Sunrise", icon: "taxi")
-        
+        category2.skin = Skin(name: "other", colors: ["Sunrise"], icon: "taxi")
         
         
         let initialBalance = Transaction(context: coreDataStack.managedContext)

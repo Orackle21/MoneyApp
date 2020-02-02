@@ -264,11 +264,9 @@ extension ReportsDetailViewController {
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
         for category in categories {
-            
-            let colorName = category.skin!.color
-            let color = UIColor(named: colorName)
-            if let color = color {
-                colors.append(color)
+            if let skin = category.skin {
+                let color = skin.colors[0].colorFromHexOrName()
+                 colors.append(color)
             }
         }
         return colors
@@ -367,7 +365,6 @@ extension ReportsDetailViewController {
         var result = [Transaction]()
         do {
             result =  try coreDataStack.managedContext.fetch(fetchRequest)
-            print (result)
         } catch let error as NSError {
             print (error)
         }

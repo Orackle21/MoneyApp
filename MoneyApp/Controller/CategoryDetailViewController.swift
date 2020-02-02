@@ -123,7 +123,7 @@ class CategoryDetailViewController: UITableViewController {
             
             // resets the icon if parent category in unchecked
             if parentCategory == nil, let parentCategoryIcon = parentCategoryIcon as? IconView {
-                parentCategoryIcon.drawIcon(skin: Skin(name: "", color: "", icon: ""))
+                parentCategoryIcon.drawIcon(skin: Skin(name: "", colors: [], icon: ""))
                 
             }
         }

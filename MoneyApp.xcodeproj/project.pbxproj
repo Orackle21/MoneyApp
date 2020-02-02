@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D1EE11E81BC1ACEB4506811 /* libPods-MoneyApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B49546979E714C9492C870DB /* libPods-MoneyApp.a */; };
 		9A05558522A18A2A009398CD /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A05558422A18A2A009398CD /* TransactionsViewController.swift */; };
 		9A0705EE2283EF68003817A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0705ED2283EF68003817A1 /* AppDelegate.swift */; };
 		9A0705F32283EF68003817A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0705F12283EF68003817A1 /* Main.storyboard */; };
@@ -64,7 +65,6 @@
 		9AE910E023D9AF250040B337 /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE910DE23D9AF250040B337 /* Budget+CoreDataProperties.swift */; };
 		9AE910E223D9B6FA0040B337 /* BudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE910E123D9B6FA0040B337 /* BudgetCell.swift */; };
 		9AEC4CD0230997020059EFCF /* DateBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4CCF230997020059EFCF /* DateBarCell.swift */; };
-		EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +78,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34AE7B675A566C56788FEAAA /* Pods-MoneyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyApp.release.xcconfig"; path = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.release.xcconfig"; sourceTree = "<group>"; };
 		9A05558422A18A2A009398CD /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		9A0705EA2283EF68003817A1 /* MoneyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +141,7 @@
 		9AE910DE23D9AF250040B337 /* Budget+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9AE910E123D9B6FA0040B337 /* BudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCell.swift; sourceTree = "<group>"; };
 		9AEC4CCF230997020059EFCF /* DateBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBarCell.swift; sourceTree = "<group>"; };
+		B49546979E714C9492C870DB /* libPods-MoneyApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoneyApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8AF828884BC35B3E3876870 /* Pods-MoneyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyApp.debug.xcconfig"; path = "Target Support Files/Pods-MoneyApp/Pods-MoneyApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC00FE8997324D1887D6A1DD /* Pods_MoneyApp.framework in Frameworks */,
+				2D1EE11E81BC1ACEB4506811 /* libPods-MoneyApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +310,7 @@
 		F32928E07C3BC4446A4BD8E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05C58BCA1B8F7FD1AFB44BA1 /* Pods_MoneyApp.framework */,
+				B49546979E714C9492C870DB /* libPods-MoneyApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -326,7 +326,6 @@
 				9A0705E62283EF68003817A1 /* Sources */,
 				9A0705E72283EF68003817A1 /* Frameworks */,
 				9A0705E82283EF68003817A1 /* Resources */,
-				A20A176A7F6D11AC3D27A3F6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -416,23 +415,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A20A176A7F6D11AC3D27A3F6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyApp/Pods-MoneyApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyApp/Pods-MoneyApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyApp/Pods-MoneyApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		AFA42F0751FD9F04FBC8564D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

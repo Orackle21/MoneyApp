@@ -152,7 +152,7 @@ class TransactionDetailViewController: UITableViewController {
                 transaction.dateCreated = Date()
                 transaction.simpleDate = Int64(date!.getSimpleDescr())
                 transaction.month = Int64(date!.month()!)
-                transaction.year = Int64(date!.month()!)
+                transaction.year = Int64(date!.year()!)
                 wallet.amount = transaction.amount! + wallet.amount!
             }
         }
@@ -201,6 +201,8 @@ class TransactionDetailViewController: UITableViewController {
             return
         } else {
             let date = datePickerDate
+            transaction.month = Int64(date.month()!)
+            transaction.year = Int64(date.year()!)
             transaction.simpleDate = date.getSimpleDescr()
             transaction.dateCreated = Date()
         }

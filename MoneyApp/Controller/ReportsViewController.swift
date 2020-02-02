@@ -38,10 +38,8 @@ class ReportsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeChartLooks()
-//        updateChart(dataPoints: dateStrings, values: amountsByDate)
-//
     }
-
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -63,26 +61,25 @@ class ReportsViewController: UIViewController {
         
         updateChartData()
         updateChart(dataPoints: dateStrings, values: amountsByDate)
-        
         tableView.reloadData()
         
     }
     
     func updateChart (dataPoints: [String], values: [Double]) {
         
-                var dataEntries: [ChartDataEntry] = []
-                for i in 0..<dataPoints.count {
-                    let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]), data: dataPoints[i])
-                    dataEntries.append(dataEntry)
-                }
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]), data: dataPoints[i])
+            dataEntries.append(dataEntry)
+        }
         
-                let chartDataSet = LineChartDataSet(entries: dataEntries, label: "BarChart")
-                customizeChartSet(chartDataSet: chartDataSet)
-                let chartData = LineChartData(dataSet: chartDataSet)
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "BarChart")
+        customizeChartSet(chartDataSet: chartDataSet)
+        let chartData = LineChartData(dataSet: chartDataSet)
         
-                lineChartView.data = chartData
-                lineChartView.legend.enabled = false
-                lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
+        lineChartView.data = chartData
+        lineChartView.legend.enabled = false
+        lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
     }
     
     private func updateChartData() {
@@ -216,7 +213,7 @@ extension ReportsViewController: UITableViewDataSource {
             let innerArray = dateIntervals[outerIntervals[indexPath.section]]
             let dateInterval = innerArray![indexPath.row]
             
-           
+            
             let index = getCellIndex(sectionNumber: indexPath.section, rowNumber: indexPath.row)
             let amount = amountsByDate[index]
             
@@ -299,24 +296,24 @@ extension ReportsViewController {
         }))
         
         actionSheet!.addAction(UIAlertAction(
-                 title: "This Year",
-                 style: .default,
-                 handler: { _ in
-                     self.upDater(.year)
-             }))
+            title: "This Year",
+            style: .default,
+            handler: { _ in
+                self.upDater(.year)
+        }))
         
         actionSheet!.addAction(UIAlertAction(
-                 title: "Last Year",
-                 style: .default,
-                 handler: { _ in
-                     self.upDater(.year)
-             }))
+            title: "Last Year",
+            style: .default,
+            handler: { _ in
+                self.upDater(.year)
+        }))
         actionSheet!.addAction(UIAlertAction(
-                 title: "All Time",
-                 style: .default,
-                 handler: { _ in
-                     self.upDater(.year)
-             }))
+            title: "All Time",
+            style: .default,
+            handler: { _ in
+                self.upDater(.year)
+        }))
         
         actionSheet!.addAction(UIAlertAction(
             title: "Cancel",
@@ -360,15 +357,15 @@ extension ReportsViewController {
         var amountSum : NSDecimalNumber = 0
         let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
-
+        
         
         // Fetch Request
         let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "Transaction")
         fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
-
+        
         let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, wallet! )
         fetchRequest.predicate = predicate
-
+        
         
         //Expression
         let sumExpressionDesc = NSExpressionDescription()
@@ -379,12 +376,12 @@ extension ReportsViewController {
             forFunction: "sum:",
             arguments: [transactionsAmountSum])
         sumExpressionDesc.expressionResultType = .decimalAttributeType
-
+        
         
         fetchRequest.propertiesToFetch = [sumExpressionDesc]
-
         
-
+        
+        
         do {
             let results = try coreDataStack.managedContext.fetch(fetchRequest)
             let resultDict = results.first!
@@ -392,7 +389,7 @@ extension ReportsViewController {
         } catch let error as NSError {
             NSLog("Error when summing amounts: \(error.localizedDescription)")
         }
-
+        
         return amountSum
     }
     

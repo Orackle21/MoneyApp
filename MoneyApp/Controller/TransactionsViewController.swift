@@ -36,7 +36,7 @@ class TransactionsViewController: UIViewController {
     private lazy var dateBarItems = dater.calculateDateIntervals()
     private lazy var selectedDateInterval = dateBarItems[0]
 
-    
+   
     
     // FIXME: - Implement cell update through delegate
     
@@ -51,8 +51,7 @@ class TransactionsViewController: UIViewController {
         // TableView styling
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        self.tableView.separatorStyle = .none
-       
+        self.tableView.separatorStyle = .none       
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,11 +72,10 @@ class TransactionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-           
-       // selectedWallet = walletContainer.getSelectedWallet()
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+      //  selectedWallet = walletContainer.getSelectedWallet()
         wallets = walletContainer.wallets!.array as! [Wallet]
         walletBar.reloadData()
-       
         if selectedWallet == nil {
             tableView.reloadData()
             tableView.setEmptyView(title: "You don't have any wallets", message: "Add some wallets, please")
@@ -94,7 +92,7 @@ class TransactionsViewController: UIViewController {
 // MARK: - SEGUE CHOOSER
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailSegue" {
+        if segue.identifier == "newTransaction" {
             if let navigationController = segue.destination as? UINavigationController {
                 if let destination = navigationController.viewControllers.first as? TransactionDetailViewController {
                     destination.wallet = selectedWallet
@@ -273,7 +271,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
             
         } else {
             
-            if wallets.isEmpty {
+            if wallets.isEmpty || indexPath.section == 1 {
                 return
             } else {
             let wallet = wallets[indexPath.row]
@@ -378,9 +376,13 @@ extension  TransactionsViewController {
     func getController() -> NSFetchedResultsController<Transaction> {
         // 1
         
+       
         
         let startDate = NSNumber(value: selectedDateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: selectedDateInterval.end.getSimpleDescr())
+        
+        
+        
         
         let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         let predicate = NSPredicate(format: "simpleDate >=  %@ AND simpleDate <  %@ AND wallet == %@", startDate, endDate, selectedWallet ?? "0")

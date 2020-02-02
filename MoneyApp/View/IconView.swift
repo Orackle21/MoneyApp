@@ -10,8 +10,7 @@ import UIKit
 
 class IconView: UIView {
     
-    //    var categoryGradient: [CGColor]?
-    var categoryColor: UIColor? {
+    var iconColors: [UIColor]? {
         didSet {
             self.setNeedsDisplay()
         }
@@ -24,12 +23,14 @@ class IconView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        //        let context = UIGraphicsGetCurrentContext()!
+     //   let context = UIGraphicsGetCurrentContext()!
         let path = UIBezierPath(ovalIn: bounds)
-        let color = categoryColor
+  //      let color = categoryColor
         
-        if let color = color {
-            color.setFill()
+        if let colors = iconColors {
+            if colors.count == 1 {
+                colors[0].setFill()
+            }
         } else {
             #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).setFill()
         }
@@ -86,13 +87,14 @@ class IconView: UIView {
     
     
     func drawIcon(skin: Skin?) {
-        //       let gradient = category.iconGradients
-        //            categoryGradient = gradient
+       
         if let skin = skin {
-            categoryColor = UIColor(named: skin.color)
             iconName = skin.icon
+            for color in skin.colors {
+                let uiColor = color.colorFromHexOrName()
+                iconColors = [uiColor]
+            }
         } else {
-            categoryColor = nil
             iconName = nil
         }
         backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
