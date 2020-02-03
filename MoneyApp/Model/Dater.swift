@@ -12,13 +12,11 @@ class Dater {
     
     
     var daterRange: DaterRange {
-        
         didSet {
             setReportsHeaderDateFormatter(timeRange: daterRange)
             setSectionHeaderDateFormatter(timeRange: daterRange)
         }
     }
-    
     
     private let calendar = Calendar.current
 
@@ -27,14 +25,13 @@ class Dater {
     let reportsHeaderDateFormatter = DateFormatter()
     
     
-    init() {
-        daterRange = .months
+    init(daterRange: DaterRange = .months) {
+        self.daterRange = daterRange
         setReportsHeaderDateFormatter(timeRange: daterRange)
         setSectionHeaderDateFormatter(timeRange: daterRange)
     }
     
 
-    
     // Starts from the refference date. Goes back in time using provided Calendar.Component. Is constrained by "limit".
     // Ex. Passing today's Date, with ".day" component and a limit of "1" will return previous day in DateInterval format, meaning that it contains day's start and end.
     
@@ -103,7 +100,7 @@ class Dater {
     
     private func getUpperRange(for timeRange: Calendar.Component) -> Int {
         switch timeRange {
-        case .day: return 30
+        case .day: return 31
         case .month: return 12
         case .weekOfYear: return 12
         case .quarter: return 10
@@ -183,7 +180,7 @@ extension Dater {
 
     func getReportsIntervals (broad: Int) -> [DateInterval : [DateInterval]] {
         
-        var sortedIntervals =  [DateInterval : [DateInterval]]()
+        var sortedIntervals = [DateInterval : [DateInterval]]()
         let calendarComponent = getReportComponent(from: self.daterRange)
 
         let timeIntervals = calculateDateIntervals(startingFrom: Date(), with: getComponentForDaterRange(), upTo: 100)

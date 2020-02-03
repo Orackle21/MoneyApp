@@ -7,12 +7,12 @@
       },
       {
         "name" : "Taxi",
-        "colors" : ["Golden"],
+        "colors" : ["#f5af19", "#f12711"],
         "icon" : "taxi"
       },
       {
         "name" : "Cart",
-        "colors" : ["Dusk"],
+        "colors" : ["#00c6fb", "#005bea"],
         "icon" : "cart"
       }
     ],
@@ -20,7 +20,7 @@
     "Food": [
          {
            "name" : "Bus",
-           "colors" : ["Faded Yellow"],
+           "colors" : ["#2575fc","#6a11cb"],
            "icon" : "bus"
          },
          {
@@ -30,7 +30,7 @@
          },
          {
            "name" : "Cart",
-           "colors" : ["Midnight"],
+           "colors" : ["#3cba92", "#0ba360"],
            "icon" : "cart"
          },
          {

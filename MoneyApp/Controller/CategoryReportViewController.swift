@@ -66,7 +66,7 @@ extension CategoryReportViewController: UITableViewDataSource {
             cell.periodNameLabel.text = category!.name
             cell.amountLabel.text = fetchedResultsController.object(at: indexPath).amount!.description
             
-            if let icon = cell.iconView as? IconView {
+            if let icon = cell.iconView {
                 icon.drawIcon(skin: category!.skin!)
                 icon.setNeedsDisplay()
             }

@@ -163,6 +163,16 @@ extension Int64 {
 
 extension Date {
     
+    func getDateInterval (using selectedTimeRange: Calendar.Component) -> DateInterval {
+        let calendar = Calendar.current
+        var beginningOf: Date?
+        var endOf: Date?
+        beginningOf = calendar.dateInterval(of: selectedTimeRange, for: self)?.start
+        endOf = calendar.dateInterval(of: selectedTimeRange, for: self)?.end
+        
+        return DateInterval(start: beginningOf!, end: endOf!)
+    }
+    
     func getComponenets() -> DateComponents {
         
         var calendar = Calendar.current

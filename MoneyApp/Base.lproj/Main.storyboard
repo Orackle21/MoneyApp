@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -504,20 +505,28 @@
                                 <rect key="frame" x="302" y="5.6666666666666679" width="92" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4yX-7I-Lcx">
-                                        <rect key="frame" x="70" y="5" width="22" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="addButton"/>
-                                        <connections>
-                                            <segue destination="pYm-5h-rzE" kind="presentation" identifier="newTransaction" id="fM5-sy-Igk"/>
-                                        </connections>
-                                    </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" id="Bit-jl-JBE">
                                         <rect key="frame" x="31" y="4.9999999999999609" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="datePicker"/>
                                         <connections>
                                             <action selector="changeTimeRange:" destination="E9S-jm-KGj" eventType="touchUpInside" id="gXc-Nk-8qI"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" id="4yX-7I-Lcx">
+                                        <rect key="frame" x="70" y="4.9999999999999609" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="addButton">
+                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" name="Dusk"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="pYm-5h-rzE" kind="presentation" identifier="newTransaction" id="fM5-sy-Igk"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1257,7 +1266,7 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX7-yJ-4qg" customClass="IconView" customModule="MoneyApp" customModuleProvider="target">
                                                     <rect key="frame" x="13" y="6" width="32" height="32"/>
-                                                    <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="2uU-jb-qol"/>
                                                         <constraint firstAttribute="width" secondItem="wX7-yJ-4qg" secondAttribute="height" multiplier="1:1" id="O4e-RU-gjE"/>
@@ -1312,7 +1321,7 @@
                         <viewLayoutGuide key="safeArea" id="C8h-rs-MdT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Reports" largeTitleDisplayMode="always" id="alr-Vu-tRE">
-                        <barButtonItem key="leftBarButtonItem" title="Time Interval" style="done" id="y0V-3v-948">
+                        <barButtonItem key="leftBarButtonItem" title="Time Interval" image="datePicker" style="done" id="y0V-3v-948">
                             <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="chooseTimeInterval:" destination="A35-eE-c5J" id="zEP-WF-DGg"/>
@@ -1617,14 +1626,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reportsCell" id="eRN-ar-E1a" customClass="ReportsCell" customModule="MoneyApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eRN-ar-E1a" id="5Yj-rz-lAF">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Category Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUc-WV-lQs">
-                                                    <rect key="frame" x="59" y="11" width="176" height="21"/>
+                                                    <rect key="frame" x="59" y="10.999999999999998" width="176" height="21.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1644,7 +1653,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMn-Vh-DLB">
-                                                    <rect key="frame" x="243" y="11" width="132" height="21"/>
+                                                    <rect key="frame" x="243" y="10.999999999999998" width="132" height="21.333333333333329"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="F5T-Ok-ze1"/>
                                                     </constraints>
@@ -1837,7 +1846,7 @@
                         <viewLayoutGuide key="safeArea" id="5GM-jb-uHQ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Budgeting" largeTitleDisplayMode="always" id="VCW-3g-NAy">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="oZl-IM-mAt">
+                        <barButtonItem key="rightBarButtonItem" image="addButton" style="done" id="oZl-IM-mAt">
                             <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="60S-hA-Lcv" kind="presentation" identifier="budgetDetail" id="EEF-wn-gu7"/>
@@ -1913,7 +1922,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1um-4N-dgf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1549" y="-1996"/>
+            <point key="canvasLocation" x="-977" y="-1498"/>
         </scene>
         <!--Budget Detail-->
         <scene sceneID="VgG-OB-EmF">
@@ -2151,6 +2160,9 @@
         <image name="reports" width="21.666666030883789" height="21.666666030883789"/>
         <image name="settings" width="22" height="22"/>
         <image name="transactions" width="21.666666030883789" height="21"/>
+        <namedColor name="Dusk">
+            <color red="0.075000002980232239" green="0.3059999942779541" blue="0.43500000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JLe-eI-VMJ"/>

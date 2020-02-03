@@ -9,7 +9,7 @@
 import UIKit
 
 class ReportsCell: UITableViewCell {
-    @IBOutlet weak var iconView: UIView!
+    @IBOutlet weak var iconView: IconView!
     @IBOutlet weak var periodNameLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
@@ -24,4 +24,12 @@ class ReportsCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func customizeIcon(isExpense: Bool) {
+        
+        if isExpense {
+            iconView.drawIcon(color: UIColor.systemRed, iconName: "downArrow")
+        } else {
+            iconView.drawIcon(color: UIColor.systemGreen, iconName: "upArrow")
+        }
+    }
 }

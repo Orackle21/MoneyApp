@@ -65,7 +65,22 @@ class ReportsViewController: UIViewController {
         
     }
     
-    func updateChart (dataPoints: [String], values: [Double]) {
+    
+    private func updateChartData() {
+        guard wallet != nil else { return }
+        
+        dateIntervals = dater.getReportsIntervals(broad: 3)
+        dateStrings = [String]()
+        amountsByDate = [Double]()
+        
+        outerIntervals = dateIntervals.keys.sorted(by: >)
+        
+        getAmounts()
+        
+        
+    }
+    
+    private func updateChart (dataPoints: [String], values: [Double]) {
         
         var dataEntries: [ChartDataEntry] = []
         for i in 0..<dataPoints.count {
@@ -81,21 +96,7 @@ class ReportsViewController: UIViewController {
         lineChartView.legend.enabled = false
         lineChartView.xAxis.valueFormatter = AxisValueFormatter(chart: lineChartView, data: dateStrings)
     }
-    
-    private func updateChartData() {
-        
-        guard wallet != nil else { return }
-        
-        dateIntervals = dater.getReportsIntervals(broad: 3)
-        dateStrings = [String]()
-        amountsByDate = [Double]()
-        
-        outerIntervals = dateIntervals.keys.sorted(by: >)
-        
-        getAmounts()
-        
-        
-    }
+   
     
     // Fetches total amount of transactions for every dateInterval. Stores said totals in amountsByDate array + populates dateStrings array.
     
@@ -103,7 +104,7 @@ class ReportsViewController: UIViewController {
         for outerInterval in outerIntervals {
             if let innerIntervals = dateIntervals[outerInterval] {
                 for dateInterval in innerIntervals {
-                    let result =  sumAmount(dateInterval: dateInterval)
+                    let result = sumAmount(for: dateInterval)
                     amountsByDate.append(result.doubleValue)
                     let string = dater.dateFormatter.string(from: dateInterval.start)
                     dateStrings.append(string)
@@ -112,6 +113,35 @@ class ReportsViewController: UIViewController {
         }
     }
     
+    
+   
+    
+    
+    
+    // MARK: - Navigation
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "reportsDetail" {
+            if let destination = segue.destination as? ReportsDetailViewController {
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    
+                    let innerArray = dateIntervals[outerIntervals[indexPath.section]]
+                    let dateInterval = innerArray![indexPath.row]
+                    destination.dateInterval = dateInterval
+                    destination.coreDataStack = coreDataStack
+                    destination.wallet = wallet
+                }
+            }
+        }
+        
+    }
+}
+
+
+// MARK: - LineChartView visual customization
+
+extension ReportsViewController {
     
     private func customizeChartLooks() {
         let xAxis = lineChartView.xAxis
@@ -151,40 +181,17 @@ class ReportsViewController: UIViewController {
         chartDataSet.lineWidth = 2.0
     }
     
-    
-    
-    // MARK: - Navigation
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "reportsDetail" {
-            if let destination = segue.destination as? ReportsDetailViewController {
-                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    
-                    let innerArray = dateIntervals[outerIntervals[indexPath.section]]
-                    let dateInterval = innerArray![indexPath.row]
-                    destination.dateInterval = dateInterval
-                    destination.coreDataStack = coreDataStack
-                    destination.wallet = wallet
-                }
-            }
-        }
-        
-    }
 }
+
 
 // MARK: - TableView Methods
 
 extension ReportsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        //        if dater.daterRange == .days {
-        //            return 1
-        //        }
-        //        else  {
+        
         return outerIntervals.count
         
-        //    }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -218,9 +225,10 @@ extension ReportsViewController: UITableViewDataSource {
             let amount = amountsByDate[index]
             
             if amount > 0 {
-                cell.iconView.backgroundColor = UIColor.systemGreen
-            } else {
-                cell.iconView.backgroundColor = UIColor.systemRed
+                cell.customizeIcon(isExpense: false)
+            }
+            else {
+                cell.customizeIcon(isExpense: true)
             }
             
             cell.amountLabel.text = Decimal(amount).description
@@ -264,6 +272,11 @@ public class AxisValueFormatter: NSObject, IAxisValueFormatter {
     }
     
 }
+
+
+
+
+// MARK: - Date Range chooser
 
 extension ReportsViewController {
     
@@ -332,9 +345,10 @@ extension ReportsViewController {
         tableView.reloadData()
         
     }
-    
 }
 
+
+// MARK: - Little extension that calculates index for accesing info from amounts array
 
 extension ReportsViewController {
     
@@ -351,9 +365,11 @@ extension ReportsViewController {
     
 }
 
+// MARK: - Calculates sum of transaction amounts based on dateInteval passed to display in a table view
+
 extension ReportsViewController {
     
-    func sumAmount(dateInterval: DateInterval) -> NSDecimalNumber {
+    func sumAmount(for dateInterval: DateInterval) -> NSDecimalNumber {
         var amountSum : NSDecimalNumber = 0
         let startDate = NSNumber(value: dateInterval.start.getSimpleDescr())
         let endDate = NSNumber(value: dateInterval.end.getSimpleDescr())
@@ -392,8 +408,4 @@ extension ReportsViewController {
         
         return amountSum
     }
-    
-    
-    
-    
 }

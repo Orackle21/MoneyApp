@@ -72,7 +72,7 @@ class TransactionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+      //  self.navigationController?.navigationBar.barTintColor = UIColor.white
       //  selectedWallet = walletContainer.getSelectedWallet()
         wallets = walletContainer.wallets!.array as! [Wallet]
         walletBar.reloadData()

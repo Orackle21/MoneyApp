@@ -125,4 +125,11 @@ class IconView: UIView {
         }
         backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
     }
+    
+    func drawIcon(color: UIColor, iconName: String) {
+        
+        iconColors = [color]        
+        self.iconName = iconName
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+    }
 }

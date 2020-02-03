@@ -26,7 +26,7 @@ class WalletListViewController: UITableViewController {
             self.wallets =  wallets
         }
         self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.navigationController?.navigationBar.barTintColor = UIColor.groupTableViewBackground
+//        self.navigationController?.navigationBar.barTintColor = UIColor.groupTableViewBackground
         
     }
     
