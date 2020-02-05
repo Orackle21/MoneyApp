@@ -11,12 +11,7 @@ import Foundation
 class Dater {
     
     
-    var daterRange: DaterRange {
-        didSet {
-            setReportsHeaderDateFormatter(timeRange: daterRange)
-            setSectionHeaderDateFormatter(timeRange: daterRange)
-        }
-    }
+    var daterRange: DaterRange
     
     private let calendar = Calendar.current
     
@@ -32,34 +27,61 @@ class Dater {
     }
     
     
-    
+    func setDaterRange (daterRange: DaterRange) -> [DateInterval: [DateInterval]]{
+        
+        self.daterRange = daterRange
+        setReportsHeaderDateFormatter(timeRange: daterRange)
+        setSectionHeaderDateFormatter(timeRange: daterRange)
+        
+        switch daterRange {
+        case .days:
+            return get(numberOf: 365, .day, in: 1, .year, grouped: false, startingFrom: Date())
+        case .weeks:
+           return get(numberOf: 52, .weekOfMonth, in: 1, .year, grouped: false, startingFrom: Date())
+        case .months:
+            return get(numberOf: 24, .month, in: 2, .year, grouped: false, startingFrom: Date())
+        case .year:
+            return get(numberOf: 20, .year, in: 1, .era, grouped: false, startingFrom: Date())
+        case .all:
+            return get(numberOf: 1, .era, in: 1, .era, grouped: false, startingFrom: Date())
+
+        case .thisWeek:
+            return get(numberOf: 7, .day, in: 1, .weekOfMonth, grouped: true, startingFrom: Date())
+        case .thisMonth:
+            return get(numberOf: 31, .day, in: 1, .month, grouped: true, startingFrom: Date())
+        case .lastMonth:
+            return get(numberOf: 62, .day, in: 2, .month, grouped: true, startingFrom: Date())
+        case .halfAYear:
+            return get(numberOf: 183, .day, in: 6, .month, grouped: true, startingFrom: Date())
+        case .thisYear:
+            return get(numberOf: 12, .month, in: 1, .year, grouped: true, startingFrom: Date())
+        case .lastYear:
+            return get(numberOf: 12, .month, in: 1, .year, grouped: true, startingFrom: Date())
+        case .allYears:
+            return get(numberOf: 20, .year, in: 1, .era, grouped: true, startingFrom: Date())
+        }
+        
+    }
     
     /// Starts from the refference date. Goes back in time using provided Calendar.Component. Is constrained by "limit". Ex. Passing today's Date, with ".day" component and a limit of "1" will return previous day in DateInterval format, meaning that it contains day's start and end.
     
-    func calculateDateIntervals (startingFrom date: Date = Date(),
-                                 with timeRange: Calendar.Component? = nil,
-                                 upTo limit: Int = 0)    -> [DateInterval] {
+    private func calculateDateIntervals (startingFrom date: Date,
+                                 with timeRange: Calendar.Component,
+                                 upTo limit: Int)    -> [DateInterval] {
         
         var date = date
         var limit = limit
         var dates = [DateInterval]()
         
-        var timeRange = timeRange
-        if timeRange == nil {
-            timeRange = getComponentForDaterRange()
-        }
         
         if limit <= 0 {
-            limit = getUpperRange(for: timeRange!)
+            limit = getUpperRange(for: timeRange)
         }
-        
-        if let timeRange = timeRange{
-            
             var todaysDateInterval = date.convertToDateInterval(using: timeRange)
             
             if timeRange == .month || timeRange == .weekOfMonth || timeRange == .year {
                 todaysDateInterval.end = calendar.dateInterval(of: .day, for: date)!.end
-            }
+        }
             
             
             dates.append(todaysDateInterval)
@@ -74,13 +96,13 @@ class Dater {
                 
             }
             
-        }
-        setDateFormatter(timeRange: timeRange!)
+        
+        setDateFormatter(timeRange: timeRange)
         return dates
         
     }
     
-    func get(numberOf innerLimit: Int,  _ innerIntervalComponent: Calendar.Component,
+    private func get(numberOf innerLimit: Int,  _ innerIntervalComponent: Calendar.Component,
              in broadLimit: Int,        _ broadIntervalComponent: Calendar.Component,
              grouped: Bool, startingFrom date: Date) -> [DateInterval: [DateInterval]] {
         
@@ -105,7 +127,6 @@ class Dater {
             }
         }
         
-    
         // Sets "ungroupedInterval" start and end values as the erliest and latest dates in "broadIntervals"
         else {
             
@@ -126,10 +147,23 @@ class Dater {
         case .days: return .day
         case .weeks: return  .weekOfMonth
         case .months: return .month
-        case .quarters: return .quarter
         case .year: return .year
         case .all: return .era
             //  case .customRange:
+        case .thisWeek:
+            return .month
+        case .thisMonth:
+            return .month
+        case .lastMonth:
+            return .month
+        case .halfAYear:
+            return .month
+        case .thisYear:
+            return .month
+        case .lastYear:
+            return .month
+        case .allYears:
+            return .month
         }
         
         
@@ -164,9 +198,22 @@ class Dater {
         case .days: sectionHeaderDateFormatter.dateFormat = "dd MMMM"
         case .weeks: sectionHeaderDateFormatter.dateFormat =  "dd MMMM"
         case .months: sectionHeaderDateFormatter.dateFormat = "dd MMMM"
-        case .quarters: sectionHeaderDateFormatter.dateFormat = "MMMM yy"
         case .year: sectionHeaderDateFormatter.dateFormat = "MMMM"
         case .all: sectionHeaderDateFormatter.dateFormat = "yyyy"
+        case .thisWeek:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .thisMonth:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .lastMonth:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .halfAYear:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .thisYear:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .lastYear:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
+        case .allYears:
+            sectionHeaderDateFormatter.dateFormat = "dd MMMM"
         }
     }
     
@@ -175,9 +222,22 @@ class Dater {
         case .days: reportsHeaderDateFormatter.dateFormat = "MMMM"
         case .weeks: reportsHeaderDateFormatter.dateFormat =  "MMMM"
         case .months: reportsHeaderDateFormatter.dateFormat = "yyyy"
-        case .quarters: reportsHeaderDateFormatter.dateFormat = "MMMM yy"
         case .year: reportsHeaderDateFormatter.dateFormat = " "
         case .all: reportsHeaderDateFormatter.dateFormat = "yyyy"
+        case .thisWeek:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .thisMonth:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .lastMonth:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .halfAYear:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .thisYear:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .lastYear:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .allYears:
+            reportsHeaderDateFormatter.dateFormat = "MMMM"
         }
     }
     
@@ -187,13 +247,9 @@ enum DaterRange {
     case days
     case weeks
     case months
-    case quarters
     case year
     case all
-    // case customRange
-}
-
-enum ReportsDaterRange {
+    
     case thisWeek
     case thisMonth
     case lastMonth
@@ -203,6 +259,8 @@ enum ReportsDaterRange {
     case allYears
     // case customRange
 }
+
+
 
 extension Dater {
     

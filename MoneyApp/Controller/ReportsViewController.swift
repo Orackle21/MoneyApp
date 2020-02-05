@@ -68,7 +68,7 @@ class ReportsViewController: UIViewController {
     
     private func updateChartData() {
         guard wallet != nil else { return }
-        dateIntervals = dater.get(numberOf: 93, .day, in: 1, .month, grouped: true, startingFrom: Date())
+        dateIntervals = dater.setDaterRange(daterRange: .thisMonth)
 
      //   dateIntervals = dater.getReportsIntervals(broad: 3)
         dateStrings = [String]()
@@ -77,7 +77,6 @@ class ReportsViewController: UIViewController {
         outerIntervals = dateIntervals.keys.sorted(by: >)
         
         getAmounts()
-        
         
     }
     

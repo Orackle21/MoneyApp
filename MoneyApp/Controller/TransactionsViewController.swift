@@ -33,10 +33,18 @@ class TransactionsViewController: UIViewController {
     }()
     
     private lazy var dater = Dater()
-    private lazy var dateBarItems = dater.calculateDateIntervals()
+    private lazy var dateBarItems = getDateBarItems(daterRange: .months)
     private lazy var selectedDateInterval = dateBarItems[0]
 
-   
+    func getDateBarItems(daterRange: DaterRange) -> [DateInterval] {
+        
+        let intervals = dater.setDaterRange(daterRange: daterRange)
+        
+        for (_, dateIntervals) in intervals {
+            return dateIntervals
+        }
+        return [DateInterval]()
+    }
     
     // FIXME: - Implement cell update through delegate
     
@@ -296,11 +304,17 @@ extension TransactionsViewController: UICollectionViewDelegate {
 extension TransactionsViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        if collectionView == self.dateBar {
+            return 1
+        }
+        else {
+            return 2
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.dateBar {
+            print (dateBarItems.count)
             return dateBarItems.count
         } else {
             if section == 0 {
@@ -470,17 +484,16 @@ extension TransactionsViewController: NSFetchedResultsControllerDelegate {
 extension TransactionsViewController {
     
     private func configureDateBarData() {
-        dateBarItems = dater.calculateDateIntervals()
-        dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
+        dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
     }
     
     
     private func upDater(_ timeRange: DaterRange) {
-        dater.daterRange = timeRange
+        dateBarItems = getDateBarItems(daterRange: timeRange)
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]
         dateBar.reloadData()
-        dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+        dateBar.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .right)
         setControllerAndFetch()
     }
     
