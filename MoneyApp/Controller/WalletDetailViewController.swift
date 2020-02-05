@@ -53,9 +53,8 @@ class WalletDetailViewController: UITableViewController {
         let category2 = SubCategory(context: coreDataStack.managedContext)
         category2.wallet = wallet
         category2.name = "Sub of Other"
-        category2.isDeletable = true
         category2.parentCategory = category
-        category2.skin = Skin(name: "other", colors: ["Wave", "Lollipop"], icon: "taxi")
+        category2.skin = Skin(name: "other", colors: ["#f093fb", "#f5576c"], icon: "taxi")
         
         
         let initialBalance = Transaction(context: coreDataStack.managedContext)

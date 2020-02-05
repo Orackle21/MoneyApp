@@ -28,7 +28,6 @@ class TransactionCell: UITableViewCell {
         
         dateLabel.text = String(transaction.simpleDate)
         
-        
         if let icon = categoryIcon {
             icon.drawIcon(skin: transaction.category?.skin)
             

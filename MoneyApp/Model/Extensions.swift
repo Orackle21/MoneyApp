@@ -36,9 +36,7 @@ extension CALayer {
     }
 }
 
-///////////////////////////////////////////////////////////////////
-// Handling empty wallet and empty transaction list
-///////////////////////////////////////////////////////////////////
+// MARK: - Handling empty wallet and empty transaction list
 
 extension UITableView {
     func setEmptyView(title: String, message: String) {
@@ -66,7 +64,7 @@ extension UITableView {
         messageLabel.text = message
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
-        // The only tricky part is here:
+        // Setting background view:
         self.backgroundView = emptyView
         self.separatorStyle = .none
         if #available(iOS 13.0, *) {
@@ -79,7 +77,7 @@ extension UITableView {
         self.backgroundView = nil
         self.separatorStyle = .singleLine
         if #available(iOS 13.0, *) {
-            self.backgroundColor = UIColor.systemGroupedBackground
+            self.backgroundColor = #colorLiteral(red: 0.9646629691, green: 0.9646984935, blue: 0.9689013362, alpha: 1)
         } else {
             self.backgroundColor = UIColor.groupTableViewBackground
         }
@@ -163,7 +161,7 @@ extension Int64 {
 
 extension Date {
     
-    func getDateInterval (using selectedTimeRange: Calendar.Component) -> DateInterval {
+    func convertToDateInterval (using selectedTimeRange: Calendar.Component) -> DateInterval {
         let calendar = Calendar.current
         var beginningOf: Date?
         var endOf: Date?

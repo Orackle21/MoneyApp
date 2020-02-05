@@ -9,13 +9,14 @@
 import UIKit
 
 class IconView: UIView {
-    
-    var iconColors: [UIColor]? {
+
+    private var iconColors: [UIColor]? {
         didSet {
             self.setNeedsDisplay()
         }
     }
-    var iconName: String? {
+    
+    private var iconName: String? {
         didSet {
             self.setNeedsDisplay()
         }

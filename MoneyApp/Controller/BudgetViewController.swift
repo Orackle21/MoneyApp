@@ -26,7 +26,7 @@ class BudgetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+    //    self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         selectedWallet = walletContainer.getSelectedWallet()
         fetchBudgets()
     }

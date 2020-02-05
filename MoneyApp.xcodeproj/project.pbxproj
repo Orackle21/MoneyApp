@@ -43,7 +43,7 @@
 		9A8F78FE23A179A100DCD9D2 /* SkinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */; };
 		9A8F790223A2509C00DCD9D2 /* SkinHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */; };
 		9A90663B22D61D1B00DF9358 /* CurrencyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */; };
-		9A9EC5FE23E8C051009CF97C /* ReportsDater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9EC5FD23E8C051009CF97C /* ReportsDater.swift */; };
+		9A9EC5FE23E8C051009CF97C /* NeoDater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9EC5FD23E8C051009CF97C /* NeoDater.swift */; };
 		9AA9471623E07D2800D36884 /* NewWalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9471523E07D2800D36884 /* NewWalletCell.swift */; };
 		9AB22B2222DEF6EC00AE145F /* WalletBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */; };
 		9AB59E0923BF4CE0005272E6 /* SubCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB59E0823BF4CE0005272E6 /* SubCategoryCell.swift */; };
@@ -119,7 +119,7 @@
 		9A8F78FD23A179A100DCD9D2 /* SkinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkinCollectionViewCell.swift; path = MoneyApp/SkinCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		9A8F790123A2509C00DCD9D2 /* SkinHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinHeaderView.swift; sourceTree = "<group>"; };
 		9A90663A22D61D1B00DF9358 /* CurrencyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCell.swift; sourceTree = "<group>"; };
-		9A9EC5FD23E8C051009CF97C /* ReportsDater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsDater.swift; sourceTree = "<group>"; };
+		9A9EC5FD23E8C051009CF97C /* NeoDater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeoDater.swift; sourceTree = "<group>"; };
 		9AA9471523E07D2800D36884 /* NewWalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWalletCell.swift; sourceTree = "<group>"; };
 		9AB22B2122DEF6EC00AE145F /* WalletBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBarCell.swift; sourceTree = "<group>"; };
 		9AB59E0823BF4CE0005272E6 /* SubCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryCell.swift; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 				9A47104322C4F2F700A3662B /* Currency.swift */,
 				9A591D09231BE1F400F14E82 /* Extensions.swift */,
 				9A6A9C0C231D323A00A252E5 /* Dater.swift */,
-				9A9EC5FD23E8C051009CF97C /* ReportsDater.swift */,
+				9A9EC5FD23E8C051009CF97C /* NeoDater.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -475,7 +475,7 @@
 				9AB59E0B23BF5023005272E6 /* CategoryCell.swift in Sources */,
 				9AE910DC23D99ECA0040B337 /* TimePeriodViewController.swift in Sources */,
 				9A8F78F723A15CC800DCD9D2 /* ColorChooserViewController.swift in Sources */,
-				9A9EC5FE23E8C051009CF97C /* ReportsDater.swift in Sources */,
+				9A9EC5FE23E8C051009CF97C /* NeoDater.swift in Sources */,
 				9A7B4A3723557E0D00FA198C /* CategoryReportViewController.swift in Sources */,
 				9AB22B2222DEF6EC00AE145F /* WalletBarCell.swift in Sources */,
 				9A3FC16223B236B40085DD9D /* Wallet+CoreDataProperties.swift in Sources */,

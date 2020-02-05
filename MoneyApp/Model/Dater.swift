@@ -19,7 +19,7 @@ class Dater {
     }
     
     private let calendar = Calendar.current
-
+    
     let dateFormatter = DateFormatter()
     let sectionHeaderDateFormatter = DateFormatter()
     let reportsHeaderDateFormatter = DateFormatter()
@@ -31,15 +31,15 @@ class Dater {
         setSectionHeaderDateFormatter(timeRange: daterRange)
     }
     
-
-    // Starts from the refference date. Goes back in time using provided Calendar.Component. Is constrained by "limit".
-    // Ex. Passing today's Date, with ".day" component and a limit of "1" will return previous day in DateInterval format, meaning that it contains day's start and end.
+    
+    
+    
+    /// Starts from the refference date. Goes back in time using provided Calendar.Component. Is constrained by "limit". Ex. Passing today's Date, with ".day" component and a limit of "1" will return previous day in DateInterval format, meaning that it contains day's start and end.
     
     func calculateDateIntervals (startingFrom date: Date = Date(),
                                  with timeRange: Calendar.Component? = nil,
                                  upTo limit: Int = 0)    -> [DateInterval] {
         
-
         var date = date
         var limit = limit
         var dates = [DateInterval]()
@@ -53,23 +53,22 @@ class Dater {
             limit = getUpperRange(for: timeRange!)
         }
         
- 
         if let timeRange = timeRange{
             
-            var dateInterval = getDateIntervalFor(date: date, using: timeRange)
+            var todaysDateInterval = date.convertToDateInterval(using: timeRange)
             
             if timeRange == .month || timeRange == .weekOfMonth || timeRange == .year {
-                dateInterval.end = calendar.dateInterval(of: .day, for: date)!.end
+                todaysDateInterval.end = calendar.dateInterval(of: .day, for: date)!.end
             }
             
             
-            dates.append(dateInterval)
+            dates.append(todaysDateInterval)
             
             if limit > 0 && timeRange != .era {
                 for _ in 0..<limit - 1 {
                     
                     date = calendar.date(byAdding: timeRange, value: -1, to: date)!
-                    let dateInterval = getDateIntervalFor(date: date, using: timeRange)
+                    let dateInterval = date.convertToDateInterval(using: timeRange)
                     dates.append(dateInterval)
                 }
                 
@@ -81,17 +80,55 @@ class Dater {
         
     }
     
+    func get(numberOf innerLimit: Int,  _ innerIntervalComponent: Calendar.Component,
+             in broadLimit: Int,        _ broadIntervalComponent: Calendar.Component,
+             grouped: Bool, startingFrom date: Date) -> [DateInterval: [DateInterval]] {
+        
+        let ungroupedInterval = DateInterval()
+        var dateIntervalDictionary = [DateInterval: [DateInterval]]()
+        
+        let innerIntervals = calculateDateIntervals(startingFrom: date, with: innerIntervalComponent, upTo: innerLimit)
+
+        if grouped {
+            for innerInterval in innerIntervals {
+                
+                let broadInterval = innerInterval.start.convertToDateInterval(using: broadIntervalComponent)
+                
+                if var innerIntervalArray = dateIntervalDictionary[broadInterval] {
+                    innerIntervalArray.append(innerInterval)
+                    dateIntervalDictionary.updateValue(innerIntervalArray, forKey: broadInterval)
+                }
+                else {
+                    if dateIntervalDictionary.keys.count == broadLimit { break }
+                    dateIntervalDictionary.updateValue([innerInterval], forKey: broadInterval)
+                }
+            }
+        }
+        
+    
+        // Sets "ungroupedInterval" start and end values as the erliest and latest dates in "broadIntervals"
+        else {
+            
+            dateIntervalDictionary.updateValue(innerIntervals, forKey: ungroupedInterval)
+
+        }
+        
+        
+        
+        return dateIntervalDictionary
+    }
+    
     
     private func getComponentForDaterRange() -> Calendar.Component {
         
         
         switch daterRange {
-        case .days: return Calendar.Component.day
-        case .weeks: return  Calendar.Component.weekOfMonth
-        case .months: return Calendar.Component.month
-        case .quarters: return Calendar.Component.quarter
-        case .year: return Calendar.Component.year
-        case .all: return Calendar.Component.era
+        case .days: return .day
+        case .weeks: return  .weekOfMonth
+        case .months: return .month
+        case .quarters: return .quarter
+        case .year: return .year
+        case .all: return .era
             //  case .customRange:
         }
         
@@ -110,14 +147,6 @@ class Dater {
         }
     }
     
-    func getDateIntervalFor (date: Date, using selectedTimeRange: Calendar.Component) -> DateInterval {
-        var beginningOf: Date?
-        var endOf: Date?
-        beginningOf = calendar.dateInterval(of: selectedTimeRange, for: date)?.start
-        endOf = calendar.dateInterval(of: selectedTimeRange, for: date)?.end
-        
-        return DateInterval(start: beginningOf!, end: endOf!)
-    }
     
     private func setDateFormatter(timeRange: Calendar.Component){
         switch timeRange {
@@ -142,15 +171,15 @@ class Dater {
     }
     
     private func setReportsHeaderDateFormatter(timeRange: DaterRange){
-           switch timeRange {
-           case .days: reportsHeaderDateFormatter.dateFormat = "MMMM"
-           case .weeks: reportsHeaderDateFormatter.dateFormat =  "MMMM"
-           case .months: reportsHeaderDateFormatter.dateFormat = "yyyy"
-           case .quarters: reportsHeaderDateFormatter.dateFormat = "MMMM yy"
-           case .year: reportsHeaderDateFormatter.dateFormat = " "
-           case .all: reportsHeaderDateFormatter.dateFormat = "yyyy"
-           }
-       }
+        switch timeRange {
+        case .days: reportsHeaderDateFormatter.dateFormat = "MMMM"
+        case .weeks: reportsHeaderDateFormatter.dateFormat =  "MMMM"
+        case .months: reportsHeaderDateFormatter.dateFormat = "yyyy"
+        case .quarters: reportsHeaderDateFormatter.dateFormat = "MMMM yy"
+        case .year: reportsHeaderDateFormatter.dateFormat = " "
+        case .all: reportsHeaderDateFormatter.dateFormat = "yyyy"
+        }
+    }
     
 }
 
@@ -177,20 +206,20 @@ enum ReportsDaterRange {
 
 extension Dater {
     
-
+    
     func getReportsIntervals (broad: Int) -> [DateInterval : [DateInterval]] {
         
         var sortedIntervals = [DateInterval : [DateInterval]]()
         let calendarComponent = getReportComponent(from: self.daterRange)
-
+        
         let timeIntervals = calculateDateIntervals(startingFrom: Date(), with: getComponentForDaterRange(), upTo: 100)
-
-
+        
+        
         for innerInterval in timeIntervals {
             
             
-            let outerInterval = self.getDateIntervalFor(date: innerInterval.start, using: calendarComponent)
-
+            let outerInterval = innerInterval.start.convertToDateInterval(using: calendarComponent)
+            
             if var innerIntervalArray = sortedIntervals[outerInterval] {
                 innerIntervalArray.append(innerInterval)
                 sortedIntervals.updateValue(innerIntervalArray, forKey: outerInterval)

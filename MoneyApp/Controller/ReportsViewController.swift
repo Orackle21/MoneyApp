@@ -68,8 +68,9 @@ class ReportsViewController: UIViewController {
     
     private func updateChartData() {
         guard wallet != nil else { return }
-        
-        dateIntervals = dater.getReportsIntervals(broad: 3)
+        dateIntervals = dater.get(numberOf: 93, .day, in: 1, .month, grouped: true, startingFrom: Date())
+
+     //   dateIntervals = dater.getReportsIntervals(broad: 3)
         dateStrings = [String]()
         amountsByDate = [Double]()
         
@@ -343,6 +344,11 @@ extension ReportsViewController {
         updateChartData()
         updateChart(dataPoints: dateStrings, values: amountsByDate)
         tableView.reloadData()
+        
+    }
+    
+    private func dating() {
+        
         
     }
 }

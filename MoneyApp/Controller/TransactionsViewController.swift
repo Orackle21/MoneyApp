@@ -42,6 +42,7 @@ class TransactionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // dateBar preparation
         configureDateBarData()
         selectedDateInterval = dateBarItems[0]
@@ -51,7 +52,7 @@ class TransactionsViewController: UIViewController {
         // TableView styling
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        self.tableView.separatorStyle = .none       
+        self.tableView.separatorStyle = .none
     }
     
     override func viewDidLayoutSubviews() {
